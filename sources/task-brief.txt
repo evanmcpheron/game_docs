@@ -1,0 +1,2056 @@
+# MASTER TASK
+
+I am building my **first-ever game** in **Unreal Engine 5.8.3**, primarily with **Blueprints**, using **Paper2D**.
+
+I have attached an existing HTML architecture document named:
+
+`Blueprint_RPG_Architecture_Roadmap.html`
+
+That document is the **canonical architectural source for this project**.
+
+Your task is to transform and substantially expand that roadmap into a **complete beginner-oriented local documentation website**, package the entire documentation site as a **`.zip` file**, and give me the finished ZIP to download.
+
+This is not a request to redesign the architecture.
+
+This is a request to turn the existing architecture into a detailed implementation guide that I can keep locally and follow while I build the game.
+
+---
+
+# 1. MOST IMPORTANT RULE: PRESERVE THE EXISTING ARCHITECTURE
+
+Read the complete attached HTML file before generating the documentation.
+
+Treat the following parts of that document as authoritative unless there is an actual technical contradiction or Unreal Engine limitation:
+
+- existing asset names;
+- existing Blueprint names;
+- existing Blueprint parent/base classes;
+- existing Blueprint inheritance;
+- existing Actor Components;
+- existing Blueprint Interfaces;
+- existing Primary Data Asset schemas;
+- existing structures;
+- existing enumerations;
+- existing Widget Blueprints;
+- existing Input Actions;
+- existing Input Mapping Contexts;
+- existing maps;
+- existing phase order;
+- existing system ownership;
+- existing responsibilities;
+- existing communication patterns;
+- existing persistent-state architecture;
+- existing save architecture;
+- existing development fixtures;
+- existing `Content/Game/...` folder assignments.
+
+**Do not reorganize the Unreal project.**
+
+I have already created the folder structure.
+
+Do not decide that a Blueprint would be cleaner in another folder.
+
+Do not rename folders.
+
+Do not merge folders.
+
+Do not create a generic `Blueprints`, `Data`, `Components`, `Managers`, or similar folder.
+
+Do not move existing assets between folders.
+
+The existing Unreal structure is:
+
+```text
+Content/
+└── Game/
+    ├── Core/
+    ├── Player/
+    ├── Enemies/
+    ├── Combat/
+    ├── Interaction/
+    ├── Items/
+    ├── Equipment/
+    ├── Progression/
+    ├── Skills/
+    ├── Abilities/
+    ├── Effects/
+    ├── World/
+    ├── NPCs/
+    ├── Save/
+    ├── UI/
+    ├── Input/
+    ├── Animation/
+    ├── Art/
+    ├── Maps/
+    └── Tests/
+```
+
+Every asset must remain assigned to the exact folder specified by the supplied roadmap.
+
+If you believe something in the architecture genuinely needs correction, **do not silently change it**.
+
+Instead:
+
+1. preserve the documented architecture in the main guide;
+2. clearly identify the concern in a separate **Architecture Notes / Possible Issues** section;
+3. explain why it may be a problem;
+4. distinguish an actual Unreal limitation from a stylistic preference;
+5. do not make the structural change unless it is required for correctness.
+
+---
+
+# 2. OVERALL GAME DESCRIPTION
+
+The completed documentation must begin with a clear description of the game being built.
+
+This game is a:
+
+**2D side-scrolling exploration-focused action-platforming RPG.**
+
+Its world structure is closer to **Hollow Knight-style interconnected exploration** than a linear sequence of levels.
+
+The game consists of:
+
+- interconnected areas;
+- rooms inside areas;
+- areas grouped into larger biomes;
+- branching routes;
+- loops;
+- shortcuts;
+- gated paths;
+- backtracking;
+- discoveries that remain meaningful when areas are revisited.
+
+It is **not intended to be one seamless open world**.
+
+The player controls one persistent RPG character whose long-term progression survives normal traversal and death.
+
+The intended experience combines:
+
+**precision platforming + fluid movement + exploration + backtracking + real-time combat + RPG leveling + equipment + meaningful character builds + skill-tree progression + active abilities + persistent world changes + NPC interaction + gradual narrative discovery.**
+
+## Movement
+
+Movement is one of the highest-priority parts of the game.
+
+The committed foundation includes:
+
+- horizontal movement;
+- responsive acceleration;
+- responsive deceleration;
+- responsive starting and stopping;
+- responsive turning;
+- jumping;
+- variable jump height;
+- coyote time;
+- jump buffering;
+- deliberate rising behavior;
+- deliberate falling behavior;
+- landing behavior;
+- responsive airborne control;
+- interruption handling;
+- clean state transitions.
+
+Movement should prioritize **player intent, responsiveness, consistency, and predictability** over unnecessary realism.
+
+The animation system may eventually contain animations for things such as:
+
+- sprinting;
+- crouching;
+- sliding;
+- rolling;
+- dashing;
+- wall traversal;
+- ledge traversal.
+
+These are **future-compatible animation targets only**.
+
+They are **not automatically approved gameplay mechanics**.
+
+Do not add traversal mechanics merely because the animation architecture could support them.
+
+## Exploration and world state
+
+The player can:
+
+- move between connected areas;
+- explore rooms;
+- revisit previous areas;
+- discover shortcuts;
+- activate checkpoints;
+- use switches;
+- interact with world objects;
+- permanently open appropriate passages;
+- collect persistent items;
+- discover progression-gated routes;
+- return after gaining abilities, equipment, progression, or knowledge.
+
+Meaningful world changes should persist.
+
+Ordinary enemies may reset after area reloads.
+
+Specifically designated encounters and world events may remain permanently completed.
+
+## RPG progression
+
+The player has:
+
+- character levels;
+- XP/progression rewards;
+- character stats;
+- level-based stat growth;
+- temporary buffs;
+- inventory;
+- consumables;
+- equipment;
+- armor;
+- skill points;
+- a skill tree;
+- passive skills;
+- active abilities.
+
+Death must not erase normal persistent progression.
+
+## Skill tree
+
+The skill tree must support:
+
+- explicit skill-point costs;
+- prerequisites;
+- Locked state;
+- Available state;
+- Purchased state;
+- passive upgrades;
+- active abilities;
+- specialization;
+- mutually exclusive branches where appropriate.
+
+Build decisions should matter.
+
+However, choosing a valid specialization must not make mandatory game progression impossible.
+
+The final skill catalog is not yet decided.
+
+## Equipment
+
+Equipment can:
+
+- modify stats;
+- provide defensive benefits;
+- influence builds;
+- visually alter the player's character.
+
+The character is specifically intended to support **layered visual equipment**, including clothing, armor, hats, helmets, and similar equipment.
+
+## Combat
+
+Combat is real-time and integrated with exploration and platforming.
+
+The game supports:
+
+- player attacks;
+- grounded combat;
+- appropriate airborne combat;
+- enemy health;
+- enemy damage;
+- melee enemies;
+- ranged enemies;
+- projectiles;
+- readable attack telegraphs;
+- player damage;
+- death;
+- enemy death;
+- combat rewards;
+- attack interruption.
+
+Enemy behavior should be readable enough that players can understand threats and react to them.
+
+## Health, death, and checkpoints
+
+The player has health.
+
+Damage can come from:
+
+- enemies;
+- projectiles;
+- environmental hazards.
+
+After death, the player returns to the active checkpoint or the appropriate starting location.
+
+Persistent progression survives death, including:
+
+- character progression;
+- inventory;
+- equipment;
+- skills;
+- meaningful world changes;
+- discovered locations;
+- checkpoint state.
+
+## Active abilities
+
+The skill tree can grant active abilities.
+
+Abilities may:
+
+- affect enemies;
+- affect world objects;
+- participate in progression gating;
+- use cooldowns or recharge behavior;
+- use player stats;
+- participate in character builds.
+
+Development test abilities are not automatically final abilities.
+
+## NPCs
+
+The world contains non-hostile NPCs.
+
+NPCs support:
+
+- conversations;
+- repeat conversations;
+- condition-sensitive dialogue;
+- persistent awareness of relevant player/world state.
+
+Do not automatically introduce:
+
+- a quest framework;
+- faction reputation;
+- morality;
+- persuasion;
+- procedural narrative;
+- formal faction systems.
+
+Those systems have not been committed.
+
+## Saving
+
+The game remembers meaningful player and world progress.
+
+Loading should restore the player into a **valid recovery state**, not attempt to recreate the exact millisecond of gameplay in which the save occurred.
+
+---
+
+# 3. SYSTEMS THAT ARE NOT CURRENTLY COMMITTED
+
+Do not silently introduce common RPG or Metroidvania systems simply because they are common.
+
+The following are currently uncommitted or deliberately deferred:
+
+- crafting;
+- merchants;
+- formal economies;
+- currencies unless later approved;
+- randomized loot;
+- rarity systems;
+- durability;
+- character classes;
+- respec;
+- multiple equipment loadouts;
+- fast travel;
+- formal quests;
+- reputation;
+- morality;
+- faction systems;
+- procedural narrative;
+- multiplayer;
+- unapproved traversal mechanics;
+- double jump;
+- dash;
+- wall traversal;
+- ledge traversal;
+- speculative GAS migration;
+- speculative World Partition migration;
+- speculative C++ rewrites.
+
+If something is merely a future possibility, label it as such rather than building architecture around it now.
+
+---
+
+# 4. TARGET READER
+
+Assume I have **never built a game before**.
+
+Do not assume I understand Unreal terminology just because the architecture document uses it.
+
+The guide must teach me both:
+
+1. **what to create**, and
+2. **why it exists**.
+
+Whenever possible, answer the questions a beginner will naturally have:
+
+- What is this?
+- Why am I creating it?
+- Why does the game need it?
+- What should its parent class be?
+- Why that parent?
+- Where does it go?
+- Who owns it?
+- What data does it contain?
+- What functions should it expose?
+- What events/dispatchers should it expose?
+- Who calls those functions?
+- Who listens to those events?
+- What other assets does it depend on?
+- What should it never be responsible for?
+- When in development should I create it?
+- How can I test that it works?
+- What should I expect to see when it works?
+- What common mistake am I likely to make?
+- What should I deliberately avoid building yet?
+
+Explain Unreal-specific concepts when they first appear.
+
+Examples:
+
+- Actor;
+- Object;
+- Actor Component;
+- GameInstance;
+- GameMode;
+- PlayerController;
+- Character;
+- PaperCharacter;
+- AIController;
+- SaveGame;
+- UserWidget;
+- PrimaryDataAsset;
+- Data Asset instance;
+- Blueprint Interface;
+- Event Dispatcher;
+- Structure;
+- Enumeration;
+- Data Table;
+- Gameplay Tag;
+- soft reference;
+- strong reference;
+- object reference;
+- map;
+- set;
+- array;
+- GUID;
+- stable ID;
+- possession;
+- spawning;
+- BeginPlay;
+- level travel;
+- persistence;
+- transaction;
+- runtime state;
+- authored definition;
+- authoritative owner.
+
+Use plain language first and technical language second.
+
+---
+
+# 5. THE CENTRAL ARCHITECTURAL IDEA MUST BE EXPLAINED VERY CLEARLY
+
+Make sure the reader understands the separation between:
+
+## Authored definitions
+
+These answer:
+
+> What is this thing allowed to be?
+
+Examples:
+
+- item definitions;
+- attack definitions;
+- skill definitions;
+- ability definitions;
+- enemy definitions;
+- animation sets;
+- area definitions;
+- dialogue definitions.
+
+These are read-only game content.
+
+They do not own the player's mutable progress.
+
+## Persistent player state
+
+`BP_PlayerProfile`
+
+This owns persistent character progression such as:
+
+- XP;
+- skill points;
+- purchased skills;
+- inventory;
+- equipment.
+
+## Persistent world state
+
+`BP_WorldState`
+
+This owns persistent world facts such as:
+
+- opened passages;
+- collected one-time objects;
+- activated checkpoints;
+- discovered areas;
+- discovered rooms;
+- persistent encounter completion;
+- relevant NPC/world flags.
+
+## Session coordinator
+
+`BP_GameInstance`
+
+This survives ordinary level travel and coordinates:
+
+- persistent models;
+- cross-model transactions;
+- transitions;
+- recovery;
+- save/load operations.
+
+It must not become the implementation location for every gameplay feature.
+
+## Runtime player/enemy bodies
+
+Actors and Actor Components execute temporary live gameplay:
+
+- movement;
+- current health;
+- attacks;
+- temporary buffs;
+- current ability recharge;
+- enemy AI;
+- animation presentation.
+
+They may be destroyed and recreated.
+
+## SaveGame
+
+`BP_SaveGame`
+
+This is a disk snapshot.
+
+It is **not** the live gameplay model.
+
+## UI and animation
+
+UI and animation observe state and request actions.
+
+They do not own the gameplay rules.
+
+This separation is one of the most important lessons in the guide.
+
+---
+
+# 6. REQUIRED DOCUMENTATION OUTPUT
+
+Do not simply return a rewritten version of the original HTML in chat.
+
+Actually generate a **local static HTML documentation website**.
+
+Package it as a `.zip`.
+
+The final response must provide the ZIP file.
+
+The documentation must work locally without requiring a web server.
+
+Opening:
+
+```text
+index.html
+```
+
+directly from disk should provide access to the entire guide.
+
+Use relative links.
+
+Do not require an internet connection for navigation.
+
+External source links may point to Epic documentation, but the documentation itself must remain usable without those sources.
+
+---
+
+# 7. DOCUMENTATION DIRECTORY
+
+The documentation site should have a clear structure such as:
+
+```text
+Blueprint_RPG_Development_Guide/
+├── index.html
+├── game-overview.html
+├── architecture.html
+├── getting-started.html
+├── development-roadmap.html
+├── asset-index.html
+├── dependency-map.html
+├── ownership.html
+├── glossary.html
+├── troubleshooting.html
+├── checklist.html
+├── phases/
+│   ├── phase-00.html
+│   ├── phase-01.html
+│   ├── phase-02.html
+│   ├── ...
+│   └── phase-11.html
+├── systems/
+│   ├── movement.html
+│   ├── animation.html
+│   ├── combat.html
+│   ├── stats.html
+│   ├── persistence.html
+│   ├── world.html
+│   ├── interaction.html
+│   ├── save-load.html
+│   ├── enemies.html
+│   ├── progression.html
+│   ├── inventory.html
+│   ├── equipment.html
+│   ├── skills.html
+│   ├── abilities.html
+│   ├── effects.html
+│   ├── npcs-dialogue.html
+│   ├── ui.html
+│   └── validation.html
+└── assets/
+    ├── Core/
+    ├── Player/
+    ├── Enemies/
+    ├── Combat/
+    ├── Interaction/
+    ├── Items/
+    ├── Equipment/
+    ├── Progression/
+    ├── Skills/
+    ├── Abilities/
+    ├── Effects/
+    ├── World/
+    ├── NPCs/
+    ├── Save/
+    ├── UI/
+    ├── Input/
+    ├── Animation/
+    ├── Art/
+    ├── Maps/
+    └── Tests/
+```
+
+The `assets/` documentation hierarchy intentionally **mirrors the existing Unreal `Content/Game/...` structure**.
+
+Do not use this documentation structure as an excuse to alter the Unreal folder structure.
+
+If a more technically practical variation is required for HTML generation, preserve these same conceptual divisions and folder names.
+
+---
+
+# 8. EVERY PLANNED ASSET MUST BE DOCUMENTED
+
+The existing roadmap contains a complete planned asset register.
+
+Use it.
+
+Do not document only the major classes.
+
+Create documentation for **every planned asset**, including:
+
+- Blueprint Classes;
+- Actor Components;
+- Blueprint Interfaces;
+- Widget Blueprints;
+- Blueprint Function Libraries;
+- PrimaryDataAsset schema Blueprints;
+- Data Asset instances;
+- Blueprint Structures;
+- Blueprint Enumerations;
+- Data Tables;
+- Input Actions;
+- Input Mapping Contexts;
+- maps;
+- imported textures;
+- sprites;
+- flipbooks;
+- development-only test fixtures.
+
+Development fixtures must be clearly labeled:
+
+> Development/Test Asset — not confirmed final game content.
+
+---
+
+# 9. REQUIRED TEMPLATE FOR EVERY BLUEPRINT CLASS
+
+For every Blueprint Class, provide a dedicated section or page with at least:
+
+## Identity
+
+- exact asset name;
+- exact asset type;
+- exact Unreal parent/base class;
+- inheritance chain when applicable;
+- exact Content folder;
+- phase first created;
+- runtime lifetime;
+- persistent or non-persistent;
+- production or development-only.
+
+## Purpose
+
+Explain in beginner language:
+
+> What is this Blueprint's job?
+
+Then:
+
+> Why does this Blueprint need to exist separately?
+
+Then:
+
+> What should this Blueprint specifically NOT do?
+
+This is very important.
+
+## Creation instructions
+
+Give practical Editor instructions such as:
+
+- where to right-click;
+- which asset type to choose;
+- which parent class to search for;
+- whether to use `All Classes`;
+- whether it should instead be created as a child of another Blueprint;
+- what folder to save it in;
+- what obvious initial configuration should be done.
+
+Do not pretend custom project functions are built-in Unreal nodes.
+
+Clearly distinguish:
+
+- Unreal Engine node;
+- Unreal Engine event;
+- custom function I must create;
+- custom event I must create;
+- Event Dispatcher I must create.
+
+## Components
+
+For Actor-derived Blueprints, list the components that should exist.
+
+For every component include:
+
+- component name;
+- component class;
+- why it exists;
+- important settings;
+- collision responsibilities if relevant;
+- whether it is inherited;
+- whether I need to add it manually.
+
+## Variables
+
+Give an initial variable list.
+
+For each variable specify:
+
+- exact suggested name;
+- Unreal/Blueprint type;
+- array/map/set/reference where relevant;
+- purpose;
+- default value when the roadmap establishes one;
+- instance editable?
+- expose on spawn?
+- transient/runtime?
+- persistent/exported?
+- who is allowed to modify it.
+
+Do not invent unnecessary variables.
+
+Use the variables already identified by the source roadmap first.
+
+## Functions
+
+For each important function include:
+
+- function name;
+- inputs;
+- outputs;
+- responsibility;
+- who calls it;
+- major validation;
+- state it is allowed to change;
+- state it must not change;
+- whether it should be synchronous;
+- whether latent nodes are forbidden.
+
+## Events and dispatchers
+
+For each:
+
+- name;
+- parameters;
+- when it fires;
+- who should bind;
+- whether it represents a request or an already-completed state change.
+
+Reinforce:
+
+**commands request changes; events report completed changes.**
+
+## Interfaces
+
+If the Blueprint implements a Blueprint Interface, explain:
+
+- which interface;
+- why;
+- each interface function;
+- what the Blueprint's implementation should delegate to.
+
+## Dependencies
+
+Include:
+
+### Depends on
+
+Assets that must already exist.
+
+### Used by
+
+Assets that depend on this one.
+
+### Communicates with
+
+The specific communication style:
+
+- direct typed reference;
+- interface;
+- dispatcher;
+- GameInstance transaction;
+- model query.
+
+## Lifecycle
+
+Explain relevant behavior during:
+
+- construction;
+- BeginPlay;
+- initialization;
+- gameplay;
+- area travel;
+- player death;
+- map reload;
+- disk load;
+- teardown/EndPlay.
+
+Only include lifecycle stages relevant to that asset.
+
+## Blueprint graph guidance
+
+Describe the graph at a level useful to a beginner.
+
+Use pseudo-flow such as:
+
+```text
+Input
+→ Validate
+→ Request permission
+→ Perform operation
+→ Commit state
+→ Broadcast completed change
+```
+
+Do not claim to provide screenshots unless you actually produce them.
+
+When exact node chains are known and stable, identify important engine nodes by name.
+
+## Testing
+
+Provide specific tests.
+
+Not:
+
+> Test that it works.
+
+Instead:
+
+- what to place in the map;
+- what action to perform;
+- what value/state should change;
+- what must remain unchanged;
+- what failure case to test;
+- what should appear in debug output.
+
+## Common mistakes
+
+Give asset-specific warnings.
+
+## Definition of done
+
+Give a concrete condition for when I should move on.
+
+---
+
+# 10. REQUIRED TEMPLATE FOR ACTOR COMPONENTS
+
+For every `BPC_` asset explain:
+
+- what reusable behavior it owns;
+- what Actor types use it;
+- why it is an Actor Component rather than an Actor;
+- why it does not need its own transform;
+- exact mutable runtime state;
+- initialization references;
+- public API;
+- dispatchers;
+- ticking/timers, if any;
+- teardown;
+- persistence boundaries;
+- things it must not own.
+
+Examples include:
+
+- `BPC_ActionState`;
+- `BPC_FlipbookAnimator`;
+- `BPC_Stats`;
+- `BPC_Health`;
+- `BPC_Combat`;
+- `BPC_Interaction`;
+- `BPC_PersistentState`;
+- `BPC_Abilities`;
+- `BPC_StatusEffects`.
+
+Make the differences between these components very clear.
+
+For example:
+
+- Stats owns final calculated stat values.
+- Health owns current health.
+- Combat owns attack execution.
+- ActionState owns mutually exclusive action permission.
+- Animator owns presentation.
+- None of them should become substitutes for the PlayerProfile.
+
+---
+
+# 11. REQUIRED TEMPLATE FOR BLUEPRINT INTERFACES
+
+For each `BPI_` asset explain:
+
+- why an interface is being used;
+- why inheritance or casting would be worse here;
+- every interface function;
+- inputs;
+- outputs;
+- expected behavior;
+- which assets implement it;
+- what failure means;
+- how to use `Does Implement Interface` appropriately;
+- why an interface is not storage;
+- why an interface is not an event broadcast.
+
+Document at least:
+
+- `BPI_Damageable`;
+- `BPI_Interactable`;
+- `BPI_PersistentActor`;
+- `BPI_AbilityTarget`.
+
+---
+
+# 12. REQUIRED TEMPLATE FOR PRIMARY DATA ASSET SCHEMAS
+
+For every `BPDA_` schema:
+
+Explain:
+
+> This class defines the editable schema for authored data. It is not the player's mutable saved state.
+
+Document:
+
+- exact parent: `PrimaryDataAsset`;
+- exact Content folder;
+- purpose;
+- every recommended field;
+- each field's Blueprint type;
+- what the field means;
+- whether it references another definition;
+- any validation rule;
+- which systems read it.
+
+Then explain how to create corresponding `DA_` instances.
+
+Document schemas including:
+
+- animation;
+- character;
+- attack;
+- catalog;
+- area;
+- item;
+- enemy;
+- skill;
+- ability;
+- effect;
+- dialogue.
+
+---
+
+# 13. DATA FIELD REQUIREMENT
+
+This is one of the most important additions I want beyond the original roadmap.
+
+Whenever an asset is a data type, explicitly tell me what fields it should contain.
+
+This includes:
+
+- Primary Data Asset schemas;
+- structures;
+- enumerations;
+- Data Table row structures;
+- SaveGame data;
+- transition data;
+- runtime packets.
+
+For every field specify:
+
+```text
+Field Name
+Type
+Container if applicable
+Purpose
+Example Value
+Saved or Runtime Only
+Authoritative Owner
+Validation Notes
+```
+
+Do not merely say:
+
+> Stores attack information.
+
+Tell me approximately what that attack data is.
+
+For example, an attack definition might include things such as:
+
+- attack ID;
+- windup duration;
+- active duration;
+- recovery duration;
+- hit shape;
+- hit dimensions;
+- offset;
+- base damage/scaling;
+- knockback;
+- grounded/airborne compatibility.
+
+However, always remain consistent with the supplied roadmap and do not invent a large combat framework that the roadmap does not require.
+
+---
+
+# 14. STRUCTURE DOCUMENTATION
+
+For every `S_` Blueprint Structure:
+
+Provide a table like:
+
+| Field | Blueprint Type | Meaning | Persistent? | Notes |
+|---|---|---|---|---|
+
+Also explain:
+
+- where the struct is used;
+- who constructs it;
+- who reads it;
+- whether Actor references are permitted;
+- whether it is safe to save;
+- whether it is only a runtime message/handoff.
+
+This distinction is particularly important for structures such as:
+
+- damage packets;
+- animation snapshots;
+- inventory entries;
+- character saves;
+- world records;
+- checkpoint state;
+- transition requests;
+- runtime travel state;
+- save headers;
+- rewards;
+- ability context;
+- active effects;
+- dialogue data.
+
+---
+
+# 15. ENUMERATION DOCUMENTATION
+
+For each `E_` Enumeration:
+
+List:
+
+- every current value from the roadmap;
+- what each value means;
+- which system owns interpretation of the enum;
+- whether the list is intended to remain small/closed;
+- what should **not** be added without an actual gameplay need.
+
+Do not turn enums into giant catch-all state systems.
+
+---
+
+# 16. INPUT ASSET DOCUMENTATION
+
+For every Input Action and Input Mapping Context explain:
+
+- Value Type;
+- recommended event:
+  - Started;
+  - Triggered;
+  - Completed;
+  - Canceled;
+- which class receives it;
+- where the request is routed;
+- whether it is gameplay input or UI input;
+- when its context is active;
+- how stale intent should be cleared.
+
+Make the distinction between:
+
+**input intent**
+
+and
+
+**gameplay permission**
+
+very clear.
+
+For example:
+
+> Pressing Attack means the player requested an attack. `BPC_Combat` and `BPC_ActionState` decide whether the attack is legal.
+
+---
+
+# 17. WIDGET DOCUMENTATION
+
+For every `WBP_` asset explain:
+
+- what it displays;
+- who creates it;
+- who owns its reference;
+- what data source it observes;
+- which dispatchers it binds;
+- which operations it may request;
+- what rules it must not implement;
+- focus/input-mode requirements;
+- teardown/unbinding requirements.
+
+Repeat this principle where relevant:
+
+> Destroying or hiding a widget must never destroy authoritative gameplay state.
+
+---
+
+# 18. DEVELOPMENT-PHASE GUIDES
+
+Create a dedicated HTML page for every development phase from the roadmap.
+
+For each phase provide:
+
+## Goal
+
+What am I trying to prove?
+
+## Why this phase comes now
+
+Explain its dependency on earlier work.
+
+## Assets to create
+
+Use the exact existing asset names, types, base classes, and Content folders.
+
+## Recommended creation order
+
+This should be more granular than the existing high-level list.
+
+For example:
+
+```text
+1. Create the enum.
+2. Compile.
+3. Create the struct that references that enum.
+4. Compile.
+5. Create the schema Blueprint.
+6. Compile.
+7. Create its Data Asset instance.
+8. Add it to the consuming Blueprint.
+```
+
+This kind of detail is extremely useful to a first-time Unreal user.
+
+## Implementation sequence
+
+Break the phase into small, testable steps.
+
+## Connections
+
+Explain what references/functions/events are wired during this phase.
+
+## Testing
+
+Give a test sequence.
+
+## Completion checklist
+
+Use actual checkboxes in HTML where practical.
+
+## Stop condition
+
+Tell me what must be working before I continue.
+
+## Do not build yet
+
+Preserve the roadmap's scope boundaries.
+
+---
+
+# 19. PHASE ORDER MUST REMAIN
+
+Preserve this development sequence:
+
+1. project framework, input, player body;
+2. movement quality and animation foundation;
+3. health, stats, attacks, hazards;
+4. session models, interaction, connected areas, checkpoints;
+5. disk save/load and persistent pickups;
+6. enemies, rewards, leveling;
+7. inventory;
+8. equipment;
+9. skill tree;
+10. abilities/effects;
+11. NPC dialogue and complete menus;
+12. validation and packaged-build proof.
+
+Do not reorder it merely because another architecture is possible.
+
+---
+
+# 20. MOVEMENT GUIDE MUST BE ESPECIALLY DETAILED
+
+Movement quality is a core requirement.
+
+Create a substantial movement chapter covering the roadmap's chosen implementation.
+
+Explain:
+
+- X/Z movement plane;
+- Y depth;
+- `CharacterMovementComponent`;
+- horizontal movement;
+- acceleration;
+- braking/deceleration;
+- turning;
+- airborne control;
+- facing;
+- single jump execution path;
+- `Launch Character`;
+- jump buffer;
+- coyote permission;
+- jump-consumed state;
+- same-frame press/release;
+- jump cutting;
+- variable height;
+- landing;
+- movement-mode changes;
+- rise/fall distinction;
+- interruption;
+- animation snapshot generation.
+
+Explain the chosen variables and their relationships.
+
+Include state/flow diagrams using HTML/CSS or text.
+
+Explain why:
+
+- native `Jump` and the custom launch path must not both fire;
+- coyote time is not a second jump;
+- an animation must not determine whether jumping is legal;
+- landing presentation must not block a buffered jump;
+- frame-rate testing matters.
+
+Provide a debugging checklist for movement problems.
+
+---
+
+# 21. COMBAT GUIDE
+
+Explain:
+
+- action requests;
+- action tokens;
+- Windup;
+- Active;
+- Recovery;
+- attack definitions;
+- hit queries;
+- hurtboxes;
+- hit deduplication;
+- damage packet;
+- defense/stat query;
+- accepted damage;
+- knockback;
+- interruption;
+- death;
+- projectiles;
+- hazards;
+- reward separation.
+
+Explain exactly which system owns each part.
+
+Do not introduce animation-driven damage.
+
+---
+
+# 22. PERSISTENCE GUIDE
+
+This deserves a major dedicated chapter.
+
+Explain the difference between:
+
+- an Actor persisting;
+- the **state of that Actor** persisting.
+
+Explain stable authored IDs.
+
+Explain why these are wrong:
+
+- Actor label;
+- runtime name;
+- array position;
+- BeginPlay-generated GUID;
+- spawn order.
+
+Explain:
+
+```text
+Actor exists
+→ persistent component receives WorldState
+→ query stable ID
+→ obtain record
+→ ApplyPersistentRecord
+→ reconstruct presentation/collision
+→ become ready
+```
+
+Explain why `ApplyPersistentRecord` must not replay rewards.
+
+---
+
+# 23. SAVE/LOAD GUIDE
+
+Provide a very detailed chapter explaining:
+
+- `BP_SaveGame`;
+- snapshot versus live authority;
+- schema version;
+- content version;
+- save sequence;
+- character snapshot;
+- world snapshot;
+- recovery destination;
+- dirty revision;
+- save queue;
+- save in flight;
+- pending save;
+- asynchronous completion;
+- alternating physical generations;
+- loading the highest valid generation;
+- validation;
+- migration;
+- recovery-state loading.
+
+Explain in beginner terms why:
+
+> Death recovery is not the same operation as loading an old save.
+
+That distinction is extremely important.
+
+---
+
+# 24. CROSS-MODEL TRANSACTIONS
+
+Explain the project's transaction convention carefully.
+
+Examples:
+
+## Persistent pickup
+
+The operation should conceptually be:
+
+```text
+Validate pickup is not already collected
+→ validate reward
+→ grant reward to Profile
+→ mark object collected in WorldState
+→ commit one persistent revision
+→ broadcast resulting changes
+→ request save
+```
+
+There must not be an animation delay or asynchronous save in the middle of that state mutation.
+
+## Unique enemy
+
+Completion + reward should be committed coherently.
+
+## Switch + door
+
+The switch may update a door that is not currently loaded.
+
+Explain why persistent world state must use stable IDs rather than cross-map Actor references.
+
+---
+
+# 25. OWNERSHIP REFERENCE
+
+Create a dedicated page answering:
+
+> Where does this piece of state live?
+
+Cover at least:
+
+- current health;
+- max health;
+- base stats;
+- final stats;
+- XP;
+- level;
+- skill points;
+- purchased skills;
+- inventory;
+- equipped entries;
+- active buffs;
+- unlocked abilities;
+- ability cooldowns;
+- checkpoint;
+- world state;
+- discovery;
+- current room;
+- movement buffer;
+- velocity;
+- current action;
+- animation state;
+- enemy AI state;
+- conversation cursor;
+- SaveGame;
+- travel handoff.
+
+Use the supplied roadmap's ownership matrix as the source.
+
+---
+
+# 26. DEPENDENCY REFERENCE
+
+Create both:
+
+1. a system dependency overview;
+2. per-asset dependency information.
+
+Make it easy for me to answer questions such as:
+
+- What must exist before I create `BP_PlayerProfile`?
+- What consumes `BPDA_ItemDefinition`?
+- What depends on `BPC_Health`?
+- Which assets use `BPI_PersistentActor`?
+- What will break if I change `S_InventoryEntry`?
+- When can I safely create `WBP_Equipment`?
+
+---
+
+# 27. BEGINNER-FRIENDLY BLUEPRINT BUILD INSTRUCTIONS
+
+When describing implementation, prefer small named functions over giant Event Graphs.
+
+For example, instead of:
+
+> Put all this logic in Tick.
+
+Explain functions such as:
+
+```text
+TryConsumeJumpRequest
+ExecuteJump
+ClearMovementRequests
+TryStartAttack
+PerformHitQuery
+TryReceiveDamage
+RefreshBuildFromProfile
+TryEquip
+TryPurchaseSkill
+RefreshUnlocks
+InitializeState
+BuildSnapshot
+```
+
+For each function explain its job.
+
+When a graph will be complex, recommend:
+
+- function categories;
+- graph comments;
+- local variables;
+- pure query functions where appropriate;
+- explicit validation paths;
+- early returns/failure results where appropriate.
+
+Do not introduce unnecessary abstraction layers.
+
+---
+
+# 28. BLUEPRINT COMMUNICATION GUIDE
+
+Create a page teaching me when this architecture uses:
+
+## Direct typed reference
+
+Use for a known owned relationship.
+
+Example:
+
+Character → own Health component.
+
+## Blueprint Interface
+
+Use when unrelated Actor types need the same request contract.
+
+Example:
+
+player, enemy, and dummy can all be damageable.
+
+## Event Dispatcher
+
+Use when an owner changed state and observers need to react.
+
+Example:
+
+Health → `OnHealthChanged`.
+
+## GameInstance coordination
+
+Use when a persistent operation crosses model boundaries or map travel.
+
+## Data definition reference
+
+Use when authored immutable content describes behavior.
+
+Also explain when **not** to Cast.
+
+Do not say that all casting is bad.
+
+Explain that repeated arbitrary casting through unrelated systems is a design warning.
+
+---
+
+# 29. ARCHITECTURAL ANTI-PATTERNS
+
+Preserve and expand the existing roadmap's common-mistake section.
+
+Explain beginner-friendly examples of problems such as:
+
+- inventory living only on the Pawn;
+- loading an old disk save on death;
+- GameInstance becoming a god object;
+- every Actor writing SaveGame;
+- runtime-generated persistent IDs;
+- reward logic in BeginPlay;
+- double jump execution paths;
+- animation controlling damage;
+- widgets controlling game rules;
+- final calculated stats being saved as permanent base values;
+- stale timers releasing new actions;
+- ordinary area travel using death recovery;
+- mutable Data Assets being used as player state;
+- relying on interface messages without validation;
+- testing only in PIE.
+
+For each provide:
+
+```text
+Symptom
+Why it happens
+Correct owner
+Correct pattern
+How to test the fix
+```
+
+---
+
+# 30. VISUAL PRESENTATION
+
+The HTML documentation should be pleasant to read locally.
+
+Use:
+
+- clear typography;
+- responsive layout;
+- readable tables;
+- code-style formatting for Unreal asset/function names;
+- breadcrumbs;
+- previous/next navigation;
+- links back to index;
+- phase badges;
+- asset-type badges;
+- warnings;
+- notes;
+- beginner explanations;
+- test checklists;
+- architecture callouts.
+
+Avoid visual excess.
+
+This is technical documentation, not a marketing website.
+
+The site must remain readable on a normal desktop browser.
+
+---
+
+# 31. NAVIGATION REQUIREMENTS
+
+`index.html` should provide several ways to enter the documentation:
+
+### Start Here
+
+For someone beginning Phase 0.
+
+### Development Roadmap
+
+Phase 0 → Phase 11.
+
+### Browse by System
+
+Movement, Combat, Save, Inventory, etc.
+
+### Browse by Unreal Folder
+
+Mirror the exact `Content/Game/...` hierarchy.
+
+### Browse by Asset Type
+
+- Blueprint Class;
+- Actor Component;
+- Interface;
+- Primary Data Asset;
+- Structure;
+- Enum;
+- Widget;
+- Input;
+- Map;
+- etc.
+
+### Asset Index
+
+Alphabetical listing of every planned asset.
+
+Each asset listing should show at minimum:
+
+```text
+Asset Name
+Asset Type
+Parent/Base
+Phase
+Content Folder
+Purpose
+Link
+```
+
+---
+
+# 32. CROSS-LINK EVERYTHING USEFULLY
+
+An asset page should link to:
+
+- its phase;
+- its system guide;
+- assets it depends upon;
+- assets that use it;
+- related structures/enums;
+- relevant testing instructions.
+
+A phase page should link directly to every asset it asks me to create.
+
+A system page should link to its relevant assets.
+
+This site should behave like an actual reference manual rather than a collection of isolated pages.
+
+---
+
+# 33. ORIGINAL ROADMAP SHOULD REMAIN ACCESSIBLE
+
+Include either:
+
+- the original roadmap unchanged as an `original-roadmap.html` page;
+
+or
+
+- an equivalent clearly labeled source/reference page.
+
+Do not destroy the original information while expanding it.
+
+The expanded guide should add detail around the original roadmap, not erase its usefulness.
+
+---
+
+# 34. SOURCE VERIFICATION
+
+The attached roadmap contains Unreal-specific references.
+
+For technical statements that materially depend on Unreal Engine behavior, prefer official Epic documentation.
+
+The target version is:
+
+**Unreal Engine 5.8.3**
+
+Distinguish:
+
+- verified engine behavior;
+- architecture recommendation;
+- implementation suggestion;
+- development fixture;
+- estimated starting tuning value;
+- final gameplay design decision.
+
+Do not present a project recommendation as if Epic requires it.
+
+Do not present an untested Blueprint graph as if it has been compiled successfully.
+
+If something cannot be verified specifically for 5.8.3, say so.
+
+---
+
+# 35. DO NOT SILENTLY FILL DESIGN GAPS
+
+The game's final content has not been completely designed.
+
+Do not decide:
+
+- final biome names;
+- final lore;
+- final story;
+- final factions;
+- final NPC cast;
+- final abilities;
+- final skill names;
+- final armor sets;
+- final stat balance;
+- final enemy roster;
+- final item economy.
+
+Development fixtures may use obvious labels like:
+
+```text
+TestHelmet
+TestPulse
+MeleeTest
+SliceA
+SliceB
+```
+
+Clearly mark them as testing content.
+
+---
+
+# 36. INCLUDE PRACTICAL TROUBLESHOOTING
+
+Create a troubleshooting page organized around symptoms.
+
+Examples:
+
+## Player does not spawn
+
+Check:
+
+- configured GameMode;
+- Default Pawn policy for current phase;
+- PlayerController;
+- spawn registration;
+- bootstrap readiness.
+
+## Player jumps twice
+
+Check:
+
+- native Jump binding;
+- custom launch path;
+- jump-consumed flag;
+- coyote flag;
+- duplicate input events.
+
+## Pickup returns after loading
+
+Check:
+
+- persistent ID;
+- WorldState record;
+- ApplyPersistentRecord;
+- transaction;
+- save snapshot.
+
+## Equipment bonus keeps increasing
+
+Check:
+
+- modifiers being rebuilt versus repeatedly added;
+- stat-source IDs;
+- load reconstruction.
+
+## UI updates twice
+
+Check:
+
+- duplicate dispatcher bindings;
+- old pawn reference;
+- missing unbind.
+
+Continue this style for the major systems.
+
+---
+
+# 37. CHECKLISTS
+
+Provide checklists for:
+
+## Before beginning development
+
+Project configuration, plugins, source control, folder structure.
+
+## At the end of every phase
+
+The actual acceptance criteria.
+
+## Before creating significant content
+
+Architecture regression tests.
+
+## Before packaging
+
+Maps, soft references, saves, persistent IDs, input, cooked assets.
+
+## Before changing a persistent schema
+
+Versioning/migration questions.
+
+---
+
+# 38. GLOSSARY
+
+Create a substantial beginner glossary.
+
+Terms should link back to the pages where they are used.
+
+Keep definitions specific to how this project uses the concepts.
+
+For example:
+
+**Persistent** does not necessarily mean an Actor instance lives forever.
+
+It may mean the Actor can disappear while its authoritative state remains in `BP_WorldState`.
+
+---
+
+# 39. AVOID OVERENGINEERING
+
+This is my first game.
+
+The guide should be professional and maintainable, but it must remain implementable.
+
+Do not add:
+
+- managers simply to move functions elsewhere;
+- abstraction layers with no current consumer;
+- interfaces used by only one implementation without a future reason;
+- custom subsystems without a demonstrated requirement;
+- arbitrary global event buses;
+- unnecessary inheritance;
+- custom movement components merely for organizational reasons;
+- speculative GAS architecture;
+- speculative Behavior Tree frameworks;
+- speculative streaming systems;
+- generic factories/service locators/dependency containers.
+
+Prefer the simplest architecture that preserves the supplied ownership rules.
+
+---
+
+# 40. DEVELOPMENT FIXTURES MUST REMAIN CLEARLY SEPARATE
+
+Assets under:
+
+```text
+Content/Game/Tests/
+```
+
+are development/test assets unless the roadmap explicitly says otherwise.
+
+Make that visually obvious in the documentation.
+
+They exist to prove systems.
+
+They should not be treated as final game content.
+
+---
+
+# 41. EXPLAIN WHY THE ORDER MATTERS
+
+Do not present the roadmap as arbitrary.
+
+Explain, for example:
+
+- movement comes before RPG breadth because bad movement cannot be repaired by progression systems;
+- combat is proven before enemy complexity;
+- in-memory persistence is proven before disk persistence;
+- disk persistence is proven before large quantities of persistent content;
+- inventory ownership is proven before equipment;
+- equipment/stat rebuilding is proven before skill passives;
+- skill rules exist before active abilities depend on them;
+- packaged validation occurs before scaling production content.
+
+---
+
+# 42. CONTENT COMPLETENESS AUDIT
+
+Before packaging the ZIP, perform an internal audit.
+
+Verify that:
+
+- every asset in the original asset register appears in the documentation;
+- every Blueprint has a purpose explanation;
+- every Blueprint has its correct parent/base class;
+- every Blueprint has its exact Content folder;
+- every data schema has field guidance;
+- every structure has field guidance;
+- every enum has value guidance;
+- every phase has its own page;
+- every phase links to its assets;
+- all major systems have guide pages;
+- every local HTML link resolves;
+- `index.html` works from disk;
+- navigation does not require a server;
+- no Unreal folder assignment was silently changed;
+- no uncommitted gameplay feature was promoted to a requirement.
+
+Include an audit summary page showing the result.
+
+---
+
+# 43. QUALITY BAR FOR EACH ASSET PAGE
+
+The asset documentation should be detailed enough that I can open a page such as:
+
+```text
+BP_GameInstance
+```
+
+and understand:
+
+1. what kind of Unreal asset it is;
+2. what parent to choose;
+3. where to put it;
+4. why it exists;
+5. when I create it;
+6. what variables it needs;
+7. what functions it needs;
+8. which dispatchers it needs;
+9. what it talks to;
+10. which systems it coordinates;
+11. what it must not own;
+12. how to test it;
+13. what mistakes to avoid;
+14. when I am finished with it.
+
+The same principle applies to:
+
+```text
+BP_PlayerCharacter
+BP_PlayerProfile
+BP_WorldState
+BPC_Health
+BPC_Combat
+BPC_Stats
+BPDA_ItemDefinition
+S_InventoryEntry
+E_ActionState
+WBP_Inventory
+```
+
+and every other asset in the roadmap.
+
+---
+
+# 44. DO NOT FAKE PRECISION
+
+If the existing architecture establishes an exact field/function name, preserve it.
+
+If you are providing a recommended additional implementation detail that the source does not establish, label it clearly as:
+
+> Suggested implementation detail
+
+Do not make an educated guess look like a requirement.
+
+Likewise, numeric tuning values should be labeled:
+
+> Starting test value — tune through gameplay testing.
+
+---
+
+# 45. FINAL DELIVERABLE
+
+Produce the completed local documentation site and package it into:
+
+```text
+Blueprint_RPG_Development_Guide.zip
+```
+
+The archive should contain the documentation root directory with `index.html` at its top level.
+
+Before returning it:
+
+1. verify the ZIP can be opened;
+2. verify `index.html` exists;
+3. verify the expected HTML files exist;
+4. verify internal links;
+5. verify the asset count against the source roadmap;
+6. verify the Unreal Content folder assignments have not changed;
+7. verify Phase 0 through Phase 11 are all documented.
+
+Then provide me the completed ZIP file.
+
+Do not stop after creating an outline.
+
+Do not give me only sample pages.
+
+Do not tell me how I could build the documentation myself.
+
+Actually generate the complete documentation package.
+
+---
+
+# 46. PRIMARY SUCCESS CRITERION
+
+The result should feel like a **local technical manual for building my first game**, not merely an architecture report.
+
+When I am working in Unreal Engine and encounter an asset name from the roadmap, I should be able to open the documentation for that asset and answer:
+
+> What is this?
+
+> Why am I creating it?
+
+> What exactly goes inside it?
+
+> What does it connect to?
+
+> How do I build the first working version?
+
+> How do I know it works?
+
+> What should I avoid doing with it?
+
+The guide should teach the architecture while simultaneously walking me through its implementation.

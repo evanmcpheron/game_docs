@@ -1,0 +1,74 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>First playable vertical slice · Blueprint RPG Development Guide</title><meta name="description" content="One small route that proves movement, combat, progression and recovery actually belong to one coherent game."><link rel="stylesheet" href="site/style.css"><script defer src="site/app.js"></script></head><body><a class="skip" href="#main">Skip to content</a><aside class="sidebar"><a class="brand" href="index.html"><small>Build manual · Blueprint-first</small>Blueprint RPG<br>Development Guide</a><p>A first-game companion for a 2D exploration action-platformer.<br>Target: Unreal Engine 5.8.3</p><nav aria-label="Main navigation"><a class="navlink" href="index.html">Guide home</a><a class="navlink" href="getting-started.html">Start here</a><a class="navlink" href="development-roadmap.html">Phases 0–11</a><a class="navlink" href="asset-index.html">All 149 assets</a><a class="navlink" href="systems/index.html">Browse systems</a><a class="navlink" href="search.html">Search the manual</a><a class="navlink" href="ownership.html">State ownership</a><a class="navlink" href="dependency-map.html">Dependencies</a><a class="navlink" href="communication.html">Blueprint communication</a><a class="navlink" href="checklist.html">My checklists</a><a class="navlink" href="troubleshooting.html">Troubleshooting</a><a class="navlink" href="glossary.html">Glossary</a><a class="navlink" href="architecture-notes.html">Architecture notes</a><a class="navlink" href="audit.html">Package audit</a></nav><div class="sidefoot">Offline edition · 02 October 2026<br>Source architecture preserved.<br><a href="original-roadmap.html">Original roadmap</a><br><a href="sources-verification.html">Evidence and verification</a></div></aside><div class="layout"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Guide home</a> <span aria-hidden="true">/</span> <span>First playable vertical slice</span></nav><article id="main"><header><div class="eyebrow">Acceptance run</div><h1>First playable vertical slice</h1><p class="lead">One small route that proves movement, combat, progression and recovery actually belong to one coherent game.</p></header><h2 id="the-smallest-meaningful-architecture-proof">The smallest meaningful architecture proof</h2><p>Use phases 0–4 plus the melee/reward/leveling subset of Phase 5: two areas, player, one ordinary melee enemy, hazard, checkpoint, switch-controlled shortcut, persistent pickup and an XP threshold. No additional asset type is required. Ranged enemies, full inventory UI, equipment, skills and dialogue are later expansions—not prerequisites for this first proof.</p><h2 id="run-this-in-order">Run this in order</h2><div class="checks"><label><input data-check="slice-0" type="checkbox"/><span>Start an explicitly new test Profile from known initial values. Record XP, item quantities, records and checkpoint.</span></label><label><input data-check="slice-1" type="checkbox"/><span>Move/jump through the course; take damage and travel to the other area. Reduced health survives ordinary travel.</span></label><label><input data-check="slice-2" type="checkbox"/><span>Return, defeat the ordinary melee enemy and cross an XP threshold. Record point award exactly once.</span></label><label><input data-check="slice-3" type="checkbox"/><span>Collect the one-time pickup, request it again and verify one grant plus Collected record.</span></label><label><input data-check="slice-4" type="checkbox"/><span>Use the switch to open the shortcut, activate the checkpoint, then earn another reward after that activation.</span></label><label><input data-check="slice-5" type="checkbox"/><span>Die. Recover at checkpoint but retain the reward earned afterward; no Load Game from Slot rollback.</span></label><label><input data-check="slice-6" type="checkbox"/><span>Travel A→B→A. Ordinary enemy may reset; pickup remains collected and shortcut remains open.</span></label><label><input data-check="slice-7" type="checkbox"/><span>Request a save and wait for actual successful completion, then fully exit the test application.</span></label><label><input data-check="slice-8" type="checkbox"/><span>Relaunch/load. Compare inventory EntryIds/quantities, XP/points, discovery, checkpoint and world records. No reward/level award replays.</span></label><label><input data-check="slice-9" type="checkbox"/><span>Remove/close HUD and repeat meaningful commands. Rules and persistence remain correct.</span></label></div><details class="source"><summary>Canonical roadmap reference · PART AB — First playable vertical slice</summary><p class="source-note">Preserved source text, with local cross-links added for this expanded chapter. E-number references belong to the original roadmap; see <a href="sources-verification.html">verification notes</a>.</p>
+<p>The first architecture slice is <strong>two small areas, one controllable player, one ordinary melee enemy, one hazard, one checkpoint, one switch-controlled shortcut, one persistent pickup, and one XP threshold</strong>. It uses phases 0–4 and the melee/reward/leveling subset of phase 5. The ranged enemy, equipment, full inventory screen, skill tree, and dialogue are not necessary to validate this first slice.</p>
+<p>No additional Blueprint type beyond the phase tables is needed. Use these existing assets:</p>
+<div aria-label="Scrollable reference table" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Asset</th>
+<th>Exact type and base</th>
+<th>Role in the slice</th>
+<th>Content folder</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><code><a href="assets/Tests/L_Slice_A.html">L_Slice_A</a></code>, <code><a href="assets/Tests/L_Slice_B.html">L_Slice_B</a></code></td>
+<td>Level assets (<code>World</code>); no Blueprint parent</td>
+<td>Two connected areas</td>
+<td>—</td></tr>
+<tr>
+<td><code><a href="assets/Player/BP_PlayerCharacter.html">BP_PlayerCharacter</a></code></td>
+<td>Blueprint Class → PaperCharacter → Character</td>
+<td>Movement and combat</td>
+<td><code>Content/Game/Player/</code></td></tr>
+<tr>
+<td><code><a href="assets/Enemies/BP_Enemy_MeleeBasic.html">BP_Enemy_MeleeBasic</a></code></td>
+<td>Child Blueprint → <a href="assets/Enemies/BP_EnemyBase.html">BP_EnemyBase</a> → PaperCharacter → Character</td>
+<td>One ordinary threat/reward</td>
+<td><code>Content/Game/Enemies/</code></td></tr>
+<tr>
+<td><code><a href="assets/Combat/BP_Hazard.html">BP_Hazard</a></code></td>
+<td>Blueprint Class → Actor</td>
+<td>Environmental damage</td>
+<td><code>Content/Game/Combat/</code></td></tr>
+<tr>
+<td><code><a href="assets/World/BP_Checkpoint.html">BP_Checkpoint</a></code></td>
+<td>Child Blueprint → <a href="assets/Interaction/BP_InteractableBase.html">BP_InteractableBase</a> → Actor</td>
+<td>Recovery destination</td>
+<td><code>Content/Game/World/</code></td></tr>
+<tr>
+<td><code><a href="assets/World/BP_Switch.html">BP_Switch</a></code>, <code><a href="assets/World/BP_Door.html">BP_Door</a></code></td>
+<td>Child Blueprints → <a href="assets/Interaction/BP_InteractableBase.html">BP_InteractableBase</a> → Actor</td>
+<td>Persistent shortcut</td>
+<td>—</td></tr>
+<tr>
+<td><code><a href="assets/Items/BP_PickupBase.html">BP_PickupBase</a></code></td>
+<td>Child Blueprint → <a href="assets/Interaction/BP_InteractableBase.html">BP_InteractableBase</a> → Actor</td>
+<td>Persistent item reward</td>
+<td><code>Content/Game/Items/</code></td></tr>
+<tr>
+<td><code><a href="assets/World/BP_AreaRoot.html">BP_AreaRoot</a></code>, <code><a href="assets/World/BP_RoomVolume.html">BP_RoomVolume</a></code>, <code><a href="assets/World/BP_AreaTransition.html">BP_AreaTransition</a></code></td>
+<td>Blueprint Classes → Actor</td>
+<td>Area context, room discovery, travel</td>
+<td>—</td></tr>
+<tr>
+<td><code><a href="assets/World/BP_SpawnPoint.html">BP_SpawnPoint</a></code></td>
+<td>Blueprint Class → PlayerStart</td>
+<td>Stable entry/recovery spawn</td>
+<td><code>Content/Game/World/</code></td></tr>
+<tr>
+<td><code><a href="assets/Save/BP_SaveGame.html">BP_SaveGame</a></code></td>
+<td>Blueprint Class → SaveGame</td>
+<td>Disk snapshot</td>
+<td><code>Content/Game/Save/</code></td></tr>
+<tr>
+<td><code><a href="assets/UI/WBP_HUD.html">WBP_HUD</a></code>, <code><a href="assets/UI/WBP_SaveStatus.html">WBP_SaveStatus</a></code></td>
+<td>Widget Blueprints → UserWidget</td>
+<td>Basic observation and save feedback</td>
+<td>—</td></tr>
+</tbody>
+</table></div>
+<h3>The acceptance run</h3>
+<p>Start a new profile. Move/jump through the course. Take damage and keep that reduced health through a normal area transition. Return, defeat the enemy, earn XP, and cross a level threshold. Collect the pickup and open the shortcut. Activate the checkpoint. Earn another reward after that activation, then die: the later reward must remain even though recovery occurs at the older checkpoint location.</p>
+<p>Travel A→B→A. The ordinary enemy may reset; the pickup must stay collected and the shortcut open. Save and fully exit. Relaunch the executable and load. Verify inventory, XP/points, discovery, checkpoint, and shortcut records. Confirm that no reward or level-up point grant replays during reconstruction.</p>
+<p>Finally, close/remove the HUD while running the slice. Gameplay and persistence must still work. This catches accidental widget authority early.</p>
+</details><p>After the first slice passes, finish the ranged/projectile portion of Phase 5 before marking the phase complete. Phase 11 repeats and extends this sequence in a packaged executable, with deliberate bad data and save-generation failures.</p><nav class="page-nav" aria-label="Previous and next"><a href="phases/phase-05.html"><small>Previous</small>← Phase 5</a><a href="phases/phase-06.html"><small>Next</small>Inventory →</a></nav></article><footer class="page-footer">Blueprint RPG Development Guide · Local documentation, not a compiled Unreal project. Source rules, suggested implementation details and starting test values are distinguished throughout. Official documentation supports engine mechanisms; hotfix-specific behavior and all Blueprint/runtime tests remain your installed-build checks. <a href="sources-verification.html">Verification boundary</a> · <a href="audit.html">Documentation audit</a></footer></div></body></html>
