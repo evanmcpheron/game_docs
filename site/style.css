@@ -53,3 +53,15 @@ article{padding-inline:13px}
 }
 
 @media print{.sidebar,.breadcrumbs,.toc,.page-nav,.page-footer,.filterbar,.actions{display:none}.layout{margin:0;padding:0;max-width:none}article{border:0;padding:0;max-width:none;box-shadow:none}body{background:white;font-size:10pt}h1{font-size:25pt}h2{font-size:17pt;break-after:avoid}h3{break-after:avoid}.table-wrap{overflow:visible;border:0}table{min-width:0;font-size:7pt}th,td{min-width:0!important;padding:5px!important}pre{white-space:pre-wrap;font-size:8pt}a{color:inherit}.source{font-size:9pt}.checks{break-inside:avoid}}
+
+/* Contextual Unreal C++ references: reuse the existing palette and scrollable tables. */
+.cpp-ref{display:block;margin-top:.45rem;font-size:.875rem;line-height:1.6;color:var(--muted);overflow-wrap:anywhere}
+.cpp-link{display:inline-block;max-width:100%;min-height:24px;padding:3px 2px;vertical-align:middle;overflow-wrap:anywhere}
+.cpp-link code{white-space:normal;overflow-wrap:anywhere}
+.cpp-links{line-height:2;overflow-wrap:anywhere}
+.cpp-index-entry{padding:0 0 18px;border-bottom:1px solid var(--line);scroll-margin-top:100px;min-width:0}
+.cpp-index-entry .signature{grid-template-columns:minmax(90px,120px) minmax(0,1fr)}
+.cpp-index-entry:last-child{border-bottom:0}
+.cpp-index-nav a{display:block}
+.cpp-index-nav summary,.cpp-index-nav a{min-height:24px;padding-block:3px}
+@media(max-width:800px){.cpp-index-nav summary,.cpp-index-nav a{min-height:44px;padding-block:10px}.cpp-link{min-height:44px;padding:10px 2px}.cpp-index-entry .signature{grid-template-columns:1fr}.cpp-ref{font-size:.875rem}}

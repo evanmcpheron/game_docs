@@ -1,0 +1,737 @@
+{
+  "target_engine": "5.8.3",
+  "api_documentation_family": "5.8",
+  "checked_on": "2026-10-03",
+  "verification_method": "Each unique URL opened in the official Epic documentation; intended symbol, 5.8 title and module/header content inspected. Version-neutral URLs retained where that was the working destination. No Unreal Editor/runtime tests performed.",
+  "references": [
+    {
+      "symbol": "UObject",
+      "display": "Object",
+      "group": "framework",
+      "module": "CoreUObject",
+      "header": "UObject/Object.h",
+      "description": "Native base of the plain-object Profile and WorldState models retained by GameInstance; these models are not Actors or custom subsystems.",
+      "project": [
+        "assets/Player/BP_PlayerProfile.html",
+        "assets/World/BP_WorldState.html",
+        "systems/persistence.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/unreal-engine/API/Runtime/CoreUObject/UObject",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "AActor",
+      "display": "Actor",
+      "group": "framework",
+      "module": "Engine",
+      "header": "GameFramework/Actor.h",
+      "description": "Native base for the documented interactables, hazards, projectiles, world markers and per-use ability executors. Their project-specific rules remain in their Blueprints.",
+      "project": [
+        "assets/Interaction/BP_InteractableBase.html",
+        "assets/Combat/BP_ProjectileBase.html",
+        "assets/Abilities/BP_AbilityBase.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/AActor",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "APawn",
+      "display": "Pawn",
+      "group": "framework",
+      "module": "Engine",
+      "header": "GameFramework/Pawn.h",
+      "description": "Possessable ancestor of the player and enemy bodies through ACharacter and APaperCharacter. It is not a replacement for their documented PaperCharacter parent.",
+      "project": [
+        "assets/Player/BP_PlayerCharacter.html",
+        "systems/world.html"
+      ],
+      "parent": "AActor",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/APawn",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "ACharacter",
+      "display": "Character",
+      "group": "framework",
+      "module": "Engine",
+      "header": "GameFramework/Character.h",
+      "description": "Ancestor supplying the inherited character movement and capsule used by the PaperCharacter bodies. Keep the documented custom jump policy.",
+      "project": [
+        "assets/Player/BP_PlayerCharacter.html",
+        "assets/Enemies/BP_EnemyBase.html",
+        "systems/movement.html"
+      ],
+      "parent": "APawn",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/ACharacter",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "APlayerController",
+      "display": "Player Controller",
+      "group": "framework",
+      "module": "Engine",
+      "header": "GameFramework/PlayerController.h",
+      "description": "Native parent of the controller that routes player input, possesses the current body and owns screen/conversation coordination.",
+      "project": [
+        "assets/Player/BP_PlayerController.html",
+        "systems/input.html",
+        "systems/ui.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/APlayerController",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "AGameModeBase",
+      "display": "Game Mode Base",
+      "group": "framework",
+      "module": "Engine",
+      "header": "GameFramework/GameModeBase.h",
+      "description": "Native parent for gameplay and menu modes. The project readiness checks and explicit spawn sequence remain project logic.",
+      "project": [
+        "assets/Core/BP_GameMode.html",
+        "assets/Core/BP_MenuGameMode.html",
+        "systems/world.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/AGameModeBase",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UGameInstance",
+      "display": "Game Instance",
+      "group": "framework",
+      "module": "Engine",
+      "header": "Engine/GameInstance.h",
+      "description": "Native parent of the session coordinator that retains the two plain-object models across ordinary map travel and coordinates save requests.",
+      "project": [
+        "assets/Core/BP_GameInstance.html",
+        "systems/persistence.html",
+        "systems/save-load.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UGameInstance",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "AAIController",
+      "display": "AI Controller",
+      "group": "framework",
+      "module": "AIModule",
+      "header": "AIController.h",
+      "description": "Native parent of the enemy controller. This reference does not introduce Behavior Trees, new navigation systems or new enemy behavior.",
+      "project": [
+        "assets/Enemies/BP_EnemyAIController.html",
+        "systems/enemies.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/AIModule/AAIController",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "APlayerStart",
+      "display": "Player Start",
+      "group": "framework",
+      "module": "Engine",
+      "header": "GameFramework/PlayerStart.h",
+      "description": "Native parent of BP_SpawnPoint and the initial native PlayerStart used in the movement lab. The project spawn registry is additional Blueprint logic.",
+      "project": [
+        "assets/World/BP_SpawnPoint.html",
+        "phases/phase-00.html",
+        "systems/world.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/APlayerStart",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UBlueprintFunctionLibrary",
+      "display": "Blueprint Function Library",
+      "group": "framework",
+      "module": "Engine",
+      "header": "Kismet/BlueprintFunctionLibrary.h",
+      "description": "Native base for the project function library; custom helper names and signatures are defined by this manual, not by Epic.",
+      "project": [
+        "assets/Core/BFL_GameRules.html",
+        "communication.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UBlueprintFunctionLibrary",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "APaperCharacter",
+      "display": "Paper Character (PaperCharacter)",
+      "group": "paper2d",
+      "module": "Paper2D plugin / Paper2D",
+      "header": "PaperCharacter.h",
+      "description": "Direct native parent of BP_PlayerCharacter and BP_EnemyBase. The inherited Sprite is a flipbook component; enemy child Blueprints inherit this native base through BP_EnemyBase.",
+      "project": [
+        "assets/Player/BP_PlayerCharacter.html",
+        "assets/Enemies/BP_EnemyBase.html",
+        "systems/animation.html"
+      ],
+      "parent": "ACharacter",
+      "url": "https://dev.epicgames.com/documentation/unreal-engine/API/Plugins/Paper2D/APaperCharacter?lang=en-US",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UPaperFlipbookComponent",
+      "display": "Paper Flipbook Component",
+      "group": "paper2d",
+      "module": "Paper2D plugin / Paper2D",
+      "header": "PaperFlipbookComponent.h",
+      "description": "The inherited Sprite and the added HeadLayer/BodyLayer display instances. The animator coordinates these components; it is not an AnimInstance.",
+      "project": [
+        "assets/Player/BP_PlayerCharacter.html#components",
+        "assets/Animation/BPC_FlipbookAnimator.html",
+        "systems/animation.html"
+      ],
+      "parent": "UMeshComponent",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Plugins/Paper2D/UPaperFlipbookComponent",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UPaperFlipbook",
+      "display": "Paper2D Flipbook asset",
+      "group": "paper2d",
+      "module": "Paper2D plugin / Paper2D",
+      "header": "PaperFlipbook.h",
+      "description": "Native asset type for the FB_ test clips assigned through animation-set data. A clip is content, not a Blueprint subclass to create.",
+      "project": [
+        "assets/Animation/FB_Player_IdleTest.html",
+        "assets/Animation/BPDA_AnimationSet.html",
+        "systems/animation.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Plugins/Paper2D/UPaperFlipbook",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UPaperSprite",
+      "display": "Paper2D Sprite asset",
+      "group": "paper2d",
+      "module": "Paper2D plugin / Paper2D",
+      "header": "PaperSprite.h",
+      "description": "Native asset type for SPR_TestPlayer and SPR_TestHelmet, authored from imported textures and used by the flipbooks.",
+      "project": [
+        "assets/Art/SPR_TestPlayer.html",
+        "assets/Art/SPR_TestHelmet.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Plugins/Paper2D/UPaperSprite",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UActorComponent",
+      "display": "Actor Component",
+      "group": "components",
+      "module": "Engine",
+      "header": "Components/ActorComponent.h",
+      "description": "Native parent of the nine BPC_ gameplay/presentation components. Each project component adds its own health, combat, stats, interaction or other rules.",
+      "project": [
+        "assets/Combat/BPC_Health.html",
+        "assets/Combat/BPC_Combat.html",
+        "assets/Animation/BPC_FlipbookAnimator.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UActorComponent",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "USceneComponent",
+      "display": "Scene Component",
+      "group": "components",
+      "module": "Engine",
+      "header": "Components/SceneComponent.h",
+      "description": "Transform/attachment component used for scene roots and EquipmentRoot. It does not itself render or collide.",
+      "project": [
+        "assets/Player/BP_PlayerCharacter.html#components",
+        "assets/Interaction/BP_InteractableBase.html#components"
+      ],
+      "parent": "UActorComponent",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/USceneComponent",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UCharacterMovementComponent",
+      "display": "Character Movement Component",
+      "group": "components",
+      "module": "Engine",
+      "header": "GameFramework/CharacterMovementComponent.h",
+      "description": "Inherited movement integration, velocity, floor state and movement settings for the bodies. Do not add a second movement component or replace ExecuteJump with a second jump path.",
+      "project": [
+        "assets/Player/BP_PlayerCharacter.html#components",
+        "assets/Enemies/BP_EnemyBase.html#components",
+        "systems/movement.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UCharacterMovementComponent",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UCapsuleComponent",
+      "display": "Capsule Collision / Capsule Component",
+      "group": "components",
+      "module": "Engine",
+      "header": "Components/CapsuleComponent.h",
+      "description": "Inherited character collision shape, kept independent of visual sprite frames.",
+      "project": [
+        "assets/Player/BP_PlayerCharacter.html#components",
+        "assets/Enemies/BP_EnemyBase.html#components"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UCapsuleComponent",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UBoxComponent",
+      "display": "Box Collision / Box Component",
+      "group": "components",
+      "module": "Engine",
+      "header": "Components/BoxComponent.h",
+      "description": "Native shape used by the documented hazard, interaction, doorway, room and test volumes. The project interface decides what a contact means.",
+      "project": [
+        "assets/Combat/BP_Hazard.html#components",
+        "assets/Interaction/BP_InteractableBase.html#components",
+        "assets/World/BP_RoomVolume.html#components"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UBoxComponent",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "USphereComponent",
+      "display": "Sphere Collision / Sphere Component",
+      "group": "components",
+      "module": "Engine",
+      "header": "Components/SphereComponent.h",
+      "description": "Collision root of BP_ProjectileBase. Owner exclusion and the consumed guard are project behavior, not a different native component.",
+      "project": [
+        "assets/Combat/BP_ProjectileBase.html#components",
+        "systems/combat.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/USphereComponent",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UProjectileMovementComponent",
+      "display": "Projectile Movement Component",
+      "group": "components",
+      "module": "Engine",
+      "header": "GameFramework/ProjectileMovementComponent.h",
+      "description": "Moves the projectile collision root through its UpdatedComponent; see the documented initialization and impact handling.",
+      "project": [
+        "assets/Combat/BP_ProjectileBase.html#components",
+        "systems/combat.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UProjectileMovementComponent",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UCameraComponent",
+      "display": "Camera Component",
+      "group": "components",
+      "module": "Engine",
+      "header": "Camera/CameraComponent.h",
+      "description": "The player Camera component supplies the documented side-on view.",
+      "project": [
+        "assets/Player/BP_PlayerCharacter.html#components",
+        "systems/movement.html"
+      ],
+      "parent": "USceneComponent",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UCameraComponent",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "USpringArmComponent",
+      "display": "Spring Arm Component",
+      "group": "components",
+      "module": "Engine",
+      "header": "GameFramework/SpringArmComponent.h",
+      "description": "The player CameraArm carries the camera offset. Use the manual’s settings rather than copying unrelated third-person camera examples.",
+      "project": [
+        "assets/Player/BP_PlayerCharacter.html#components"
+      ],
+      "parent": "USceneComponent",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/USpringArmComponent",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UInputAction",
+      "display": "Input Action asset",
+      "group": "input",
+      "module": "Enhanced Input plugin / EnhancedInput",
+      "header": "InputAction.h",
+      "description": "Native content type of the IA_ actions. Their selected value types and Started/Triggered/Completed wiring remain as documented.",
+      "project": [
+        "assets/Input/IA_Move.html",
+        "assets/Input/IA_Jump.html",
+        "systems/input.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Plugins/EnhancedInput/UInputAction",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UInputMappingContext",
+      "display": "Input Mapping Context asset",
+      "group": "input",
+      "module": "Enhanced Input plugin / EnhancedInput",
+      "header": "InputMappingContext.h",
+      "description": "Native content type of the gameplay and UI mapping contexts.",
+      "project": [
+        "assets/Input/IMC_Player.html",
+        "assets/Input/IMC_UI.html",
+        "systems/input.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Plugins/EnhancedInput/UInputMappingContext",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UEnhancedInputLocalPlayerSubsystem",
+      "display": "Enhanced Input Local Player Subsystem",
+      "group": "input",
+      "module": "Enhanced Input plugin / EnhancedInput",
+      "header": "EnhancedInputSubsystems.h",
+      "description": "Existing engine subsystem used to manage the local player’s mapping contexts. Do not create a project subsystem or map Profile/WorldState to this class.",
+      "project": [
+        "assets/Player/BP_PlayerController.html",
+        "systems/input.html"
+      ],
+      "parent": "ULocalPlayerSubsystem",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Plugins/EnhancedInput/UEnhancedInputLocalPlayerSubsyst-",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UPrimaryDataAsset",
+      "display": "Primary Data Asset",
+      "group": "data",
+      "module": "Engine",
+      "header": "Engine/DataAsset.h",
+      "description": "Native base of the eleven BPDA_ schemas. DA_ entries are instances of those project schemas, not extra native classes.",
+      "project": [
+        "assets/Core/BPDA_GameCatalog.html",
+        "assets/Combat/BPDA_AttackDefinition.html",
+        "assets/Tests/DA_Anim_PlayerTest.html"
+      ],
+      "parent": "UDataAsset",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UPrimaryDataAsset",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UDataTable",
+      "display": "Data Table asset",
+      "group": "data",
+      "module": "Engine",
+      "header": "Engine/DataTable.h",
+      "description": "Native table type for DT_LevelProgression. Its S_LevelProgressionRow is a project Blueprint Structure; no identically named Epic row type is implied.",
+      "project": [
+        "assets/Progression/DT_LevelProgression.html",
+        "assets/Progression/S_LevelProgressionRow.html",
+        "systems/progression.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UDataTable",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UWorld",
+      "display": "World / Level asset",
+      "group": "data",
+      "module": "Engine",
+      "header": "Engine/World.h",
+      "description": "Native map object type behind the five level assets and the area definitions’ soft World references. It is not the BP_WorldState model.",
+      "project": [
+        "assets/World/BPDA_AreaDefinition.html",
+        "systems/world.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UWorld",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UTexture2D",
+      "display": "Imported Texture2D asset",
+      "group": "data",
+      "module": "Engine",
+      "header": "Engine/Texture2D.h",
+      "description": "Native content type of the imported player and helmet test textures used to create Paper2D sprites.",
+      "project": [
+        "assets/Art/T_TestPlayer.html",
+        "assets/Art/T_TestHelmet.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UTexture2D",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UUserWidget",
+      "display": "User Widget",
+      "group": "ui",
+      "module": "UMG",
+      "header": "Blueprint/UserWidget.h",
+      "description": "Native parent of the ten WBP_ screens/widgets. Designer controls are widgets, not Actor Components or authoritative gameplay models.",
+      "project": [
+        "assets/UI/WBP_HUD.html",
+        "assets/UI/WBP_Inventory.html",
+        "systems/ui.html"
+      ],
+      "parent": "UWidget",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/UMG/UUserWidget",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UTextBlock",
+      "display": "Text",
+      "group": "ui",
+      "module": "UMG",
+      "header": "Components/TextBlock.h",
+      "description": "Native Text control for the documented labels, prompts, dialogue and save-status text.",
+      "project": [
+        "assets/UI/WBP_HUD.html#designer-tree-and-screen-ownership",
+        "assets/UI/WBP_Dialogue.html#designer-tree-and-screen-ownership",
+        "assets/UI/WBP_SaveStatus.html#designer-tree-and-screen-ownership"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/UMG/UTextBlock",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UProgressBar",
+      "display": "Progress Bar",
+      "group": "ui",
+      "module": "UMG",
+      "header": "Components/ProgressBar.h",
+      "description": "Native bar used to present health and recharge. It displays notified state; it does not own health or restore ability charges.",
+      "project": [
+        "assets/UI/WBP_HUD.html#designer-tree-and-screen-ownership",
+        "assets/UI/WBP_Abilities.html#designer-tree-and-screen-ownership"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/UMG/UProgressBar",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UButton",
+      "display": "Button",
+      "group": "ui",
+      "module": "UMG",
+      "header": "Components/Button.h",
+      "description": "Native control for request buttons such as skill purchase, equip, retry and menu actions.",
+      "project": [
+        "assets/UI/WBP_SkillNode.html#designer-tree-and-screen-ownership",
+        "assets/UI/WBP_MainMenu.html#designer-tree-and-screen-ownership",
+        "systems/ui.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/UMG/UButton",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UScrollBox",
+      "display": "Scroll Box",
+      "group": "ui",
+      "module": "UMG",
+      "header": "Components/ScrollBox.h",
+      "description": "Native scrollable container referenced by the UI chapter. This is a Designer control, not an additional custom row Blueprint requirement.",
+      "project": [
+        "systems/ui.html",
+        "assets/UI/WBP_Inventory.html#designer-tree-and-screen-ownership"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/UMG/UScrollBox",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UWidgetBlueprintLibrary",
+      "display": "Widget Blueprint Library",
+      "group": "ui",
+      "module": "UMG",
+      "header": "Blueprint/WidgetBlueprintLibrary.h",
+      "description": "The class page documents Create (Blueprint display name Create Widget) and input-mode helpers used by controller-owned screens. This is an engine helper, not the parent of WBP_ assets.",
+      "project": [
+        "assets/Player/BP_PlayerController.html",
+        "assets/UI/WBP_HUD.html#create",
+        "systems/ui.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/UMG/UWidgetBlueprintLibrary",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "USaveGame",
+      "display": "Save Game",
+      "group": "saving",
+      "module": "Engine",
+      "header": "GameFramework/SaveGame.h",
+      "description": "Native parent of BP_SaveGame, the value snapshot container. Durable state ownership and snapshot construction stay in the project’s existing coordinators.",
+      "project": [
+        "assets/Save/BP_SaveGame.html",
+        "systems/save-load.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/USaveGame",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UAsyncActionHandleSaveGame",
+      "display": "Async Save/Load Game action",
+      "group": "saving",
+      "module": "Engine",
+      "header": "GameFramework/AsyncActionHandleSaveGame.h",
+      "description": "Native async action behind the Blueprint slot save/load nodes and their completion delegate. The manual’s immutable snapshot and queued-save rules are still required.",
+      "project": [
+        "assets/Core/BP_GameInstance.html",
+        "systems/save-load.html"
+      ],
+      "parent": "UBlueprintAsyncActionBase",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UAsyncActionHandleSaveGame",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UGameplayStatics",
+      "display": "Gameplay Statics",
+      "group": "saving",
+      "module": "Engine",
+      "header": "Kismet/GameplayStatics.h",
+      "description": "The class page contains CreateSaveGameObject and OpenLevelBySoftObjectPtr (Blueprint: Open Level by Object Reference). These support snapshot creation and area travel, not the project’s custom damage contract.",
+      "project": [
+        "assets/Core/BP_GameInstance.html",
+        "systems/save-load.html",
+        "systems/world.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UGameplayStatics",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UPaperFlipbookComponent::SetPlaybackPosition",
+      "display": "Set Playback Position",
+      "group": "selected-api",
+      "module": "Paper2D plugin / Paper2D",
+      "header": "PaperFlipbookComponent.h",
+      "description": "Seconds-based playback positioning for the shared visual clock. This does not become the combat hit clock; see the animator instructions.",
+      "project": [
+        "assets/Animation/BPC_FlipbookAnimator.html",
+        "systems/animation.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/unreal-engine/API/Plugins/Paper2D/UPaperFlipbookComponent/SetPlaybackPosition",
+      "kind": "function",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UAsyncActionHandleSaveGame::AsyncSaveGameToSlot",
+      "display": "Async Save Game to Slot",
+      "group": "selected-api",
+      "module": "Engine",
+      "header": "GameFramework/AsyncActionHandleSaveGame.h",
+      "description": "Blueprint async action factory used for slot saving. Its wrapper/completion interface is distinct from the similarly named GameplayStatics C++ callback API.",
+      "project": [
+        "assets/Core/BP_GameInstance.html",
+        "systems/save-load.html"
+      ],
+      "parent": "",
+      "url": "https://dev.epicgames.com/documentation/unreal-engine/API/Runtime/Engine/UAsyncActionHandleSaveGame/AsyncSaveGameToSlot",
+      "kind": "function",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    }
+  ],
+  "naming_reference": {
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/epic-cplusplus-coding-standard-for-unreal-engine",
+    "checked_on": "2026-10-03",
+    "displayed_version": "5.8"
+  },
+  "not_mapped": {
+    "Blueprint Structure": 23,
+    "Blueprint Enumeration": 11,
+    "Blueprint Interface": 4
+  },
+  "member_url_policy": "CreateSaveGameObject, OpenLevelBySoftObjectPtr and UWidgetBlueprintLibrary::Create are verified in their class pages; unverified standalone member URLs were omitted."
+}
