@@ -721,6 +721,70 @@
       "kind": "function",
       "verified_version": "5.8",
       "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UUserDefinedEnum",
+      "display": "Blueprint Enumeration asset",
+      "group": "data",
+      "module": "Engine",
+      "header": "Engine/UserDefinedEnum.h",
+      "description": "Native asset class for project-authored Blueprint Enumeration assets; enumerator names remain project-defined.",
+      "project": [
+        "assets/Combat/E_ActionState.html"
+      ],
+      "parent": "UEnum",
+      "url": "https://dev.epicgames.com/documentation/unreal-engine/API/Runtime/Engine/UUserDefinedEnum?lang=en-US",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UUserDefinedStruct",
+      "display": "Blueprint Structure asset",
+      "group": "data",
+      "module": "CoreUObject",
+      "header": "StructUtils/UserDefinedStruct.h",
+      "description": "Native asset class for project-authored Blueprint Structure assets; fields remain project-defined.",
+      "project": [
+        "assets/Combat/S_DamageSpec.html"
+      ],
+      "parent": "UScriptStruct",
+      "url": "https://dev.epicgames.com/documentation/unreal-engine/API/Runtime/CoreUObject/UUserDefinedStruct",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UBlueprint",
+      "display": "Blueprint asset object",
+      "group": "framework",
+      "module": "Engine",
+      "header": "Engine/Blueprint.h",
+      "description": "Native Blueprint asset object, including Blueprint Interface assets; generated gameplay classes still use their documented native gameplay parents.",
+      "project": [
+        "assets/Combat/BPI_Damageable.html"
+      ],
+      "parent": "UBlueprintCore",
+      "url": "https://dev.epicgames.com/documentation/unreal-engine/API/Runtime/Engine/UBlueprint?lang=en-US",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
+    },
+    {
+      "symbol": "UInterface",
+      "display": "Unreal interface base",
+      "group": "framework",
+      "module": "CoreUObject",
+      "header": "UObject/Interface.h",
+      "description": "Native base for Unreal C++ interface wrappers; project Blueprint Interface contracts remain project-defined.",
+      "project": [
+        "assets/Combat/BPI_Damageable.html"
+      ],
+      "parent": "UObject",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/CoreUObject/UInterface",
+      "kind": "class",
+      "verified_version": "5.8",
+      "checked_on": "2026-10-03"
     }
   ],
   "naming_reference": {
@@ -729,9 +793,8 @@
     "displayed_version": "5.8"
   },
   "not_mapped": {
-    "Blueprint Structure": 23,
-    "Blueprint Enumeration": 11,
-    "Blueprint Interface": 4
+    "project_symbol_names": "Project-authored S_, E_, and BPI_ symbol names do not have identically named Epic API types; their engine asset classes are linked separately.",
+    "project_contracts": "Project-specific gameplay contracts remain project-defined and are not replaced by similarly themed engine systems."
   },
   "member_url_policy": "CreateSaveGameObject, OpenLevelBySoftObjectPtr and UWidgetBlueprintLibrary::Create are verified in their class pages; unverified standalone member URLs were omitted."
 }

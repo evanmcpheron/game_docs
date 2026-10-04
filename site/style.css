@@ -59,9 +59,12 @@ article{padding-inline:13px}
 .cpp-link{display:inline-block;max-width:100%;min-height:24px;padding:3px 2px;vertical-align:middle;overflow-wrap:anywhere}
 .cpp-link code{white-space:normal;overflow-wrap:anywhere}
 .cpp-links{line-height:2;overflow-wrap:anywhere}
+.ue-doc-links{display:flex;flex-wrap:wrap;gap:.25rem 1rem;align-items:center;line-height:1.8;overflow-wrap:anywhere}
+.ue-doc-link{display:inline-block;max-width:100%;min-height:24px;padding:3px 2px;vertical-align:middle;overflow-wrap:anywhere}
+.ue-doc-link code{white-space:normal;overflow-wrap:anywhere}
 .cpp-index-entry{padding:0 0 18px;border-bottom:1px solid var(--line);scroll-margin-top:100px;min-width:0}
 .cpp-index-entry .signature{grid-template-columns:minmax(90px,120px) minmax(0,1fr)}
 .cpp-index-entry:last-child{border-bottom:0}
 .cpp-index-nav a{display:block}
 .cpp-index-nav summary,.cpp-index-nav a{min-height:24px;padding-block:3px}
-@media(max-width:800px){.cpp-index-nav summary,.cpp-index-nav a{min-height:44px;padding-block:10px}.cpp-link{min-height:44px;padding:10px 2px}.cpp-index-entry .signature{grid-template-columns:1fr}.cpp-ref{font-size:.875rem}}
+@media(max-width:800px){.cpp-index-nav summary,.cpp-index-nav a{min-height:44px;padding-block:10px}.cpp-link,.ue-doc-link{min-height:44px;padding:10px 2px}.ue-doc-links{display:block}.ue-doc-links>span{display:block}.cpp-index-entry .signature{grid-template-columns:1fr}.cpp-ref{font-size:.875rem}}
