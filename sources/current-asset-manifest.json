@@ -1,0 +1,3034 @@
+[
+  {
+    "name": "BP_GameInstance",
+    "type": "Blueprint Class",
+    "parent": "GameInstance",
+    "phase": 0,
+    "folder": "Content/Game/Core/",
+    "path": "/Game/Game/Core/BP_GameInstance",
+    "doc": "assets/Core/BP_GameInstance.html",
+    "fixture": false,
+    "deps": [
+      "BP_PlayerCharacter",
+      "BPDA_AreaDefinition",
+      "BPDA_GameCatalog",
+      "BP_PlayerProfile",
+      "BP_WorldState",
+      "S_CheckpointState",
+      "S_RecoveryData",
+      "S_RuntimeTravelState",
+      "S_TransitionRequest",
+      "S_WorldObjectRecord",
+      "BPDA_ItemDefinition",
+      "BP_SaveGame",
+      "S_Reward"
+    ],
+    "users": [
+      "BP_GameMode",
+      "WBP_MainMenu",
+      "WBP_PauseMenu",
+      "WBP_SaveStatus"
+    ],
+    "purpose": "Survives ordinary map travel; coordinates the session and save I/O."
+  },
+  {
+    "name": "BP_GameMode",
+    "type": "Blueprint Class",
+    "parent": "GameModeBase",
+    "phase": 0,
+    "folder": "Content/Game/Core/",
+    "path": "/Game/Game/Core/BP_GameMode",
+    "doc": "assets/Core/BP_GameMode.html",
+    "fixture": false,
+    "deps": [
+      "BP_GameInstance",
+      "BP_PlayerCharacter",
+      "BP_PlayerController",
+      "BPC_PersistentState",
+      "BPI_PersistentActor",
+      "BP_AreaRoot",
+      "BP_SpawnPoint",
+      "BP_WorldState",
+      "E_EntryReason"
+    ],
+    "users": [
+      "L_MovementLab"
+    ],
+    "purpose": "Owns area bootstrap and controlled pawn spawning, not permanent progression."
+  },
+  {
+    "name": "BP_PlayerController",
+    "type": "Blueprint Class",
+    "parent": "PlayerController",
+    "phase": 0,
+    "folder": "Content/Game/Player/",
+    "path": "/Game/Game/Player/BP_PlayerController",
+    "doc": "assets/Player/BP_PlayerController.html",
+    "fixture": false,
+    "deps": [
+      "BP_PlayerCharacter",
+      "IA_Jump",
+      "IA_Move",
+      "IMC_Player",
+      "WBP_HUD",
+      "BP_PlayerProfile",
+      "BP_WorldState",
+      "WBP_SaveStatus",
+      "BPDA_DialogueDefinition",
+      "S_DialogueVariant"
+    ],
+    "users": [
+      "BP_GameMode",
+      "BP_MenuGameMode",
+      "L_Frontend",
+      "L_MovementLab",
+      "WBP_Dialogue",
+      "WBP_MainMenu",
+      "WBP_PauseMenu"
+    ],
+    "purpose": "Receives player intent, possesses the current body, and owns local screens."
+  },
+  {
+    "name": "BP_PlayerCharacter",
+    "type": "Blueprint Class",
+    "parent": "PaperZDCharacter → PaperCharacter → Character",
+    "phase": 0,
+    "folder": "Content/Game/Player/",
+    "path": "/Game/Game/Player/BP_PlayerCharacter",
+    "doc": "assets/Player/BP_PlayerCharacter.html",
+    "fixture": false,
+    "deps": [
+      "BPC_ActionState",
+      "BPC_Combat",
+      "BPC_Health",
+      "BPC_Stats",
+      "BPDA_CharacterDefinition",
+      "BPI_Damageable",
+      "BPC_Interaction",
+      "BP_PlayerProfile",
+      "E_EntryReason",
+      "S_RuntimeTravelState",
+      "BPC_Abilities",
+      "BPC_StatusEffects",
+      "ABP_Player",
+      "BPC_EquipmentVisuals"
+    ],
+    "users": [
+      "BP_GameInstance",
+      "BP_GameMode",
+      "BP_PlayerController",
+      "L_MovementLab"
+    ],
+    "purpose": "Replaceable player body with native movement and PaperZD character presentation."
+  },
+  {
+    "name": "IA_Move",
+    "type": "Input Action",
+    "parent": "N/A — Input Action asset (InputAction)",
+    "phase": 0,
+    "folder": "Content/Game/Input/",
+    "path": "/Game/Game/Input/IA_Move",
+    "doc": "assets/Input/IA_Move.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BP_PlayerController"
+    ],
+    "purpose": "Axis1D intent asset, not a custom Blueprint Class."
+  },
+  {
+    "name": "IA_Jump",
+    "type": "Input Action",
+    "parent": "N/A — Input Action asset (InputAction)",
+    "phase": 0,
+    "folder": "Content/Game/Input/",
+    "path": "/Game/Game/Input/IA_Jump",
+    "doc": "assets/Input/IA_Jump.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BP_PlayerController"
+    ],
+    "purpose": "Boolean intent asset, not a custom Blueprint Class."
+  },
+  {
+    "name": "IMC_Player",
+    "type": "Input Mapping Context",
+    "parent": "N/A — Input Mapping Context asset (InputMappingContext)",
+    "phase": 0,
+    "folder": "Content/Game/Input/",
+    "path": "/Game/Game/Input/IMC_Player",
+    "doc": "assets/Input/IMC_Player.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BP_PlayerController",
+      "L_MovementLab"
+    ],
+    "purpose": "Groups key/button bindings for an input context."
+  },
+  {
+    "name": "L_MovementLab",
+    "type": "Level / Map",
+    "parent": "N/A — Level asset (World)",
+    "phase": 0,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/L_MovementLab",
+    "doc": "assets/Tests/L_MovementLab.html",
+    "fixture": true,
+    "deps": [
+      "BP_GameMode",
+      "BP_PlayerCharacter",
+      "BP_PlayerController",
+      "IMC_Player"
+    ],
+    "users": [],
+    "purpose": "A map asset, not a Blueprint subclass."
+  },
+  {
+    "name": "BPC_ActionState",
+    "type": "Blueprint Actor Component",
+    "parent": "ActorComponent",
+    "phase": 1,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/BPC_ActionState",
+    "doc": "assets/Combat/BPC_ActionState.html",
+    "fixture": false,
+    "deps": [
+      "E_ActionState"
+    ],
+    "users": [
+      "ABP_EnemyTest",
+      "ABP_Player",
+      "BPC_Abilities",
+      "BPC_Combat",
+      "BP_EnemyBase",
+      "BP_PlayerCharacter"
+    ],
+    "purpose": "Reusable arbitration of mutually exclusive actions; it has no transform."
+  },
+  {
+    "name": "E_ActionState",
+    "type": "Blueprint Enumeration",
+    "parent": "N/A — Enumeration asset",
+    "phase": 1,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/E_ActionState",
+    "doc": "assets/Combat/E_ActionState.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BPC_ActionState"
+    ],
+    "purpose": "Free, Attacking, Ability, Hitstun, Dialogue, Transition, Dead."
+  },
+  {
+    "name": "T_TestPlayer",
+    "type": "Imported Texture",
+    "parent": "N/A — Imported Texture asset (Texture2D)",
+    "phase": 1,
+    "folder": "Content/Game/Art/",
+    "path": "/Game/Game/Art/T_TestPlayer",
+    "doc": "assets/Art/T_TestPlayer.html",
+    "fixture": true,
+    "deps": [],
+    "users": [
+      "SPR_TestPlayer"
+    ],
+    "purpose": "Content asset; use temporary artwork you own, then replace it without changing gameplay."
+  },
+  {
+    "name": "SPR_TestPlayer",
+    "type": "Paper2D Sprite",
+    "parent": "N/A — Paper2D Sprite asset (PaperSprite)",
+    "phase": 1,
+    "folder": "Content/Game/Art/",
+    "path": "/Game/Game/Art/SPR_TestPlayer",
+    "doc": "assets/Art/SPR_TestPlayer.html",
+    "fixture": true,
+    "deps": [
+      "T_TestPlayer"
+    ],
+    "users": [
+      "FB_Player_FallTest",
+      "FB_Player_IdleTest",
+      "FB_Player_LandTest",
+      "FB_Player_MoveTest",
+      "FB_Player_RiseTest"
+    ],
+    "purpose": "Content asset; use temporary artwork you own, then replace it without changing gameplay."
+  },
+  {
+    "name": "FB_Player_IdleTest",
+    "type": "Paper2D Flipbook",
+    "parent": "N/A — Paper2D Flipbook asset (PaperFlipbook)",
+    "phase": 1,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/FB_Player_IdleTest",
+    "doc": "assets/Animation/FB_Player_IdleTest.html",
+    "fixture": true,
+    "deps": [
+      "SPR_TestPlayer"
+    ],
+    "users": [
+      "ASQ_Enemy_IdleTest",
+      "ASQ_Player_IdleTest"
+    ],
+    "purpose": "Content asset; use temporary artwork you own, then replace it without changing gameplay."
+  },
+  {
+    "name": "FB_Player_MoveTest",
+    "type": "Paper2D Flipbook",
+    "parent": "N/A — Paper2D Flipbook asset (PaperFlipbook)",
+    "phase": 1,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/FB_Player_MoveTest",
+    "doc": "assets/Animation/FB_Player_MoveTest.html",
+    "fixture": true,
+    "deps": [
+      "SPR_TestPlayer"
+    ],
+    "users": [
+      "ASQ_Enemy_MoveTest",
+      "ASQ_Player_MoveTest"
+    ],
+    "purpose": "Content asset; use temporary artwork you own, then replace it without changing gameplay."
+  },
+  {
+    "name": "FB_Player_RiseTest",
+    "type": "Paper2D Flipbook",
+    "parent": "N/A — Paper2D Flipbook asset (PaperFlipbook)",
+    "phase": 1,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/FB_Player_RiseTest",
+    "doc": "assets/Animation/FB_Player_RiseTest.html",
+    "fixture": true,
+    "deps": [
+      "SPR_TestPlayer"
+    ],
+    "users": [
+      "ASQ_Player_RiseTest"
+    ],
+    "purpose": "Content asset; use temporary artwork you own, then replace it without changing gameplay."
+  },
+  {
+    "name": "FB_Player_FallTest",
+    "type": "Paper2D Flipbook",
+    "parent": "N/A — Paper2D Flipbook asset (PaperFlipbook)",
+    "phase": 1,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/FB_Player_FallTest",
+    "doc": "assets/Animation/FB_Player_FallTest.html",
+    "fixture": true,
+    "deps": [
+      "SPR_TestPlayer"
+    ],
+    "users": [
+      "ASQ_Player_FallTest"
+    ],
+    "purpose": "Content asset; use temporary artwork you own, then replace it without changing gameplay."
+  },
+  {
+    "name": "FB_Player_LandTest",
+    "type": "Paper2D Flipbook",
+    "parent": "N/A — Paper2D Flipbook asset (PaperFlipbook)",
+    "phase": 1,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/FB_Player_LandTest",
+    "doc": "assets/Animation/FB_Player_LandTest.html",
+    "fixture": true,
+    "deps": [
+      "SPR_TestPlayer"
+    ],
+    "users": [
+      "ASQ_Enemy_AttackTest",
+      "ASQ_Enemy_DeathTest",
+      "ASQ_Enemy_HitTest",
+      "ASQ_Player_AttackTest",
+      "ASQ_Player_DeathTest",
+      "ASQ_Player_HitTest",
+      "ASQ_Player_LandTest"
+    ],
+    "purpose": "Content asset; use temporary artwork you own, then replace it without changing gameplay."
+  },
+  {
+    "name": "BP_Hazard",
+    "type": "Blueprint Class",
+    "parent": "Actor",
+    "phase": 2,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/BP_Hazard",
+    "doc": "assets/Combat/BP_Hazard.html",
+    "fixture": false,
+    "deps": [
+      "BPI_Damageable",
+      "S_DamageSpec"
+    ],
+    "users": [],
+    "purpose": "A spatial damaging volume is not a Character."
+  },
+  {
+    "name": "BP_TrainingDummy",
+    "type": "Blueprint Class",
+    "parent": "Actor",
+    "phase": 2,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/BP_TrainingDummy",
+    "doc": "assets/Tests/BP_TrainingDummy.html",
+    "fixture": true,
+    "deps": [
+      "BPC_Health",
+      "BPC_Stats",
+      "BPI_Damageable",
+      "E_CombatSide",
+      "S_DamageResult",
+      "S_DamageSpec",
+      "S_StatBlock"
+    ],
+    "users": [],
+    "purpose": "A development-only target tests damage without AI."
+  },
+  {
+    "name": "BPC_Stats",
+    "type": "Blueprint Actor Component",
+    "parent": "ActorComponent",
+    "phase": 2,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/BPC_Stats",
+    "doc": "assets/Combat/BPC_Stats.html",
+    "fixture": false,
+    "deps": [
+      "E_StatId",
+      "S_StatBlock",
+      "S_StatModifier"
+    ],
+    "users": [
+      "BPC_Combat",
+      "BPC_Health",
+      "BP_EnemyBase",
+      "BP_PlayerCharacter",
+      "BP_TrainingDummy",
+      "WBP_HUD"
+    ],
+    "purpose": "Reusable non-spatial calculation/query service on a living body."
+  },
+  {
+    "name": "BPC_Health",
+    "type": "Blueprint Actor Component",
+    "parent": "ActorComponent",
+    "phase": 2,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/BPC_Health",
+    "doc": "assets/Combat/BPC_Health.html",
+    "fixture": false,
+    "deps": [
+      "BPC_Stats",
+      "S_DamageResult",
+      "S_DamageSpec"
+    ],
+    "users": [
+      "ABP_EnemyTest",
+      "ABP_Player",
+      "BP_EnemyBase",
+      "BP_PlayerCharacter",
+      "BP_TrainingDummy",
+      "WBP_HUD"
+    ],
+    "purpose": "Reusable health and damage acceptance independent of enemy/player type."
+  },
+  {
+    "name": "BPC_Combat",
+    "type": "Blueprint Actor Component",
+    "parent": "ActorComponent",
+    "phase": 2,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/BPC_Combat",
+    "doc": "assets/Combat/BPC_Combat.html",
+    "fixture": false,
+    "deps": [
+      "BPC_ActionState",
+      "BPC_Stats",
+      "BPDA_AttackDefinition",
+      "BPI_Damageable",
+      "E_AttackPhase",
+      "S_DamageResult",
+      "S_DamageSpec"
+    ],
+    "users": [
+      "ABP_EnemyTest",
+      "ABP_Player",
+      "BP_EnemyBase",
+      "BP_PlayerCharacter"
+    ],
+    "purpose": "Reusable attack execution and hit accounting, not animation ownership."
+  },
+  {
+    "name": "BPI_Damageable",
+    "type": "Blueprint Interface",
+    "parent": "N/A — Blueprint Interface asset",
+    "phase": 2,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/BPI_Damageable",
+    "doc": "assets/Combat/BPI_Damageable.html",
+    "fixture": false,
+    "deps": [
+      "E_CombatSide",
+      "S_DamageResult",
+      "S_DamageSpec"
+    ],
+    "users": [
+      "BPC_Combat",
+      "BP_Ability_TestPulse",
+      "BP_EnemyBase",
+      "BP_Hazard",
+      "BP_PlayerCharacter",
+      "BP_ProjectileBase",
+      "BP_TrainingDummy"
+    ],
+    "purpose": "A common damage contract for unrelated Actors."
+  },
+  {
+    "name": "BFL_GameRules",
+    "type": "Blueprint Function Library",
+    "parent": "BlueprintFunctionLibrary",
+    "phase": 2,
+    "folder": "Content/Game/Core/",
+    "path": "/Game/Game/Core/BFL_GameRules",
+    "doc": "assets/Core/BFL_GameRules.html",
+    "fixture": false,
+    "deps": [
+      "S_WorldSave",
+      "S_Condition"
+    ],
+    "users": [],
+    "purpose": "Stateless shared math and validation with explicit inputs."
+  },
+  {
+    "name": "BPDA_CharacterDefinition",
+    "type": "Blueprint Class — data schema",
+    "parent": "PrimaryDataAsset",
+    "phase": 2,
+    "folder": "Content/Game/Player/",
+    "path": "/Game/Game/Player/BPDA_CharacterDefinition",
+    "doc": "assets/Player/BPDA_CharacterDefinition.html",
+    "fixture": false,
+    "deps": [
+      "S_StatBlock"
+    ],
+    "users": [
+      "BPDA_GameCatalog",
+      "BP_PlayerCharacter",
+      "DA_PlayerBaseStats"
+    ],
+    "purpose": "Describes the player’s authored base stats and base appearance, before persistent build choices."
+  },
+  {
+    "name": "BPDA_AttackDefinition",
+    "type": "Blueprint Class — data schema",
+    "parent": "PrimaryDataAsset",
+    "phase": 2,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/BPDA_AttackDefinition",
+    "doc": "assets/Combat/BPDA_AttackDefinition.html",
+    "fixture": false,
+    "deps": [
+      "BP_ProjectileBase"
+    ],
+    "users": [
+      "BPC_Combat",
+      "BPDA_EnemyDefinition",
+      "BPDA_GameCatalog",
+      "BP_Enemy_MeleeBasic",
+      "BP_Enemy_RangedBasic",
+      "DA_Attack_EnemyMeleeTest",
+      "DA_Attack_EnemyRangedTest",
+      "DA_Attack_PlayerAirTest",
+      "DA_Attack_PlayerGroundTest"
+    ],
+    "purpose": "Describes attack timing, hit geometry, scaling and allowed movement states; execution lives in Combat."
+  },
+  {
+    "name": "WBP_HUD",
+    "type": "Widget Blueprint",
+    "parent": "UserWidget",
+    "phase": 2,
+    "folder": "Content/Game/UI/",
+    "path": "/Game/Game/UI/WBP_HUD",
+    "doc": "assets/UI/WBP_HUD.html",
+    "fixture": false,
+    "deps": [
+      "BPC_Health",
+      "BPC_Stats",
+      "BPC_Interaction",
+      "BP_PlayerProfile"
+    ],
+    "users": [
+      "BP_PlayerController"
+    ],
+    "purpose": "Displays health, prompt, progression, and later ability panels."
+  },
+  {
+    "name": "E_StatId",
+    "type": "Blueprint Enumeration",
+    "parent": "N/A — Enumeration asset",
+    "phase": 2,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/E_StatId",
+    "doc": "assets/Combat/E_StatId.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BPC_Stats",
+      "S_StatModifier"
+    ],
+    "purpose": "Keys for the initial stat fields; expand only for committed stats."
+  },
+  {
+    "name": "E_AttackPhase",
+    "type": "Blueprint Enumeration",
+    "parent": "N/A — Enumeration asset",
+    "phase": 2,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/E_AttackPhase",
+    "doc": "assets/Combat/E_AttackPhase.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BPC_Combat"
+    ],
+    "purpose": "None, Windup, Active, Recovery."
+  },
+  {
+    "name": "E_CombatSide",
+    "type": "Blueprint Enumeration",
+    "parent": "N/A — Enumeration asset",
+    "phase": 2,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/E_CombatSide",
+    "doc": "assets/Combat/E_CombatSide.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BPI_Damageable",
+      "BP_EnemyBase",
+      "BP_TrainingDummy",
+      "S_DamageSpec"
+    ],
+    "purpose": "Player, Enemy, Neutral collision/damage filtering; not a faction system."
+  },
+  {
+    "name": "S_StatBlock",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 2,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/S_StatBlock",
+    "doc": "assets/Combat/S_StatBlock.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BPC_Stats",
+      "BPDA_CharacterDefinition",
+      "BPDA_EnemyDefinition",
+      "BP_PlayerProfile",
+      "BP_TrainingDummy",
+      "S_LevelProgressionRow"
+    ],
+    "purpose": "Initial MaxHealth, AttackPower, Defense values; example stat set, not final balance."
+  },
+  {
+    "name": "S_StatModifier",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 2,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/S_StatModifier",
+    "doc": "assets/Combat/S_StatModifier.html",
+    "fixture": false,
+    "deps": [
+      "E_StatId"
+    ],
+    "users": [
+      "BPC_Stats",
+      "BPC_StatusEffects",
+      "BPDA_EffectDefinition",
+      "BPDA_ItemDefinition",
+      "BPDA_SkillDefinition",
+      "BP_PlayerProfile"
+    ],
+    "purpose": "SourceId, StatId, flat addition, percentage addition."
+  },
+  {
+    "name": "S_DamageSpec",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 2,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/S_DamageSpec",
+    "doc": "assets/Combat/S_DamageSpec.html",
+    "fixture": false,
+    "deps": [
+      "E_CombatSide"
+    ],
+    "users": [
+      "BPC_Combat",
+      "BPC_Health",
+      "BPI_Damageable",
+      "BP_EnemyBase",
+      "BP_Hazard",
+      "BP_ProjectileBase",
+      "BP_TrainingDummy"
+    ],
+    "purpose": "Raw damage, source/instigator, combat side, attack token, knockback; runtime only."
+  },
+  {
+    "name": "S_DamageResult",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 2,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/S_DamageResult",
+    "doc": "assets/Combat/S_DamageResult.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BPC_Combat",
+      "BPC_Health",
+      "BPI_Damageable",
+      "BP_EnemyBase",
+      "BP_TrainingDummy"
+    ],
+    "purpose": "Accepted, applied amount, and killed flag."
+  },
+  {
+    "name": "IA_Attack",
+    "type": "Input Action",
+    "parent": "N/A — Input Action asset (InputAction)",
+    "phase": 2,
+    "folder": "Content/Game/Input/",
+    "path": "/Game/Game/Input/IA_Attack",
+    "doc": "assets/Input/IA_Attack.html",
+    "fixture": false,
+    "deps": [],
+    "users": [],
+    "purpose": "Boolean intent asset, not a custom Blueprint Class."
+  },
+  {
+    "name": "DA_PlayerBaseStats",
+    "type": "Data Asset instance",
+    "parent": "BPDA_CharacterDefinition → PrimaryDataAsset",
+    "phase": 2,
+    "folder": "Content/Game/Player/",
+    "path": "/Game/Game/Player/DA_PlayerBaseStats",
+    "doc": "assets/Player/DA_PlayerBaseStats.html",
+    "fixture": false,
+    "deps": [
+      "BPDA_CharacterDefinition",
+      "ABP_Player"
+    ],
+    "users": [
+      "DA_GameCatalog"
+    ],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "DA_Attack_PlayerGroundTest",
+    "type": "Data Asset instance",
+    "parent": "BPDA_AttackDefinition → PrimaryDataAsset",
+    "phase": 2,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Attack_PlayerGroundTest",
+    "doc": "assets/Tests/DA_Attack_PlayerGroundTest.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_AttackDefinition"
+    ],
+    "users": [],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "DA_Attack_PlayerAirTest",
+    "type": "Data Asset instance",
+    "parent": "BPDA_AttackDefinition → PrimaryDataAsset",
+    "phase": 2,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Attack_PlayerAirTest",
+    "doc": "assets/Tests/DA_Attack_PlayerAirTest.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_AttackDefinition"
+    ],
+    "users": [],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "BP_PlayerProfile",
+    "type": "Blueprint Class",
+    "parent": "Object",
+    "phase": 3,
+    "folder": "Content/Game/Player/",
+    "path": "/Game/Game/Player/BP_PlayerProfile",
+    "doc": "assets/Player/BP_PlayerProfile.html",
+    "fixture": false,
+    "deps": [
+      "S_StatBlock",
+      "S_StatModifier",
+      "BPDA_GameCatalog",
+      "E_EquipmentSlot",
+      "S_CharacterSave",
+      "S_InventoryEntry",
+      "BPDA_ItemDefinition",
+      "S_ItemGrant",
+      "E_SkillAvailability"
+    ],
+    "users": [
+      "BPC_Abilities",
+      "BP_GameInstance",
+      "BP_PlayerCharacter",
+      "BP_PlayerController",
+      "WBP_Equipment",
+      "WBP_HUD",
+      "WBP_Inventory",
+      "WBP_SkillNode",
+      "WBP_SkillTree"
+    ],
+    "purpose": "A non-spatial, explicitly constructed owner of persistent character values."
+  },
+  {
+    "name": "BP_WorldState",
+    "type": "Blueprint Class",
+    "parent": "Object",
+    "phase": 3,
+    "folder": "Content/Game/World/",
+    "path": "/Game/Game/World/BP_WorldState",
+    "doc": "assets/World/BP_WorldState.html",
+    "fixture": false,
+    "deps": [
+      "S_CheckpointState",
+      "S_WorldObjectRecord",
+      "S_WorldSave"
+    ],
+    "users": [
+      "BPC_PersistentState",
+      "BP_GameInstance",
+      "BP_GameMode",
+      "BP_PlayerController"
+    ],
+    "purpose": "A non-spatial owner of persistent world records, independent of loaded Actors."
+  },
+  {
+    "name": "BP_AreaRoot",
+    "type": "Blueprint Class",
+    "parent": "Actor",
+    "phase": 3,
+    "folder": "Content/Game/World/",
+    "path": "/Game/Game/World/BP_AreaRoot",
+    "doc": "assets/World/BP_AreaRoot.html",
+    "fixture": false,
+    "deps": [
+      "BPDA_AreaDefinition"
+    ],
+    "users": [
+      "BP_GameMode",
+      "BP_RoomVolume",
+      "L_Slice_A",
+      "L_Slice_B"
+    ],
+    "purpose": "One placed coordinator describes an area map."
+  },
+  {
+    "name": "BP_SpawnPoint",
+    "type": "Blueprint Class",
+    "parent": "PlayerStart",
+    "phase": 3,
+    "folder": "Content/Game/World/",
+    "path": "/Game/Game/World/BP_SpawnPoint",
+    "doc": "assets/World/BP_SpawnPoint.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BP_GameMode",
+      "L_Slice_A",
+      "L_Slice_B"
+    ],
+    "purpose": "A tagged player-start position fits controlled spawning."
+  },
+  {
+    "name": "BP_RoomVolume",
+    "type": "Blueprint Class",
+    "parent": "Actor",
+    "phase": 3,
+    "folder": "Content/Game/World/",
+    "path": "/Game/Game/World/BP_RoomVolume",
+    "doc": "assets/World/BP_RoomVolume.html",
+    "fixture": false,
+    "deps": [
+      "BP_AreaRoot"
+    ],
+    "users": [
+      "L_Slice_A",
+      "L_Slice_B"
+    ],
+    "purpose": "A placed spatial trigger identifies a room."
+  },
+  {
+    "name": "BP_AreaTransition",
+    "type": "Blueprint Class",
+    "parent": "Actor",
+    "phase": 3,
+    "folder": "Content/Game/World/",
+    "path": "/Game/Game/World/BP_AreaTransition",
+    "doc": "assets/World/BP_AreaTransition.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "L_Slice_A",
+      "L_Slice_B"
+    ],
+    "purpose": "A placed portal/trigger requests travel without owning save data."
+  },
+  {
+    "name": "BP_InteractableBase",
+    "type": "Blueprint Class",
+    "parent": "Actor",
+    "phase": 3,
+    "folder": "Content/Game/Interaction/",
+    "path": "/Game/Game/Interaction/BP_InteractableBase",
+    "doc": "assets/Interaction/BP_InteractableBase.html",
+    "fixture": false,
+    "deps": [
+      "BPI_Interactable"
+    ],
+    "users": [
+      "BP_Checkpoint",
+      "BP_Door",
+      "BP_PickupBase",
+      "BP_Switch"
+    ],
+    "purpose": "A small common base supplies interaction presentation, not every world behavior."
+  },
+  {
+    "name": "BP_Checkpoint",
+    "type": "Blueprint Class",
+    "parent": "BP_InteractableBase → Actor",
+    "phase": 3,
+    "folder": "Content/Game/World/",
+    "path": "/Game/Game/World/BP_Checkpoint",
+    "doc": "assets/World/BP_Checkpoint.html",
+    "fixture": false,
+    "deps": [
+      "BPC_PersistentState",
+      "BPI_PersistentActor",
+      "BP_InteractableBase",
+      "S_WorldObjectRecord"
+    ],
+    "users": [
+      "L_Slice_A"
+    ],
+    "purpose": "Specializes an interactable with a persistent recovery destination."
+  },
+  {
+    "name": "BP_Switch",
+    "type": "Blueprint Class",
+    "parent": "BP_InteractableBase → Actor",
+    "phase": 3,
+    "folder": "Content/Game/World/",
+    "path": "/Game/Game/World/BP_Switch",
+    "doc": "assets/World/BP_Switch.html",
+    "fixture": false,
+    "deps": [
+      "BPC_PersistentState",
+      "BPI_PersistentActor",
+      "BP_InteractableBase",
+      "S_WorldObjectRecord"
+    ],
+    "users": [
+      "L_Slice_A"
+    ],
+    "purpose": "An interactable changes its own state and named target records."
+  },
+  {
+    "name": "BP_Door",
+    "type": "Blueprint Class",
+    "parent": "BP_InteractableBase → Actor",
+    "phase": 3,
+    "folder": "Content/Game/World/",
+    "path": "/Game/Game/World/BP_Door",
+    "doc": "assets/World/BP_Door.html",
+    "fixture": false,
+    "deps": [
+      "BPC_PersistentState",
+      "BPI_PersistentActor",
+      "BP_InteractableBase",
+      "S_WorldObjectRecord"
+    ],
+    "users": [
+      "L_Slice_A",
+      "L_Slice_B"
+    ],
+    "purpose": "A passage combines collision, optional interaction, and persistent presentation."
+  },
+  {
+    "name": "BPC_Interaction",
+    "type": "Blueprint Actor Component",
+    "parent": "ActorComponent",
+    "phase": 3,
+    "folder": "Content/Game/Interaction/",
+    "path": "/Game/Game/Interaction/BPC_Interaction",
+    "doc": "assets/Interaction/BPC_Interaction.html",
+    "fixture": false,
+    "deps": [
+      "BPI_Interactable"
+    ],
+    "users": [
+      "BP_PlayerCharacter",
+      "WBP_HUD"
+    ],
+    "purpose": "Selects and revalidates interactables for the player."
+  },
+  {
+    "name": "BPC_PersistentState",
+    "type": "Blueprint Actor Component",
+    "parent": "ActorComponent",
+    "phase": 3,
+    "folder": "Content/Game/World/",
+    "path": "/Game/Game/World/BPC_PersistentState",
+    "doc": "assets/World/BPC_PersistentState.html",
+    "fixture": false,
+    "deps": [
+      "BPI_PersistentActor",
+      "BP_WorldState"
+    ],
+    "users": [
+      "BP_AbilityTestReceiver",
+      "BP_Checkpoint",
+      "BP_Door",
+      "BP_GameMode",
+      "BP_PickupBase",
+      "BP_Switch"
+    ],
+    "purpose": "Adapts any suitable Actor to the shared world record store."
+  },
+  {
+    "name": "BPI_Interactable",
+    "type": "Blueprint Interface",
+    "parent": "N/A — Blueprint Interface asset",
+    "phase": 3,
+    "folder": "Content/Game/Interaction/",
+    "path": "/Game/Game/Interaction/BPI_Interactable",
+    "doc": "assets/Interaction/BPI_Interactable.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BPC_Interaction",
+      "BP_InteractableBase",
+      "BP_NPCBase"
+    ],
+    "purpose": "A common interaction contract for NPCs and world objects."
+  },
+  {
+    "name": "BPI_PersistentActor",
+    "type": "Blueprint Interface",
+    "parent": "N/A — Blueprint Interface asset",
+    "phase": 3,
+    "folder": "Content/Game/World/",
+    "path": "/Game/Game/World/BPI_PersistentActor",
+    "doc": "assets/World/BPI_PersistentActor.html",
+    "fixture": false,
+    "deps": [
+      "S_WorldObjectRecord"
+    ],
+    "users": [
+      "BPC_PersistentState",
+      "BP_AbilityTestReceiver",
+      "BP_Checkpoint",
+      "BP_Door",
+      "BP_GameMode",
+      "BP_PickupBase",
+      "BP_Switch"
+    ],
+    "purpose": "Applies a stored record to an Actor without requiring a common Actor base."
+  },
+  {
+    "name": "BPDA_GameCatalog",
+    "type": "Blueprint Class — data schema",
+    "parent": "PrimaryDataAsset",
+    "phase": 3,
+    "folder": "Content/Game/Core/",
+    "path": "/Game/Game/Core/BPDA_GameCatalog",
+    "doc": "assets/Core/BPDA_GameCatalog.html",
+    "fixture": false,
+    "deps": [
+      "BPDA_AttackDefinition",
+      "BPDA_CharacterDefinition",
+      "BPDA_AreaDefinition",
+      "BPDA_ItemDefinition",
+      "BPDA_EnemyDefinition",
+      "BPDA_SkillDefinition",
+      "BPDA_AbilityDefinition",
+      "BPDA_EffectDefinition",
+      "BPDA_DialogueDefinition"
+    ],
+    "users": [
+      "BPC_Abilities",
+      "BPC_StatusEffects",
+      "BP_GameInstance",
+      "BP_PlayerProfile",
+      "DA_GameCatalog"
+    ],
+    "purpose": "Provides stable-ID lookups to authored definitions and the progression table without guessing paths."
+  },
+  {
+    "name": "BPDA_AreaDefinition",
+    "type": "Blueprint Class — data schema",
+    "parent": "PrimaryDataAsset",
+    "phase": 3,
+    "folder": "Content/Game/World/",
+    "path": "/Game/Game/World/BPDA_AreaDefinition",
+    "doc": "assets/World/BPDA_AreaDefinition.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BPDA_GameCatalog",
+      "BP_AreaRoot",
+      "BP_GameInstance",
+      "DA_Area_SliceA",
+      "DA_Area_SliceB"
+    ],
+    "purpose": "Connects an area identity and biome grouping to an actual map reference and safe default spawn."
+  },
+  {
+    "name": "E_EquipmentSlot",
+    "type": "Blueprint Enumeration",
+    "parent": "N/A — Enumeration asset",
+    "phase": 3,
+    "folder": "Content/Game/Equipment/",
+    "path": "/Game/Game/Equipment/E_EquipmentSlot",
+    "doc": "assets/Equipment/E_EquipmentSlot.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BPC_EquipmentVisuals",
+      "BPDA_ItemDefinition",
+      "BP_PlayerProfile",
+      "S_CharacterSave"
+    ],
+    "purpose": "Head and Body for the first equipment implementation; schema only at phase 3."
+  },
+  {
+    "name": "E_EntryReason",
+    "type": "Blueprint Enumeration",
+    "parent": "N/A — Enumeration asset",
+    "phase": 3,
+    "folder": "Content/Game/World/",
+    "path": "/Game/Game/World/E_EntryReason",
+    "doc": "assets/World/E_EntryReason.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BP_GameMode",
+      "BP_PlayerCharacter",
+      "S_TransitionRequest"
+    ],
+    "purpose": "NewGame, NormalTravel, DeathRecovery, DiskLoad."
+  },
+  {
+    "name": "S_InventoryEntry",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 3,
+    "folder": "Content/Game/Items/",
+    "path": "/Game/Game/Items/S_InventoryEntry",
+    "doc": "assets/Items/S_InventoryEntry.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BP_PlayerProfile",
+      "S_CharacterSave"
+    ],
+    "purpose": "EntryId (Guid), ItemId (Name), Quantity (Integer); schema before inventory logic."
+  },
+  {
+    "name": "S_CharacterSave",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 3,
+    "folder": "Content/Game/Save/",
+    "path": "/Game/Game/Save/S_CharacterSave",
+    "doc": "assets/Save/S_CharacterSave.html",
+    "fixture": false,
+    "deps": [
+      "E_EquipmentSlot",
+      "S_InventoryEntry"
+    ],
+    "users": [
+      "BP_PlayerProfile",
+      "BP_SaveGame"
+    ],
+    "purpose": "TotalXP, cached level, unspent points, purchased IDs, inventory, equipped EntryIds."
+  },
+  {
+    "name": "S_WorldObjectRecord",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 3,
+    "folder": "Content/Game/World/",
+    "path": "/Game/Game/World/S_WorldObjectRecord",
+    "doc": "assets/World/S_WorldObjectRecord.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BPI_PersistentActor",
+      "BP_AbilityTestReceiver",
+      "BP_Checkpoint",
+      "BP_Door",
+      "BP_EnemyBase",
+      "BP_GameInstance",
+      "BP_PickupBase",
+      "BP_Switch",
+      "BP_WorldState",
+      "S_WorldSave"
+    ],
+    "purpose": "StateTag plus a small set of named flags for one persistent object."
+  },
+  {
+    "name": "S_CheckpointState",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 3,
+    "folder": "Content/Game/World/",
+    "path": "/Game/Game/World/S_CheckpointState",
+    "doc": "assets/World/S_CheckpointState.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BP_GameInstance",
+      "BP_WorldState",
+      "S_WorldSave"
+    ],
+    "purpose": "CheckpointId, AreaId, SpawnId."
+  },
+  {
+    "name": "S_WorldSave",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 3,
+    "folder": "Content/Game/Save/",
+    "path": "/Game/Game/Save/S_WorldSave",
+    "doc": "assets/Save/S_WorldSave.html",
+    "fixture": false,
+    "deps": [
+      "S_CheckpointState",
+      "S_WorldObjectRecord"
+    ],
+    "users": [
+      "BFL_GameRules",
+      "BP_SaveGame",
+      "BP_WorldState"
+    ],
+    "purpose": "Object records, discovered room/area sets, global world flags, active checkpoint."
+  },
+  {
+    "name": "S_RecoveryData",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 3,
+    "folder": "Content/Game/Save/",
+    "path": "/Game/Game/Save/S_RecoveryData",
+    "doc": "assets/Save/S_RecoveryData.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BP_GameInstance",
+      "BP_SaveGame"
+    ],
+    "purpose": "AreaId and SpawnId for a safe recovery destination."
+  },
+  {
+    "name": "S_TransitionRequest",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 3,
+    "folder": "Content/Game/World/",
+    "path": "/Game/Game/World/S_TransitionRequest",
+    "doc": "assets/World/S_TransitionRequest.html",
+    "fixture": false,
+    "deps": [
+      "E_EntryReason"
+    ],
+    "users": [
+      "BP_GameInstance"
+    ],
+    "purpose": "Destination AreaId/SpawnId and E_EntryReason."
+  },
+  {
+    "name": "S_RuntimeTravelState",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 3,
+    "folder": "Content/Game/World/",
+    "path": "/Game/Game/World/S_RuntimeTravelState",
+    "doc": "assets/World/S_RuntimeTravelState.html",
+    "fixture": false,
+    "deps": [
+      "S_AbilityRuntimeState",
+      "S_ActiveEffect"
+    ],
+    "users": [
+      "BP_GameInstance",
+      "BP_PlayerCharacter"
+    ],
+    "purpose": "Health handoff initially; add timed effects and recharge snapshots in phase 9."
+  },
+  {
+    "name": "IA_Interact",
+    "type": "Input Action",
+    "parent": "N/A — Input Action asset (InputAction)",
+    "phase": 3,
+    "folder": "Content/Game/Input/",
+    "path": "/Game/Game/Input/IA_Interact",
+    "doc": "assets/Input/IA_Interact.html",
+    "fixture": false,
+    "deps": [],
+    "users": [],
+    "purpose": "Boolean intent asset, not a custom Blueprint Class."
+  },
+  {
+    "name": "L_Slice_A",
+    "type": "Level / Map",
+    "parent": "N/A — Level asset (World)",
+    "phase": 3,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/L_Slice_A",
+    "doc": "assets/Tests/L_Slice_A.html",
+    "fixture": true,
+    "deps": [
+      "BP_AreaRoot",
+      "BP_AreaTransition",
+      "BP_Checkpoint",
+      "BP_Door",
+      "BP_RoomVolume",
+      "BP_SpawnPoint",
+      "BP_Switch",
+      "DA_Area_SliceA"
+    ],
+    "users": [
+      "DA_Area_SliceA"
+    ],
+    "purpose": "A map asset, not a Blueprint subclass."
+  },
+  {
+    "name": "L_Slice_B",
+    "type": "Level / Map",
+    "parent": "N/A — Level asset (World)",
+    "phase": 3,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/L_Slice_B",
+    "doc": "assets/Tests/L_Slice_B.html",
+    "fixture": true,
+    "deps": [
+      "BP_AreaRoot",
+      "BP_AreaTransition",
+      "BP_Door",
+      "BP_RoomVolume",
+      "BP_SpawnPoint",
+      "DA_Area_SliceB"
+    ],
+    "users": [
+      "DA_Area_SliceB"
+    ],
+    "purpose": "A map asset, not a Blueprint subclass."
+  },
+  {
+    "name": "DA_GameCatalog",
+    "type": "Data Asset instance",
+    "parent": "BPDA_GameCatalog → PrimaryDataAsset",
+    "phase": 3,
+    "folder": "Content/Game/Core/",
+    "path": "/Game/Game/Core/DA_GameCatalog",
+    "doc": "assets/Core/DA_GameCatalog.html",
+    "fixture": false,
+    "deps": [
+      "DA_PlayerBaseStats",
+      "BPDA_GameCatalog",
+      "DA_Area_SliceA",
+      "DA_Area_SliceB"
+    ],
+    "users": [
+      "L_SystemTests"
+    ],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "DA_Area_SliceA",
+    "type": "Data Asset instance",
+    "parent": "BPDA_AreaDefinition → PrimaryDataAsset",
+    "phase": 3,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Area_SliceA",
+    "doc": "assets/Tests/DA_Area_SliceA.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_AreaDefinition",
+      "L_Slice_A"
+    ],
+    "users": [
+      "DA_GameCatalog",
+      "L_Slice_A"
+    ],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "DA_Area_SliceB",
+    "type": "Data Asset instance",
+    "parent": "BPDA_AreaDefinition → PrimaryDataAsset",
+    "phase": 3,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Area_SliceB",
+    "doc": "assets/Tests/DA_Area_SliceB.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_AreaDefinition",
+      "L_Slice_B"
+    ],
+    "users": [
+      "DA_GameCatalog",
+      "L_Slice_B"
+    ],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "BP_SaveGame",
+    "type": "Blueprint Class",
+    "parent": "SaveGame",
+    "phase": 4,
+    "folder": "Content/Game/Save/",
+    "path": "/Game/Game/Save/BP_SaveGame",
+    "doc": "assets/Save/BP_SaveGame.html",
+    "fixture": false,
+    "deps": [
+      "S_CharacterSave",
+      "S_RecoveryData",
+      "S_WorldSave",
+      "S_SaveHeader"
+    ],
+    "users": [
+      "BP_GameInstance"
+    ],
+    "purpose": "The serializable snapshot accepted by Unreal save/load nodes."
+  },
+  {
+    "name": "BP_PickupBase",
+    "type": "Blueprint Class",
+    "parent": "BP_InteractableBase → Actor",
+    "phase": 4,
+    "folder": "Content/Game/Items/",
+    "path": "/Game/Game/Items/BP_PickupBase",
+    "doc": "assets/Items/BP_PickupBase.html",
+    "fixture": false,
+    "deps": [
+      "BPC_PersistentState",
+      "BPI_PersistentActor",
+      "BP_InteractableBase",
+      "S_WorldObjectRecord"
+    ],
+    "users": [],
+    "purpose": "A data-driven world pickup presents an item grant."
+  },
+  {
+    "name": "BPDA_ItemDefinition",
+    "type": "Blueprint Class — data schema",
+    "parent": "PrimaryDataAsset",
+    "phase": 4,
+    "folder": "Content/Game/Items/",
+    "path": "/Game/Game/Items/BPDA_ItemDefinition",
+    "doc": "assets/Items/BPDA_ItemDefinition.html",
+    "fixture": false,
+    "deps": [
+      "S_StatModifier",
+      "E_EquipmentSlot",
+      "E_ItemKind",
+      "BPDA_EquipmentAppearance"
+    ],
+    "users": [
+      "BPDA_GameCatalog",
+      "BP_GameInstance",
+      "BP_PlayerProfile",
+      "DA_Item_TestBuffConsumable",
+      "DA_Item_TestConsumable",
+      "DA_Item_TestHelmet",
+      "DA_Item_TestReward"
+    ],
+    "purpose": "Describes item kind, stacking, equipment contributions/appearance and supported consumable effects."
+  },
+  {
+    "name": "WBP_SaveStatus",
+    "type": "Widget Blueprint",
+    "parent": "UserWidget",
+    "phase": 4,
+    "folder": "Content/Game/UI/",
+    "path": "/Game/Game/UI/WBP_SaveStatus",
+    "doc": "assets/UI/WBP_SaveStatus.html",
+    "fixture": false,
+    "deps": [
+      "BP_GameInstance"
+    ],
+    "users": [
+      "BP_PlayerController"
+    ],
+    "purpose": "Displays saving, success, and failure state."
+  },
+  {
+    "name": "E_ItemKind",
+    "type": "Blueprint Enumeration",
+    "parent": "N/A — Enumeration asset",
+    "phase": 4,
+    "folder": "Content/Game/Items/",
+    "path": "/Game/Game/Items/E_ItemKind",
+    "doc": "assets/Items/E_ItemKind.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BPDA_ItemDefinition"
+    ],
+    "purpose": "General, Equipment, Consumable."
+  },
+  {
+    "name": "S_SaveHeader",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 4,
+    "folder": "Content/Game/Save/",
+    "path": "/Game/Game/Save/S_SaveHeader",
+    "doc": "assets/Save/S_SaveHeader.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BP_SaveGame"
+    ],
+    "purpose": "SchemaVersion, ContentVersion, SaveSequence, saved timestamp."
+  },
+  {
+    "name": "S_ItemGrant",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 4,
+    "folder": "Content/Game/Items/",
+    "path": "/Game/Game/Items/S_ItemGrant",
+    "doc": "assets/Items/S_ItemGrant.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BP_PlayerProfile",
+      "S_Reward"
+    ],
+    "purpose": "ItemId and quantity for a reward definition."
+  },
+  {
+    "name": "S_Reward",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 4,
+    "folder": "Content/Game/Progression/",
+    "path": "/Game/Game/Progression/S_Reward",
+    "doc": "assets/Progression/S_Reward.html",
+    "fixture": false,
+    "deps": [
+      "S_ItemGrant"
+    ],
+    "users": [
+      "BPDA_EnemyDefinition",
+      "BP_GameInstance"
+    ],
+    "purpose": "XP plus an array of S_ItemGrant values."
+  },
+  {
+    "name": "DA_Item_TestReward",
+    "type": "Data Asset instance",
+    "parent": "BPDA_ItemDefinition → PrimaryDataAsset",
+    "phase": 4,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Item_TestReward",
+    "doc": "assets/Tests/DA_Item_TestReward.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_ItemDefinition"
+    ],
+    "users": [],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "BP_EnemyBase",
+    "type": "Blueprint Class",
+    "parent": "PaperZDCharacter → PaperCharacter → Character",
+    "phase": 5,
+    "folder": "Content/Game/Enemies/",
+    "path": "/Game/Game/Enemies/BP_EnemyBase",
+    "doc": "assets/Enemies/BP_EnemyBase.html",
+    "fixture": false,
+    "deps": [
+      "BPC_ActionState",
+      "BPC_Combat",
+      "BPC_Health",
+      "BPC_Stats",
+      "BPI_Damageable",
+      "E_CombatSide",
+      "S_DamageResult",
+      "S_DamageSpec",
+      "S_WorldObjectRecord",
+      "BPDA_EnemyDefinition",
+      "BP_EnemyAIController",
+      "ABP_EnemyTest"
+    ],
+    "users": [
+      "BP_EnemyAIController",
+      "BP_Enemy_MeleeBasic",
+      "BP_Enemy_RangedBasic"
+    ],
+    "purpose": "A movable sprite-based enemy needs native Character Movement."
+  },
+  {
+    "name": "BP_Enemy_MeleeBasic",
+    "type": "Blueprint Class",
+    "parent": "BP_EnemyBase → PaperZDCharacter → PaperCharacter → Character",
+    "phase": 5,
+    "folder": "Content/Game/Enemies/",
+    "path": "/Game/Game/Enemies/BP_Enemy_MeleeBasic",
+    "doc": "assets/Enemies/BP_Enemy_MeleeBasic.html",
+    "fixture": false,
+    "deps": [
+      "BPDA_AttackDefinition",
+      "BP_EnemyBase"
+    ],
+    "users": [],
+    "purpose": "A shallow specialization selects melee behavior/data."
+  },
+  {
+    "name": "BP_Enemy_RangedBasic",
+    "type": "Blueprint Class",
+    "parent": "BP_EnemyBase → PaperZDCharacter → PaperCharacter → Character",
+    "phase": 5,
+    "folder": "Content/Game/Enemies/",
+    "path": "/Game/Game/Enemies/BP_Enemy_RangedBasic",
+    "doc": "assets/Enemies/BP_Enemy_RangedBasic.html",
+    "fixture": false,
+    "deps": [
+      "BPDA_AttackDefinition",
+      "BP_EnemyBase"
+    ],
+    "users": [],
+    "purpose": "A shallow specialization selects ranged behavior/data."
+  },
+  {
+    "name": "BP_EnemyAIController",
+    "type": "Blueprint Class",
+    "parent": "AIController",
+    "phase": 5,
+    "folder": "Content/Game/Enemies/",
+    "path": "/Game/Game/Enemies/BP_EnemyAIController",
+    "doc": "assets/Enemies/BP_EnemyAIController.html",
+    "fixture": false,
+    "deps": [
+      "BP_EnemyBase",
+      "E_EnemyBrainState"
+    ],
+    "users": [
+      "BP_EnemyBase"
+    ],
+    "purpose": "Separates enemy decisions from the controlled body."
+  },
+  {
+    "name": "BP_ProjectileBase",
+    "type": "Blueprint Class",
+    "parent": "Actor",
+    "phase": 5,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/BP_ProjectileBase",
+    "doc": "assets/Combat/BP_ProjectileBase.html",
+    "fixture": false,
+    "deps": [
+      "BPI_Damageable",
+      "S_DamageSpec"
+    ],
+    "users": [
+      "BPDA_AttackDefinition",
+      "DA_Attack_EnemyRangedTest"
+    ],
+    "purpose": "A collision-bearing, short-lived projectile uses world movement."
+  },
+  {
+    "name": "BPDA_EnemyDefinition",
+    "type": "Blueprint Class — data schema",
+    "parent": "PrimaryDataAsset",
+    "phase": 5,
+    "folder": "Content/Game/Enemies/",
+    "path": "/Game/Game/Enemies/BPDA_EnemyDefinition",
+    "doc": "assets/Enemies/BPDA_EnemyDefinition.html",
+    "fixture": false,
+    "deps": [
+      "BPDA_AttackDefinition",
+      "S_StatBlock",
+      "S_Reward"
+    ],
+    "users": [
+      "BPDA_GameCatalog",
+      "BP_EnemyBase",
+      "DA_Enemy_MeleeTest",
+      "DA_Enemy_RangedTest"
+    ],
+    "purpose": "Describes enemy base stats, attacks, simple AI tuning and guaranteed reward values."
+  },
+  {
+    "name": "E_EnemyBrainState",
+    "type": "Blueprint Enumeration",
+    "parent": "N/A — Enumeration asset",
+    "phase": 5,
+    "folder": "Content/Game/Enemies/",
+    "path": "/Game/Game/Enemies/E_EnemyBrainState",
+    "doc": "assets/Enemies/E_EnemyBrainState.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BP_EnemyAIController"
+    ],
+    "purpose": "Idle, Patrol, Approach, WaitingForAttack, Dead."
+  },
+  {
+    "name": "S_LevelProgressionRow",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 5,
+    "folder": "Content/Game/Progression/",
+    "path": "/Game/Game/Progression/S_LevelProgressionRow",
+    "doc": "assets/Progression/S_LevelProgressionRow.html",
+    "fixture": false,
+    "deps": [
+      "S_StatBlock"
+    ],
+    "users": [
+      "DT_LevelProgression"
+    ],
+    "purpose": "Level, total XP threshold, cumulative stat growth, points awarded on entry."
+  },
+  {
+    "name": "DT_LevelProgression",
+    "type": "Data Table",
+    "parent": "N/A — Data Table; row type S_LevelProgressionRow",
+    "phase": 5,
+    "folder": "Content/Game/Progression/",
+    "path": "/Game/Game/Progression/DT_LevelProgression",
+    "doc": "assets/Progression/DT_LevelProgression.html",
+    "fixture": false,
+    "deps": [
+      "S_LevelProgressionRow"
+    ],
+    "users": [],
+    "purpose": "A compact ordered progression curve is easier to audit as rows."
+  },
+  {
+    "name": "DA_Enemy_MeleeTest",
+    "type": "Data Asset instance",
+    "parent": "BPDA_EnemyDefinition → PrimaryDataAsset",
+    "phase": 5,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Enemy_MeleeTest",
+    "doc": "assets/Tests/DA_Enemy_MeleeTest.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_EnemyDefinition",
+      "DA_Attack_EnemyMeleeTest",
+      "ABP_EnemyTest"
+    ],
+    "users": [],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "DA_Enemy_RangedTest",
+    "type": "Data Asset instance",
+    "parent": "BPDA_EnemyDefinition → PrimaryDataAsset",
+    "phase": 5,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Enemy_RangedTest",
+    "doc": "assets/Tests/DA_Enemy_RangedTest.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_EnemyDefinition",
+      "DA_Attack_EnemyRangedTest",
+      "ABP_EnemyTest"
+    ],
+    "users": [],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "DA_Attack_EnemyMeleeTest",
+    "type": "Data Asset instance",
+    "parent": "BPDA_AttackDefinition → PrimaryDataAsset",
+    "phase": 5,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Attack_EnemyMeleeTest",
+    "doc": "assets/Tests/DA_Attack_EnemyMeleeTest.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_AttackDefinition"
+    ],
+    "users": [
+      "DA_Enemy_MeleeTest"
+    ],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "DA_Attack_EnemyRangedTest",
+    "type": "Data Asset instance",
+    "parent": "BPDA_AttackDefinition → PrimaryDataAsset",
+    "phase": 5,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Attack_EnemyRangedTest",
+    "doc": "assets/Tests/DA_Attack_EnemyRangedTest.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_AttackDefinition",
+      "BP_ProjectileBase"
+    ],
+    "users": [
+      "DA_Enemy_RangedTest"
+    ],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "WBP_Inventory",
+    "type": "Widget Blueprint",
+    "parent": "UserWidget",
+    "phase": 6,
+    "folder": "Content/Game/UI/",
+    "path": "/Game/Game/UI/WBP_Inventory",
+    "doc": "assets/UI/WBP_Inventory.html",
+    "fixture": false,
+    "deps": [
+      "BP_PlayerProfile"
+    ],
+    "users": [],
+    "purpose": "Displays owned entries and requests use/equip operations."
+  },
+  {
+    "name": "IA_Inventory",
+    "type": "Input Action",
+    "parent": "N/A — Input Action asset (InputAction)",
+    "phase": 6,
+    "folder": "Content/Game/Input/",
+    "path": "/Game/Game/Input/IA_Inventory",
+    "doc": "assets/Input/IA_Inventory.html",
+    "fixture": false,
+    "deps": [],
+    "users": [],
+    "purpose": "Boolean intent asset, not a custom Blueprint Class."
+  },
+  {
+    "name": "DA_Item_TestConsumable",
+    "type": "Data Asset instance",
+    "parent": "BPDA_ItemDefinition → PrimaryDataAsset",
+    "phase": 6,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Item_TestConsumable",
+    "doc": "assets/Tests/DA_Item_TestConsumable.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_ItemDefinition"
+    ],
+    "users": [],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "WBP_Equipment",
+    "type": "Widget Blueprint",
+    "parent": "UserWidget",
+    "phase": 7,
+    "folder": "Content/Game/UI/",
+    "path": "/Game/Game/UI/WBP_Equipment",
+    "doc": "assets/UI/WBP_Equipment.html",
+    "fixture": false,
+    "deps": [
+      "BP_PlayerProfile"
+    ],
+    "users": [],
+    "purpose": "Displays equipment slots and requests slot changes."
+  },
+  {
+    "name": "DA_Item_TestHelmet",
+    "type": "Data Asset instance",
+    "parent": "BPDA_ItemDefinition → PrimaryDataAsset",
+    "phase": 7,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Item_TestHelmet",
+    "doc": "assets/Tests/DA_Item_TestHelmet.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_ItemDefinition",
+      "DA_Equipment_TestHelmet"
+    ],
+    "users": [],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "T_TestHelmet",
+    "type": "Imported Texture",
+    "parent": "N/A — Imported Texture asset (Texture2D)",
+    "phase": 7,
+    "folder": "Content/Game/Art/",
+    "path": "/Game/Game/Art/T_TestHelmet",
+    "doc": "assets/Art/T_TestHelmet.html",
+    "fixture": true,
+    "deps": [],
+    "users": [
+      "SPR_TestHelmet"
+    ],
+    "purpose": "Content asset; use temporary artwork you own, then replace it without changing gameplay."
+  },
+  {
+    "name": "SPR_TestHelmet",
+    "type": "Paper2D Sprite",
+    "parent": "N/A — Paper2D Sprite asset (PaperSprite)",
+    "phase": 7,
+    "folder": "Content/Game/Art/",
+    "path": "/Game/Game/Art/SPR_TestHelmet",
+    "doc": "assets/Art/SPR_TestHelmet.html",
+    "fixture": true,
+    "deps": [
+      "T_TestHelmet"
+    ],
+    "users": [
+      "FB_Helmet_Test"
+    ],
+    "purpose": "Content asset; use temporary artwork you own, then replace it without changing gameplay."
+  },
+  {
+    "name": "FB_Helmet_Test",
+    "type": "Paper2D Flipbook",
+    "parent": "N/A — Paper2D Flipbook asset (PaperFlipbook)",
+    "phase": 7,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/FB_Helmet_Test",
+    "doc": "assets/Animation/FB_Helmet_Test.html",
+    "fixture": true,
+    "deps": [
+      "SPR_TestHelmet"
+    ],
+    "users": [
+      "DA_Equipment_TestHelmet"
+    ],
+    "purpose": "Content asset; use temporary artwork you own, then replace it without changing gameplay."
+  },
+  {
+    "name": "BPDA_SkillDefinition",
+    "type": "Blueprint Class — data schema",
+    "parent": "PrimaryDataAsset",
+    "phase": 8,
+    "folder": "Content/Game/Skills/",
+    "path": "/Game/Game/Skills/BPDA_SkillDefinition",
+    "doc": "assets/Skills/BPDA_SkillDefinition.html",
+    "fixture": false,
+    "deps": [
+      "S_StatModifier"
+    ],
+    "users": [
+      "BPDA_GameCatalog",
+      "DA_Skill_TestActive",
+      "DA_Skill_TestBranchA",
+      "DA_Skill_TestBranchB",
+      "DA_Skill_TestRoot",
+      "WBP_SkillNode",
+      "WBP_SkillTree"
+    ],
+    "purpose": "Describes skill cost, prerequisites, exclusions, passives and grants; Profile owns purchases."
+  },
+  {
+    "name": "WBP_SkillTree",
+    "type": "Widget Blueprint",
+    "parent": "UserWidget",
+    "phase": 8,
+    "folder": "Content/Game/UI/",
+    "path": "/Game/Game/UI/WBP_SkillTree",
+    "doc": "assets/UI/WBP_SkillTree.html",
+    "fixture": false,
+    "deps": [
+      "BP_PlayerProfile",
+      "BPDA_SkillDefinition",
+      "WBP_SkillNode"
+    ],
+    "users": [],
+    "purpose": "Displays the tree and queries purchase availability."
+  },
+  {
+    "name": "WBP_SkillNode",
+    "type": "Widget Blueprint",
+    "parent": "UserWidget",
+    "phase": 8,
+    "folder": "Content/Game/UI/",
+    "path": "/Game/Game/UI/WBP_SkillNode",
+    "doc": "assets/UI/WBP_SkillNode.html",
+    "fixture": false,
+    "deps": [
+      "BP_PlayerProfile",
+      "BPDA_SkillDefinition",
+      "E_SkillAvailability"
+    ],
+    "users": [
+      "WBP_SkillTree"
+    ],
+    "purpose": "A reusable visual node; it owns no skill rules."
+  },
+  {
+    "name": "E_SkillAvailability",
+    "type": "Blueprint Enumeration",
+    "parent": "N/A — Enumeration asset",
+    "phase": 8,
+    "folder": "Content/Game/Skills/",
+    "path": "/Game/Game/Skills/E_SkillAvailability",
+    "doc": "assets/Skills/E_SkillAvailability.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BP_PlayerProfile",
+      "WBP_SkillNode"
+    ],
+    "purpose": "Locked, Available, Purchased."
+  },
+  {
+    "name": "IA_Skills",
+    "type": "Input Action",
+    "parent": "N/A — Input Action asset (InputAction)",
+    "phase": 8,
+    "folder": "Content/Game/Input/",
+    "path": "/Game/Game/Input/IA_Skills",
+    "doc": "assets/Input/IA_Skills.html",
+    "fixture": false,
+    "deps": [],
+    "users": [],
+    "purpose": "Boolean intent asset, not a custom Blueprint Class."
+  },
+  {
+    "name": "DA_Skill_TestRoot",
+    "type": "Data Asset instance",
+    "parent": "BPDA_SkillDefinition → PrimaryDataAsset",
+    "phase": 8,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Skill_TestRoot",
+    "doc": "assets/Tests/DA_Skill_TestRoot.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_SkillDefinition"
+    ],
+    "users": [],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "DA_Skill_TestBranchA",
+    "type": "Data Asset instance",
+    "parent": "BPDA_SkillDefinition → PrimaryDataAsset",
+    "phase": 8,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Skill_TestBranchA",
+    "doc": "assets/Tests/DA_Skill_TestBranchA.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_SkillDefinition"
+    ],
+    "users": [],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "DA_Skill_TestBranchB",
+    "type": "Data Asset instance",
+    "parent": "BPDA_SkillDefinition → PrimaryDataAsset",
+    "phase": 8,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Skill_TestBranchB",
+    "doc": "assets/Tests/DA_Skill_TestBranchB.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_SkillDefinition"
+    ],
+    "users": [],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "BP_AbilityBase",
+    "type": "Blueprint Class",
+    "parent": "Actor",
+    "phase": 9,
+    "folder": "Content/Game/Abilities/",
+    "path": "/Game/Game/Abilities/BP_AbilityBase",
+    "doc": "assets/Abilities/BP_AbilityBase.html",
+    "fixture": false,
+    "deps": [
+      "BPC_Abilities",
+      "S_AbilityContext"
+    ],
+    "users": [
+      "BPC_Abilities",
+      "BPDA_AbilityDefinition",
+      "BP_Ability_TestPulse"
+    ],
+    "purpose": "A short-lived executor can use world traces and timers in Blueprints."
+  },
+  {
+    "name": "BP_Ability_TestPulse",
+    "type": "Blueprint Class",
+    "parent": "BP_AbilityBase → Actor",
+    "phase": 9,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/BP_Ability_TestPulse",
+    "doc": "assets/Tests/BP_Ability_TestPulse.html",
+    "fixture": true,
+    "deps": [
+      "BPI_Damageable",
+      "BPI_AbilityTarget",
+      "BP_AbilityBase",
+      "S_AbilityContext"
+    ],
+    "users": [
+      "DA_Ability_TestPulse"
+    ],
+    "purpose": "A development-only child exercises combat and world targeting."
+  },
+  {
+    "name": "BP_AbilityTestReceiver",
+    "type": "Blueprint Class",
+    "parent": "Actor",
+    "phase": 9,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/BP_AbilityTestReceiver",
+    "doc": "assets/Tests/BP_AbilityTestReceiver.html",
+    "fixture": true,
+    "deps": [
+      "BPC_PersistentState",
+      "BPI_PersistentActor",
+      "S_WorldObjectRecord",
+      "BPI_AbilityTarget",
+      "S_AbilityContext"
+    ],
+    "users": [],
+    "purpose": "A development-only target proves environmental ability messages."
+  },
+  {
+    "name": "BPC_Abilities",
+    "type": "Blueprint Actor Component",
+    "parent": "ActorComponent",
+    "phase": 9,
+    "folder": "Content/Game/Abilities/",
+    "path": "/Game/Game/Abilities/BPC_Abilities",
+    "doc": "assets/Abilities/BPC_Abilities.html",
+    "fixture": false,
+    "deps": [
+      "BPC_ActionState",
+      "BPDA_GameCatalog",
+      "BP_PlayerProfile",
+      "BP_AbilityBase",
+      "S_AbilityContext",
+      "S_AbilityRuntimeState"
+    ],
+    "users": [
+      "ABP_Player",
+      "BP_AbilityBase",
+      "BP_PlayerCharacter",
+      "WBP_Abilities"
+    ],
+    "purpose": "Owns a body's transient ability execution and recharge state."
+  },
+  {
+    "name": "BPC_StatusEffects",
+    "type": "Blueprint Actor Component",
+    "parent": "ActorComponent",
+    "phase": 9,
+    "folder": "Content/Game/Effects/",
+    "path": "/Game/Game/Effects/BPC_StatusEffects",
+    "doc": "assets/Effects/BPC_StatusEffects.html",
+    "fixture": false,
+    "deps": [
+      "S_StatModifier",
+      "BPDA_GameCatalog",
+      "S_ActiveEffect"
+    ],
+    "users": [
+      "BP_PlayerCharacter"
+    ],
+    "purpose": "Owns timed effects on a body without changing permanent stats."
+  },
+  {
+    "name": "BPI_AbilityTarget",
+    "type": "Blueprint Interface",
+    "parent": "N/A — Blueprint Interface asset",
+    "phase": 9,
+    "folder": "Content/Game/Abilities/",
+    "path": "/Game/Game/Abilities/BPI_AbilityTarget",
+    "doc": "assets/Abilities/BPI_AbilityTarget.html",
+    "fixture": false,
+    "deps": [
+      "S_AbilityContext"
+    ],
+    "users": [
+      "BP_AbilityTestReceiver",
+      "BP_Ability_TestPulse"
+    ],
+    "purpose": "An environmental ability contract separate from ordinary interaction and damage."
+  },
+  {
+    "name": "BPDA_AbilityDefinition",
+    "type": "Blueprint Class — data schema",
+    "parent": "PrimaryDataAsset",
+    "phase": 9,
+    "folder": "Content/Game/Abilities/",
+    "path": "/Game/Game/Abilities/BPDA_AbilityDefinition",
+    "doc": "assets/Abilities/BPDA_AbilityDefinition.html",
+    "fixture": false,
+    "deps": [
+      "BP_AbilityBase"
+    ],
+    "users": [
+      "BPDA_GameCatalog",
+      "DA_Ability_TestPulse"
+    ],
+    "purpose": "Describes an executor class, recharge rules, scaling and capability data for an active use."
+  },
+  {
+    "name": "BPDA_EffectDefinition",
+    "type": "Blueprint Class — data schema",
+    "parent": "PrimaryDataAsset",
+    "phase": 9,
+    "folder": "Content/Game/Effects/",
+    "path": "/Game/Game/Effects/BPDA_EffectDefinition",
+    "doc": "assets/Effects/BPDA_EffectDefinition.html",
+    "fixture": false,
+    "deps": [
+      "S_StatModifier"
+    ],
+    "users": [
+      "BPDA_GameCatalog",
+      "DA_Effect_TestBuff"
+    ],
+    "purpose": "Describes a timed modifier/healing effect without storing a live expiration or owned consumable."
+  },
+  {
+    "name": "WBP_Abilities",
+    "type": "Widget Blueprint",
+    "parent": "UserWidget",
+    "phase": 9,
+    "folder": "Content/Game/UI/",
+    "path": "/Game/Game/UI/WBP_Abilities",
+    "doc": "assets/UI/WBP_Abilities.html",
+    "fixture": false,
+    "deps": [
+      "BPC_Abilities"
+    ],
+    "users": [],
+    "purpose": "Displays unlocked slots, charges, and recharge progress."
+  },
+  {
+    "name": "S_AbilityRuntimeState",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 9,
+    "folder": "Content/Game/Abilities/",
+    "path": "/Game/Game/Abilities/S_AbilityRuntimeState",
+    "doc": "assets/Abilities/S_AbilityRuntimeState.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BPC_Abilities",
+      "S_RuntimeTravelState"
+    ],
+    "purpose": "Charges and remaining recharge time in handoff form; runtime ledger uses deadlines."
+  },
+  {
+    "name": "S_ActiveEffect",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 9,
+    "folder": "Content/Game/Effects/",
+    "path": "/Game/Game/Effects/S_ActiveEffect",
+    "doc": "assets/Effects/S_ActiveEffect.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BPC_StatusEffects",
+      "S_RuntimeTravelState"
+    ],
+    "purpose": "EffectId, unique effect handle, remaining game-time duration."
+  },
+  {
+    "name": "S_AbilityContext",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 9,
+    "folder": "Content/Game/Abilities/",
+    "path": "/Game/Game/Abilities/S_AbilityContext",
+    "doc": "assets/Abilities/S_AbilityContext.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "BPC_Abilities",
+      "BPI_AbilityTarget",
+      "BP_AbilityBase",
+      "BP_AbilityTestReceiver",
+      "BP_Ability_TestPulse"
+    ],
+    "purpose": "Source/target Actors, origin, direction, AbilityId, activation token; runtime only."
+  },
+  {
+    "name": "IA_AbilityPrimary",
+    "type": "Input Action",
+    "parent": "N/A — Input Action asset (InputAction)",
+    "phase": 9,
+    "folder": "Content/Game/Input/",
+    "path": "/Game/Game/Input/IA_AbilityPrimary",
+    "doc": "assets/Input/IA_AbilityPrimary.html",
+    "fixture": false,
+    "deps": [],
+    "users": [],
+    "purpose": "Boolean intent asset, not a custom Blueprint Class."
+  },
+  {
+    "name": "DA_Skill_TestActive",
+    "type": "Data Asset instance",
+    "parent": "BPDA_SkillDefinition → PrimaryDataAsset",
+    "phase": 9,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Skill_TestActive",
+    "doc": "assets/Tests/DA_Skill_TestActive.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_SkillDefinition"
+    ],
+    "users": [],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "DA_Ability_TestPulse",
+    "type": "Data Asset instance",
+    "parent": "BPDA_AbilityDefinition → PrimaryDataAsset",
+    "phase": 9,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Ability_TestPulse",
+    "doc": "assets/Tests/DA_Ability_TestPulse.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_AbilityDefinition",
+      "BP_Ability_TestPulse"
+    ],
+    "users": [],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "DA_Effect_TestBuff",
+    "type": "Data Asset instance",
+    "parent": "BPDA_EffectDefinition → PrimaryDataAsset",
+    "phase": 9,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Effect_TestBuff",
+    "doc": "assets/Tests/DA_Effect_TestBuff.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_EffectDefinition"
+    ],
+    "users": [],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "DA_Item_TestBuffConsumable",
+    "type": "Data Asset instance",
+    "parent": "BPDA_ItemDefinition → PrimaryDataAsset",
+    "phase": 9,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Item_TestBuffConsumable",
+    "doc": "assets/Tests/DA_Item_TestBuffConsumable.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_ItemDefinition"
+    ],
+    "users": [],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "BP_MenuGameMode",
+    "type": "Blueprint Class",
+    "parent": "GameModeBase",
+    "phase": 10,
+    "folder": "Content/Game/Core/",
+    "path": "/Game/Game/Core/BP_MenuGameMode",
+    "doc": "assets/Core/BP_MenuGameMode.html",
+    "fixture": false,
+    "deps": [
+      "BP_PlayerController"
+    ],
+    "users": [
+      "L_Frontend"
+    ],
+    "purpose": "Keeps the front-end map separate from gameplay area bootstrap."
+  },
+  {
+    "name": "BP_NPCBase",
+    "type": "Blueprint Class",
+    "parent": "Actor",
+    "phase": 10,
+    "folder": "Content/Game/NPCs/",
+    "path": "/Game/Game/NPCs/BP_NPCBase",
+    "doc": "assets/NPCs/BP_NPCBase.html",
+    "fixture": false,
+    "deps": [
+      "BPI_Interactable",
+      "BPDA_DialogueDefinition"
+    ],
+    "users": [],
+    "purpose": "A stationary non-hostile NPC needs interaction and sprites, not enemy movement/AI."
+  },
+  {
+    "name": "BPDA_DialogueDefinition",
+    "type": "Blueprint Class — data schema",
+    "parent": "PrimaryDataAsset",
+    "phase": 10,
+    "folder": "Content/Game/NPCs/",
+    "path": "/Game/Game/NPCs/BPDA_DialogueDefinition",
+    "doc": "assets/NPCs/BPDA_DialogueDefinition.html",
+    "fixture": false,
+    "deps": [
+      "S_DialogueVariant"
+    ],
+    "users": [
+      "BPDA_GameCatalog",
+      "BP_NPCBase",
+      "BP_PlayerController",
+      "DA_Dialogue_TestNPC"
+    ],
+    "purpose": "Describes conditional conversation variants and localized lines, not a live cursor or remembered world facts."
+  },
+  {
+    "name": "WBP_Dialogue",
+    "type": "Widget Blueprint",
+    "parent": "UserWidget",
+    "phase": 10,
+    "folder": "Content/Game/UI/",
+    "path": "/Game/Game/UI/WBP_Dialogue",
+    "doc": "assets/UI/WBP_Dialogue.html",
+    "fixture": false,
+    "deps": [
+      "BP_PlayerController"
+    ],
+    "users": [],
+    "purpose": "Displays conversation lines and requests advance/close."
+  },
+  {
+    "name": "WBP_PauseMenu",
+    "type": "Widget Blueprint",
+    "parent": "UserWidget",
+    "phase": 10,
+    "folder": "Content/Game/UI/",
+    "path": "/Game/Game/UI/WBP_PauseMenu",
+    "doc": "assets/UI/WBP_PauseMenu.html",
+    "fixture": false,
+    "deps": [
+      "BP_GameInstance",
+      "BP_PlayerController"
+    ],
+    "users": [],
+    "purpose": "Requests resume, save, and exit through the Controller."
+  },
+  {
+    "name": "WBP_MainMenu",
+    "type": "Widget Blueprint",
+    "parent": "UserWidget",
+    "phase": 10,
+    "folder": "Content/Game/UI/",
+    "path": "/Game/Game/UI/WBP_MainMenu",
+    "doc": "assets/UI/WBP_MainMenu.html",
+    "fixture": false,
+    "deps": [
+      "BP_GameInstance",
+      "BP_PlayerController"
+    ],
+    "users": [
+      "L_Frontend"
+    ],
+    "purpose": "Requests new game or load through GameInstance."
+  },
+  {
+    "name": "E_ConditionKind",
+    "type": "Blueprint Enumeration",
+    "parent": "N/A — Enumeration asset",
+    "phase": 10,
+    "folder": "Content/Game/NPCs/",
+    "path": "/Game/Game/NPCs/E_ConditionKind",
+    "doc": "assets/NPCs/E_ConditionKind.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "S_Condition"
+    ],
+    "purpose": "MinimumLevel, PurchasedSkill, WorldFlag, ObjectState, Capability."
+  },
+  {
+    "name": "S_Condition",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 10,
+    "folder": "Content/Game/NPCs/",
+    "path": "/Game/Game/NPCs/S_Condition",
+    "doc": "assets/NPCs/S_Condition.html",
+    "fixture": false,
+    "deps": [
+      "E_ConditionKind"
+    ],
+    "users": [
+      "BFL_GameRules",
+      "S_DialogueVariant"
+    ],
+    "purpose": "Condition kind, stable key, expected state/value; no arbitrary script interpreter."
+  },
+  {
+    "name": "S_DialogueLine",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 10,
+    "folder": "Content/Game/NPCs/",
+    "path": "/Game/Game/NPCs/S_DialogueLine",
+    "doc": "assets/NPCs/S_DialogueLine.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "S_DialogueVariant"
+    ],
+    "purpose": "Speaker key and localized Text."
+  },
+  {
+    "name": "S_DialogueVariant",
+    "type": "Blueprint Structure",
+    "parent": "N/A — Structure asset",
+    "phase": 10,
+    "folder": "Content/Game/NPCs/",
+    "path": "/Game/Game/NPCs/S_DialogueVariant",
+    "doc": "assets/NPCs/S_DialogueVariant.html",
+    "fixture": false,
+    "deps": [
+      "S_Condition",
+      "S_DialogueLine"
+    ],
+    "users": [
+      "BPDA_DialogueDefinition",
+      "BP_PlayerController"
+    ],
+    "purpose": "VariantId, priority, conditions, lines, completion flags."
+  },
+  {
+    "name": "IA_Pause",
+    "type": "Input Action",
+    "parent": "N/A — Input Action asset (InputAction)",
+    "phase": 10,
+    "folder": "Content/Game/Input/",
+    "path": "/Game/Game/Input/IA_Pause",
+    "doc": "assets/Input/IA_Pause.html",
+    "fixture": false,
+    "deps": [],
+    "users": [],
+    "purpose": "Boolean intent asset, not a custom Blueprint Class."
+  },
+  {
+    "name": "IA_UIConfirm",
+    "type": "Input Action",
+    "parent": "N/A — Input Action asset (InputAction)",
+    "phase": 10,
+    "folder": "Content/Game/Input/",
+    "path": "/Game/Game/Input/IA_UIConfirm",
+    "doc": "assets/Input/IA_UIConfirm.html",
+    "fixture": false,
+    "deps": [],
+    "users": [],
+    "purpose": "Boolean intent asset, not a custom Blueprint Class."
+  },
+  {
+    "name": "IA_UICancel",
+    "type": "Input Action",
+    "parent": "N/A — Input Action asset (InputAction)",
+    "phase": 10,
+    "folder": "Content/Game/Input/",
+    "path": "/Game/Game/Input/IA_UICancel",
+    "doc": "assets/Input/IA_UICancel.html",
+    "fixture": false,
+    "deps": [],
+    "users": [],
+    "purpose": "Boolean intent asset, not a custom Blueprint Class."
+  },
+  {
+    "name": "IMC_UI",
+    "type": "Input Mapping Context",
+    "parent": "N/A — Input Mapping Context asset (InputMappingContext)",
+    "phase": 10,
+    "folder": "Content/Game/Input/",
+    "path": "/Game/Game/Input/IMC_UI",
+    "doc": "assets/Input/IMC_UI.html",
+    "fixture": false,
+    "deps": [],
+    "users": [],
+    "purpose": "Groups key/button bindings for an input context."
+  },
+  {
+    "name": "L_Frontend",
+    "type": "Level / Map",
+    "parent": "N/A — Level asset (World)",
+    "phase": 10,
+    "folder": "Content/Game/Maps/",
+    "path": "/Game/Game/Maps/L_Frontend",
+    "doc": "assets/Maps/L_Frontend.html",
+    "fixture": false,
+    "deps": [
+      "BP_PlayerController",
+      "BP_MenuGameMode",
+      "WBP_MainMenu"
+    ],
+    "users": [],
+    "purpose": "A map asset, not a Blueprint subclass."
+  },
+  {
+    "name": "DA_Dialogue_TestNPC",
+    "type": "Data Asset instance",
+    "parent": "BPDA_DialogueDefinition → PrimaryDataAsset",
+    "phase": 10,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Dialogue_TestNPC",
+    "doc": "assets/Tests/DA_Dialogue_TestNPC.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_DialogueDefinition"
+    ],
+    "users": [],
+    "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
+  },
+  {
+    "name": "BP_ArchitectureTestHarness",
+    "type": "Blueprint Class",
+    "parent": "Actor",
+    "phase": 11,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/BP_ArchitectureTestHarness",
+    "doc": "assets/Tests/BP_ArchitectureTestHarness.html",
+    "fixture": true,
+    "deps": [],
+    "users": [
+      "L_SystemTests"
+    ],
+    "purpose": "A development-only placed Actor runs reproducible assertion sequences."
+  },
+  {
+    "name": "L_SystemTests",
+    "type": "Level / Map",
+    "parent": "N/A — Level asset (World)",
+    "phase": 11,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/L_SystemTests",
+    "doc": "assets/Tests/L_SystemTests.html",
+    "fixture": true,
+    "deps": [
+      "DA_GameCatalog",
+      "BP_ArchitectureTestHarness"
+    ],
+    "users": [],
+    "purpose": "A map asset, not a Blueprint subclass."
+  },
+  {
+    "name": "AS_Player",
+    "type": "PaperZD Animation Source",
+    "parent": "PaperZDAnimationSource_Flipbook → PaperZDAnimationSource",
+    "phase": 1,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/AS_Player",
+    "doc": "assets/Animation/AS_Player.html",
+    "fixture": false,
+    "deps": [],
+    "users": [
+      "ABP_Player",
+      "ASQ_Player_AttackTest",
+      "ASQ_Player_DeathTest",
+      "ASQ_Player_FallTest",
+      "ASQ_Player_HitTest",
+      "ASQ_Player_IdleTest",
+      "ASQ_Player_LandTest",
+      "ASQ_Player_MoveTest",
+      "ASQ_Player_RiseTest",
+      "BPDA_EquipmentAppearance"
+    ],
+    "purpose": "Native flipbook Animation Source for the player; owns the player sequence family."
+  },
+  {
+    "name": "ASQ_Player_IdleTest",
+    "type": "PaperZD Animation Sequence",
+    "parent": "PaperZDAnimSequence_Flipbook → PaperZDAnimSequence",
+    "phase": 1,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/ASQ_Player_IdleTest",
+    "doc": "assets/Animation/ASQ_Player_IdleTest.html",
+    "fixture": true,
+    "deps": [
+      "AS_Player",
+      "FB_Player_IdleTest"
+    ],
+    "users": [
+      "ABP_Player",
+      "DA_Equipment_TestHelmet"
+    ],
+    "purpose": "Player Idle presentation sequence; placeholder artwork, no gameplay authority."
+  },
+  {
+    "name": "ASQ_Player_MoveTest",
+    "type": "PaperZD Animation Sequence",
+    "parent": "PaperZDAnimSequence_Flipbook → PaperZDAnimSequence",
+    "phase": 1,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/ASQ_Player_MoveTest",
+    "doc": "assets/Animation/ASQ_Player_MoveTest.html",
+    "fixture": true,
+    "deps": [
+      "AS_Player",
+      "FB_Player_MoveTest"
+    ],
+    "users": [
+      "ABP_Player",
+      "DA_Equipment_TestHelmet"
+    ],
+    "purpose": "Player Move presentation sequence; placeholder artwork, no gameplay authority."
+  },
+  {
+    "name": "ASQ_Player_RiseTest",
+    "type": "PaperZD Animation Sequence",
+    "parent": "PaperZDAnimSequence_Flipbook → PaperZDAnimSequence",
+    "phase": 1,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/ASQ_Player_RiseTest",
+    "doc": "assets/Animation/ASQ_Player_RiseTest.html",
+    "fixture": true,
+    "deps": [
+      "AS_Player",
+      "FB_Player_RiseTest"
+    ],
+    "users": [
+      "ABP_Player",
+      "DA_Equipment_TestHelmet"
+    ],
+    "purpose": "Player Rise presentation sequence; placeholder artwork, no gameplay authority."
+  },
+  {
+    "name": "ASQ_Player_FallTest",
+    "type": "PaperZD Animation Sequence",
+    "parent": "PaperZDAnimSequence_Flipbook → PaperZDAnimSequence",
+    "phase": 1,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/ASQ_Player_FallTest",
+    "doc": "assets/Animation/ASQ_Player_FallTest.html",
+    "fixture": true,
+    "deps": [
+      "AS_Player",
+      "FB_Player_FallTest"
+    ],
+    "users": [
+      "ABP_Player",
+      "DA_Equipment_TestHelmet"
+    ],
+    "purpose": "Player Fall presentation sequence; placeholder artwork, no gameplay authority."
+  },
+  {
+    "name": "ASQ_Player_LandTest",
+    "type": "PaperZD Animation Sequence",
+    "parent": "PaperZDAnimSequence_Flipbook → PaperZDAnimSequence",
+    "phase": 1,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/ASQ_Player_LandTest",
+    "doc": "assets/Animation/ASQ_Player_LandTest.html",
+    "fixture": true,
+    "deps": [
+      "AS_Player",
+      "FB_Player_LandTest"
+    ],
+    "users": [
+      "ABP_Player"
+    ],
+    "purpose": "Player Land presentation sequence; placeholder artwork, no gameplay authority."
+  },
+  {
+    "name": "ASQ_Player_AttackTest",
+    "type": "PaperZD Animation Sequence",
+    "parent": "PaperZDAnimSequence_Flipbook → PaperZDAnimSequence",
+    "phase": 2,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/ASQ_Player_AttackTest",
+    "doc": "assets/Animation/ASQ_Player_AttackTest.html",
+    "fixture": true,
+    "deps": [
+      "AS_Player",
+      "FB_Player_LandTest"
+    ],
+    "users": [
+      "ABP_Player"
+    ],
+    "purpose": "Player Attack presentation sequence; placeholder artwork, no gameplay authority."
+  },
+  {
+    "name": "ASQ_Player_HitTest",
+    "type": "PaperZD Animation Sequence",
+    "parent": "PaperZDAnimSequence_Flipbook → PaperZDAnimSequence",
+    "phase": 2,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/ASQ_Player_HitTest",
+    "doc": "assets/Animation/ASQ_Player_HitTest.html",
+    "fixture": true,
+    "deps": [
+      "AS_Player",
+      "FB_Player_LandTest"
+    ],
+    "users": [
+      "ABP_Player"
+    ],
+    "purpose": "Player Hit presentation sequence; placeholder artwork, no gameplay authority."
+  },
+  {
+    "name": "ASQ_Player_DeathTest",
+    "type": "PaperZD Animation Sequence",
+    "parent": "PaperZDAnimSequence_Flipbook → PaperZDAnimSequence",
+    "phase": 2,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/ASQ_Player_DeathTest",
+    "doc": "assets/Animation/ASQ_Player_DeathTest.html",
+    "fixture": true,
+    "deps": [
+      "AS_Player",
+      "FB_Player_LandTest"
+    ],
+    "users": [
+      "ABP_Player"
+    ],
+    "purpose": "Player Death presentation sequence; placeholder artwork, no gameplay authority."
+  },
+  {
+    "name": "ABP_Player",
+    "type": "PaperZD Animation Blueprint",
+    "parent": "PaperZDAnimInstance",
+    "phase": 1,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/ABP_Player",
+    "doc": "assets/Animation/ABP_Player.html",
+    "fixture": false,
+    "deps": [
+      "AS_Player",
+      "BPC_ActionState",
+      "BPC_Combat",
+      "BPC_Health",
+      "BPC_Abilities",
+      "ASQ_Player_IdleTest",
+      "ASQ_Player_MoveTest",
+      "ASQ_Player_RiseTest",
+      "ASQ_Player_FallTest",
+      "ASQ_Player_LandTest",
+      "ASQ_Player_AttackTest",
+      "ASQ_Player_HitTest",
+      "ASQ_Player_DeathTest"
+    ],
+    "users": [
+      "BPC_EquipmentVisuals",
+      "BP_PlayerCharacter",
+      "DA_PlayerBaseStats"
+    ],
+    "purpose": "Player presentation graph: observes movement and gameplay actions, orchestrates body animation."
+  },
+  {
+    "name": "AS_EnemyTest",
+    "type": "PaperZD Animation Source",
+    "parent": "PaperZDAnimationSource_Flipbook → PaperZDAnimationSource",
+    "phase": 5,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/AS_EnemyTest",
+    "doc": "assets/Animation/AS_EnemyTest.html",
+    "fixture": true,
+    "deps": [],
+    "users": [
+      "ABP_EnemyTest",
+      "ASQ_Enemy_AttackTest",
+      "ASQ_Enemy_DeathTest",
+      "ASQ_Enemy_HitTest",
+      "ASQ_Enemy_IdleTest",
+      "ASQ_Enemy_MoveTest"
+    ],
+    "purpose": "Shared development source for the two test enemy families; replace fixture art when authored."
+  },
+  {
+    "name": "ASQ_Enemy_IdleTest",
+    "type": "PaperZD Animation Sequence",
+    "parent": "PaperZDAnimSequence_Flipbook → PaperZDAnimSequence",
+    "phase": 5,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/ASQ_Enemy_IdleTest",
+    "doc": "assets/Animation/ASQ_Enemy_IdleTest.html",
+    "fixture": true,
+    "deps": [
+      "AS_EnemyTest",
+      "FB_Player_IdleTest"
+    ],
+    "users": [
+      "ABP_EnemyTest"
+    ],
+    "purpose": "Enemy Idle sequence with explicitly reused development flipbook art."
+  },
+  {
+    "name": "ASQ_Enemy_MoveTest",
+    "type": "PaperZD Animation Sequence",
+    "parent": "PaperZDAnimSequence_Flipbook → PaperZDAnimSequence",
+    "phase": 5,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/ASQ_Enemy_MoveTest",
+    "doc": "assets/Animation/ASQ_Enemy_MoveTest.html",
+    "fixture": true,
+    "deps": [
+      "AS_EnemyTest",
+      "FB_Player_MoveTest"
+    ],
+    "users": [
+      "ABP_EnemyTest"
+    ],
+    "purpose": "Enemy Move sequence with explicitly reused development flipbook art."
+  },
+  {
+    "name": "ASQ_Enemy_AttackTest",
+    "type": "PaperZD Animation Sequence",
+    "parent": "PaperZDAnimSequence_Flipbook → PaperZDAnimSequence",
+    "phase": 5,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/ASQ_Enemy_AttackTest",
+    "doc": "assets/Animation/ASQ_Enemy_AttackTest.html",
+    "fixture": true,
+    "deps": [
+      "AS_EnemyTest",
+      "FB_Player_LandTest"
+    ],
+    "users": [
+      "ABP_EnemyTest"
+    ],
+    "purpose": "Enemy Attack sequence with explicitly reused development flipbook art."
+  },
+  {
+    "name": "ASQ_Enemy_HitTest",
+    "type": "PaperZD Animation Sequence",
+    "parent": "PaperZDAnimSequence_Flipbook → PaperZDAnimSequence",
+    "phase": 5,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/ASQ_Enemy_HitTest",
+    "doc": "assets/Animation/ASQ_Enemy_HitTest.html",
+    "fixture": true,
+    "deps": [
+      "AS_EnemyTest",
+      "FB_Player_LandTest"
+    ],
+    "users": [
+      "ABP_EnemyTest"
+    ],
+    "purpose": "Enemy Hit sequence with explicitly reused development flipbook art."
+  },
+  {
+    "name": "ASQ_Enemy_DeathTest",
+    "type": "PaperZD Animation Sequence",
+    "parent": "PaperZDAnimSequence_Flipbook → PaperZDAnimSequence",
+    "phase": 5,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/ASQ_Enemy_DeathTest",
+    "doc": "assets/Animation/ASQ_Enemy_DeathTest.html",
+    "fixture": true,
+    "deps": [
+      "AS_EnemyTest",
+      "FB_Player_LandTest"
+    ],
+    "users": [
+      "ABP_EnemyTest"
+    ],
+    "purpose": "Enemy Death sequence with explicitly reused development flipbook art."
+  },
+  {
+    "name": "ABP_EnemyTest",
+    "type": "PaperZD Animation Blueprint",
+    "parent": "PaperZDAnimInstance",
+    "phase": 5,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/ABP_EnemyTest",
+    "doc": "assets/Animation/ABP_EnemyTest.html",
+    "fixture": true,
+    "deps": [
+      "AS_EnemyTest",
+      "BPC_ActionState",
+      "BPC_Combat",
+      "BPC_Health",
+      "ASQ_Enemy_IdleTest",
+      "ASQ_Enemy_MoveTest",
+      "ASQ_Enemy_AttackTest",
+      "ASQ_Enemy_HitTest",
+      "ASQ_Enemy_DeathTest"
+    ],
+    "users": [
+      "BP_EnemyBase",
+      "DA_Enemy_MeleeTest",
+      "DA_Enemy_RangedTest"
+    ],
+    "purpose": "Test enemy animation graph observes the enemy body and shared gameplay components."
+  },
+  {
+    "name": "BPDA_EquipmentAppearance",
+    "type": "Blueprint Class — data schema",
+    "parent": "PrimaryDataAsset",
+    "phase": 7,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/BPDA_EquipmentAppearance",
+    "doc": "assets/Animation/BPDA_EquipmentAppearance.html",
+    "fixture": false,
+    "deps": [
+      "AS_Player"
+    ],
+    "users": [
+      "BPC_EquipmentVisuals",
+      "BPDA_ItemDefinition",
+      "DA_Equipment_TestHelmet"
+    ],
+    "purpose": "Wearable sequence-to-layer-flipbook mapping and layout validation; no body state machine."
+  },
+  {
+    "name": "BPC_EquipmentVisuals",
+    "type": "Blueprint Actor Component",
+    "parent": "ActorComponent",
+    "phase": 7,
+    "folder": "Content/Game/Animation/",
+    "path": "/Game/Game/Animation/BPC_EquipmentVisuals",
+    "doc": "assets/Animation/BPC_EquipmentVisuals.html",
+    "fixture": false,
+    "deps": [
+      "BPDA_EquipmentAppearance",
+      "E_EquipmentSlot",
+      "ABP_Player"
+    ],
+    "users": [
+      "BP_PlayerCharacter"
+    ],
+    "purpose": "Synchronizes supplied clothing components to the body pose rendered by PaperZD; no independent clock."
+  },
+  {
+    "name": "DA_Equipment_TestHelmet",
+    "type": "Data Asset instance",
+    "parent": "BPDA_EquipmentAppearance → PrimaryDataAsset",
+    "phase": 7,
+    "folder": "Content/Game/Tests/",
+    "path": "/Game/Game/Tests/DA_Equipment_TestHelmet",
+    "doc": "assets/Tests/DA_Equipment_TestHelmet.html",
+    "fixture": true,
+    "deps": [
+      "BPDA_EquipmentAppearance",
+      "FB_Helmet_Test",
+      "ASQ_Player_IdleTest",
+      "ASQ_Player_MoveTest",
+      "ASQ_Player_RiseTest",
+      "ASQ_Player_FallTest"
+    ],
+    "users": [
+      "DA_Item_TestHelmet"
+    ],
+    "purpose": "Static helmet appearance fixture; proves equipment mapping and alignment, not a complete wardrobe."
+  }
+]

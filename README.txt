@@ -8,9 +8,9 @@ START: getting-started.html → phases/phase-00.html
 FIND: asset-index.html or search.html
 TRACK: checklist.html (export progress JSON for a portable backup)
 SOURCE: original-roadmap.html is byte-for-byte unchanged.
-AUDIT: audit.html distinguishes website checks from unexecuted Unreal tests.
+AUDIT: audit.html is historical; animation-migration.html and sources/paperzd-verification.json record current documentation checks.
 
-149 canonical asset pages; 12 phases; 19 system chapters; 20 exact Content folders.
+163 current asset pages (149 in the preserved historical manifest); 12 phases; 19 system chapters; 20 exact Content folders.
 This is documentation, not a playable Unreal project or generated .uasset files.
 The target is the requested Unreal Engine 5.8.3. Official mechanism pages were
 consulted in the 5.8 documentation family; no Unreal Editor graphs were compiled
@@ -26,7 +26,17 @@ standard. engineering/architecture.html records the inspected repository gap:
 RPG main contains only .gitignore, so planned assets are not verified game code.
 The local engine reports 5.8.3; game compilation/runtime were not performed.
 Edit engineering/content/*.html and engineering/pages.json, then run:
+  python3 tools/build_manual_indexes.py
   python3 tools/build_cpp_standard.py
+  python3 tools/build_manual_indexes.py --check
   python3 tools/build_cpp_standard.py --check
   python3 tools/check_cpp_standard.py
+  python3 tools/check_paperzd_docs.py
 Generated pages and offline search stay in sync without third-party packages.
+
+ANIMATION STANDARD
+Paper2D: sprites, flipbooks, TileSets/TileMaps and simple prop loops.
+PaperZD: complex character sources/sequences/AnimBPs, state machines and notifies.
+Gameplay: authoritative movement, actions, damage, abilities and persistence.
+Start at systems/animation.html; see animation-migration.html for compatibility.
+The installed PaperZD release and game build/runtime remain unverified.

@@ -11,19 +11,21 @@
   ],
   "1": [
     "E_ActionState",
-    "E_AnimState",
-    "S_AnimationSnapshot",
-    "BPDA_AnimationSet",
     "BPC_ActionState",
-    "BPC_FlipbookAnimator",
     "T_TestPlayer",
     "SPR_TestPlayer",
-    "FB_Player_FallTest",
     "FB_Player_IdleTest",
-    "FB_Player_LandTest",
     "FB_Player_MoveTest",
     "FB_Player_RiseTest",
-    "DA_Anim_PlayerTest"
+    "FB_Player_FallTest",
+    "FB_Player_LandTest",
+    "AS_Player",
+    "ASQ_Player_IdleTest",
+    "ASQ_Player_MoveTest",
+    "ASQ_Player_RiseTest",
+    "ASQ_Player_FallTest",
+    "ASQ_Player_LandTest",
+    "ABP_Player"
   ],
   "2": [
     "E_AttackPhase",
@@ -46,7 +48,10 @@
     "IA_Attack",
     "DA_Attack_PlayerAirTest",
     "DA_Attack_PlayerGroundTest",
-    "DA_PlayerBaseStats"
+    "DA_PlayerBaseStats",
+    "ASQ_Player_AttackTest",
+    "ASQ_Player_HitTest",
+    "ASQ_Player_DeathTest"
   ],
   "3": [
     "E_EntryReason",
@@ -94,6 +99,13 @@
     "DA_Item_TestReward"
   ],
   "5": [
+    "AS_EnemyTest",
+    "ASQ_Enemy_IdleTest",
+    "ASQ_Enemy_MoveTest",
+    "ASQ_Enemy_AttackTest",
+    "ASQ_Enemy_HitTest",
+    "ASQ_Enemy_DeathTest",
+    "ABP_EnemyTest",
     "E_EnemyBrainState",
     "S_LevelProgressionRow",
     "BP_EnemyAIController",
@@ -114,11 +126,13 @@
     "DA_Item_TestConsumable"
   ],
   "7": [
+    "BPDA_EquipmentAppearance",
+    "BPC_EquipmentVisuals",
     "WBP_Equipment",
     "T_TestHelmet",
     "SPR_TestHelmet",
     "FB_Helmet_Test",
-    "DA_Anim_TestHelmet",
+    "DA_Equipment_TestHelmet",
     "DA_Item_TestHelmet"
   ],
   "8": [

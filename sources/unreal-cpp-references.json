@@ -46,7 +46,7 @@
       "group": "framework",
       "module": "Engine",
       "header": "GameFramework/Pawn.h",
-      "description": "Possessable ancestor of the player and enemy bodies through ACharacter and APaperCharacter. It is not a replacement for their documented PaperCharacter parent.",
+      "description": "Possessable ancestor of the player and enemy bodies through ACharacter and APaperCharacter. It is not a replacement for their documented PaperZDCharacter parent.",
       "project": [
         "assets/Player/BP_PlayerCharacter.html",
         "systems/world.html"
@@ -63,7 +63,7 @@
       "group": "framework",
       "module": "Engine",
       "header": "GameFramework/Character.h",
-      "description": "Ancestor supplying the inherited character movement and capsule used by the PaperCharacter bodies. Keep the documented custom jump policy.",
+      "description": "Ancestor supplying the inherited character movement and capsule used by the PaperZDCharacter bodies. Keep the documented custom jump policy.",
       "project": [
         "assets/Player/BP_PlayerCharacter.html",
         "assets/Enemies/BP_EnemyBase.html",
@@ -187,7 +187,7 @@
       "group": "paper2d",
       "module": "Paper2D plugin / Paper2D",
       "header": "PaperCharacter.h",
-      "description": "Direct native parent of BP_PlayerCharacter and BP_EnemyBase. The inherited Sprite is a flipbook component; enemy child Blueprints inherit this native base through BP_EnemyBase.",
+      "description": "Epic Paper2D ancestor of the selected PaperZDCharacter bases; no longer the direct project player/enemy parent.",
       "project": [
         "assets/Player/BP_PlayerCharacter.html",
         "assets/Enemies/BP_EnemyBase.html",
@@ -205,10 +205,10 @@
       "group": "paper2d",
       "module": "Paper2D plugin / Paper2D",
       "header": "PaperFlipbookComponent.h",
-      "description": "The inherited Sprite and the added HeadLayer/BodyLayer display instances. The animator coordinates these components; it is not an AnimInstance.",
+      "description": "The inherited Sprite and the added HeadLayer/BodyLayer display instances. PaperZD drives the body; EquipmentVisuals projects clothing to the rendered body pose.",
       "project": [
         "assets/Player/BP_PlayerCharacter.html#components",
-        "assets/Animation/BPC_FlipbookAnimator.html",
+        "assets/Animation/ABP_Player.html",
         "systems/animation.html"
       ],
       "parent": "UMeshComponent",
@@ -223,10 +223,10 @@
       "group": "paper2d",
       "module": "Paper2D plugin / Paper2D",
       "header": "PaperFlipbook.h",
-      "description": "Native asset type for the FB_ test clips assigned through animation-set data. A clip is content, not a Blueprint subclass to create.",
+      "description": "Native asset type for the FB_ test clips assigned through native PaperZD sequences. A clip is content, not a Blueprint subclass to create.",
       "project": [
         "assets/Animation/FB_Player_IdleTest.html",
-        "assets/Animation/BPDA_AnimationSet.html",
+        "assets/Animation/BPDA_EquipmentAppearance.html",
         "systems/animation.html"
       ],
       "parent": "",
@@ -262,7 +262,7 @@
       "project": [
         "assets/Combat/BPC_Health.html",
         "assets/Combat/BPC_Combat.html",
-        "assets/Animation/BPC_FlipbookAnimator.html"
+        "assets/Animation/ABP_Player.html"
       ],
       "parent": "",
       "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UActorComponent",
@@ -470,7 +470,7 @@
       "project": [
         "assets/Core/BPDA_GameCatalog.html",
         "assets/Combat/BPDA_AttackDefinition.html",
-        "assets/Tests/DA_Anim_PlayerTest.html"
+        "assets/Animation/ABP_Player.html"
       ],
       "parent": "UDataAsset",
       "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/UPrimaryDataAsset",
@@ -694,9 +694,9 @@
       "group": "selected-api",
       "module": "Paper2D plugin / Paper2D",
       "header": "PaperFlipbookComponent.h",
-      "description": "Seconds-based playback positioning for the shared visual clock. This does not become the combat hit clock; see the animator instructions.",
+      "description": "Seconds-based playback positioning for wearable projection only; the character body is driven by PaperZD.",
       "project": [
-        "assets/Animation/BPC_FlipbookAnimator.html",
+        "assets/Animation/ABP_Player.html",
         "systems/animation.html"
       ],
       "parent": "",
@@ -796,5 +796,87 @@
     "project_symbol_names": "Project-authored S_, E_, and BPI_ symbol names do not have identically named Epic API types; their engine asset classes are linked separately.",
     "project_contracts": "Project-specific gameplay contracts remain project-defined and are not replaced by similarly themed engine systems."
   },
-  "member_url_policy": "CreateSaveGameObject, OpenLevelBySoftObjectPtr and UWidgetBlueprintLibrary::Create are verified in their class pages; unverified standalone member URLs were omitted."
+  "member_url_policy": "CreateSaveGameObject, OpenLevelBySoftObjectPtr and UWidgetBlueprintLibrary::Create are verified in their class pages; unverified standalone member URLs were omitted.",
+  "paperzd_references": [
+    {
+      "symbol": "APaperZDCharacter",
+      "module": "PaperZD",
+      "header": "PaperZDCharacter.h",
+      "url": "https://github.com/heavybullets/PaperZD/blob/main/Source/PaperZD/Public/PaperZDCharacter.h",
+      "description": "APaperCharacter subclass integrating a native animation component with the inherited Sprite; selected player/enemy base.",
+      "authority": "Critical Failure Studio published source (third party)",
+      "checked_on": "2026-10-05",
+      "installed_version_verified": false
+    },
+    {
+      "symbol": "UPaperZDAnimationComponent",
+      "module": "PaperZD",
+      "header": "PaperZDAnimationComponent.h",
+      "url": "https://github.com/heavybullets/PaperZD/blob/main/Source/PaperZD/Public/PaperZDAnimationComponent.h",
+      "description": "Native ActorComponent running an AnimInstance against a render reference; inherited by PaperZDCharacter and composed by stationary animated NPCs.",
+      "authority": "Critical Failure Studio published source (third party)",
+      "checked_on": "2026-10-05",
+      "installed_version_verified": false
+    },
+    {
+      "symbol": "UPaperZDAnimInstance",
+      "module": "PaperZD",
+      "header": "PaperZDAnimInstance.h",
+      "url": "https://github.com/heavybullets/PaperZD/blob/main/Source/PaperZD/Public/PaperZDAnimInstance.h",
+      "description": "Runtime class for PaperZD AnimBPs; owning Actor queries, post-animation OnTick, JumpToNode and optional presentation callbacks.",
+      "authority": "Critical Failure Studio published source (third party)",
+      "checked_on": "2026-10-05",
+      "installed_version_verified": false
+    },
+    {
+      "symbol": "UPaperZDAnimationSource_Flipbook",
+      "module": "PaperZD",
+      "header": "AnimSequences/Sources/PaperZDAnimationSource_Flipbook.h",
+      "url": "https://github.com/heavybullets/PaperZD/blob/main/Source/PaperZD/Public/AnimSequences/Sources/PaperZDAnimationSource_Flipbook.h",
+      "description": "Native Flipbook source selected for AS_Player and AS_EnemyTest.",
+      "authority": "Critical Failure Studio published source (third party)",
+      "checked_on": "2026-10-05",
+      "installed_version_verified": false
+    },
+    {
+      "symbol": "UPaperZDAnimSequence_Flipbook",
+      "module": "PaperZD",
+      "header": "AnimSequences/PaperZDAnimSequence_Flipbook.h",
+      "url": "https://github.com/heavybullets/PaperZD/blob/main/Source/PaperZD/Public/AnimSequences/PaperZDAnimSequence_Flipbook.h",
+      "description": "Source-compatible native sequence asset containing flipbook animation data.",
+      "authority": "Critical Failure Studio published source (third party)",
+      "checked_on": "2026-10-05",
+      "installed_version_verified": false
+    },
+    {
+      "symbol": "UPaperZDAnimPlayer",
+      "module": "PaperZD",
+      "header": "AnimSequences/Players/PaperZDAnimPlayer.h",
+      "url": "https://github.com/heavybullets/PaperZD/blob/main/Source/PaperZD/Public/AnimSequences/Players/PaperZDAnimPlayer.h",
+      "description": "Current rendered sequence/time queries used by the optional clothing adapter; no custom clock.",
+      "authority": "Critical Failure Studio published source (third party)",
+      "checked_on": "2026-10-05",
+      "installed_version_verified": false
+    },
+    {
+      "symbol": "UPaperZDAnimNotify",
+      "module": "PaperZD",
+      "header": "Notifies/PaperZDAnimNotify.h",
+      "url": "https://github.com/heavybullets/PaperZD/blob/main/Source/PaperZD/Public/Notifies/PaperZDAnimNotify.h",
+      "description": "Reusable notify base for actual presentation-timing needs; preview context may lack a live owner.",
+      "authority": "Critical Failure Studio published source (third party)",
+      "checked_on": "2026-10-05",
+      "installed_version_verified": false
+    },
+    {
+      "symbol": "UPaperZDAnimNotifyState",
+      "module": "PaperZD",
+      "header": "Notifies/PaperZDAnimNotifyState.h",
+      "url": "https://github.com/heavybullets/PaperZD/blob/main/Source/PaperZD/Public/Notifies/PaperZDAnimNotifyState.h",
+      "description": "Notify interval base for cosmetic trails/effects; explicit interruption/teardown cleanup remains required.",
+      "authority": "Critical Failure Studio published source (third party)",
+      "checked_on": "2026-10-05",
+      "installed_version_verified": false
+    }
+  ]
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the engineering HTML fragments and update their offline search entries."""
+"""Render engineering fragments and rebuild offline search from current HTML pages."""
 import argparse
 import json
 import re
@@ -84,18 +84,26 @@ def main():
     sidebar = re.search(r'<aside class="sidebar">.*?</aside>', home, re.S).group(0)
     sidebar = re.sub(r'href="(?!https?://|#)([^"]+)"', r'href="../\1"', sidebar)
     outputs = {}
-    entries = []
     for index, page in enumerate(documents):
         body = index_body if page['slug'] == 'index' else (ROOT / f'engineering/content/{page["slug"]}.html').read_text()
         outputs[ROOT / f'engineering/{page["slug"]}.html'] = render_page(
             page, body, sidebar, documents[index - 1] if index else None,
             documents[index + 1] if index + 1 < len(documents) else None)
-        entries.append(dict(title=page['title'], url=f'engineering/{page["slug"]}.html',
-                            kind='C++ engineering standard', text=plain_text(body)))
     search_path = ROOT / 'site/search-data.js'
-    existing = json.loads(search_path.read_text().removeprefix('window.GUIDE_SEARCH = ').strip().removesuffix(';'))
-    combined = [entry for entry in existing if not entry['url'].startswith('engineering/')] + entries
-    outputs[search_path] = 'window.GUIDE_SEARCH = ' + json.dumps(combined, ensure_ascii=False) + ';\n'
+    entries = []
+    for path in sorted(ROOT.rglob('*.html')):
+        if 'content' in path.relative_to(ROOT).parts or path.name == 'original-roadmap.html':
+            continue
+        source = outputs.get(path, path.read_text())
+        article = re.search(r'<article id="main">(.*?)</article>', source, re.S)
+        if article is None:
+            continue
+        title = re.search(r'<h1[^>]*>(.*?)</h1>', article[1], re.S)
+        kind = re.search(r'<div class="eyebrow">(.*?)</div>', article[1], re.S)
+        entries.append(dict(title=plain_text(title[1]), url=path.relative_to(ROOT).as_posix(),
+                            kind=plain_text(kind[1]) if kind else 'Documentation',
+                            text=plain_text(article[1])))
+    outputs[search_path] = 'window.GUIDE_SEARCH = ' + json.dumps(entries, ensure_ascii=False) + ';\n'
     stale = [path for path, value in outputs.items() if not path.exists() or path.read_text() != value]
     if args.check:
         if stale:

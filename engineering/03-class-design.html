@@ -11,7 +11,7 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<aside class="sidebar"><a class="brand" href="../index.html"><small>Build manual · Blueprint-first</small>Blueprint RPG<br>Development Guide</a><p>A first-game companion for a 2D exploration action-platformer.<br>Target: Unreal Engine 5.8.3</p><nav aria-label="Main navigation"><a class="navlink"  href="../index.html">Guide home</a><a class="navlink" href="../getting-started.html">Start here</a><a class="navlink" href="../development-roadmap.html">Phases 0–11</a><a class="navlink" href="../asset-index.html">All 149 assets</a><a class="navlink" href="../systems/index.html">Browse systems</a><a class="navlink" href="../search.html">Search the manual</a><a class="navlink cpp-added" href="../unreal-cpp-reference.html">Unreal C++ reference</a><a class="navlink" data-engineering href="index.html" aria-current="page">C++ engineering standard</a><a class="navlink" href="../ownership.html">State ownership</a><a class="navlink" href="../dependency-map.html">Dependencies</a><a class="navlink" href="../communication.html">Blueprint communication</a><a class="navlink" href="../checklist.html">My checklists</a><a class="navlink" href="../troubleshooting.html">Troubleshooting</a><a class="navlink" href="../glossary.html">Glossary</a><a class="navlink" href="../architecture-notes.html">Architecture notes</a><a class="navlink" href="../audit.html">Package audit</a></nav><div class="sidefoot">Offline edition · 02 October 2026<br>Source architecture preserved.<br><a href="../original-roadmap.html">Original roadmap</a><br><a href="../sources-verification.html">Evidence and verification</a></div></aside>
+<aside class="sidebar"><a class="brand" href="../index.html"><small>Build manual · Blueprint-first</small>Blueprint RPG<br>Development Guide</a><p>A first-game companion for a 2D exploration action-platformer.<br>Target: Unreal Engine 5.8.3</p><nav aria-label="Main navigation"><a class="navlink"  href="../index.html">Guide home</a><a class="navlink" href="../getting-started.html">Start here</a><a class="navlink" href="../development-roadmap.html">Phases 0–11</a><a class="navlink" href="../asset-index.html">All 163 assets</a><a class="navlink" href="../systems/index.html">Browse systems</a><a class="navlink" href="../search.html">Search the manual</a><a class="navlink cpp-added" href="../unreal-cpp-reference.html">Unreal C++ reference</a><a class="navlink" data-engineering href="index.html" aria-current="page">C++ engineering standard</a><a class="navlink" href="../ownership.html">State ownership</a><a class="navlink" href="../dependency-map.html">Dependencies</a><a class="navlink" href="../communication.html">Blueprint communication</a><a class="navlink" href="../checklist.html">My checklists</a><a class="navlink" href="../troubleshooting.html">Troubleshooting</a><a class="navlink" href="../glossary.html">Glossary</a><a class="navlink" href="../architecture-notes.html">Architecture notes</a><a class="navlink" href="../audit.html">Package audit</a></nav><div class="sidefoot">Offline edition · 02 October 2026<br>Gameplay ownership preserved.<br><a href="../original-roadmap.html">Original roadmap</a><br><a href="../sources-verification.html">Evidence and verification</a></div></aside>
 <div class="layout">
 <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../index.html">Guide home</a><span>/</span><a href="index.html">C++ engineering</a><span>/</span><span>03 · Class design, composition and contracts</span></nav>
 <article id="main">
@@ -23,18 +23,18 @@
 <pre><code class="language-cpp">HealthComponent-&gt;CurrentHealth -= Damage;</code></pre><p>The above bypasses acceptance and clamping. Prefer the owner’s operation:</p><pre><code class="language-cpp">const FDamageResult DamageResult = HealthComponent-&gt;TryReceiveDamage(DamageSpec);</code></pre>
 <p>DamageSpec and DamageResult illustrate native counterparts of the established structures. Inspect actual signatures before implementing them. The caller reacts to acceptance; it does not apply mitigation or health mutation a second time.</p>
 <h2 id="composition">Components versus inheritance</h2>
-<p>Player and enemy bodies remain separate PaperCharacter families. Enemy children and small interactable/ability families are valid specialization boundaries. Do not add CharacterWithInventory → CharacterWithEquipment → CharacterWithSkills to share capabilities. Equipment variations in values or appearance belong in definitions and the Profile slot map.</p>
+<p>Player and enemy bodies remain separate PaperZDCharacter families. Enemy children and small interactable/ability families are valid specialization boundaries. Do not add CharacterWithInventory → CharacterWithEquipment → CharacterWithSkills to share capabilities. Equipment variations in values or appearance belong in definitions and the Profile slot map.</p>
 <pre><code class="language-cpp">// PlayerCharacter.h
 #pragma once
 
 #include &quot;CoreMinimal.h&quot;
-#include &quot;PaperCharacter.h&quot;
+#include &quot;PaperZDCharacter.h&quot;
 #include &quot;PlayerCharacter.generated.h&quot;
 
 class UHealthComponent;
 
 UCLASS()
-class RPG_API APlayerCharacter : public APaperCharacter
+class RPG_API APlayerCharacter : public APaperZDCharacter
 {
     GENERATED_BODY()
 
@@ -52,7 +52,7 @@ APlayerCharacter::APlayerCharacter()
 {
     HealthComponent = CreateDefaultSubobject&lt;UHealthComponent&gt;(TEXT(&quot;HealthComponent&quot;));
 }</code></pre>
-<p>This focused composition example assumes the native component and RPG module exist; it is not the complete player. Health initialization belongs after Stats and build inputs are ready. Give the component one creation path: if a native default subobject replaces a Blueprint-added Health, remove the old one during the scoped migration. ActorComponent is non-spatial; use SceneComponent only for a capability that needs a transform.</p>
+<p>The character base requires the PaperZD module dependency; see <a href="07-headers-source.html#paperzd">module guidance</a>. This focused composition example assumes the native component and RPG module exist; it is not the complete player. Health initialization belongs after Stats and build inputs are ready. Give the component one creation path: if a native default subobject replaces a Blueprint-added Health, remove the old one during the scoped migration. ActorComponent is non-spatial; use SceneComponent only for a capability that needs a transform.</p>
 <h2 id="contract-choice">Choose communication by relationship</h2>
 <ul><li><strong>Direct reference:</strong> known owner/component or explicitly injected dependency. It is the simplest contract for Health → Stats.</li><li><strong>Component:</strong> shared capability and state, not a way to make every object implement every interface.</li><li><strong>Inheritance:</strong> a real family with substitutable behavior, such as EnemyBase children. Do not inherit hostile AI for NPC dialogue.</li><li><strong>Unreal interface:</strong> unrelated receiver Actors, including Blueprint implementers. It defines behavior, not shared state or multicast events.</li><li><strong>Delegate:</strong> observe a completed fact without requiring the producer to know all listeners. Never require a subscriber to finish an authoritative transaction.</li></ul>
 <h2 id="interfaces">Unreal interfaces</h2>
