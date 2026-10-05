@@ -1,0 +1,46 @@
+<h2 id="finite">Enums are domain types</h2>
+<p><strong>Rule:</strong> use enum class for closed choices. Use UENUM(BlueprintType) with a supported underlying type, normally uint8, when Blueprint/reflection needs it. <strong>Why:</strong> names and types prevent accidental integer/string comparisons and contradictory exclusive states. <strong>Applies:</strong> action, attack phase, entry reason, equipment slots and query results. <strong>Exception:</strong> independent yes/no facts remain bool; content-extensible identity uses validated IDs or the established semantic tags.</p>
+<p>Do not create a catch-all EGameplayState combining movement, combat, dialogue, equipment and progression. Keep the existing E_ActionState as exclusive body action ownership; E_AttackPhase is local combat execution; E_AnimState is presentation. Movement integration uses the engine’s movement modes. A new custom movement mode requires an approved behavior, not an enum added for completeness.</p>
+<pre><code class="language-cpp">bool bSkillLocked;
+bool bSkillAvailable;
+bool bSkillPurchased;</code></pre><p>Those fields allow impossible combinations. A native counterpart of the existing query vocabulary is:</p><pre><code class="language-cpp">UENUM(BlueprintType)
+enum class ESkillAvailability : uint8
+{
+    Locked = 0,
+    Available = 1,
+    Purchased = 2
+};</code></pre>
+<p>Profile derives availability from purchased IDs, prerequisites, exclusions and points. Do not save an independently mutable availability map. This snippet preserves the established vocabulary; it does not create another enum beside the Blueprint asset.</p>
+<h2 id="parameters">Typed choices instead of unclear Boolean modes</h2>
+<pre><code class="language-cpp">RestorePlayer(true, false);</code></pre><p>A single meaningful entry reason states the policy:</p><pre><code class="language-cpp">void RestorePlayer(EEntryReason EntryReason);</code></pre>
+<p>EEntryReason is the proposed native counterpart of NewGame, NormalTravel, DeathRecovery and DiskLoad. A simple SetEnabled(true) is clear and needs no enum. Engine-required Boolean parameters remain engine APIs: use named local arguments or a narrowly named project operation when their meaning is hard to read.</p>
+<h2 id="flags">Exactly one state versus independent flags</h2>
+<p>Use an ordinary enum when one state applies. Use a flags enum only when independent options genuinely coexist and bitwise combination is part of the contract. A bitmask is not a remedy for unclear state ownership. Reflect flags with the matching Unreal bitmask metadata only after testing the intended editor values; do not automatically turn action or skill availability into flags.</p>
+<p>The movement plan’s bJumpHeld, bLaunchPending and bCoyoteEligible describe different facts with valid coexistence, not one set of exclusive modes. Do not replace them mechanically with a single enum. Document their invariant and transition owner; introduce a narrower enum only if it actually removes contradictions.</p>
+<h2 id="transitions">Controlled transitions and execution identity</h2>
+<p>Keep current state private. Commands validate the current state, requested state, readiness and interruption policy; establish entry/exit effects and identity before notifying observers. Use a small switch or table in the owning component. No heavyweight state-machine framework is required.</p>
+<p>The planned ActionState vocabulary is Free, Attacking, Ability, Hitstun, Dialogue, Transition and Dead. Preserve the existing permission/interruption policy; a style change cannot add combos or new interruption rules. A numeric generation is legitimate execution identity, not a magic integer gameplay state.</p>
+<pre><code class="language-cpp">// ActionStateComponent.h
+bool EndAction(int32 ExpectedToken);</code></pre><pre><code class="language-cpp">// ActionStateComponent.cpp
+bool UActionStateComponent::EndAction(int32 ExpectedToken)
+{
+    if (ExpectedToken != ActionToken)
+    {
+        return false;
+    }
+
+    if (CurrentAction != EActionState::Attacking &amp;&amp;
+        CurrentAction != EActionState::Ability)
+    {
+        return false;
+    }
+
+    const EActionState PreviousAction = CurrentAction;
+    CurrentAction = EActionState::Free;
+    OnActionChanged.Broadcast(PreviousAction, CurrentAction, ActionToken);
+    return true;
+}</code></pre>
+<p>This method fragment only demonstrates releasing attack/ability ownership. Hitstun, dialogue and transition use their own validated lifecycle commands; Dead cannot be released by a late finish. Declaration of fields/delegate and the full interruption table are omitted. Increment/invalidate the generation on replacement and cancellation; a per-body token alone cannot protect a callback delivered after body/session replacement. Carry the relevant session/body identity too. Define wrap handling instead of relying on signed overflow.</p>
+<h2 id="compatibility">Enums referenced by assets are APIs</h2>
+<p>Treat reflected and serialized enums as stable contracts even if not currently saved. Do not casually rename, reorder, remove or reinterpret enumerators. Prefer explicit stable assigned values for new native serialized enums; preserve prior mappings on migration. Never assume assigning the same ordinal recreates a Blueprint enum’s type identity.</p>
+<p>A change requires affected Blueprint/asset/save consumers, a named mapping, unknown-value handling and fixture tests. Keep deprecated values or conversion paths when needed. Do not depend on ordinals for array indexing: explicit switches/maps are the default. Reject unknown imported values without silently choosing Free or an available skill. Core redirects may help reflected renames but are not proof that a Blueprint-to-native conversion is save-compatible.</p>

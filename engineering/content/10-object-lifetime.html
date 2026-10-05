@@ -1,0 +1,41 @@
+<h2 id="pointer-policy">Choose references by purpose</h2>
+<p>The following pointer mechanics are grounded in <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/object-pointers-in-unreal-engine">Epic object pointers</a>. The owner and teardown decisions are project policy.</p>
+<div class="table-wrap" role="region" aria-label="Object reference policy" tabindex="0"><table><thead><tr><th>Reference</th><th>Default use</th><th>Constraint</th></tr></thead><tbody>
+<tr><td>UPROPERTY TObjectPtr&lt;T&gt;</td><td>Strong UObject member reference: session models, owned components, in-flight snapshot.</td><td>Participates in GC when reflected/reachable; a bare TObjectPtr is not a retention guarantee.</td></tr>
+<tr><td>TWeakObjectPtr&lt;T&gt;</td><td>Non-owning live candidates/targets, old-world-sensitive callbacks.</td><td>Does not retain; resolve and validate when used.</td></tr>
+<tr><td>TSoftObjectPtr / TSoftClassPtr</td><td>Authored asset/class location with deferred loading.</td><td>Not proof of loading or cooking; prepare before activation.</td></tr>
+<tr><td>TSubclassOf&lt;T&gt;</td><td>Already-required configured spawn class.</td><td>Class selection is not a spawned instance.</td></tr>
+<tr><td>Raw T*</td><td>Short-lived parameter/local borrowed reference, engine signature.</td><td>Does not retain; do not store across callbacks without a deliberate lifetime strategy.</td></tr>
+<tr><td>TStrongObjectPtr&lt;T&gt;</td><td>Exceptional non-UObject holder needing explicit retention.</td><td>Do not use by default inside UObject owners.</td></tr>
+<tr><td>TUniquePtr / TSharedPtr</td><td>Plain C++ objects with matching ownership needs.</td><td>Never use to own UObjects; no manual delete of a UObject.</td></tr>
+</tbody></table></div>
+<h2 id="gc">Creation and GC reachability</h2>
+<p>Create runtime UObjects with NewObject, Actors through UWorld spawning, and native constructor subobjects with CreateDefaultSubobject. Never use new/delete for a UObject or spawn an Actor with NewObject. Choose a meaningful Outer for containment, naming and lifetime context; do not rely on Outer alone as the strong reference keeping a child alive. A long-lived UObject owner stores its child in a reflected property.</p>
+<pre><code class="language-cpp">// GameInstance.h fragment
+private:
+    UPROPERTY(Transient)
+    TObjectPtr&lt;UPlayerProfile&gt; PlayerProfile;
+
+// GameInstance.cpp initialization fragment
+PlayerProfile = NewObject&lt;UPlayerProfile&gt;(this);</code></pre>
+<p>The session creates and retains Profile/WorldState. Their gameplay initialization/import is explicit after required definitions are ready; UObject construction is not actor BeginPlay. Nested structs/containers holding UObjects need reflected traversal all the way from a reachable owner, or a justified explicit GC reference strategy. Do not hide UObject references in unreflected plain collections and expect GC to find them.</p>
+<h2 id="actors">Actor and component ownership</h2>
+<p>A world controls Actor lifetime; Actor Owner and Instigator serve gameplay/engine relationships, not an exclusive C++ memory owner. Strong references do not stop explicit Destroy or EndPlay. An Actor may exist in memory yet be unusable for gameplay. Default subobjects are created once per native construction; runtime-added components need the proper owning Actor, instance registration and teardown path for their use.</p>
+<p>Preserve the existing world/body boundary: GameInstance must release old pawn, component, controller-view and executor references across ordinary travel. Retain value handoffs, not old bodies. Do not cache GetWorld once in a session object and reuse it across maps. EndPlay cancels active work and subscriptions regardless of whether destruction came from combat, travel or PIE shutdown.</p>
+<p>Use Actor Destroy for an intentionally finished live Actor and DestroyComponent for an intentionally removed runtime component, with owned work canceled through teardown. Destroy is not immediate memory deallocation. Plain UObjects normally become collectible after reachable references are released; do not force deletion or AddToRoot as an ordinary ownership workaround.</p>
+<h2 id="validity">Validity at real boundaries</h2>
+<pre><code class="language-cpp">AActor* CurrentTarget = TargetActor.Get();
+if (!IsValid(CurrentTarget))
+{
+    return;
+}
+
+if (!CurrentTarget-&gt;GetClass()-&gt;ImplementsInterface(UAbilityTarget::StaticClass()))
+{
+    return;
+}</code></pre>
+<p>This is a runtime target-check fragment. Also validate source readiness, range/permission and token before effect application. Recheck a UObject after an external callback if it will be used again. Do not turn impossible local assumptions into silent no-ops everywhere; use the <a href="14-errors-performance.html">validation policy</a> to distinguish configuration failures and programmer errors.</p>
+<h2 id="soft-loading">Soft loading and worker safety</h2>
+<p>Resolve required soft definitions/classes before acquiring irreversible gameplay state or tearing down the source map. Keep loaded objects strongly reachable for the period they are required. Hold/cancel request handles according to the actual loader API and validate the current session/body on completion. A failed load rejects activation with a useful diagnostic.</p>
+<p>Soft references need a proven packaging/cook route through the existing catalog or a deliberately configured asset-loading policy. Do not add AssetManager infrastructure without a concrete need. A hard reference is reasonable for a small always-needed dependency; a soft reference is reasonable for optional/area content. Verify both in a packaged build.</p>
+<p>Gameplay UObject access and mutation remain on the game thread unless the engine API explicitly allows otherwise. Worker tasks operate on copied, thread-safe value inputs and return results to the correct context. A pointer wrapper alone does not make an Actor, Blueprint call, UObject mutation or shared container thread-safe.</p>

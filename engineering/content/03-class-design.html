@@ -1,0 +1,53 @@
+<h2 id="boundaries">A coherent class and a small API</h2>
+<p><strong>Rule:</strong> start fields and helpers private. Expose only real commands and queries. <strong>Why:</strong> the owner can validate every mutation and readers can see its contract. <strong>Applies:</strong> components, models, Actors and plain C++ values. <strong>Exception:</strong> simple value structs may expose fields; inheritance hooks may be protected. Protected mutable containers are not a substitute for encapsulation.</p>
+<p>Profile may own progression, purchases and inventory/equipment because they form the existing persistent character model. That is not permission to move combat, movement, UI or world simulation into Profile. If it becomes hard to navigate, first group methods/files around those domains while retaining one store; extracting a new model needs a demonstrated ownership benefit.</p>
+<pre><code class="language-cpp">HealthComponent-&gt;CurrentHealth -= Damage;</code></pre><p>The above bypasses acceptance and clamping. Prefer the owner’s operation:</p><pre><code class="language-cpp">const FDamageResult DamageResult = HealthComponent-&gt;TryReceiveDamage(DamageSpec);</code></pre>
+<p>DamageSpec and DamageResult illustrate native counterparts of the established structures. Inspect actual signatures before implementing them. The caller reacts to acceptance; it does not apply mitigation or health mutation a second time.</p>
+<h2 id="composition">Components versus inheritance</h2>
+<p>Player and enemy bodies remain separate PaperCharacter families. Enemy children and small interactable/ability families are valid specialization boundaries. Do not add CharacterWithInventory → CharacterWithEquipment → CharacterWithSkills to share capabilities. Equipment variations in values or appearance belong in definitions and the Profile slot map.</p>
+<pre><code class="language-cpp">// PlayerCharacter.h
+#pragma once
+
+#include &quot;CoreMinimal.h&quot;
+#include &quot;PaperCharacter.h&quot;
+#include &quot;PlayerCharacter.generated.h&quot;
+
+class UHealthComponent;
+
+UCLASS()
+class RPG_API APlayerCharacter : public APaperCharacter
+{
+    GENERATED_BODY()
+
+public:
+    APlayerCharacter();
+
+private:
+    UPROPERTY(VisibleAnywhere, Category = &quot;Capabilities&quot;)
+    TObjectPtr&lt;UHealthComponent&gt; HealthComponent;
+};</code></pre><pre><code class="language-cpp">// PlayerCharacter.cpp
+#include &quot;Player/PlayerCharacter.h&quot;
+#include &quot;Combat/HealthComponent.h&quot;
+
+APlayerCharacter::APlayerCharacter()
+{
+    HealthComponent = CreateDefaultSubobject&lt;UHealthComponent&gt;(TEXT(&quot;HealthComponent&quot;));
+}</code></pre>
+<p>This focused composition example assumes the native component and RPG module exist; it is not the complete player. Health initialization belongs after Stats and build inputs are ready. Give the component one creation path: if a native default subobject replaces a Blueprint-added Health, remove the old one during the scoped migration. ActorComponent is non-spatial; use SceneComponent only for a capability that needs a transform.</p>
+<h2 id="contract-choice">Choose communication by relationship</h2>
+<ul><li><strong>Direct reference:</strong> known owner/component or explicitly injected dependency. It is the simplest contract for Health → Stats.</li><li><strong>Component:</strong> shared capability and state, not a way to make every object implement every interface.</li><li><strong>Inheritance:</strong> a real family with substitutable behavior, such as EnemyBase children. Do not inherit hostile AI for NPC dialogue.</li><li><strong>Unreal interface:</strong> unrelated receiver Actors, including Blueprint implementers. It defines behavior, not shared state or multicast events.</li><li><strong>Delegate:</strong> observe a completed fact without requiring the producer to know all listeners. Never require a subscriber to finish an authoritative transaction.</li></ul>
+<h2 id="interfaces">Unreal interfaces</h2>
+<p>Preserve the four planned contracts: Damageable, Interactable, PersistentActor and AbilityTarget. State the receiver, input validity, result, mutation and readiness conditions. Having a Health component does not automatically implement Damageable on its owning Actor; add an explicit adapter.</p>
+<p>For a reflected native interface that Blueprint may implement, validate the UObject, check ImplementsInterface, then call the generated Execute_ function. A native interface-pointer cast alone can miss Blueprint-only implementations. The example assumes a migrated native contract already exists; do not create a duplicate alongside the old BPI merely for the sample.</p>
+<pre><code class="language-cpp">if (!IsValid(Target))
+{
+    return;
+}
+
+if (!Target-&gt;GetClass()-&gt;ImplementsInterface(UInteractable::StaticClass()))
+{
+    return;
+}
+
+IInteractable::Execute_Interact(Target, Interactor);</code></pre>
+<p>Check the command’s real success output before treating the interaction as accepted. Native-only non-UObject abstractions can use ordinary C++ interfaces when genuinely required; they are not automatically Blueprint contracts. See <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/interfaces-in-unreal-engine">Epic interfaces</a>.</p>
