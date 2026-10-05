@@ -1,0 +1,31 @@
+<h2 id="failure-types">Match handling to the failure</h2>
+<div class="table-wrap" role="region" aria-label="Failure handling" tabindex="0"><table><thead><tr><th>Condition</th><th>Project response</th><th>Why / exception</th></tr></thead><tbody>
+<tr><td>Programmer invariant</td><td>check/checkf where continuing is invalid; assertion expressions have no required side effects.</td><td>Find bugs early. Shipping behavior still needs a safe boundary if external data can violate the premise.</td></tr>
+<tr><td>Unexpected recoverable state</td><td>ensure/ensureMsgf plus explicit safe return/recovery.</td><td>Diagnose without forcing termination; ensure is not recovery by itself.</td></tr>
+<tr><td>Expected gameplay rejection</td><td>Typed result or clear bool; no mutation, useful caller feedback.</td><td>Missing charge, unavailable skill or stale target is not an assertion failure or per-frame error log.</td></tr>
+<tr><td>Content/configuration error</td><td>Editor validation and diagnostic identifying asset/ID; block unsafe activation.</td><td>Missing spawn/definition must be actionable, not a silent guard or invented fallback.</td></tr>
+<tr><td>I/O / imported-data failure</td><td>Retain valid truth, report reason, retry/fallback only through declared policy.</td><td>Never convert save failure into a success indicator.</td></tr>
+</tbody></table></div>
+<p>check expressions may not execute in shipping configurations; verify evaluates its expression when checks are disabled; ensure reports a nonfatal condition but needs explicit subsequent control flow. Do not put essential gameplay mutation inside assertions. See <a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/asserts-in-unreal-engine">Epic asserts</a>.</p>
+<pre><code class="language-cpp">if (!ensureMsgf(IsValid(StatsComponent), TEXT(&quot;Health requires initialized Stats&quot;)))
+{
+    return false;
+}
+
+if (!FMath::IsFinite(Amount) || Amount &lt;= 0.0f)
+{
+    return false;
+}</code></pre>
+<p>This validation fragment separates an unexpected required dependency from an invalid public numeric request. Additional readiness/death/maximum rules remain in the owner. Validate NaN/infinity, integer overflow and bounded counts before arithmetic or staged mutation. Guard array access and imported enum values; a default switch must not accidentally authorize an unknown state.</p>
+<h2 id="tick">Tick is an intentional scheduling choice</h2>
+<p><strong>Rule:</strong> disable Actor/component Tick by default and enable it only for a demonstrated continuous behavior. <strong>Why:</strong> hidden polling scatters rules and wastes work. <strong>Applies:</strong> all new classes. <strong>Exception:</strong> movement observation/input integration, active combat spatial queries, shared visual clocks and other genuinely frame-dependent work. Native Character Movement already ticks; disabling a custom Actor Tick does not remove the engine’s movement integration.</p>
+<pre><code class="language-cpp">// PersistentStateComponent constructor fragment
+PrimaryComponentTick.bCanEverTick = false;</code></pre>
+<p>Inventory, equipment, skills, Profile/WorldState and SaveGame do not need continuous polling. Stats rebuilds on complete input changes. Use input/collision events, completed-change delegates, timers and explicit transitions when they express the requirement.</p>
+<p>When Tick’s reason is non-obvious, document what it evaluates, why events/timers are insufficient, when it is enabled, its clock and ordering. Active combat may disable its update when idle; an ability recharge ledger stops updating when full; effects stop their timer when empty. Do not add a second update path executing the same operation from both input and Tick.</p>
+<h2 id="clocks">Timers and clocks are domain policy</h2>
+<p>Timers suit bounded AI decisions, effect expiry and deadline-based recharge, not per-frame movement impulses. Keep FTimerHandle values, clear owned timers on teardown and validate weak targets/execution identity in delayed work. A callback’s time is not guaranteed to match an exact render frame; advance bounded elapsed/deadline logic correctly after hitches. Timer mechanics: <a href="https://dev.epicgames.com/documentation/unreal-engine/gameplay-timers-in-unreal-engine">Epic gameplay timers</a>.</p>
+<p>Gameplay effects/recharge use the project’s pause-respecting game clock. UI can animate cosmetic progress independently; it cannot restore charges. Save retry/completion while paused cannot assume a gameplay timer advances. Normal-travel handoffs contain remaining duration instead of old absolute world timestamps.</p>
+<h2 id="profiling">Correctness before optimization</h2>
+<p>Do not introduce pooling, caching layers, custom allocators, parallel gameplay or complex data structures without evidence. Start with straightforward domain code. Avoid known meaningful costs: repeated whole-world scans, synchronous asset loads during action acceptance, copying large views in pure Blueprint nodes, redundant rebuilds and allocations in hot updates.</p>
+<p>When optimizing, record the measured workload, profiler/build/platform, observed cost and result. Preserve public behavior, deterministic rule inputs, ownership and save compatibility. A cache needs an authoritative source, explicit invalidation and a reconstruction proof. Test representative hitches and low-frame-rate combat geometry; a faster update that misses the active interval is incorrect.</p>

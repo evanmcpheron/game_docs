@@ -1,0 +1,34 @@
+<h2 id="codex">Required workflow for AI-assisted implementation</h2>
+<ol>
+<li><strong>Inspect first.</strong> Read applicable AGENTS.md instructions, this index, project architecture, affected system/asset contracts and current source/configuration. Distinguish plans from implemented code. If a checkout lacks the project, do not pretend the docs prove an implementation.</li>
+<li><strong>Identify the owner.</strong> State the requested behavior, authoritative state, current types/enums, callers, lifecycle and persistence impact. Reuse existing types and canonical aliases before inventing replacements.</li>
+<li><strong>Make the smallest correct architectural change.</strong> Follow current conventions unless they conflict with this standard. Preserve public APIs and serialized identity where practical. Do not treat one feature request as permission to redesign unrelated systems.</li>
+<li><strong>Choose strong types deliberately.</strong> Reuse an enum that already models the concept; add a narrow enum only for an actual new finite concept. Avoid exclusive Boolean proliferation, giant enums, string/integer states and speculative content vocabularies.</li>
+<li><strong>Implement contracts in .cpp.</strong> Keep headers declarative and includes minimal. Never introduce nested ternaries. Use simple functions, guards and explicit transitions.</li>
+<li><strong>Keep ownership and exposure narrow.</strong> Use controlled mutations, composition and deliberate Blueprint APIs. Do not add mutable public collections, unnecessary Tick, managers, global buses, hard-coded presentation assets or circular dependencies.</li>
+<li><strong>Preserve behavior and compatibility.</strong> Inventory/equipment remain Profile-owned; movement remains native-integrated; body tokens and persistent identities keep their distinct roles. Serialized changes require actual migration/consumer checks.</li>
+<li><strong>Verify the affected contract.</strong> Build/UHT, affected Blueprint compile/content checks and risk-based gameplay/save proof as available. Inspect the final diff for unrelated edits and new competing authorities.</li>
+<li><strong>Report the result honestly.</strong> Explain changed behavior, tests run, compatibility effects and any architectural deviation with its concrete technical reason. Name missing engine/project access; do not claim execution that did not occur.</li>
+</ol>
+<p>A necessary deviation records the constraint, narrow scope, alternatives and proof in the change/decision record. It is not automatic permission for a broad refactor. Do not add repository-wide abstractions, speculative future systems, duplicate domain types or a second truth store merely to make the current implementation convenient.</p>
+<h2 id="review">Concise review checklist</h2>
+<ul>
+<li>Does the class have one coherent responsibility, and does the correct owner control behavior/state?</li>
+<li>Is composition more appropriate than inheritance? Is every subtype a real is-a relationship?</li>
+<li>Is duplicated domain knowledge introduced, or an abstraction added before a real need?</li>
+<li>Could exclusive booleans become a safer enum? Does each enum model one finite cohesive concept?</li>
+<li>Are enum/struct/ID/public API changes compatible with Blueprints, assets and saves?</li>
+<li>Is ordinary implementation unnecessarily in a header? Are direct includes/forward declarations correct?</li>
+<li>Is Blueprint exposure deliberate? Can outside code bypass invariants or mutate internal collections?</li>
+<li>Are commands and optional events distinct, and is state complete before callbacks?</li>
+<li>Are UObject references, teardown, readiness and stale callback identity safe?</li>
+<li>Is Tick justified, clock/ordering explicit and inactive work stopped?</li>
+<li>Are new circular dependencies or giant manager responsibilities introduced?</li>
+<li>Is a nested ternary present? Is control flow unnecessarily complex or side-effect dependent?</li>
+<li>Do names describe domain meaning, and do comments reduce cognitive load?</li>
+<li>Does rejected work leave coherent state unchanged? Are expected failures distinguishable from bugs?</li>
+<li>Does verification prove relevant invariants rather than mirror implementation?</li>
+<li>Is Codex modifying unrelated architecture or gameplay design?</li>
+</ul>
+<h2 id="done">Completion evidence</h2>
+<p>A feature is ready for review when requested behavior is implemented, public/serialized/Blueprint effects are understood, required checks pass or explicit environmental limitations are recorded, and the final diff contains no unrelated redesign. New rules go in the relevant chapter; project ownership changes go in architecture/decision documentation. Do not add a comment or abstraction just to satisfy the checklist.</p>

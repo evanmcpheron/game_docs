@@ -18,3 +18,15 @@ or game build executed while creating the manual. Test values are provisional.
 
 Local checklist storage depends on your browser. Export progress before moving
 or replacing the guide; importing progress changes only documentation checkmarks.
+
+C++ ENGINEERING STANDARD (05 October 2026)
+Open engineering/index.html for the project-specific native engineering rules.
+The Blueprint roadmap retains domain ownership; new/modified C++ follows this
+standard. engineering/architecture.html records the inspected repository gap:
+RPG main contains only .gitignore, so planned assets are not verified game code.
+The local engine reports 5.8.3; game compilation/runtime were not performed.
+Edit engineering/content/*.html and engineering/pages.json, then run:
+  python3 tools/build_cpp_standard.py
+  python3 tools/build_cpp_standard.py --check
+  python3 tools/check_cpp_standard.py
+Generated pages and offline search stay in sync without third-party packages.
