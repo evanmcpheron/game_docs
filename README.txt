@@ -40,3 +40,18 @@ PaperZD: complex character sources/sequences/AnimBPs, state machines and notifie
 Gameplay: authoritative movement, actions, damage, abilities and persistence.
 Start at systems/animation.html; see animation-migration.html for compatibility.
 The installed PaperZD release and game build/runtime remain unverified.
+
+INCREMENTAL INTEGRATION WORKFLOW (07 October 2026)
+Open development-test-environments.html for map roles and the Phase 2→3 bootstrap transition.
+Every phase now names existing consumers to reopen, assignments, world edits,
+run-now success/rejection cases and selected regression gates. Asset references
+share those same contracts; deliberately staged definitions identify activation.
+Edit sources/phase-integration.json; the existing manual generator invokes
+ tools/phase_integration.py to render the marked blocks and test-environment page.
+After the existing generation/check sequence, run:
+  python3 tools/check_phase_integration.py --write-report
+The current report preserves the original roadmap, historical audit/manifest,
+phase order and all 163 registered identities/folders. This is still documentation,
+not compiled Blueprints or a tested Unreal game. The related RPG repository was
+not accessible through the GitHub connection during this audit; October 5 game
+repository/engine findings above remain historical evidence only.

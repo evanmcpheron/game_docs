@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-07",
+  "check": "Incremental feature integration and development-world static documentation validation",
+  "baseline_commit": "383ac235010c3c7d8ab357eb21b7eebd2b87c19f",
+  "baseline_tree": "3a518e71f0a71d9a5ee7e7636d0c08e19b739685",
+  "phase_workflows": 12,
+  "asset_dispositions": 163,
+  "shared_bindings": 72,
+  "binding_kinds": {
+    "component": 19,
+    "definition": 24,
+    "input": 10,
+    "interface": 9,
+    "view": 10
+  },
+  "asset_identity_preserved": true,
+  "preserved_files": {
+    "original-roadmap.html": true,
+    "audit.html": true,
+    "sources/asset-manifest.json": true,
+    "sources/phase-creation-order.json": true
+  },
+  "related_game_access": "GitHub connector returned 404; actual RPG project/Editor not inspected in this audit.",
+  "errors": [],
+  "blueprints_compiled": false,
+  "unreal_editor_run": false,
+  "runtime_tests_run": false,
+  "packaged_game_run": false,
+  "installed_paperzd_compatibility_verified": false
+}

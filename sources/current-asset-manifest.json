@@ -21,7 +21,8 @@
       "S_WorldObjectRecord",
       "BPDA_ItemDefinition",
       "BP_SaveGame",
-      "S_Reward"
+      "S_Reward",
+      "DA_GameCatalog"
     ],
     "users": [
       "BP_GameMode",
@@ -75,7 +76,23 @@
       "BP_WorldState",
       "WBP_SaveStatus",
       "BPDA_DialogueDefinition",
-      "S_DialogueVariant"
+      "S_DialogueVariant",
+      "IA_Attack",
+      "IA_Interact",
+      "IA_Inventory",
+      "IA_Skills",
+      "IA_AbilityPrimary",
+      "IA_Pause",
+      "IA_UIConfirm",
+      "IA_UICancel",
+      "WBP_Inventory",
+      "WBP_Equipment",
+      "WBP_SkillTree",
+      "WBP_Abilities",
+      "WBP_Dialogue",
+      "WBP_PauseMenu",
+      "WBP_MainMenu",
+      "IMC_UI"
     ],
     "users": [
       "BP_GameMode",
@@ -111,7 +128,10 @@
       "BPC_Abilities",
       "BPC_StatusEffects",
       "ABP_Player",
-      "BPC_EquipmentVisuals"
+      "BPC_EquipmentVisuals",
+      "DA_PlayerBaseStats",
+      "DA_Attack_PlayerGroundTest",
+      "DA_Attack_PlayerAirTest"
     ],
     "users": [
       "BP_GameInstance",
@@ -132,7 +152,8 @@
     "fixture": false,
     "deps": [],
     "users": [
-      "BP_PlayerController"
+      "BP_PlayerController",
+      "IMC_Player"
     ],
     "purpose": "Axis1D intent asset, not a custom Blueprint Class."
   },
@@ -147,7 +168,8 @@
     "fixture": false,
     "deps": [],
     "users": [
-      "BP_PlayerController"
+      "BP_PlayerController",
+      "IMC_Player"
     ],
     "purpose": "Boolean intent asset, not a custom Blueprint Class."
   },
@@ -160,7 +182,16 @@
     "path": "/Game/Game/Input/IMC_Player",
     "doc": "assets/Input/IMC_Player.html",
     "fixture": false,
-    "deps": [],
+    "deps": [
+      "IA_Move",
+      "IA_Jump",
+      "IA_Attack",
+      "IA_Interact",
+      "IA_Inventory",
+      "IA_Skills",
+      "IA_AbilityPrimary",
+      "IA_Pause"
+    ],
     "users": [
       "BP_PlayerController",
       "L_MovementLab"
@@ -710,7 +741,10 @@
     "doc": "assets/Input/IA_Attack.html",
     "fixture": false,
     "deps": [],
-    "users": [],
+    "users": [
+      "BP_PlayerController",
+      "IMC_Player"
+    ],
     "purpose": "Boolean intent asset, not a custom Blueprint Class."
   },
   {
@@ -727,6 +761,7 @@
       "ABP_Player"
     ],
     "users": [
+      "BP_PlayerCharacter",
       "DA_GameCatalog"
     ],
     "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
@@ -743,7 +778,9 @@
     "deps": [
       "BPDA_AttackDefinition"
     ],
-    "users": [],
+    "users": [
+      "BP_PlayerCharacter"
+    ],
     "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
   },
   {
@@ -758,7 +795,9 @@
     "deps": [
       "BPDA_AttackDefinition"
     ],
-    "users": [],
+    "users": [
+      "BP_PlayerCharacter"
+    ],
     "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
   },
   {
@@ -1003,6 +1042,7 @@
       "BP_AbilityTestReceiver",
       "BP_Checkpoint",
       "BP_Door",
+      "BP_EnemyBase",
       "BP_GameMode",
       "BP_PickupBase",
       "BP_Switch"
@@ -1043,6 +1083,7 @@
       "BP_AbilityTestReceiver",
       "BP_Checkpoint",
       "BP_Door",
+      "BP_EnemyBase",
       "BP_GameMode",
       "BP_PickupBase",
       "BP_Switch"
@@ -1290,7 +1331,10 @@
     "doc": "assets/Input/IA_Interact.html",
     "fixture": false,
     "deps": [],
-    "users": [],
+    "users": [
+      "BP_PlayerController",
+      "IMC_Player"
+    ],
     "purpose": "Boolean intent asset, not a custom Blueprint Class."
   },
   {
@@ -1352,9 +1396,24 @@
       "DA_PlayerBaseStats",
       "BPDA_GameCatalog",
       "DA_Area_SliceA",
-      "DA_Area_SliceB"
+      "DA_Area_SliceB",
+      "DA_Item_TestReward",
+      "DA_Item_TestConsumable",
+      "DA_Item_TestHelmet",
+      "DA_Item_TestBuffConsumable",
+      "DA_Enemy_MeleeTest",
+      "DA_Enemy_RangedTest",
+      "DT_LevelProgression",
+      "DA_Skill_TestRoot",
+      "DA_Skill_TestBranchA",
+      "DA_Skill_TestBranchB",
+      "DA_Skill_TestActive",
+      "DA_Ability_TestPulse",
+      "DA_Effect_TestBuff"
     ],
     "users": [
+      "BP_ArchitectureTestHarness",
+      "BP_GameInstance",
       "L_SystemTests"
     ],
     "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
@@ -1554,7 +1613,9 @@
     "deps": [
       "BPDA_ItemDefinition"
     ],
-    "users": [],
+    "users": [
+      "DA_GameCatalog"
+    ],
     "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
   },
   {
@@ -1578,7 +1639,9 @@
       "S_WorldObjectRecord",
       "BPDA_EnemyDefinition",
       "BP_EnemyAIController",
-      "ABP_EnemyTest"
+      "ABP_EnemyTest",
+      "BPC_PersistentState",
+      "BPI_PersistentActor"
     ],
     "users": [
       "BP_EnemyAIController",
@@ -1598,7 +1661,8 @@
     "fixture": false,
     "deps": [
       "BPDA_AttackDefinition",
-      "BP_EnemyBase"
+      "BP_EnemyBase",
+      "DA_Enemy_MeleeTest"
     ],
     "users": [],
     "purpose": "A shallow specialization selects melee behavior/data."
@@ -1614,7 +1678,8 @@
     "fixture": false,
     "deps": [
       "BPDA_AttackDefinition",
-      "BP_EnemyBase"
+      "BP_EnemyBase",
+      "DA_Enemy_RangedTest"
     ],
     "users": [],
     "purpose": "A shallow specialization selects ranged behavior/data."
@@ -1722,7 +1787,9 @@
     "deps": [
       "S_LevelProgressionRow"
     ],
-    "users": [],
+    "users": [
+      "DA_GameCatalog"
+    ],
     "purpose": "A compact ordered progression curve is easier to audit as rows."
   },
   {
@@ -1739,7 +1806,10 @@
       "DA_Attack_EnemyMeleeTest",
       "ABP_EnemyTest"
     ],
-    "users": [],
+    "users": [
+      "BP_Enemy_MeleeBasic",
+      "DA_GameCatalog"
+    ],
     "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
   },
   {
@@ -1756,7 +1826,10 @@
       "DA_Attack_EnemyRangedTest",
       "ABP_EnemyTest"
     ],
-    "users": [],
+    "users": [
+      "BP_Enemy_RangedBasic",
+      "DA_GameCatalog"
+    ],
     "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
   },
   {
@@ -1806,7 +1879,9 @@
     "deps": [
       "BP_PlayerProfile"
     ],
-    "users": [],
+    "users": [
+      "BP_PlayerController"
+    ],
     "purpose": "Displays owned entries and requests use/equip operations."
   },
   {
@@ -1819,7 +1894,10 @@
     "doc": "assets/Input/IA_Inventory.html",
     "fixture": false,
     "deps": [],
-    "users": [],
+    "users": [
+      "BP_PlayerController",
+      "IMC_Player"
+    ],
     "purpose": "Boolean intent asset, not a custom Blueprint Class."
   },
   {
@@ -1834,7 +1912,9 @@
     "deps": [
       "BPDA_ItemDefinition"
     ],
-    "users": [],
+    "users": [
+      "DA_GameCatalog"
+    ],
     "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
   },
   {
@@ -1849,7 +1929,9 @@
     "deps": [
       "BP_PlayerProfile"
     ],
-    "users": [],
+    "users": [
+      "BP_PlayerController"
+    ],
     "purpose": "Displays equipment slots and requests slot changes."
   },
   {
@@ -1865,7 +1947,9 @@
       "BPDA_ItemDefinition",
       "DA_Equipment_TestHelmet"
     ],
-    "users": [],
+    "users": [
+      "DA_GameCatalog"
+    ],
     "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
   },
   {
@@ -1954,7 +2038,9 @@
       "BPDA_SkillDefinition",
       "WBP_SkillNode"
     ],
-    "users": [],
+    "users": [
+      "BP_PlayerController"
+    ],
     "purpose": "Displays the tree and queries purchase availability."
   },
   {
@@ -2002,7 +2088,10 @@
     "doc": "assets/Input/IA_Skills.html",
     "fixture": false,
     "deps": [],
-    "users": [],
+    "users": [
+      "BP_PlayerController",
+      "IMC_Player"
+    ],
     "purpose": "Boolean intent asset, not a custom Blueprint Class."
   },
   {
@@ -2017,7 +2106,9 @@
     "deps": [
       "BPDA_SkillDefinition"
     ],
-    "users": [],
+    "users": [
+      "DA_GameCatalog"
+    ],
     "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
   },
   {
@@ -2032,7 +2123,9 @@
     "deps": [
       "BPDA_SkillDefinition"
     ],
-    "users": [],
+    "users": [
+      "DA_GameCatalog"
+    ],
     "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
   },
   {
@@ -2047,7 +2140,9 @@
     "deps": [
       "BPDA_SkillDefinition"
     ],
-    "users": [],
+    "users": [
+      "DA_GameCatalog"
+    ],
     "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
   },
   {
@@ -2219,7 +2314,9 @@
     "deps": [
       "BPC_Abilities"
     ],
-    "users": [],
+    "users": [
+      "BP_PlayerController"
+    ],
     "purpose": "Displays unlocked slots, charges, and recharge progress."
   },
   {
@@ -2283,7 +2380,10 @@
     "doc": "assets/Input/IA_AbilityPrimary.html",
     "fixture": false,
     "deps": [],
-    "users": [],
+    "users": [
+      "BP_PlayerController",
+      "IMC_Player"
+    ],
     "purpose": "Boolean intent asset, not a custom Blueprint Class."
   },
   {
@@ -2298,7 +2398,9 @@
     "deps": [
       "BPDA_SkillDefinition"
     ],
-    "users": [],
+    "users": [
+      "DA_GameCatalog"
+    ],
     "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
   },
   {
@@ -2314,7 +2416,9 @@
       "BPDA_AbilityDefinition",
       "BP_Ability_TestPulse"
     ],
-    "users": [],
+    "users": [
+      "DA_GameCatalog"
+    ],
     "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
   },
   {
@@ -2329,7 +2433,9 @@
     "deps": [
       "BPDA_EffectDefinition"
     ],
-    "users": [],
+    "users": [
+      "DA_GameCatalog"
+    ],
     "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
   },
   {
@@ -2344,7 +2450,9 @@
     "deps": [
       "BPDA_ItemDefinition"
     ],
-    "users": [],
+    "users": [
+      "DA_GameCatalog"
+    ],
     "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
   },
   {
@@ -2375,7 +2483,8 @@
     "fixture": false,
     "deps": [
       "BPI_Interactable",
-      "BPDA_DialogueDefinition"
+      "BPDA_DialogueDefinition",
+      "DA_Dialogue_TestNPC"
     ],
     "users": [],
     "purpose": "A stationary non-hostile NPC needs interaction and sprites, not enemy movement/AI."
@@ -2412,7 +2521,9 @@
     "deps": [
       "BP_PlayerController"
     ],
-    "users": [],
+    "users": [
+      "BP_PlayerController"
+    ],
     "purpose": "Displays conversation lines and requests advance/close."
   },
   {
@@ -2428,7 +2539,9 @@
       "BP_GameInstance",
       "BP_PlayerController"
     ],
-    "users": [],
+    "users": [
+      "BP_PlayerController"
+    ],
     "purpose": "Requests resume, save, and exit through the Controller."
   },
   {
@@ -2445,6 +2558,7 @@
       "BP_PlayerController"
     ],
     "users": [
+      "BP_PlayerController",
       "L_Frontend"
     ],
     "purpose": "Requests new game or load through GameInstance."
@@ -2526,7 +2640,10 @@
     "doc": "assets/Input/IA_Pause.html",
     "fixture": false,
     "deps": [],
-    "users": [],
+    "users": [
+      "BP_PlayerController",
+      "IMC_Player"
+    ],
     "purpose": "Boolean intent asset, not a custom Blueprint Class."
   },
   {
@@ -2539,7 +2656,10 @@
     "doc": "assets/Input/IA_UIConfirm.html",
     "fixture": false,
     "deps": [],
-    "users": [],
+    "users": [
+      "BP_PlayerController",
+      "IMC_UI"
+    ],
     "purpose": "Boolean intent asset, not a custom Blueprint Class."
   },
   {
@@ -2552,7 +2672,10 @@
     "doc": "assets/Input/IA_UICancel.html",
     "fixture": false,
     "deps": [],
-    "users": [],
+    "users": [
+      "BP_PlayerController",
+      "IMC_UI"
+    ],
     "purpose": "Boolean intent asset, not a custom Blueprint Class."
   },
   {
@@ -2564,8 +2687,13 @@
     "path": "/Game/Game/Input/IMC_UI",
     "doc": "assets/Input/IMC_UI.html",
     "fixture": false,
-    "deps": [],
-    "users": [],
+    "deps": [
+      "IA_UIConfirm",
+      "IA_UICancel"
+    ],
+    "users": [
+      "BP_PlayerController"
+    ],
     "purpose": "Groups key/button bindings for an input context."
   },
   {
@@ -2597,7 +2725,9 @@
     "deps": [
       "BPDA_DialogueDefinition"
     ],
-    "users": [],
+    "users": [
+      "BP_NPCBase"
+    ],
     "purpose": "Select the compiled schema class in Miscellaneous → Data Asset; edit this instance."
   },
   {
@@ -2609,7 +2739,9 @@
     "path": "/Game/Game/Tests/BP_ArchitectureTestHarness",
     "doc": "assets/Tests/BP_ArchitectureTestHarness.html",
     "fixture": true,
-    "deps": [],
+    "deps": [
+      "DA_GameCatalog"
+    ],
     "users": [
       "L_SystemTests"
     ],

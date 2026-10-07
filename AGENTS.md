@@ -31,3 +31,10 @@ For engineering documentation changes:
 Code comments should exist only when they reduce cognitive load. Prefer clear
 code; explain non-obvious intent, constraints, lifecycle or compatibility briefly.
 Do not narrate obvious code or add comments merely because a file changed.
+
+## Incremental integration documentation
+- Edit `sources/phase-integration.json` for Phase 0–11 operational recipes, explicit assignments, shared component/interface/input/widget contracts, and staged asset dispositions.
+- `tools/phase_integration.py` renders marked sections through `tools/build_manual_indexes.py`; do not hand-edit generated integration blocks or the generated `development-test-environments.html` page.
+- Keep actual direct dependency changes synchronized in `sources/current-asset-manifest.json`, including reverse `users`. Preserve registered identities, phase ordering and Content folders.
+- After the existing generators/checks, run `python3 tools/check_phase_integration.py`; use `--write-report` to refresh the current static integration evidence.
+- The historical `audit.html` is preserved. Current integration results live in `sources/phase-integration-verification.json`; no static result proves Unreal compilation or runtime behavior.

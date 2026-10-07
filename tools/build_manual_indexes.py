@@ -8,6 +8,8 @@ import posixpath
 from pathlib import Path
 import re
 
+from phase_integration import load_integration, render_environments, update_page, ENVIRONMENT_PAGE
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -47,9 +49,10 @@ def build_outputs():
     folders = Counter(a['folder'] for a in manifest)
     phase_counts = Counter(a['phase'] for a in manifest)
     outputs = {}
+    integration = load_integration()
     for path in sorted(ROOT.rglob('*.html')):
         rel = path.relative_to(ROOT).as_posix()
-        if path.name in ['original-roadmap.html', 'audit.html'] or rel.startswith('engineering/'):
+        if path.name in ['original-roadmap.html', 'audit.html', ENVIRONMENT_PAGE] or rel.startswith('engineering/'):
             continue
         source = path.read_text()
         source = re.sub(r'All \d+ assets', f'All {count} assets', source)
@@ -118,8 +121,13 @@ def build_outputs():
                             lambda m: m[1] + (', '.join(asset_link(assets[n], rel) for n in asset['users']) or 'Phase recipe / local request') + '.' + m[2], source, flags=re.S)
             source = re.sub(r'(<p><strong>Known direct consumers:</strong>).*?(</p>)',
                             lambda m: m[1] + ', '.join(asset_link(assets[n], rel) for n in asset['users']) + '.' + m[2], source, flags=re.S)
+        source = update_page(source, rel, integration, assets)
         if source != path.read_text():
             outputs[path] = source
+    environment_path = ROOT / ENVIRONMENT_PAGE
+    environment_source = render_environments((ROOT / 'index.html').read_text(), integration, assets)
+    if not environment_path.exists() or environment_path.read_text() != environment_source:
+        outputs[environment_path] = environment_source
     app = ROOT / 'site/app.js'
     source = app.read_text()
     source = re.sub(r"count\+' of \d+ assets shown'", f"count+' of {count} assets shown'", source)
