@@ -4,10 +4,126 @@ on:
     branches: [docs/incremental-integration-audit-2026-10-07]
     paths: [.github/workflows/phase-integration-publish.yml]
 permissions:
-  contents: read
+  contents: write
 jobs:
-  prepare:
-    if: false
+  publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      BASELINE: 383ac235010c3c7d8ab357eb21b7eebd2b87c19f
+      EXPECTED_TREE: 5925665ac621fd702c0bc5a205332abe9beb83ff
     steps:
-      - run: echo 'Awaiting the locally validated source patch. This workflow is removed from the completed documentation tree.'
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: docs/incremental-integration-audit-2026-10-07
+      - name: Apply the integrity-checked documentation source patch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REPOSITORY" = evanmcpheron/game_docs
+          git merge-base --is-ancestor "$BASELINE" HEAD
+          test "$(git diff --name-only "$BASELINE" HEAD)" = .github/workflows/phase-integration-publish.yml
+          test -z "$(git status --porcelain)"
+          python3 - <<'PY'
+          import base64
+          import hashlib
+          import json
+          import lzma
+          import os
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+          chunks = [
+              '7cca7825955f00476d8ed3b9ba33615fda7a9707',
+              'd1495480c735240d7707aa1d931e6de807a3eb8b',
+              '5ea925c6f29d17be0f2a25545ddb4e98fb1db2d8',
+              '34a66b3736dcd909dfd2e5d06d1e775674dba515',
+              '77f4e3926f245f9559c73a333d1ae02ce4222ce8',
+              '6e313f2031178d76682efae0ee68b357f38fa8f1',
+              '1956944e651e2688522b2db5f7c139f30c43da5f',
+              '970edd57a8b5242ab9360127362134d4b31ef5a0',
+              'ff7732d2bb980679026e4075c85d87fae82ff2ef',
+              'e2e2561f2a7e0862aee008f829c61ef052b2b413',
+          ]
+          parts = []
+          for sha in chunks:
+              request = Request(
+                  f'https://api.github.com/repos/evanmcpheron/game_docs/git/blobs/{sha}',
+                  headers={'Authorization': 'Bearer ' + os.environ['GH_TOKEN'],
+                           'Accept': 'application/vnd.github+json',
+                           'X-GitHub-Api-Version': '2022-11-28'},
+              )
+              with urlopen(request, timeout=30) as response:
+                  result = json.load(response)
+              assert result['encoding'] == 'base64'
+              data = base64.b64decode(result['content'])
+              assert hashlib.sha1(f'blob {len(data)}\0'.encode() + data).hexdigest() == sha
+              parts.append(data)
+          compressed = b''.join(parts)
+          assert hashlib.sha256(compressed).hexdigest() == '3ce30f2ac9999a3ec2c9e08291b2f6e58cfd607aeccd35223ec839c48fd64cb3'
+          patch = lzma.decompress(compressed)
+          assert hashlib.sha256(patch).hexdigest() == 'b8e319e4965fc0bed573a5615f1d819a652572624049ded5c1935c9e0bc4df8c'
+          (Path(os.environ['RUNNER_TEMP']) / 'phase-integration-source.patch').write_bytes(patch)
+          print('Verified all 10 Git blobs, compressed payload and exact reviewed source patch.')
+          PY
+          git apply --check "$RUNNER_TEMP/phase-integration-source.patch"
+          git apply "$RUNNER_TEMP/phase-integration-source.patch"
+      - name: Regenerate and validate all documentation
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            set -x
+            python3 tools/build_manual_indexes.py
+            python3 tools/build_cpp_standard.py
+            python3 tools/check_phase_integration.py --write-report
+            python3 tools/build_manual_indexes.py --check
+            python3 tools/build_cpp_standard.py --check
+            python3 tools/check_cpp_standard.py
+            python3 tools/check_paperzd_docs.py
+            python3 tools/check_phase_integration.py
+            git diff --check
+          } 2>&1 | tee "$RUNNER_TEMP/phase-integration-validation.log"
+          python3 - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          report = json.loads(Path('sources/phase-integration-browser-checks.json').read_text())
+          for page in report['pages']:
+              assert hashlib.sha256(Path(page['path']).read_bytes()).hexdigest() == page['sha256'], page['path']
+          print(f"Matched {len(report['pages'])} generated pages to the actual local browser-check report; browser not rerun in Actions.")
+          PY
+      - name: Commit the exact validated tree and push the audit branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm .github/workflows/phase-integration-publish.yml
+          git add -A
+          test "$(git write-tree)" = "$EXPECTED_TREE"
+          git diff --cached --check
+          git diff --cached --stat
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'docs: add incremental feature integration and world testing workflow'
+          git push origin HEAD:docs/incremental-integration-audit-2026-10-07
+          git rev-parse HEAD > "$RUNNER_TEMP/phase-integration-commit.txt"
+          git rev-parse HEAD^{tree} >> "$RUNNER_TEMP/phase-integration-commit.txt"
+          test -z "$(git status --porcelain)"
+          git bundle create "$RUNNER_TEMP/game_docs-audit.bundle" HEAD
+          git archive --format=tar.gz HEAD > "$RUNNER_TEMP/game_docs-audit.tar.gz"
+          cat "$RUNNER_TEMP/phase-integration-commit.txt"
+          printf 'Documentation checks passed. The exact locally validated tree was committed and pushed to the audit branch. No Unreal runtime tests ran.\n' >> "$GITHUB_STEP_SUMMARY"
+      - name: Retain publication evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase-integration-audit-evidence
+          retention-days: 7
+          path: |
+            ${{ runner.temp }}/phase-integration-validation.log
+            ${{ runner.temp }}/phase-integration-commit.txt
+            ${{ runner.temp }}/game_docs-audit.bundle
+            ${{ runner.temp }}/game_docs-audit.tar.gz
