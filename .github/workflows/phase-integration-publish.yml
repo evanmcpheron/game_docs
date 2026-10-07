@@ -1,0 +1,13 @@
+name: One-use documentation audit publication
+on:
+  push:
+    branches: [docs/incremental-integration-audit-2026-10-07]
+    paths: [.github/workflows/phase-integration-publish.yml]
+permissions:
+  contents: read
+jobs:
+  prepare:
+    if: false
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Awaiting the locally validated source patch. This workflow is removed from the completed documentation tree.'
