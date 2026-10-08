@@ -204,7 +204,7 @@
         }
       ],
       "configure": [
-        "Create/compile the listed value schemas, E_EntryReason, interfaces, model Objects and world Actor shells in creation order. Build only fields whose types exist. E_EquipmentSlot and empty inventory/purchase collections reserve later persistent shape; they do not activate equipment or skills yet.",
+        "Create/compile the listed value schemas, E_EntryReason, interfaces, model Objects and world Actor shells in creation order. Build only fields whose types exist. E_EquipmentSlot defines exactly Shoes, Belt, Head, Gloves, Top, and Pants; its empty equipped map and the empty inventory/purchase collections reserve later persistent shape; they do not activate equipment or skills yet.",
         "Open DA_GameCatalog and assign CharacterDefinition=DA_PlayerBaseStats, Areas entries matching SliceA/SliceB to DA_Area_SliceA/DA_Area_SliceB, and the validated StartingAreaId/StartingSpawnId. In each Area definition assign its actual L_Slice_A or L_Slice_B World and safe default spawn ID. Optional Attacks lookup may reference the Phase 2 definitions; direct player assignments still work.",
         "Open BP_GameInstance → Class Defaults and assign GameCatalog=DA_GameCatalog. In InitializeSession use Construct Object from Class for BP_PlayerProfile and BP_WorldState, Outer=self, retain typed strong references and explicitly initialize them once. Plain Objects do not receive Actor BeginPlay; GameMode must not recreate them on each map.",
         "Open BP_PlayerCharacter → Components → Add BPC_Interaction, rename Interaction and configure the documented bounded query/radius. Suggested implementation detail: use a native query shape owned by the body or an explicit bounded overlap query from the component; normalize hits to Actors and maintain only nearby candidates. No new Blueprint query-manager asset is needed."
@@ -516,13 +516,13 @@
       "configure": [
         "Configure DA_Item_TestHelmet with Kind Equipment, StackLimit=1, Head slot, the documented Defense +2 modifier and Appearance=DA_Equipment_TestHelmet. Assign the item in DA_GameCatalog.Items. Keep Art, Animation, Tests and Equipment folder assignments unchanged.",
         "Create T_TestHelmet → SPR_TestHelmet → FB_Helmet_Test and the BPDA_EquipmentAppearance schema/DA_Equipment_TestHelmet instance. Fill LayerFlipbooksBySequence with only the documented compatible Idle/Move/Rise/Fall mappings to the static helmet; Land/Attack/Hit/Death intentionally hide until compatible art exists.",
-        "Open BP_PlayerCharacter → Components: add BPC_EquipmentVisuals as EquipmentVisuals, native EquipmentRoot under the intended visual hierarchy, and HeadLayer/BodyLayer PaperFlipbookComponents with collision/autoplay disabled. Do not duplicate or seek the body Sprite.",
-        "Suggested implementation detail: the existing inventory screen’s Equipment button requests Controller.OpenEquipment. Create WBP_Equipment with the same Profile and a safe native Close/Back button. This is a local UI entry route, not a new gameplay/input asset."
+        "Open BP_PlayerCharacter → Components: add BPC_EquipmentVisuals as EquipmentVisuals, native EquipmentRoot under the intended visual hierarchy, and ShoesLayer, BeltLayer, HeadLayer, GlovesLayer, TopLayer, and PantsLayer PaperFlipbookComponents with collision/autoplay disabled. Do not duplicate or seek the body Sprite.",
+        "Suggested implementation detail: the existing inventory screen’s Equipment button requests Controller.OpenEquipment. Create WBP_Equipment with the same Profile and a safe native Close/Back button. This is a local UI entry route, not a new gameplay/input asset. Show all six controls (Shoes, Belt, Head, Gloves, Top, and Pants), including empty slots; bind their explicit enum values to SelectedSlot, with Head selected for the helmet fixture."
       ],
       "connect": [
-        "Wire WBP_Equipment selected EntryId/slot commands to Profile.TryEquip or TryUnequip. Profile validates owned quantity-one equipment and slot compatibility, replaces the slot map atomically, and publishes the completed build change. Unequip leaves the owned entry intact.",
+        "Wire WBP_Equipment selected EntryId/slot commands to Profile.TryEquip or TryUnequip. Profile validates owned quantity-one equipment and slot compatibility, replaces the slot map atomically, and publishes the completed build change. Unequip leaves the owned entry intact. Accept exactly Shoes, Belt, Head, Gloves, Top, and Pants, require definition.EquipmentSlot=Slot, and change only that slot. Reject unknown slots or an EntryId already assigned elsewhere; preserve the other five slots.",
         "On the player’s build refresh, obtain all current Profile modifiers/appearance mappings, rebuild Stats once, clamp current Health only downward if needed, and set EquipmentVisuals appearances from those same inputs. Do not make widget redraw initiate the mandatory rebuild or add the bonus repeatedly.",
-        "InitializeLayers with the inherited Sprite and slot-to-layer references; SetAppearance must immediately sync to the last rendered pose. Extend ABP_Player.OnTick as documented to sample the rendered PaperZD sequence and body playback position and call SyncToBodyPose. Verify ordering against the installed plugin; this callback is a presentation integration point, not a gameplay guarantee.",
+        "InitializeLayers with the inherited Sprite and slot-to-layer references; SetAppearance must immediately sync to the last rendered pose. Extend ABP_Player.OnTick as documented to sample the rendered PaperZD sequence and body playback position and call SyncToBodyPose. Verify ordering against the installed plugin; this callback is a presentation integration point, not a gameplay guarantee. Map Shoes → ShoesLayer, Belt → BeltLayer, Head → HeadLayer, Gloves → GlovesLayer, Top → TopLayer and Pants → PantsLayer using six distinct component references. Initialize empty layers hidden; on every build refresh set or clear all six appearances so no removed item leaves a stale layer.",
         "Keep EquipmentVisuals autonomous Tick disabled; no independent wearable clock or duplicate Health/Combat subscriptions. Missing/incompatible sequence mappings hide deterministically. Clear layers/references on teardown, then reconstruct from Profile on the new ready body. Compile/save consumers and presentation."
       ],
       "world": [
@@ -532,17 +532,19 @@
       "run": [
         "Acquire both helmets, equip the exact first EntryId in Head and compare Defense before/after. Replace it with the second, repeatedly refresh/reopen UI, then unequip. Expected: one current bonus, no consumed helmet and no accumulated modifier.",
         "Observe the layer during Idle/Move/Rise/Fall and both facings. Expect deterministic hiding during unsupported Land/Attack/Hit/Death, not an invented matching animation. Test immediate equip while airborne, pause, restart and 30/60/120 rendering behavior.",
-        "Travel/death/load and confirm owned/equipped EntryIds rebuild the same stats and supported appearance. Temporarily remove EquipmentVisuals: stats and ownership still work. Restore it afterward."
+        "Travel/death/load and confirm owned/equipped EntryIds rebuild the same stats and supported appearance. Temporarily remove EquipmentVisuals: stats and ownership still work. Restore it afterward.",
+        "In an explicitly temporary test copy, author one compatible equipment definition/owned entry per current slot using diagnostic modifiers and optional placeholder appearances. Equip all six together, replace/unequip each in turn, then export/import and travel. Expected: distinct slot/layer bindings, one contribution per equipped entry, unchanged other five slots and inventory ownership. These temporary fixtures do not add registered production assets or claim finished wardrobe art."
       ],
       "failure": [
         "Try wrong slot, missing/removed EntryId and direct removal of an equipped entry. Reject with no partial ownership/stat change. Test a missing appearance/mapping: hide the layer while retaining valid equipment stats.",
-        "Using an explicitly labeled temporary capacity modifier fixture, increase/decrease MaxHealth and repeat equip cycles. Increased capacity is not free healing; lowering capacity clamps existing health once."
+        "Using an explicitly labeled temporary capacity modifier fixture, increase/decrease MaxHealth and repeat equip cycles. Increased capacity is not free healing; lowering capacity clamps existing health once.",
+        "Try the Head-only helmet in Shoes, Belt, Gloves, Top and Pants; reject every mismatch. Exercise unknown/legacy keys and duplicate-entry placement. With legacy save fixtures, verify only explicit versioned item/slot migrations are accepted and ambiguous/unsupported candidates never replace current models."
       ],
       "regression": [
         "Repeat consumable use, attack interruption and reduced-health normal travel. Verify cosmetic synchronization never grants damage, changes ActionState or writes the body flipbook."
       ],
       "deferred": [
-        "E_EquipmentSlot was staged in Phase 3 and becomes an active equipped mapping now. Skills/ability grants wait until Phases 8/9. Fully animated clothing, additional slots, loadouts, durability, classes and respec are not implied by this fixture."
+        "E_EquipmentSlot was staged in Phase 3 and becomes an active equipped mapping now. Skills/ability grants wait until Phases 8/9. All six current slots (Shoes, Belt, Head, Gloves, Top, and Pants) are active; the committed helmet art fixture remains Head-only. Fully animated clothing, slots beyond these six, loadouts, durability, classes and respec are not implied by this fixture."
       ]
     },
     {
@@ -1109,10 +1111,10 @@
         "BP_PlayerCharacter"
       ],
       "slot": "EquipmentVisuals",
-      "editor": "Add BPC_EquipmentVisuals as EquipmentVisuals plus native EquipmentRoot, HeadLayer and BodyLayer; disable wearable collision/autoplay and independent component Tick. InitializeLayers receives inherited Sprite and the slot-to-layer references.",
-      "runtime": "Body build refresh calls SetAppearance from Profile-derived equipment definitions. ABP_Player samples actual rendered sequence/body playback position at its documented presentation callback and calls SyncToBodyPose. Missing sequence mappings hide; ClearLayers clears references on teardown. This adapter never changes the body Sprite or decides equipment/stat rules.",
+      "editor": "Add BPC_EquipmentVisuals as EquipmentVisuals, add native EquipmentRoot with ShoesLayer, BeltLayer, HeadLayer, GlovesLayer, TopLayer, and PantsLayer; disable wearable collision/autoplay and independent component Tick. InitializeLayers receives inherited Sprite and the slot-to-layer references. Bind all six enum values to their matching distinct layer components; empty slots start hidden.",
+      "runtime": "Body build refresh calls SetAppearance from Profile-derived equipment definitions. ABP_Player samples actual rendered sequence/body playback position at its documented presentation callback and calls SyncToBodyPose. Missing sequence mappings hide; ClearLayers clears references on teardown. This adapter never changes the body Sprite or decides equipment/stat rules. Every complete equipment refresh sets or clears all six appearances; clearing one slot leaves the other five unchanged.",
       "missing": "Optional for gameplay correctness, required for supported visible-equipment acceptance. Missing/incompatible appearance deterministically hides its layer and reports the mapping issue; valid ownership/stats still work.",
-      "test": "Two facings, immediate airborne equip, pause/restart and no one-frame lag at 30/60/120; unsupported Land/Attack/Hit/Death intentionally hide.",
+      "test": "Two facings, immediate airborne equip, pause/restart and no one-frame lag at 30/60/120; unsupported Land/Attack/Hit/Death intentionally hide. With temporary matching fixtures, render all six slots together and replace/clear each without disturbing the others.",
       "dependencies": [
         "BP_PlayerCharacter"
       ]
@@ -1927,10 +1929,10 @@
         "BP_PlayerController"
       ],
       "slot": "ActiveScreen / equipment reference",
-      "editor": "Open the owning Blueprint graph and Create Widget for this class with the local Controller as Owning Player. When the existing inventory Equipment button requests it; suggested OpenEquipment function, no new Input Action. Retain the screen reference, supply sources, bind once, immediately RefreshView, then Add to Viewport. Set focus for modal screens.",
-      "runtime": "Profile inventory/equipment events and exact owned EntryIds/slot map. Profile.TryEquip(EntryId,Slot) / TryUnequip(Slot); display returned reasons. Unbind exact old subscriptions before source replacement/close/destruction, clear stale references and bind/pull the new ready source after body/session change. Model views can keep valid session references but may not retain old body components.",
+      "editor": "Open the owning Blueprint graph and Create Widget for this class with the local Controller as Owning Player. When the existing inventory Equipment button requests it; suggested OpenEquipment function, no new Input Action. Retain the screen reference, supply sources, bind once, immediately RefreshView, then Add to Viewport. Set focus for modal screens. Add Shoes, Belt, Head, Gloves, Top, and Pants controls, including empty slots, and bind each explicit E_EquipmentSlot value to SelectedSlot.",
+      "runtime": "Profile inventory/equipment events and exact owned EntryIds/slot map. Profile.TryEquip(EntryId,Slot) / TryUnequip(Slot); display returned reasons. Unbind exact old subscriptions before source replacement/close/destruction, clear stale references and bind/pull the new ready source after body/session change. Model views can keep valid session references but may not retain old body components. Equip/Unequip handlers pass the exact selected enum slot; RefreshView only reads committed values for all six slots. Profile validates definition slot equality and preserves the other five mappings.",
       "missing": "Optional to authoritative gameplay: missing/removed widget must not suppress commands, stats rebuilds, death, rewards, persistence or charge/effect updates. A missing requested screen is a UI error, not loss of game state.",
-      "test": "Open twice, close/reopen, replace body and run the underlying public command with this view absent; first snapshot is current and no duplicate callback remains.",
+      "test": "Open twice, close/reopen, replace body and run the underlying public command with this view absent; first snapshot is current and no duplicate callback remains. Exercise matching items in every slot and reject the helmet in each non-Head slot.",
       "dependencies": [
         "BP_PlayerController"
       ]
@@ -2060,7 +2062,7 @@
     "E_EquipmentSlot": {
       "first_active": 7,
       "role": "Staged value definition",
-      "text": "Created in Phase 3 for the empty persistent equipped-slot map. No runtime equip command yet; Profile.TryEquip/TryUnequip and visible equipment activate in Phase 7. Do not attach a new equipment gameplay component."
+      "text": "Created in Phase 3 with exactly Shoes, Belt, Head, Gloves, Top, and Pants for the empty persistent equipped-slot map. No runtime equip command yet; Profile.TryEquip/TryUnequip and all six visible equipment controls/layer bindings activate in Phase 7. Existing Head/Body assets or saves require explicit reviewed migration; see the enum compatibility section. Do not attach a new equipment gameplay component."
     },
     "S_InventoryEntry": {
       "first_active": 4,

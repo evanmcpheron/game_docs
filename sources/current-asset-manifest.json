@@ -1152,9 +1152,10 @@
       "BPC_EquipmentVisuals",
       "BPDA_ItemDefinition",
       "BP_PlayerProfile",
-      "S_CharacterSave"
+      "S_CharacterSave",
+      "WBP_Equipment"
     ],
-    "purpose": "Head and Body for the first equipment implementation; schema only at phase 3."
+    "purpose": "Shoes, Belt, Head, Gloves, Top, and Pants equipment slots; schema only at Phase 3, active equipment in Phase 7."
   },
   {
     "name": "E_EntryReason",
@@ -1927,7 +1928,8 @@
     "doc": "assets/UI/WBP_Equipment.html",
     "fixture": false,
     "deps": [
-      "BP_PlayerProfile"
+      "BP_PlayerProfile",
+      "E_EquipmentSlot"
     ],
     "users": [
       "BP_PlayerController"
