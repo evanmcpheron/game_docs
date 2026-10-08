@@ -1,0 +1,107 @@
+name: Publish verified resource documentation
+on:
+  push:
+    branches: [docs/mana-stamina-resources]
+    paths: [.resource-docs-publish/ready.json]
+permissions:
+  contents: write
+concurrency:
+  group: resource-docs-publication
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.repository == 'evanmcpheron/game_docs' && github.ref == 'refs/heads/docs/mana-stamina-resources'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PYTHONDONTWRITEBYTECODE: '1'
+      EXPECTED_TREE: c9623c75f940e29bcc59e464e09664de98c0829d
+    steps:
+      - name: Fetch the exact publication commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir documentation
+          cd documentation
+          git init -q
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          authorization="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w 0)"
+          echo "::add-mask::$authorization"
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $authorization" fetch --depth=1 origin "$GITHUB_SHA"
+          git switch -c docs/mana-stamina-resources FETCH_HEAD
+      - name: Verify baseline and apply the locally validated source changes
+        working-directory: documentation
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm -r --cached .github/workflows/publish-mana-stamina-docs.yml .resource-docs-publish
+          test "$(git write-tree)" = e52c31a9e93a8c740098a5e208a4d237039cc78b
+          python3 - <<'PY'
+          from pathlib import Path, PurePosixPath
+          import hashlib, json, lzma
+          parts = sorted(Path('.resource-docs-publish').glob('*.part'))
+          assert len(parts) == 7, 'Incomplete publication payload'
+          compressed = b''.join(path.read_bytes() for path in parts)
+          assert hashlib.sha256(compressed).hexdigest() == 'f80d3a6f0182f18f86a86ad1270a7c87f08fe92cdb7c56f36a389741d0fbd947'
+          raw = lzma.decompress(compressed)
+          assert hashlib.sha256(raw).hexdigest() == '9ae80be1354379fa37eb3605335a5a98beb15d1238465620f08acff1306ce834'
+          payload = json.loads(raw)
+          assert payload['baseline_commit'] == '6633ca27f7b2fcfc80fc95a1567e97c0eb5a6a25'
+          assert len(payload['files']) == 95
+          for relative, change in payload['files'].items():
+              relative_path = PurePosixPath(relative)
+              assert not relative_path.is_absolute() and '..' not in relative_path.parts
+              assert relative_path.parts[0] not in {'.git', '.github', '.resource-docs-publish'}
+              assert relative not in {'original-roadmap.html', 'audit.html', 'sources/asset-manifest.json'}
+              path = Path(relative)
+              original = path.read_text() if path.exists() else ''
+              assert hashlib.sha256(original.encode()).hexdigest() == change['before_sha256'], relative
+              result = original
+              previous_end = 0
+              for start, end, replacement in change['changes']:
+                  assert previous_end <= start <= end <= len(original), relative
+                  previous_end = end
+              for start, end, replacement in reversed(change['changes']):
+                  result = result[:start] + replacement + result[end:]
+              path.parent.mkdir(parents=True, exist_ok=True)
+              path.write_text(result)
+          PY
+      - name: Generate and validate the documentation
+        working-directory: documentation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/build_manual_indexes.py
+          python3 tools/build_cpp_standard.py
+          python3 tools/build_manual_indexes.py --check
+          python3 tools/build_cpp_standard.py --check
+          python3 tools/check_cpp_standard.py --write-report
+          python3 tools/check_paperzd_docs.py --write-report
+          python3 tools/check_phase_integration.py --write-report
+      - name: Remove publication scaffolding and verify the complete result
+        working-directory: documentation
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm .github/workflows/publish-mana-stamina-docs.yml
+          rm -r .resource-docs-publish
+          rmdir .github/workflows .github
+          git add --all
+          git diff --cached --check
+          test "$(git write-tree)" = "$EXPECTED_TREE"
+      - name: Commit and push only the dedicated documentation branch
+        working-directory: documentation
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'docs: integrate mana and stamina resource architecture'
+          authorization="$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w 0)"
+          echo "::add-mask::$authorization"
+          remote_head="$(git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $authorization" ls-remote origin refs/heads/docs/mana-stamina-resources | cut -f1)"
+          test "$remote_head" = "$GITHUB_SHA"
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $authorization" push origin HEAD:refs/heads/docs/mana-stamina-resources
+          echo "Published commit: $(git rev-parse HEAD)"
+          echo "Verified tree: $(git write-tree)"
