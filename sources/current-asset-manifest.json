@@ -92,7 +92,8 @@
       "WBP_Dialogue",
       "WBP_PauseMenu",
       "WBP_MainMenu",
-      "IMC_UI"
+      "IMC_UI",
+      "BPC_Resources"
     ],
     "users": [
       "BP_GameMode",
@@ -131,7 +132,8 @@
       "BPC_EquipmentVisuals",
       "DA_PlayerBaseStats",
       "DA_Attack_PlayerGroundTest",
-      "DA_Attack_PlayerAirTest"
+      "DA_Attack_PlayerAirTest",
+      "BPC_Resources"
     ],
     "users": [
       "BP_GameInstance",
@@ -431,17 +433,19 @@
     "deps": [
       "E_StatId",
       "S_StatBlock",
-      "S_StatModifier"
+      "S_StatModifier",
+      "BFL_GameRules"
     ],
     "users": [
       "BPC_Combat",
       "BPC_Health",
+      "BPC_Resources",
       "BP_EnemyBase",
       "BP_PlayerCharacter",
       "BP_TrainingDummy",
       "WBP_HUD"
     ],
-    "purpose": "Reusable non-spatial calculation/query service on a living body."
+    "purpose": "Calculates the complete seven-stat cache; resource capacities/rates, never current pools."
   },
   {
     "name": "BPC_Health",
@@ -531,7 +535,10 @@
       "S_WorldSave",
       "S_Condition"
     ],
-    "users": [],
+    "users": [
+      "BPC_Resources",
+      "BPC_Stats"
+    ],
     "purpose": "Stateless shared math and validation with explicit inputs."
   },
   {
@@ -591,12 +598,13 @@
       "BPC_Health",
       "BPC_Stats",
       "BPC_Interaction",
-      "BP_PlayerProfile"
+      "BP_PlayerProfile",
+      "BPC_Resources"
     ],
     "users": [
       "BP_PlayerController"
     ],
-    "purpose": "Displays health, prompt, progression, and later ability panels."
+    "purpose": "Observes health, mana, stamina, prompt, progression and later ability panels."
   },
   {
     "name": "E_StatId",
@@ -612,7 +620,7 @@
       "BPC_Stats",
       "S_StatModifier"
     ],
-    "purpose": "Keys for the initial stat fields; expand only for committed stats."
+    "purpose": "Stable stat keys; append resource maximums and regeneration without renumbering existing values."
   },
   {
     "name": "E_AttackPhase",
@@ -658,6 +666,7 @@
     "fixture": false,
     "deps": [],
     "users": [
+      "BPC_Resources",
       "BPC_Stats",
       "BPDA_CharacterDefinition",
       "BPDA_EnemyDefinition",
@@ -665,7 +674,7 @@
       "BP_TrainingDummy",
       "S_LevelProgressionRow"
     ],
-    "purpose": "Initial MaxHealth, AttackPower, Defense values; example stat set, not final balance."
+    "purpose": "MaxHealth, AttackPower, Defense and four mana/stamina capacity/regeneration stat fields."
   },
   {
     "name": "S_StatModifier",
@@ -1320,7 +1329,7 @@
       "BP_GameInstance",
       "BP_PlayerCharacter"
     ],
-    "purpose": "Health handoff initially; add timed effects and recharge snapshots in phase 9."
+    "purpose": "Current health, mana and stamina handoff; add effects and recharge snapshots only in Phase 9."
   },
   {
     "name": "IA_Interact",
@@ -2221,7 +2230,9 @@
       "BP_PlayerProfile",
       "BP_AbilityBase",
       "S_AbilityContext",
-      "S_AbilityRuntimeState"
+      "S_AbilityRuntimeState",
+      "BPC_Resources",
+      "BPDA_AbilityDefinition"
     ],
     "users": [
       "ABP_Player",
@@ -2281,6 +2292,7 @@
       "BP_AbilityBase"
     ],
     "users": [
+      "BPC_Abilities",
       "BPDA_GameCatalog",
       "DA_Ability_TestPulse"
     ],
@@ -2314,7 +2326,8 @@
     "doc": "assets/UI/WBP_Abilities.html",
     "fixture": false,
     "deps": [
-      "BPC_Abilities"
+      "BPC_Abilities",
+      "BPC_Resources"
     ],
     "users": [
       "BP_PlayerController"
@@ -3164,5 +3177,28 @@
       "DA_Item_TestHelmet"
     ],
     "purpose": "Static helmet appearance fixture; proves equipment mapping and alignment, not a complete wardrobe."
+  },
+  {
+    "name": "BPC_Resources",
+    "type": "Blueprint Actor Component",
+    "parent": "ActorComponent",
+    "phase": 2,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/BPC_Resources",
+    "doc": "assets/Combat/BPC_Resources.html",
+    "fixture": false,
+    "deps": [
+      "BPC_Stats",
+      "S_StatBlock",
+      "BFL_GameRules"
+    ],
+    "users": [
+      "BPC_Abilities",
+      "BP_PlayerCharacter",
+      "BP_PlayerController",
+      "WBP_Abilities",
+      "WBP_HUD"
+    ],
+    "purpose": "Owns current runtime mana/stamina, atomic spending, restoration and game-time regeneration."
   }
 ]

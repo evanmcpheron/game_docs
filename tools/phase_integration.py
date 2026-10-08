@@ -164,7 +164,7 @@ def render_cross_links(source, data):
                         'installed input mapping and receiver, current ready-body reference, world fixture collision and effective GameMode. '
                         'Follow the phase request path to the authoritative result; do not add a second manager, input handler or damage path.</p>')
     if source == 'architecture-notes.html':
-        sections.append('<p><strong>Current integration clarification:</strong> Phase 2 explicitly attaches Stats/Health/Combat and routes RequestAttack; '
+        sections.append('<p><strong>Current integration clarification:</strong> Phase 2 explicitly attaches Stats/Resources/Health/Combat and routes RequestAttack; '
                         'Phase 3 replaces early automatic spawning with registered readiness and explicit single-player spawning. '
                         'Unregistered L_MovementLab is not an end-to-end current gameplay area after that transition. '
                         'The generated assignment contracts label proposed property names and keep every later extension phase-gated.</p>')
@@ -246,7 +246,7 @@ def render_environments(home, data, assets):
         'Phase pages provide the sequential Editor operations; asset pages provide matching detailed contracts.</p>',
         '<h2 id="map-roles">Development test environments</h2>',
         table(['Environment', 'Primary period and purpose', 'Bootstrap and boundary'], [
-            [linked_text('L_MovementLab', source, assets), 'Phases 0–2: movement/player, then dummy/hazard combat integration.',
+            [linked_text('L_MovementLab', source, assets), 'Phases 0–2: movement/player, then dummy/hazard combat and mana/stamina integration.',
              'Early BP_GameMode default-player spawn, native PlayerStart, one possessed player. Preserve the obstacle course and separate combat section. After Phase 3 retain as an early-phase reference or reproduce its course inside a registered slice; never bypass current readiness.'],
             [linked_text('L_Slice_A / L_Slice_B (SliceA / SliceB)', source, assets), 'Phase 3 onward: full player/world/travel/recovery and cumulative feature integration.',
              'Matching catalog/AreaRoot definition, registered safe spawns and rooms, reverse connections, persistent projection and one explicit initialized player. BP_GameMode Default Pawn=None; no placed auto-possessed duplicate.'],
@@ -257,7 +257,7 @@ def render_environments(home, data, assets):
         ], 'Development map roles'),
         '<h2 id="transition">The Phase 2 → 3 map and initialization transition</h2>',
         ordered([
-            'Before Phase 3, finish movement and combat in L_MovementLab using its early automatic player spawn. Preserve that map/course and the early-phase source revision for isolated old-lab checks.',
+            'Before Phase 3, finish movement, combat and resources in L_MovementLab using its early automatic player spawn. Preserve that map/course and the early-phase source revision for isolated old-lab checks.',
             'At Phase 3, compile the session/world/bootstrap types, assign DA_GameCatalog and both area definitions, and configure exactly one root plus registered safe spawns/rooms/reverse transitions in each slice.',
             'Reopen BP_GameMode and change Default Pawn Class to None. Remove any placed auto-possessed player in the slices. Wait for session/area/controller/spawn readiness, apply persistent actors, explicitly spawn/initialize/possess one body, then bind UI and allow input.',
             'Reuse the same player and its existing movement/combat setup. Replace the early unconditional BeginPlay setup with the explicit ready-body initialization path; do not keep a late second Health initialization that refills a travel handoff.',
@@ -300,7 +300,7 @@ def render_environments(home, data, assets):
         table(['Record', 'What to write'], [
             ['Identity/context', 'Phase, map/AreaId/RoomId, fixture class and PersistentId where required; build/schema/content version and test date.'],
             ['Configuration', 'Assigned definitions, component/interface setup, instance overrides, collision/query arrangement and safe spawn relationship.'],
-            ['Initial state/action', 'XP/points/entry IDs/quantities/equipment/world records/Health/charges/effect values; exact public request or mapped player action.'],
+            ['Initial state/action', 'XP/points/entry IDs/quantities/equipment/world records/Health/mana/stamina/charges/effect values; exact public request or mapped player action.'],
             ['Expected/observed', 'Accepted or rejected result, changed owner values, callbacks/token count, UI/visual observation and meaningful previous-feature regression.'],
             ['Cleanup/retention', 'Restore intentionally broken test data, retain useful slice fixtures, keep stable IDs, clear old body/widget subscriptions and distinguish normal travel from clean recovery.'],
         ], 'Development fixture test record'),
@@ -323,9 +323,13 @@ def render_environments(home, data, assets):
         + relative_link(source, 'sources/phase-integration-browser-checks.json', 'browser checks') + '. '
         'Existing historical measurements: ' + relative_link(source, 'audit.html', '02 October package audit') + '. '
         '<strong>Static HTML/link/search/generation validation is not Blueprint compilation, PIE, Standalone or packaged gameplay validation.</strong></p>',
+        '<h2 id="resources">Approved resource fixture extension · 08 October 2026</h2>',
+        '<p>Use the same real initialized player and phase-appropriate maps. The F6 Level Blueprint resource trigger is development-only, disabled by default, and does not add production input actions or a new fixture family. The following expected cases are authored in sources/phase-integration.json, not claimed executed in Unreal.</p>',
+        ordered(data['resource_test_contract']['cases'], source, assets),
+        '<p>Later specialization, ability-cost, equipment/effect, travel and clean-recovery cases remain phase-gated in the linked phase run-now sections. Original audit evidence above describes the pre-resource baseline; the approved addition registers BPC_Resources without renaming existing assets. Resource-specific current browser evidence: ' + relative_link(source, 'sources/resources-browser-checks.json', 'resource browser checks') + ' (rendering only, not Unreal).</p>',
         '<h2 id="maintenance">Keep phase and asset instructions synchronized</h2>',
         '<p>Edit ' + relative_link(source, 'sources/phase-integration.json', 'sources/phase-integration.json') + ' for phase recipes, shared contracts and staged dispositions. '
-        'Edit the current asset manifest only for genuine dependency changes; keep identities/folders/phases and creation order unchanged. '
+        'Edit the current asset manifest only for genuine dependency changes; preserve existing identities/folders/phases and their order; the explicit approved resource addition inserts BPC_Resources after BPC_Stats in Phase 2. '
         'Generated integration blocks are maintained by <code>tools/phase_integration.py</code> through the existing manual generator; do not hand-edit their copies.</p>',
         '<pre><code>python3 tools/build_manual_indexes.py\npython3 tools/build_cpp_standard.py\npython3 tools/build_manual_indexes.py --check\npython3 tools/build_cpp_standard.py --check\npython3 tools/check_cpp_standard.py\npython3 tools/check_paperzd_docs.py\npython3 tools/check_phase_integration.py --write-report</code></pre>',
     ])

@@ -1,0 +1,103 @@
+{
+  "date": "2026-10-08",
+  "environment": "Playwright with installed Chromium in documentation container",
+  "method": "Unchanged local HTML with local stylesheet/script contents inlined into an isolated browser document; no browser policy changes.",
+  "pages": [
+    {
+      "path": "assets/Combat/BPC_Resources.html",
+      "sha256": "56988ce27758e865f9023be74c0de6492a525e6bb4ad5c1968de7118b845c770",
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "duplicates": [],
+      "brokenAnchors": [],
+      "mobile_document_overflow": false
+    },
+    {
+      "path": "phases/phase-02.html",
+      "sha256": "ccd1787aae492f874d73396fb7ff194d43c9552caa18db6418509db5a16d4c1f",
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "duplicates": [],
+      "brokenAnchors": []
+    },
+    {
+      "path": "phases/phase-03.html",
+      "sha256": "fb8ffa42e95d2b1be8d390d0ce457fbf327b60e2ec80d179d159be274c286195",
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "duplicates": [],
+      "brokenAnchors": []
+    },
+    {
+      "path": "phases/phase-08.html",
+      "sha256": "85fc1b9402a5499cd6f5f245046bd714aecc112673d042879319e88eb24c72f7",
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "duplicates": [],
+      "brokenAnchors": []
+    },
+    {
+      "path": "phases/phase-09.html",
+      "sha256": "9238a959405056fd7c462dfb41bd0c698f765a242803cb120e85f84239c52ecf",
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "duplicates": [],
+      "brokenAnchors": []
+    },
+    {
+      "path": "assets/UI/WBP_HUD.html",
+      "sha256": "78ffb6ca52ff83c99f34fb6b4839de7a9e55233fb9ec71f1781b2166984773f7",
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "duplicates": [],
+      "brokenAnchors": []
+    },
+    {
+      "path": "systems/abilities.html",
+      "sha256": "fa861fc62ca1b84e3e1c52cc3cef4296ee0725188e8757890d95af3f853b6a89",
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "duplicates": [],
+      "brokenAnchors": []
+    },
+    {
+      "path": "development-test-environments.html",
+      "sha256": "117fc0f68f98997a5cac6bed25c69df7bd6ff241255054c8171b167ba1a49a7e",
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "duplicates": [],
+      "brokenAnchors": []
+    },
+    {
+      "path": "asset-index.html",
+      "sha256": "7781163cca440a9cd69b47a42f8fd8aef055130ab72e7b4a6c055b2a33fc7f1a",
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "duplicates": [],
+      "brokenAnchors": []
+    },
+    {
+      "path": "search.html",
+      "sha256": "c24768605a543b9707b71f45fc2bdaa52e71c395c9da2832a4112b888cff7ee9",
+      "h1": 1,
+      "main": 1,
+      "overflow": false,
+      "duplicates": [],
+      "brokenAnchors": []
+    }
+  ],
+  "script_errors": [],
+  "cross_page_file_navigation_verified": false,
+  "native_local_storage_persistence_verified": false,
+  "unreal_editor_run": false,
+  "runtime_gameplay_tests_run": false
+}

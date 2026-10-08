@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Validate the current animation register, generated indexes and migration boundaries."""
 import argparse
+from datetime import datetime, timezone
 from collections import Counter
 import hashlib
 import json
@@ -101,7 +102,7 @@ def main():
                  hashes['sources/asset-manifest.json'] == evidence['asset_manifest_sha256'])
     if not preserved:
         errors.append('Historical roadmap/manifest bytes changed.')
-    report = dict(date='2026-10-05', check='Paper2D + PaperZD static documentation verification',
+    report = dict(date=datetime.now(timezone.utc).date().isoformat(), check='Paper2D + PaperZD static documentation verification',
                   current_assets=len(manifest), asset_pages=len(actual), html_pages_checked=len(active),
                   search_entries=len(search), folders=len({a['folder'] for a in manifest}),
                   phase_counts=[len(orders[str(i)]) for i in range(12)],

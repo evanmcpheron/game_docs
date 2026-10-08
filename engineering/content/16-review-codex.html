@@ -32,3 +32,6 @@
 </ul>
 <h2 id="done">Completion evidence</h2>
 <p>A feature is ready for review when requested behavior is implemented, public/serialized/Blueprint effects are understood, required checks pass or explicit environmental limitations are recorded, and the final diff contains no unrelated redesign. New rules go in the relevant chapter; project ownership changes go in architecture/decision documentation. Do not add a comment or abstraction just to satisfy the checklist.</p>
+
+<h2 id="mana-stamina">Resource implementation review gate</h2>
+<p>For mana/stamina work, verify the approved BPC_Resources ownership and phase-specific contracts before changing code or Blueprints. In Phase 2 review seven-stat validation, init/readiness, atomic dual spend, coherent notifications, game-time regeneration, exact unbinding and unchanged movement/basic attacks. In Phase 3 review source suspension and absolute handoff clamping; Phase 8 complete passive rebuild; Phase 9 inert preparation and resource/charge commit before callbacks. Keep future functionality staged and do not preemptively refactor unrelated systems.</p><p>Report documentation checks separately from engine build, Blueprint compile, PIE, Standalone and packaged tests. A successful static check cannot prove action-token rollback, finite-number behavior, widget binding or pause/travel runtime semantics.</p>

@@ -44,6 +44,7 @@
     "BPC_Combat",
     "BPC_Health",
     "BPC_Stats",
+    "BPC_Resources",
     "WBP_HUD",
     "IA_Attack",
     "DA_Attack_PlayerAirTest",

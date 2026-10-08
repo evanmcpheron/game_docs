@@ -28,7 +28,8 @@
         "Temporarily remove the effective GameMode override or an input mapping, observe the missing spawn/input route, then restore it. Stop on a duplicate pawn or failed cast; do not compensate by placing a second player."
       ],
       "regression": [
-        "Stop and restart PIE twice. The same map/player/controller assignments must still work without an extra mapping installation or extra pawn."
+        "Stop and restart PIE twice. The same map/player/controller assignments must still work without an extra mapping installation or extra pawn.",
+        "Mana/stamina does not change the Phase 0 framework/input contract; do not add resource input actions or Phase 2 components early."
       ],
       "deferred": [
         "BP_GameInstance is intentionally a staged session shell until Phase 3. IA_Jump is connected to an intent entry point now, but launch/buffer/coyote/variable-height behavior becomes active in Phase 1. No Stats, Health, Combat, interaction, session models or test harness is added yet."
@@ -79,7 +80,8 @@
         "Block/clear input and re-enable it; the old held axis or buffered jump must not replay. Temporarily remove an animation clip and verify movement still executes, then restore the assignment."
       ],
       "regression": [
-        "Restart PIE and verify Phase 0 still produces exactly one possessed player with the same camera and signed input. Changing facing must not mirror the camera or leave the Y plane."
+        "Restart PIE and verify Phase 0 still produces exactly one possessed player with the same camera and signed input. Changing facing must not mirror the camera or leave the Y plane.",
+        "Preserve movement/jump/coyote/buffer/collision/facing and PaperZD behavior; resource specialization is not approval for sprint, dash, wall or ledge mechanics."
       ],
       "deferred": [
         "ActionState has its current movement/permission implementation now; later Attack, hit and death consumers are not yet attached. Do not add Stats, Health or Combat until Phase 2, or future-compatible unapproved traversal mechanics."
@@ -122,7 +124,10 @@
         "Open BP_PlayerCharacter → Components → Add: add BPC_Stats as Stats, BPC_Health as Health, and BPC_Combat as Combat. Keep the existing ActionState instance. Compile. In Class Settings → Implemented Interfaces add BPI_Damageable, then compile again.",
         "Create DA_PlayerBaseStats using BPDA_CharacterDefinition and configure the documented base stats (initial MaxHealth 100, AttackPower 10, Defense 0) and AnimInstanceClass ABP_Player. Create DA_Attack_PlayerGroundTest and DA_Attack_PlayerAirTest from BPDA_AttackDefinition; set their grounded/airborne eligibility oppositely and retain the documented provisional timing/query values.",
         "Suggested implementation detail: add CharacterDefinition, GroundAttackDefinition and AirAttackDefinition object-reference properties to BP_PlayerCharacter. In Class Defaults assign DA_PlayerBaseStats, DA_Attack_PlayerGroundTest and DA_Attack_PlayerAirTest respectively. These are proposed property names, not verified game-code fields. Do not assign an idle default into Combat.AttackDefinition: that field describes the current accepted execution.",
-        "Open BP_TrainingDummy. Add native Hurtbox query collision plus Stats and Health, implement BPI_Damageable in Class Settings, and use the documented dummy BaseStats and Enemy combat side. It does not need Combat, AI, a persistent ID or rewards. Open BP_Hazard and configure its native Trigger, DamageSpec and positive RepeatInterval; it is a damage source, not a second Health authority."
+        "Open BP_TrainingDummy. Add native Hurtbox query collision plus Stats and Health, implement BPI_Damageable in Class Settings, and use the documented dummy BaseStats and Enemy combat side. It does not need Combat, AI, a persistent ID or rewards. Open BP_Hazard and configure its native Trigger, DamageSpec and positive RepeatInterval; it is a damage source, not a second Health authority.",
+        "Approved resource schema: append MaxMana, MaxStamina, ManaRegenRate, StaminaRegenRate to E_StatId without renumbering its three existing values. Add matching Float members to S_StatBlock; refresh every Make/Break/Split/Set Members and GetStat switch. Recompile affected consumers. Reuse S_StatModifier.FlatAddition/PercentageAddition; validate finite inputs and staged output before replacing the Stats cache.",
+        "Set only DA_PlayerBaseStats.BaseStats to the provisional seven values100,10,0,50,100,5,15 in the existing order. All zero Growth blocks must expose all seven zero members. Extend Stats.Recalculate with Success/Reason and IsStatsReady; configure BPC_Resources only after BPC_Stats exists. Do not add a Phase 3 entry-reason enum or Phase 9 ability/effect struct to this phase.",
+        "Implement BPC_Resources public/private contracts from its asset page: atomic dual spending, read-only queries, zero-cost/no-op silence, absolute clamps, exact Stats observer, game-time gated component Tick (start disabled, not tickable when paused), suspension/teardown. No unconditional permanent tick, duplicate timer or per-frame Stats rebuild."
       ],
       "connect": [
         "Suggested implementation detail: create one explicit InitializeCombatBody function on BP_PlayerCharacter and call it from the early lab body setup. Keep gameplay unready until it succeeds. Get the owned component references directly from Components variables: validate CharacterDefinition and attack definitions; pass base stats, zero level growth and an empty modifier array to Stats.Recalculate; initialize Health with that ready Stats reference and its initial capacity; inject the same Stats and ActionState references into Combat. Do not depend on component BeginPlay order or a global discovery scan.",
@@ -132,31 +137,44 @@
         "Open IMC_Player → add a mapping for IA_Attack (suggested J). Open BP_PlayerController and add the IA_Attack Started event, not an unguarded per-frame Triggered attack. Validate CurrentBody/readiness and call BP_PlayerCharacter.RequestAttack. Suggested implementation detail: RequestAttack selects GroundAttackDefinition or AirAttackDefinition from the actual movement mode, then calls Combat.TryStartAttack(Definition) and returns its result/reason. It never sets an action lock or damage itself.",
         "Combat validates the definition/body/mode, requests ActionState.TryBeginAction, snapshots stats and advances authoritative Windup → Active → Recovery. During the active interval it performs the blocking-aware hit query, normalizes/deduplicates Actors, records each target attempt before BPI_Damageable.ReceiveDamage, and eventually finishes or cancels only its matching token. Include crossed-active-window handling under hitches; do not make notifies necessary for queries or cleanup.",
         "Open AS_Player and assign the documented FB_Player_LandTest placeholder to the new Attack/Hit/Death sequences. Extend ABP_Player with Death → Hit → Attack priority over locomotion. Read current gameplay facts and token/body identity, rather than using animation completion to authorize damage or release actions.",
-        "Open BP_PlayerController. After possession and successful InitializeCombatBody, create WBP_HUD with this Controller as Owning Player, retain HUD, supply current Health/Stats, bind once, immediately refresh, and Add to Viewport. Readiness and possession may arrive in either order: both call the same guarded setup check. Unbind the old body before replacing it. Compile all modified consumers and Save All."
+        "Open BP_PlayerController. After possession and successful InitializeCombatBody, create WBP_HUD with this Controller as Owning Player, retain HUD, supply current Health/Stats, bind once, immediately refresh, and Add to Viewport. Readiness and possession may arrive in either order: both call the same guarded setup check. Unbind the old body before replacing it. Compile all modified consumers and Save All.",
+        "Resource initialization: open BP_PlayerCharacter, add BPC_Resources as Resources. InitializeCombatBody keeps bBodyReady=false; read CharacterDefinition.BaseStats from DA_PlayerBaseStats, call Stats.Recalculate with a seven-field zero Growth and empty Modifiers, require Success, then Resources.InitializeResources(Stats). Initialize existing Health with the same ready Stats/final MaxHealth and Combat with Stats/ActionState. Finish death/interruption bindings, set body ready, ResumeResources, and let the possessed Controller bind HUD. No second unconditional initializer or duplicated ActionState.",
+        "Open WBP_HUD and build/reuse VitalsBox with HealthBar/HealthValueText, ManaBar/ManaValueText, StaminaBar/StaminaValueText. BindSources receives the ready body Health/Stats/Resources; unbind exact old events, bind Resources.OnResourcesChanged once and query its snapshot immediately. Maximum0 branches to fill0 before division. Controller readiness/possession gate supplies these refs; widgets never own regeneration."
       ],
       "world": [
         "Open L_MovementLab and preserve every Phase 1 movement obstacle. In the reserved open-floor section drag BP_TrainingDummy from Content Browser into the level. Give it enough clearance for both facing directions and repeated grounded swings. Add another target at a reachable ledge/platform height for the already-committed airborne attack; do not invent a new traversal move.",
         "Place BP_Hazard off the main spawn/movement route so damage and lethal tests are deliberate. Select each fixture and check its documented stats/damage/repeat properties in Details. Keep all query shapes on the X/Z gameplay plane with adequate Y thickness. Dummy Hurtbox must respond to the attack query; hazard Trigger must generate the intended overlaps with the player capsule. Sprite collision stays disabled.",
-        "Verify World Settings still resolves BP_GameMode, its Default Pawn still supplies one player, and PlayerStart is outside hazards and blocking geometry. Preserve camera orientation. Save the level. These are development fixtures: retain the movement course, and reproduce this test section in registered SliceA after Phase 3 rather than bypassing area readiness."
+        "Verify World Settings still resolves BP_GameMode, its Default Pawn still supplies one player, and PlayerStart is outside hazards and blocking geometry. Preserve camera orientation. Save the level. These are development fixtures: retain the movement course, and reproduce this test section in registered SliceA after Phase 3 rather than bypassing area readiness.",
+        "Development-only resource trigger: in L_MovementLab open Blueprints → Open Level Blueprint. Add Boolean bRunResourceChecks (default false, not a production input action) and keyboard F6 Pressed. Branch on bRunResourceChecks; run only in PIE with the game viewport focused; Get Player Character(0), cast BP_PlayerCharacter, require bBodyReady and valid Resources. Call a local custom event RunResourceChecks with that live component. Temporarily enable bRunResourceChecks only in this lab, never IMC_Gameplay; remove/disable the F6 branch before shipping. For deterministic synchronous cases use local copies of the original seven-field Stats input, set only both regen rates to 0, Recalculate, then RestoreResources(maximums). Snapshot before/after each command and Print String result/reason and exact expected numbers; restore original Stats inputs and explicitly restore resources at the end. No new Blueprint asset is needed."
       ],
       "run": [
         "Open L_MovementLab, Save All, then PIE. Move next to the dummy and press the mapped attack control once. Inspect Combat phase/token and dummy Health before/after. Expected: Windup → Active → Recovery and at most one target attempt/damage result for this swing, even while remaining overlapped.",
         "Start a second swing after recovery: the same target can be damaged again. Attack while jumping using the airborne definition, face the other direction and repeat. With the unchanged suggested player/dummy values, raw damage is 5 + 1 × 10 = 15 before the dummy’s zero defense; record actual values if tuning differs.",
         "Walk into the hazard, then leave and re-enter. Confirm accepted damage arrives through the player interface/Health path and sustained overlaps obey the repeat/acceptance policy, not frame rate. Test interruption during windup, active and recovery.",
         "Apply lethal hazard damage. Expected: Health reports death once, ActionState becomes Dead, current attack/query cleanup completes, and new attack requests fail. Phase 2 recovery is Stop/Play to restart the lab; checkpoints do not exist yet.",
-        "Temporarily remove HUD/animation presentation and repeat a nonlethal attack/damage case using component debug values. Gameplay must still work. Restore presentation, then repeat the Phase 1 tap/held jump, coyote, buffer, turn and landing cases."
+        "Temporarily remove HUD/animation presentation and repeat a nonlethal attack/damage case using component debug values. Gameplay must still work. Restore presentation, then repeat the Phase 1 tap/held jump, coyote, buffer, turn and landing cases.",
+        "Resource setup/reset: save L_MovementLab, assign DA_PlayerBaseStats=(100,10,0,50,100,5,15), ensure one real ready possessed player and the three-bar HUD. Play fresh: health100, mana50/50, stamina100/100. Invalid/unassigned definition or unready Stats must keep the body unready; restore the assignment and Stop/Play. Every resource case logs setup, operation, expected/actual values and resets original Stats/fixture overrides.",
+        "F6 deterministic case with temporary zero regen rates and full pools: call CanAfford(10,20) then GetResourceSnapshot; the query leaves 50/100 unchanged. Call TrySpend(10,20): Success=true, current40/80 and exactly one coherent event. RestoreResources(10,20) returns to50/100. TrySpend(0,0), RestoreResources(0,0) and restore into full pools succeed without a new event. Reset rates and pools after the run.",
+        "F6 rejection/atomicity: start50/100 with zero rates. TrySpend(10,101) and TrySpend(51,20) each fail with both currents unchanged. TrySpend(-1,0), RestoreResources(1,-1) and nonfinite cost/amount tests through BFL_GameRules.IsFiniteNumber validation reject both sides. Observe Reason, no event and no partial write. Nonfinite Blueprint fixture behavior must be verified in the installed engine; do not use a numeric string that silently parses to zero as proof. Reset to the original valid definition/inputs and full pools.",
+        "Capacity rebuild case: at zero rates spend to20/40. Recalculate temporary max75/125: currents stay20/40 and the maximum snapshot changes. Repeat identical rebuild: no duplicated modifiers/no resource event. Recalculate max10/30: currents10/30; max0/0: currents0/0 and zero safe HUD fills. Invalid/nonfinite rebuilt input must fail without replacing the last valid Stats cache. Restore original complete inputs and refill explicitly to repeat; never use ordinary initialization as a refill command.",
+        "Regeneration timing case: restore original rates5/15 and full50/100, spend30/60, record GetGameTimeInSeconds. At two elapsed gameplay seconds expect approximately30/70 (start20/40 plus10/30, capped at max); log actual elapsed and use rate*elapsed with a small declared observation tolerance. Repeat at varied frame times, pause/unpause, zero rates, one full pool and both full. Pause adds nothing; both full disables Resources component Tick; a later spend wakes exactly one update. Reset by restoring original Stats and full pools, not by stacking updates.",
+        "Lifecycle/HUD regression: bind HUD twice and initialize Resources twice with the same ready Stats after spending; no duplicate listener or refill. SuspendResources then TrySpend: reject unchanged and no regeneration; resume an alive ready body with a new time origin. Trigger existing lethal hazard: Resources remains suspended and ordinary Phase 2 restart is Stop/Play (no early checkpoint). Destroy/recreate through a fresh Play session, remove HUD and repeat APIs; no stale callback and gameplay still correct. Restore HUD and fixture gate afterward.",
+        "Zero-resource action regression: with temporary zero rates drain both pools, then walk, turn, perform variable jumps/coyote/buffer and the existing ground/air basic attacks against BP_TrainingDummy. Behavior remains the Phase 1–2 baseline. No resource input/action gate may block these. Restore rates and pools, disable bRunResourceChecks and save the lab after testing."
       ],
       "failure": [
         "Attack with a missing definition, during recovery/hit response, while dead, and against an Actor without BPI_Damageable. Requests must fail or skip unsupported targets without partial locks, damage or Accessed None errors. Restore deliberately cleared test references.",
         "Place blocking geometry between attacker and target and verify no through-wall hit. Simulate a coarse update crossing the whole Active interval: the documented query policy must still be evaluated. Deliver an old cancellation/completion token and verify it cannot release a newer action.",
-        "Remain overlapped with an invulnerable/rejecting target for one swing. The initial policy records the attempt once even if rejected; that swing must not retry continuously until invulnerability ends."
+        "Remain overlapped with an invulnerable/rejecting target for one swing. The initial policy records the attempt once even if rejected; that swing must not retry continuously until invulnerability ends.",
+        "Missing/unready Resources or invalid final Stats must fail body setup closed. Invalid costs/restoration reject atomically; insufficient one resource cannot consume the other. Initial body/full-pool HUD must not be faked with widget defaults. No current mana/stamina is stored in Profile or SaveGame."
       ],
       "regression": [
-        "Re-run single-jump, buffered tap, ceiling, grounded/airborne turning and interrupted Land cases in the unchanged movement course. Check movement request clearing after Hit/Dead and exactly one player after PIE restart."
+        "Re-run single-jump, buffered tap, ceiling, grounded/airborne turning and interrupted Land cases in the unchanged movement course. Check movement request clearing after Hit/Dead and exactly one player after PIE restart.",
+        "Ordinary ground/air test attacks and all committed movement/jumping remain resource-free. Resource gameplay works without a HUD. Death suspends pools but Phase 2 recovery testing remains Stop/Play."
       ],
       "deferred": [
         "S_StatModifier exists and is passed as an empty array now; equipment/passive/effect contributions arrive in Phases 7/8/9, with level growth in Phase 5. WBP_HUD initially shows Health/Stats only; Profile/interaction arrive in Phase 3 and ability panels in Phase 9.",
-        "Do not add Interaction, Profile, WorldState, checkpoint recovery, enemy AI, inventory, EquipmentVisuals, Abilities or StatusEffects in Phase 2. Attack ProjectileClass/ProjectileSpeed are Phase 5 extensions; do not add typed projectile references before that class exists."
+        "Do not add Interaction, Profile, WorldState, checkpoint recovery, enemy AI, inventory, EquipmentVisuals, Abilities or StatusEffects in Phase 2. Attack ProjectileClass/ProjectileSpeed are Phase 5 extensions; do not add typed projectile references before that class exists.",
+        "Phase 3 current-pool handoff, Phase 5 resource level growth, Phase 7 equipment, Phase 8 passive skill specialization, Phase 9 ability costs/effects and Phase 10 full menu pause integration remain later-phase work, not Phase 2 implementation claims."
       ]
     },
     {
@@ -201,13 +219,18 @@
         {
           "asset": "L_MovementLab",
           "change": "Retain as an early-phase reference; no longer treat it as a valid unregistered end-to-end gameplay area."
+        },
+        {
+          "asset": "BPC_Resources",
+          "change": "Use suspended initialization and the Phase 3 RestoreTravelResources(Float,Float) API; retain Phase 2 no-refill ordinary rebuild behavior."
         }
       ],
       "configure": [
         "Create/compile the listed value schemas, E_EntryReason, interfaces, model Objects and world Actor shells in creation order. Build only fields whose types exist. E_EquipmentSlot defines exactly Shoes, Belt, Head, Gloves, Top, and Pants; its empty equipped map and the empty inventory/purchase collections reserve later persistent shape; they do not activate equipment or skills yet.",
         "Open DA_GameCatalog and assign CharacterDefinition=DA_PlayerBaseStats, Areas entries matching SliceA/SliceB to DA_Area_SliceA/DA_Area_SliceB, and the validated StartingAreaId/StartingSpawnId. In each Area definition assign its actual L_Slice_A or L_Slice_B World and safe default spawn ID. Optional Attacks lookup may reference the Phase 2 definitions; direct player assignments still work.",
         "Open BP_GameInstance → Class Defaults and assign GameCatalog=DA_GameCatalog. In InitializeSession use Construct Object from Class for BP_PlayerProfile and BP_WorldState, Outer=self, retain typed strong references and explicitly initialize them once. Plain Objects do not receive Actor BeginPlay; GameMode must not recreate them on each map.",
-        "Open BP_PlayerCharacter → Components → Add BPC_Interaction, rename Interaction and configure the documented bounded query/radius. Suggested implementation detail: use a native query shape owned by the body or an explicit bounded overlap query from the component; normalize hits to Actors and maintain only nearby candidates. No new Blueprint query-manager asset is needed."
+        "Open BP_PlayerCharacter → Components → Add BPC_Interaction, rename Interaction and configure the documented bounded query/radius. Suggested implementation detail: use a native query shape owned by the body or an explicit bounded overlap query from the component; normalize hits to Actors and maintain only nearby candidates. No new Blueprint query-manager asset is needed.",
+        "Append CurrentMana:Float and CurrentStamina:Float to S_RuntimeTravelState; refresh all Make/Break/Split/Set Members operations and recompile BP_GameInstance/BP_PlayerCharacter. Do not add Phase 9 ActiveEffects/AbilityStates types early."
       ],
       "connect": [
         "Open BP_GameMode → Class Defaults and set Default Pawn Class=None for registered gameplay areas. Preserve BP_PlayerController as controller class. Register Controller, exactly one AreaRoot and the spawn registry; TryInitializeArea must wait for all prerequisites and bSessionReady, with initializing/initialized guards.",
@@ -216,30 +239,36 @@
         "Open IMC_Player and map IA_Interact (suggested E). In BP_PlayerController use Started → current body Interaction.TryInteract. RefreshTarget reads GetInteractionInfo without mutation; TryInteract revalidates range/readiness/interface and calls one target Interact. HUD observes OnTargetChanged and pulls PromptText immediately.",
         "Implement BPI_Interactable on BP_InteractableBase, inherited by Checkpoint/Switch/Door. Add PersistentState and BPI_PersistentActor to the persistent children. Checkpoint.Interact asks GI.ActivateCheckpoint; Switch asks GI.CommitSwitchAndTargets; Door projects Opened/collision from WorldState and cannot bypass its switch merely because it has an interaction interface.",
         "Wire BP_AreaTransition to GI.RequestAreaTravel with authored target AreaId/SpawnId. Validate destination before blocking input; suspend old-body mutation and capture health values, then open the resolved area and consume the handoff during ready reconstruction. Actor/component references do not travel.",
-        "Wire player lethal events through current GameMode/GI checkpoint recovery, retaining current Profile and WorldState. ActivateCheckpoint chooses recovery location without rolling progression back or silently healing. Recovery uses active checkpoint or validated starting fallback. Compile all modified owners and save both maps."
+        "Wire player lethal events through current GameMode/GI checkpoint recovery, retaining current Profile and WorldState. ActivateCheckpoint chooses recovery location without rolling progression back or silently healing. Recovery uses active checkpoint or validated starting fallback. Compile all modified owners and save both maps.",
+        "PrepareTravelHandoff closes source body readiness and suspends Resources before capturing current health/mana/stamina. Destination builds final Stats, initializes Resources suspended, imports absolute captured pools through RestoreTravelResources with clamping, finishes body readiness, binds new observers and resumes. Dead/new-game bodies use full final resources; do not reuse an unconditional BeginPlay refill."
       ],
       "world": [
         "Open L_Slice_A and L_Slice_B. Each uses BP_GameMode, exactly one BP_AreaRoot with its matching AreaDefinition, native blocking floor and authored BP_SpawnPoint instances. Use a safe Start spawn and explicit arrival spawns as needed; IDs must be unique within their area. No placed auto-possessed player remains.",
         "Place BP_RoomVolume instances with unique room identities, query collision and the current AreaRoot reference. Put reverse BP_AreaTransition fixtures at reachable exits. Configure target AreaId/SpawnId in Details; position arrival spawns outside the reverse trigger to prevent immediate travel loops.",
         "In a development section of registered SliceA reproduce the movement course plus BP_TrainingDummy and BP_Hazard. Place BP_Checkpoint on safe reachable floor, a BP_Switch and a BP_Door controlling a shortcut. Assign globally unique stable PersistentId values on their PersistentState components; set switch TargetPersistentIds to the actual door IDs and checkpoint Area/Spawn fields to registered safe destinations.",
-        "Use a SliceB door as an unloaded-target test where appropriate, while retaining a playable route independent of that gate. Triggers are query-only; door Blocker supplies blocking collision separately. Save both maps and keep a combined ID/spawn/target log. These are slice/development fixtures, not final world design."
+        "Use a SliceB door as an unloaded-target test where appropriate, while retaining a playable route independent of that gate. Triggers are query-only; door Blocker supplies blocking collision separately. Save both maps and keep a combined ID/spawn/target log. These are slice/development fixtures, not final world design.",
+        "Copy the development resource command sequence, not a new asset framework, into a gated development section of registered L_Slice_A; keep valid AreaRoot/rooms/spawns/catalog and BP_GameMode Default Pawn=None. The old L_MovementLab remains an early-phase reference."
       ],
       "run": [
         "PIE from registered L_Slice_A with a deliberately new test session. Confirm session models exist once, area projection finishes before input/AI, one player is possessed, and the first HUD snapshot/prompt is correct.",
         "Interact with the switch and checkpoint, travel A → B → A and observe the opened shortcut and selected checkpoint persist. Verify the unloaded door target reflects the committed record on arrival without replaying the switch.",
-        "Take nonlethal hazard damage before normal travel: the new body keeps reduced health. Die after another meaningful world change: recover at the chosen safe checkpoint while retaining that later change. Repeat movement, attack and prompt selection on the replacement body."
+        "Take nonlethal hazard damage before normal travel: the new body keeps reduced health. Die after another meaningful world change: recover at the chosen safe checkpoint while retaining that later change. Repeat movement, attack and prompt selection on the replacement body.",
+        "Travel resource case: in valid SliceA temporarily zero both regen rates through complete Stats inputs, set currents20/40, then use the real SliceA→SliceB exit. Source capture must equal destination20/40 (clamped only if its final max is lower); verify old body cannot spend/regenerate. Return through the reverse exit and repeat. Inject a missing destination or invalid capture and confirm rejection does not replace progress or silently refill. Restore original inputs and repeat from a fresh session.",
+        "Death case: retain acquired progression/checkpoint/world flags, drain pools and die in the registered slice. The new recovery body starts at its full rebuilt health/mana/stamina; no older disk save is loaded. Repeat after both forward and reverse travel and verify exactly one body/HUD subscription set."
       ],
       "failure": [
         "Test duplicate root/ID/spawn, unknown AreaId/SpawnId, missing catalog and an unready or vanished interaction target. Reject/report the failing readiness/transaction; do not fall back to an unregistered lab or spawn a second pawn.",
         "Apply a persistent record twice; attempt an already completed operation; leave target range after the prompt appears. There must be no duplicate side effect, stale request or direct persistent mutation from the query.",
-        "Open L_MovementLab under the new registered-area GameMode as a deliberate negative check: it is not an initialized gameplay area. Use a preserved early-phase revision for isolated old-lab tests, not a production readiness bypass."
+        "Open L_MovementLab under the new registered-area GameMode as a deliberate negative check: it is not an initialized gameplay area. Use a preserved early-phase revision for isolated old-lab tests, not a production readiness bypass.",
+        "A source resource mutation after handoff capture, old Actor reference in S_RuntimeTravelState or destination refill of an ordinary travel handoff is a failed test."
       ],
       "regression": [
         "In registered SliceA re-run the Phase 1 movement cases and Phase 2 attack/damage/interruption cases. Travel twice and verify no duplicate HUD/model bindings, auto-heal, stale input or old-body callbacks."
       ],
       "deferred": [
         "Disk saving is Phase 4. Inventory entry/character/world/recovery schemas support current session data, but item acquisition activates in Phase 4, full inventory operations in Phase 6, equipment in Phase 7 and skill purchases in Phase 8. Keep unsupported collections empty.",
-        "S_RuntimeTravelState carries health now; timed effect/recharge fields are added in Phase 9, not placeholder references to unavailable types. L_SystemTests and its harness do not exist until Phase 11."
+        "S_RuntimeTravelState carries health now; timed effect/recharge fields are added in Phase 9, not placeholder references to unavailable types. L_SystemTests and its harness do not exist until Phase 11.",
+        "Import effects/charge state before final resource clamping only when Phase 9 runtime types and systems exist."
       ]
     },
     {
@@ -284,6 +313,10 @@
         {
           "asset": "L_Slice_B",
           "change": "Retain reverse travel and unloaded-record reconstruction checks."
+        },
+        {
+          "asset": "BPC_Resources",
+          "change": "Clean disk loading creates full final capacities; current resources are not a disk field."
         }
       ],
       "configure": [
@@ -307,7 +340,8 @@
       "run": [
         "PIE in SliceA: collect the pickup, request it again, travel away/back, and inspect one inventory grant plus one Collected record. Open/close the save view; underlying values must not depend on it.",
         "Click Test Save in the development WBP_SaveStatus controls and observe actual success for the intended revision. Set the explicit development startup selection to load, end the application session and launch a fresh Standalone/test process. Its startup load must validate before new-session writes. Compare entry identity/quantity, world records, checkpoint and safe recovery location; use Retry on a deliberate failure, not implicit New Game.",
-        "Earn/claim a persistent change after activating a checkpoint, then die. Recovery retains the later change; it must not call disk load to roll back to checkpoint time."
+        "Earn/claim a persistent change after activating a checkpoint, then die. Recovery retains the later change; it must not call disk load to roll back to checkpoint time.",
+        "Resource disk recovery: equip/purchase only features currently available in this phase, save valid persistent progress, drain current mana/stamina, exit fully and load in a fresh process. Reconstruct Stats from saved progression and authored inputs, then start full final mana/stamina. Verify S_CharacterSave/BP_SaveGame contain no current-resource or final-stat fields and normal area travel still preserves rather than refills. Restore fixture inputs; repeat with invalid newer save generation to test existing fallback without resource-specific migrations."
       ],
       "failure": [
         "Attempt a claim with an unknown ItemId, invalid quantity or already-collected ID. Fail without either inventory or world mutation. Corrupt only an isolated test save generation and verify fallback/error, never implicit New Game.",
@@ -318,7 +352,8 @@
       ],
       "deferred": [
         "The shared item schema supports minimal acquisition now; immediate consumable use is Phase 6, equipment behavior/typed Appearance is Phase 7, timed effects are Phase 9. Do not add unavailable schema types early. XP rewards remain zero until the Phase 5 curve exists.",
-        "Full inventory widgets, final save slots UX and menus are later. Keep the development save/load entry route visibly temporary and do not treat static documentation checks as proof of serialization compatibility."
+        "Full inventory widgets, final save slots UX and menus are later. Keep the development save/load entry route visibly temporary and do not treat static documentation checks as proof of serialization compatibility.",
+        "Do not invent save migrations for unreleased resource disk fields; none are added by this policy."
       ]
     },
     {
@@ -373,7 +408,8 @@
         "Create S_LevelProgressionRow before DT_LevelProgression. Select that exact row structure and author the documented cumulative fixture thresholds/growth/entry awards. Assign the table to DA_GameCatalog.LevelProgression; validate explicit Level ordering rather than row-name enumeration order.",
         "Compile BP_EnemyBase and BP_EnemyAIController before children/data. On EnemyBase add Stats, Health, ActionState and Combat; implement BPI_Damageable. Retain inherited PaperZD Animation. Set AI Controller Class and auto-possession policy for the placed/spawned test enemies, but gate decisions on enemy readiness.",
         "Create AS_EnemyTest, its five sequences and ABP_EnemyTest using the documented placeholder clips. Assign ABP_EnemyTest to both enemy definitions and the inherited Animation component setup. Configure the melee/ranged child EnemyDefinition defaults and the definitions’ Attacks arrays.",
-        "Open BP_ProjectileBase and set the native ProjectileMovement UpdatedComponent to its collision root. Configure collision/ignored shooter and the inert initialization path. In DA_Attack_EnemyRangedTest assign ProjectileClass=BP_ProjectileBase and positive ProjectileSpeed; leave the melee definition’s projectile class unset."
+        "Open BP_ProjectileBase and set the native ProjectileMovement UpdatedComponent to its collision root. Configure collision/ignored shooter and the inert initialization path. In DA_Attack_EnemyRangedTest assign ProjectileClass=BP_ProjectileBase and positive ProjectileSpeed; leave the melee definition’s projectile class unset.",
+        "Extend every S_LevelProgressionRow.CumulativeStatGrowth/DT_LevelProgression row to all seven members. Preserve existing health/attack/defense growth/XP/point values; append resource growth0,0,0,0 as provisional defaults."
       ],
       "connect": [
         "InitializeEnemy validates its definition, recalculates Stats, initializes Health, injects ActionState/Stats into Combat, and applies any unique persistent record before enabling AI. The damage interface forwards to Health exactly as the player/dummy adapters do.",
@@ -390,7 +426,8 @@
       "run": [
         "Run the first vertical slice in registered areas: move, take damage/travel, defeat a melee enemy, cross an XP threshold, collect pickup/open shortcut, activate checkpoint, earn another reward, die, travel and save/relaunch. Compare persistent values at each step.",
         "Defeat ordinary and unique enemies, travel A → B → A and reload from disk. Expected: ordinary encounters may reset; completed unique placement is suppressed before AI and pays no repeated reward.",
-        "Run the ranged fixture: observe telegraph, one projectile per accepted attack, shooter exclusion, wall impact, accepted player damage and interruption cleanup. Repeat without HUD and without animation notifies."
+        "Run the ranged fixture: observe telegraph, one projectile per accepted attack, shooter exclusion, wall impact, accepted player damage and interruption cleanup. Repeat without HUD and without animation notifies.",
+        "Level-growth resource test: in the existing progression fixture temporarily author Level02 cumulative resource growth(+5 MaxMana,+10 MaxStamina,0,0), retain original fields and award XP through the real owner to cross its threshold once. With zero regen and spent pools, maximums rise by5/10 but current amounts do not refill. Rebuild twice and import saved progression: no duplicate growth or awarded points. Restore the original zero resource-growth row/Stats rates and start a fresh test session."
       ],
       "failure": [
         "Apply repeated death callbacks, unload an enemy without killing it and reapply a unique Completed record. None may duplicate rewards. Missing EnemyDefinition, attack/projectile class or progression rows must fail validation before active AI/reward mutation.",
@@ -467,7 +504,8 @@
         "Test full-health use, missing/dead body, unknown definition, removed/stale selection, invalid amount and repeated clicks. A rejected request changes neither quantity nor Health. Exercise partial/full stacks and splitting, not just one item in an empty inventory."
       ],
       "regression": [
-        "Re-run atomic one-time pickup, save revision/failure, checkpoint-no-rollback and damage acceptance. Verify opening/closing the screen clears held movement/jump and restores a usable gameplay input route."
+        "Re-run atomic one-time pickup, save revision/failure, checkpoint-no-rollback and damage acceptance. Verify opening/closing the screen clears held movement/jump and restores a usable gameplay input route.",
+        "Existing item modifiers recognize the four new stat IDs; no resource-consumable category or instant-restoration effect schema is added. Inventory ownership/consumption transactions remain unchanged."
       ],
       "deferred": [
         "No equipment operation or visible wearable layer is required until Phase 7. Timed effects and buff consumables wait until Phase 9. No crafting, merchant, drag-and-drop framework, rarity, economy or new inventory component is added."
@@ -521,7 +559,7 @@
       ],
       "connect": [
         "Wire WBP_Equipment selected EntryId/slot commands to Profile.TryEquip or TryUnequip. Profile validates owned quantity-one equipment and slot compatibility, replaces the slot map atomically, and publishes the completed build change. Unequip leaves the owned entry intact. Accept exactly Shoes, Belt, Head, Gloves, Top, and Pants, require definition.EquipmentSlot=Slot, and change only that slot. Reject unknown slots or an EntryId already assigned elsewhere; preserve the other five slots.",
-        "On the player’s build refresh, obtain all current Profile modifiers/appearance mappings, rebuild Stats once, clamp current Health only downward if needed, and set EquipmentVisuals appearances from those same inputs. Do not make widget redraw initiate the mandatory rebuild or add the bonus repeatedly.",
+        "On the player’s build refresh, obtain all current Profile modifiers/appearance mappings, rebuild Stats once, clamp current Health, Mana and Stamina only downward if needed, and set EquipmentVisuals appearances from those same inputs. Do not make widget redraw initiate the mandatory rebuild or add the bonus repeatedly.",
         "InitializeLayers with the inherited Sprite and slot-to-layer references; SetAppearance must immediately sync to the last rendered pose. Extend ABP_Player.OnTick as documented to sample the rendered PaperZD sequence and body playback position and call SyncToBodyPose. Verify ordering against the installed plugin; this callback is a presentation integration point, not a gameplay guarantee. Map Shoes → ShoesLayer, Belt → BeltLayer, Head → HeadLayer, Gloves → GlovesLayer, Top → TopLayer and Pants → PantsLayer using six distinct component references. Initialize empty layers hidden; on every build refresh set or clear all six appearances so no removed item leaves a stale layer.",
         "Keep EquipmentVisuals autonomous Tick disabled; no independent wearable clock or duplicate Health/Combat subscriptions. Missing/incompatible sequence mappings hide deterministically. Clear layers/references on teardown, then reconstruct from Profile on the new ready body. Compile/save consumers and presentation."
       ],
@@ -533,7 +571,8 @@
         "Acquire both helmets, equip the exact first EntryId in Head and compare Defense before/after. Replace it with the second, repeatedly refresh/reopen UI, then unequip. Expected: one current bonus, no consumed helmet and no accumulated modifier.",
         "Observe the layer during Idle/Move/Rise/Fall and both facings. Expect deterministic hiding during unsupported Land/Attack/Hit/Death, not an invented matching animation. Test immediate equip while airborne, pause, restart and 30/60/120 rendering behavior.",
         "Travel/death/load and confirm owned/equipped EntryIds rebuild the same stats and supported appearance. Temporarily remove EquipmentVisuals: stats and ownership still work. Restore it afterward.",
-        "In an explicitly temporary test copy, author one compatible equipment definition/owned entry per current slot using diagnostic modifiers and optional placeholder appearances. Equip all six together, replace/unequip each in turn, then export/import and travel. Expected: distinct slot/layer bindings, one contribution per equipped entry, unchanged other five slots and inventory ownership. These temporary fixtures do not add registered production assets or claim finished wardrobe art."
+        "In an explicitly temporary test copy, author one compatible equipment definition/owned entry per current slot using diagnostic modifiers and optional placeholder appearances. Equip all six together, replace/unequip each in turn, then export/import and travel. Expected: distinct slot/layer bindings, one contribution per equipped entry, unchanged other five slots and inventory ownership. These temporary fixtures do not add registered production assets or claim finished wardrobe art.",
+        "Equipment resource test: record an existing development equipment definition and temporarily append a finite +10 MaxMana modifier, preserving its original modifiers/slot. Acquire/equip through Profile in SliceA; with rates temporarily0 and current20/40, max mana increases by10 without refill. Repeat rebuild/equip, unequip and replace: exactly one contribution/removal and no free refill. Unknown StatId/nonfinite modifier rejects before cache mutation. Restore the definition/rates and reset the session; do not add a new equipment asset."
       ],
       "failure": [
         "Try wrong slot, missing/removed EntryId and direct removal of an equipped entry. Reject with no partial ownership/stat change. Test a missing appearance/mapping: hide the layer while retaining valid equipment stats.",
@@ -586,7 +625,8 @@
       "configure": [
         "Compile E_SkillAvailability and BPDA_SkillDefinition, then create the three test skill instances. Use explicit positive costs, TestRoot as both branches’ prerequisite, and the shared TestBranchChoice exclusion group. Keep GrantedAbilityIds and capability requirements empty in this phase.",
         "Assign all three definitions in DA_GameCatalog.Skills under matching SkillIds. Validate missing/self/cyclic prerequisites, negative costs and contradictory exclusions before enabling purchases.",
-        "Create WBP_SkillTree and WBP_SkillNode. Controller owns the tree screen; the tree creates node widgets as children with SkillId/Profile references and adds them to its native panel, not separately to the viewport. Map IA_Skills (suggested K) in IMC_Player."
+        "Create WBP_SkillTree and WBP_SkillNode. Controller owns the tree screen; the tree creates node widgets as children with SkillId/Profile references and adds them to its native panel, not separately to the viewport. Map IA_Skills (suggested K) in IMC_Player.",
+        "Retain TestRoot/TestBranchA/TestBranchB names, costs, prerequisites and TestBranchChoice exclusions. In TestBranchA.PassiveModifiers keep +2 AttackPower and append +25 MaxStamina; in TestBranchB keep +2 Defense and append +25 MaxMana. Use FlatAddition25 and PercentageAddition0. These are provisional development additions, not final classes/balance."
       ],
       "connect": [
         "Controller routes IA_Skills Started to OpenSkills, clears gameplay intent, creates/retains the screen, binds Profile then immediately pulls points/purchased definitions/availability, Add to Viewport and focus. Provide a native close route that works under the current modal policy.",
@@ -600,7 +640,9 @@
       ],
       "run": [
         "PIE: open the tree and observe locked branches before TestRoot. Earn points, buy TestRoot, buy exactly one branch, and inspect the precise point deduction and passive stat change. Close/reopen, travel and save/relaunch; purchases and points remain coherent.",
-        "Run purchases through the same public model command without the tree widgets present. Reopen them and confirm immediate correct state rather than requiring a fresh unrelated event."
+        "Run purchases through the same public model command without the tree widgets present. Reopen them and confirm immediate correct state rather than requiring a fresh unrelated event.",
+        "Specialization test: fresh valid session at base50/100, fund real progression points, purchase Root then BranchA; maximums50/125. Separately reset and purchase Root then BranchB; maximums75/100. The excluded sibling remains rejected with points/purchases unchanged. With temporary zero rates and currents20/40, purchase/rebuild does not refill; rebuild twice and compare every modifier source. Restore rates and reset each branch session.",
+        "Combined-build test: BranchA plus the existing equipment fixture temporarily extended +10 MaxMana gives max60/125, not75/125 from illegally buying both exclusive branches. Spend, repeat rebuild, unequip (back50/125), re-equip, save and fresh-process load (full60/125 by clean recovery). No duplicate bonus; required basic traversal/combat remains possible at zero pools. Restore equipment/regen overrides after testing. Phase 9 TestActive remains nonexclusive for either branch."
       ],
       "failure": [
         "Attempt insufficient-point, missing-prerequisite, excluded-branch, repeated and stale-widget purchases. No failed request changes either points or purchased IDs. Validate a deliberate cyclic/missing graph in isolated test content, then restore it.",
@@ -675,13 +717,18 @@
         {
           "asset": "L_Slice_B",
           "change": "Retain travel and an arrival observation space for remaining-duration/charge checks."
+        },
+        {
+          "asset": "BPC_Resources",
+          "change": "Add the restricted BeginDeferredSpend/EndDeferredSpend notification bracket with shared atomic spending; do not add a second resource ledger."
         }
       ],
       "configure": [
         "Compile the current ability/effect schemas, runtime value structs, BPI_AbilityTarget and component/executor shells before typed assignments. Open BP_PlayerCharacter → Components and add BPC_Abilities as Abilities and BPC_StatusEffects as StatusEffects.",
         "Configure DA_Skill_TestActive as the documented nonexclusive active test grant, DA_Ability_TestPulse with ExecutorClass BP_Ability_TestPulse and legal charge/recharge/range values, DA_Effect_TestBuff with the refresh-only timed modifier, and DA_Item_TestBuffConsumable with TimedEffectId=TestBuff and no duplicate immediate heal. Register all matching IDs in DA_GameCatalog.",
         "The original three-row level fixture grants only two skill points, while TestRoot + either branch + TestActive costs three. Suggested development fixture extension: reopen DT_LevelProgression and add the next valid Level row with a strictly greater TotalXPRequired, coherent CumulativeStatGrowth and SkillPointsAwardedOnEnteringThisLevel sufficient for the remaining grant. Put the threshold above the recorded current test Profile XP, or start a fresh isolated test Profile. Earn the new entry award through the existing enemy/XP path; do not replay awards on import or directly overwrite points. This extends test data, not final balance or a respec system.",
-        "Create BP_AbilityTestReceiver with its query Trigger and PersistentState. Add BPI_AbilityTarget and BPI_PersistentActor in Class Settings; set RequiredCapability=Capability.TestPulse using the project’s registered tag workflow. This is a development capability/receiver, not a final ability or world mechanic."
+        "Create BP_AbilityTestReceiver with its query Trigger and PersistentState. Add BPI_AbilityTarget and BPI_PersistentActor in Class Settings; set RequiredCapability=Capability.TestPulse using the project’s registered tag workflow. This is a development capability/receiver, not a final ability or world mechanic.",
+        "Add ManaCost and StaminaCost Float fields default0 to BPDA_AbilityDefinition; require finite nonnegative values. Set DA_Ability_TestPulse to10/0, preserving MaxCharges1/RechargeDuration2 and its original target/capability/damage setup. Inject Character.Resources into BPC_Abilities and WBP_Abilities."
       ],
       "connect": [
         "During explicit player setup inject ActionState and GameCatalog into Abilities, catalog into StatusEffects, and current Profile-derived unlocks through RefreshUnlocks. Keep existing valid charge/recharge ledgers on ordinary build refresh; equipping an item must not refill abilities.",
@@ -690,7 +737,9 @@
         "TestPulse performs the documented bounded/deduplicated query: damageable enemy → existing S_DamageSpec/Health route; eligible environmental receiver → BPI_AbilityTarget.ReceiveAbility → GI.CommitWorldRecord. Revalidate targets and select the intended route per Actor, avoiding unintended double effects. Finish/cancel exactly once; accepted miss/interruption does not refund the charge.",
         "Connect StatusEffects.OnEffectsChanged to one complete body build refresh. Same EffectId refreshes duration without magnitude stacking; modifiers use live handles. GI.TryUseItem validates effect resolution/benefit before the coherent quantity/effect commit, with no latent work or observer between mutations.",
         "Extend travel export/import with positive remaining durations and charge/recharge values. Suspend old body, export before cancellation/teardown, import timed effects before final Stats/Health clamping, and rebuild deadlines relative to new game time without replaying immediate healing. Death/disk load retains purchases/consumed quantities but resets the documented transient effects/charges.",
-        "Controller creates/retains WBP_Abilities after body readiness, binds Abilities then pulls state and adds the nonmodal view to the viewport. ABP_Player observes accepted ability facts through the existing presentation policy. Neither UI progress nor animation restores charges, applies effects or releases tokens. Compile and Save All."
+        "Controller creates/retains WBP_Abilities after body readiness, binds Abilities then pulls state and adds the nonmodal view to the viewport. ABP_Player observes accepted ability facts through the existing presentation policy. Neither UI progress nor animation restores charges, applies effects or releases tokens. Compile and Save All.",
+        "Follow BPC_Abilities resource-and-charge acceptance transaction exactly: resolve/unlock/body/target/charge/affordability checks → preload → action token → inert executor preparation → immediate revalidation → guarded BeginDeferredSpend → prevalidated charge/deadline/executor commit without callbacks → complete ability/resource notifications → StartAbility if still valid. Preacceptance rejection cleans prepared state/matching token with no resource/charge consumption; accepted miss/interruption does not refund.",
+        "Extend WBP_Abilities.BindSources with Resources. Bind charge and resource events once, pull immediately, distinguish locked from insufficient-resource/charge/target/action availability, and unbind old bodies. UI never directly spends. During normal travel restore effects and final Stats before current health/mana/stamina clamp, then restore supported recharge state and resume."
       ],
       "world": [
         "Open SliceA and retain all existing acceptance fixtures. Place BP_AbilityTestReceiver within the test pulse’s documented range from a safe standing area; give it a unique authored PersistentId, query collision covering gameplay depth and the matching RequiredCapability. Keep it distinct from damageable enemies.",
@@ -700,18 +749,22 @@
       "run": [
         "PIE: retain the chosen Phase 8 branch, earn the documented additional entry award through the reachable enemy/reward route, and purchase TestActive through the real skill path. Then press the ability control near damageable and environmental targets. Observe one accepted execution, one charge consumption, gameplay damage/persistent receiver change and bounded recharge.",
         "Use the buff consumable, verify one quantity decrement and one modifier source, then refresh the same effect. Travel while its duration/recharge remains active; the new body preserves remaining values without double healing or free refills.",
-        "Die and then save/relaunch: purchases, consumed items and the receiver’s completed record persist; temporary runtime state follows the clean recovery policy. Remove ability UI/presentation and repeat authoritative requests."
+        "Die and then save/relaunch: purchases, consumed items and the receiver’s completed record persist; temporary runtime state follows the clean recovery policy. Remove ability UI/presentation and repeat authoritative requests.",
+        "Ability cost case: unlock nonexclusive TestActive through the existing real progression fixture and start with full50/100, available charge. TestPulse consumes10 mana and one charge exactly once. Failed target, missing/preparation-failed executor, lost token, locked ID or insufficient mana leaves both pools/charge unchanged. Trigger interruption after acceptance: no refund. Bind a completed-state listener that queries both ledgers and attempts nested activation: coherent committed state, nested rejection. Reset charge through the real recharge path or fresh body, restore full pools and repeat.",
+        "Stamina/dual fixture case: outside Play record TestPulse definition, temporarily set costs0/20, then in a separate reset run10/20. Test stamina-only deduction and fail a dual request with one pool insufficient: neither resource/charge changes. Test both costs0 (charge rules still apply, no meaningless resource event), then restore10/0 and all original fixture fields. Do not create a new final warrior ability.",
+        "Effect/travel case: temporarily append a resource-maximum/rate modifier to an existing timed effect fixture and apply through its approved owner. Refresh it twice (no magnitude stacking), spend pools, travel SliceA↔SliceB while active, and verify effect restoration precedes absolute pool clamping with no loading-time regeneration. Let it expire: contribution removed once/current clamped, no permanent bonus. Die/load: transient effects cleared, final resources full. Restore definition/rates and reset the fixture."
       ],
       "failure": [
         "Test locked ability, wrong capability, absent executor/definition, unsupported target, no charge and invalid/dead body. Failure before acceptance consumes nothing and leaves no action lock. Once accepted, miss/interruption follows the no-refund baseline.",
         "Cancel during execution, remove a target, kill the source, pause and travel, then deliver an obsolete completion callback. No lingering executor/timer or release of a newer token is permitted. An equipment/skill refresh cannot reset a still-valid cooldown.",
-        "Use an unknown effect item and repeat a same-effect application. Unknown data consumes nothing; valid refresh never stacks magnitude. Restore deliberately altered fixture definitions afterward."
+        "Use an unknown effect item and repeat a same-effect application. Unknown data consumes nothing; valid refresh never stacks magnitude. Restore deliberately altered fixture definitions afterward.",
+        "No latent work or dispatcher/target callback between resource deduction and charge commit. Prepared executor BeginPlay must have no gameplay effect. A cost failure must not consume charge, keep a token, or destroy unrelated active execution."
       ],
       "regression": [
         "Repeat complete stat rebuild/no-free-heal, atomic pickup/use, normal reduced-health travel, checkpoint-no-rollback and save import without purchase/reward replay. Existing attacks and movement must remain responsive under ability interruption."
       ],
       "deferred": [
-        "BP_AbilityBase is an inert executor base, not placed content. S_AbilityContext is runtime-only and never enters save/travel snapshots. TestPulse/TestBuff/capability tags are development fixtures, not approved final abilities, mana systems or traversal mechanics."
+        "BP_AbilityBase is an inert executor base, not placed content. S_AbilityContext is runtime-only and never enters save/travel snapshots. TestPulse/TestBuff/capability tags are development fixtures, not approved final abilities or traversal mechanics. Mana/stamina is the separately approved resource architecture."
       ]
     },
     {
@@ -788,7 +841,8 @@
       "run": [
         "Start from L_Frontend: explicitly New Game or Load, reach the registered slice, move next to the NPC and press interaction. Read first-visit lines, advance once per confirm, complete the authored last line, then reopen and observe the repeat variant.",
         "Cancel before completion and verify no completion flag. Change a supported level/world condition through its real gameplay operation and reopen. Save/relaunch and confirm remembered facts restore without a mid-conversation cursor.",
-        "Open/close pause, inventory, equipment and skills while holding movement/jump; verify paused confirm/cancel works, focus returns, stale movement does not replay and gameplay resumes. Exercise save failure and an explicit Retry or acknowledged-unsaved quit."
+        "Open/close pause, inventory, equipment and skills while holding movement/jump; verify paused confirm/cancel works, focus returns, stale movement does not replay and gameplay resumes. Exercise save failure and an explicit Retry or acknowledged-unsaved quit.",
+        "Pause resource test: in a registered slice spend from50/100 under original5/15 rates, open a menu that uses global game pause, record snapshot/game time, wait and use confirm/cancel while paused. Pools and game time stay fixed; after resume regeneration advances only by gameplay time and no held ability/movement press replays. For a deliberately nonpausing modal, resources continue according to that existing policy. Close/reopen UI and travel/replace the body: one current source set, no stale callbacks. Restore full pools and repeat."
       ],
       "failure": [
         "Test missing/empty/no-eligible dialogue, duplicate confirm, invalid save, canceled conversation and old widget callbacks after travel. No failure commits memory, starts an unintended new session or leaves simulation/input permanently blocked.",
@@ -844,7 +898,8 @@
       "run": [
         "Run deterministic harness assertions, then the complete first-vertical-slice acceptance in registered areas extended with inventory, equipment, both valid skill specializations, abilities/effects and dialogue. Repeat with relevant UI/presentation absent.",
         "Run the packaged executable in a fresh process: New Game, traverse A/B, mutate progress after checkpoint activation, die, save with actual completion, exit, relaunch and load. Compare persistent values/identities and clean recovery state, not an exact old animation or conversation frame.",
-        "Repeat key movement/visual/action tests at documented frame rates and under coarse updates. Record observed failures separately from static documentation/build checks; a compiled Blueprint or successful cook alone is not integrated gameplay proof."
+        "Repeat key movement/visual/action tests at documented frame rates and under coarse updates. Record observed failures separately from static documentation/build checks; a compiled Blueprint or successful cook alone is not integrated gameplay proof.",
+        "Integrated resource proof: run the documented lab-equivalent deterministic cases through the existing BP_ArchitectureTestHarness in L_SystemTests with explicit definitions/inputs; run actual player movement/abilities/travel/pause/death and fresh-process loading in registered SliceA/B, not an invalid harness-only gameplay bootstrap. Cover finite/zero/negative values, dual atomicity, no-op notification counts, repeated rebuild/init/bind, equipment/passive/effect removal, resource-charge reentry, source freeze and full clean recovery. Record setup, Editor configuration, action, expected/observed result, rejection and reset for every case; restore all temporary fixture overrides and repeat in a packaged build. Static checker success is not a passed runtime case."
       ],
       "failure": [
         "Run isolated bad-data cases: duplicate IDs across maps, missing spawns/executor/definition, malformed skill/level graph, incompatible visual layout, corrupt/unsupported save and failed write. Expect actionable rejection/fallback without partial progress or indefinite blocking.",
@@ -900,7 +955,7 @@
       ],
       "slot": "Stats",
       "editor": "Open BP_PlayerCharacter → Components → Add BPC_Stats, rename Stats and Compile.",
-      "runtime": "Owned body setup passes CharacterDefinition.BaseStats, current supported cumulative growth and the complete modifier array into Recalculate. Initialize before Health; inject this exact Stats reference into Health and Combat where present. OnStatsChanged publishes a complete cache; later build changes rebuild once and clamp Health, never heal automatically.",
+      "runtime": "Owned body setup passes CharacterDefinition.BaseStats, current supported cumulative growth and the complete modifier array into Recalculate. Initialize before Health; inject this exact Stats reference into Health and Combat where present. OnStatsChanged publishes a complete cache; later build changes rebuild once and clamp Health, never heal automatically. Recalculate the complete seven-stat cache; expose Success/Reason and IsStatsReady. Resources consumes final capacity/rates and owns current pools independently.",
       "missing": "Required on this living target: fail readiness/health initialization when missing or when base capacity is invalid. Zero growth/empty modifiers are deliberate in Phase 2.",
       "test": "Compare the initialized capacity/attack/defense and one accepted hit. Repeat complete rebuilds without accumulating modifiers.",
       "dependencies": [
@@ -932,7 +987,7 @@
       ],
       "slot": "Stats",
       "editor": "Open BP_TrainingDummy → Components → Add BPC_Stats, rename Stats and Compile.",
-      "runtime": "Owned body setup passes BaseStats on the dummy, current supported cumulative growth and the complete modifier array into Recalculate. Initialize before Health; inject this exact Stats reference into Health and Combat where present. OnStatsChanged publishes a complete cache; later build changes rebuild once and clamp Health, never heal automatically.",
+      "runtime": "Owned body setup passes BaseStats on the dummy, current supported cumulative growth and the complete modifier array into Recalculate. Initialize before Health; inject this exact Stats reference into Health and Combat where present. OnStatsChanged publishes a complete cache; later build changes rebuild once and clamp Health, never heal automatically. Recalculate the complete seven-stat cache; expose Success/Reason and IsStatsReady. Resources consumes final capacity/rates and owns current pools independently.",
       "missing": "Required on this living target: fail readiness/health initialization when missing or when base capacity is invalid. Zero growth/empty modifiers are deliberate in Phase 2.",
       "test": "Compare the initialized capacity/attack/defense and one accepted hit. Repeat complete rebuilds without accumulating modifiers.",
       "dependencies": [
@@ -964,7 +1019,7 @@
       ],
       "slot": "Stats",
       "editor": "Open BP_EnemyBase → Components → Add BPC_Stats, rename Stats and Compile.",
-      "runtime": "Owned body setup passes EnemyDefinition.BaseStats, current supported cumulative growth and the complete modifier array into Recalculate. Initialize before Health; inject this exact Stats reference into Health and Combat where present. OnStatsChanged publishes a complete cache; later build changes rebuild once and clamp Health, never heal automatically.",
+      "runtime": "Owned body setup passes EnemyDefinition.BaseStats, current supported cumulative growth and the complete modifier array into Recalculate. Initialize before Health; inject this exact Stats reference into Health and Combat where present. OnStatsChanged publishes a complete cache; later build changes rebuild once and clamp Health, never heal automatically. Recalculate the complete seven-stat cache; expose Success/Reason and IsStatsReady. Resources consumes final capacity/rates and owns current pools independently.",
       "missing": "Required on this living target: fail readiness/health initialization when missing or when base capacity is invalid. Zero growth/empty modifiers are deliberate in Phase 2.",
       "test": "Compare the initialized capacity/attack/defense and one accepted hit. Repeat complete rebuilds without accumulating modifiers.",
       "dependencies": [
@@ -1128,7 +1183,7 @@
       ],
       "slot": "Abilities",
       "editor": "Add BPC_Abilities as Abilities in the existing player. Inject owned ActionState and the validated GameCatalog during explicit body setup, then RefreshUnlocks from current Profile.",
-      "runtime": "Controller/body activation intent calls TryActivate; derived unlocks, charge/recharge ledgers and active executors live here. OnAbilityStateChanged feeds WBP_Abilities. RefreshUnlocks preserves still-valid cooldowns. Export normal-travel values before CancelAll/teardown; import on the new body and clear stale executor/timer references.",
+      "runtime": "Controller/body activation intent calls TryActivate; derived unlocks, charge/recharge ledgers and active executors live here. OnAbilityStateChanged feeds WBP_Abilities. RefreshUnlocks preserves still-valid cooldowns. Export normal-travel values before CancelAll/teardown; import on the new body and clear stale executor/timer references. Inject Resources from this same body and follow the resource/charge commit before publishing or starting the inert prepared executor.",
       "missing": "Required for the Phase 9 ability path: unavailable definition/executor, invalid body/action/target, no unlock or no charge rejects before cost; never grant an unlock because the input is mapped.",
       "test": "Purchased TestActive → TestPulse, cooldown, accepted interruption/no refund, stale completion, equipment refresh and normal-travel remaining recharge.",
       "dependencies": [
@@ -1309,7 +1364,7 @@
         "BP_PlayerCharacter"
       ],
       "slot": "CharacterDefinition (suggested implementation detail)",
-      "editor": "Suggested implementation detail: add a BPDA_CharacterDefinition object reference named CharacterDefinition to the existing player; Class Defaults → assign DA_PlayerBaseStats. In the data instance set BaseStats and AnimInstanceClass=ABP_Player.",
+      "editor": "Suggested implementation detail: add a BPDA_CharacterDefinition object reference named CharacterDefinition to the existing player; Class Defaults → assign DA_PlayerBaseStats. In the data instance set BaseStats and AnimInstanceClass=ABP_Player. Set provisional BaseStats health100/attack10/defense0/mana50/stamina100/manaRate5/staminaRate15; resource defaults live only here.",
       "runtime": "Explicit early body setup reads BaseStats → Stats.Recalculate before Health; presentation uses the source-compatible AnimInstanceClass. Phase 3 catalog supplies this same character definition to reconstruction.",
       "missing": "Required for this body recipe: unset/invalid stats fails readiness, not a silently different default build.",
       "test": "Inspect initial capacity/attack/defense and then one dummy hit. Re-run after normal travel/load once those phases exist.",
@@ -1325,7 +1380,7 @@
         "DA_GameCatalog"
       ],
       "slot": "CharacterDefinition",
-      "editor": "Open DA_GameCatalog and assign CharacterDefinition=DA_PlayerBaseStats; save before assigning the catalog to GI.",
+      "editor": "Open DA_GameCatalog and assign CharacterDefinition=DA_PlayerBaseStats; save before assigning the catalog to GI. Set provisional BaseStats health100/attack10/defense0/mana50/stamina100/manaRate5/staminaRate15; resource defaults live only here.",
       "runtime": "GI/registered bootstrap supplies the shared definition when reconstructing the player; retain a single authoritative base definition rather than diverging lab and session defaults.",
       "missing": "Required for player reconstruction; ValidateCatalog rejects a missing/invalid reference before readiness.",
       "test": "Spawn from both slices and compare the same base definition and complete build inputs.",
@@ -1491,7 +1546,7 @@
       ],
       "slot": "EnemyDefinition / Enemies[MeleeTest]",
       "editor": "Open BP_Enemy_MeleeBasic → Class Defaults and assign EnemyDefinition=DA_Enemy_MeleeTest; validate any placed-instance override. In DA_GameCatalog assign Enemies[MeleeTest]. Configure its BaseStats, Attacks, ABP_EnemyTest AnimInstanceClass and reward values.",
-      "runtime": "EnemyBase explicit setup reads the definition before Stats/Health/Combat and AI readiness. The catalog supports content validation/reward lookup; AI does not maintain a duplicate attack definition store.",
+      "runtime": "EnemyBase explicit setup reads the definition before Stats/Resources/Health/Combat and AI readiness. The catalog supports content validation/reward lookup; AI does not maintain a duplicate attack definition store.",
       "missing": "Required for this fixture; missing/mismatched definition or attack suppresses readiness and reports an error instead of enabling half-initialized AI.",
       "test": "Observe initialized values, readable attack, death reward once, ordinary/unique reset behavior and unsupported definition rejection.",
       "dependencies": [
@@ -1509,7 +1564,7 @@
       ],
       "slot": "EnemyDefinition / Enemies[RangedTest]",
       "editor": "Open BP_Enemy_RangedBasic → Class Defaults and assign EnemyDefinition=DA_Enemy_RangedTest; validate any placed-instance override. In DA_GameCatalog assign Enemies[RangedTest]. Configure its BaseStats, Attacks, ABP_EnemyTest AnimInstanceClass and reward values.",
-      "runtime": "EnemyBase explicit setup reads the definition before Stats/Health/Combat and AI readiness. The catalog supports content validation/reward lookup; AI does not maintain a duplicate attack definition store.",
+      "runtime": "EnemyBase explicit setup reads the definition before Stats/Resources/Health/Combat and AI readiness. The catalog supports content validation/reward lookup; AI does not maintain a duplicate attack definition store.",
       "missing": "Required for this fixture; missing/mismatched definition or attack suppresses readiness and reports an error instead of enabling half-initialized AI.",
       "test": "Observe initialized values, readable attack, death reward once, ordinary/unique reset behavior and unsupported definition rejection.",
       "dependencies": [
@@ -1589,7 +1644,7 @@
         "DA_GameCatalog"
       ],
       "slot": "Skills[TestBranchA]",
-      "editor": "Open DA_Skill_TestBranchA and configure the documented cost/prerequisites/exclusion/passives. Assign DA_GameCatalog.Skills[TestBranchA] to this instance. GrantedAbilityIds stays empty until actual Phase 9 definitions exist.",
+      "editor": "Open DA_Skill_TestBranchA and configure the documented cost/prerequisites/exclusion/passives. Assign DA_GameCatalog.Skills[TestBranchA] to this instance. GrantedAbilityIds stays empty until actual Phase 9 definitions exist. Retain original +2 AttackPower; append +25 MaxStamina, preserving costs/prerequisites/exclusion.",
       "runtime": "Profile.GetSkillAvailability/TryPurchaseSkill resolves this ID, validates and commits points plus purchase atomically. Body derives the complete passive/ability input set; WBP_SkillNode only requests/displays it.",
       "missing": "Required for this selectable skill ID. Missing definition/prerequisite/grant or invalid graph produces Locked/error and no point deduction.",
       "test": "Locked → available → purchased, duplicate/insufficient/excluded rejection, complete build refresh and save/reload without re-purchase.",
@@ -1605,7 +1660,7 @@
         "DA_GameCatalog"
       ],
       "slot": "Skills[TestBranchB]",
-      "editor": "Open DA_Skill_TestBranchB and configure the documented cost/prerequisites/exclusion/passives. Assign DA_GameCatalog.Skills[TestBranchB] to this instance. GrantedAbilityIds stays empty until actual Phase 9 definitions exist.",
+      "editor": "Open DA_Skill_TestBranchB and configure the documented cost/prerequisites/exclusion/passives. Assign DA_GameCatalog.Skills[TestBranchB] to this instance. GrantedAbilityIds stays empty until actual Phase 9 definitions exist. Retain original +2 Defense; append +25 MaxMana, preserving costs/prerequisites/exclusion.",
       "runtime": "Profile.GetSkillAvailability/TryPurchaseSkill resolves this ID, validates and commits points plus purchase atomically. Body derives the complete passive/ability input set; WBP_SkillNode only requests/displays it.",
       "missing": "Required for this selectable skill ID. Missing definition/prerequisite/grant or invalid graph produces Locked/error and no point deduction.",
       "test": "Locked → available → purchased, duplicate/insufficient/excluded rejection, complete build refresh and save/reload without re-purchase.",
@@ -1653,7 +1708,7 @@
         "DA_GameCatalog"
       ],
       "slot": "Abilities[TestPulse]",
-      "editor": "Configure ExecutorClass=BP_Ability_TestPulse, MaxCharges, RechargeDuration, range/damage and matching Capability.TestPulse; assign DA_GameCatalog.Abilities[TestPulse]. DA_Skill_TestActive grants this ID, not a runtime Actor.",
+      "editor": "Configure ExecutorClass=BP_Ability_TestPulse, MaxCharges, RechargeDuration, range/damage and matching Capability.TestPulse; assign DA_GameCatalog.Abilities[TestPulse]. DA_Skill_TestActive grants this ID, not a runtime Actor. ManaCost10, StaminaCost0; all original capability/charge/recharge behavior retained.",
       "runtime": "Abilities resolves/prepares the definition before acceptance, then spawns the inert executor and commits charge/recharge before StartAbility. The executor routes to existing target interfaces.",
       "missing": "Required for TestPulse activation; unresolved definition/class or invalid numeric values fails before charge consumption. Input mapping alone does not grant access.",
       "test": "Locked/unlocked activation, missing executor, no-charge rejection, valid damage/receiver, interrupted use and travel recharge.",
@@ -1882,9 +1937,9 @@
       ],
       "slot": "HUD",
       "editor": "Open the owning Blueprint graph and Create Widget for this class with the local Controller as Owning Player. After possession plus ready current Health/Stats; Phase 3 additionally supplies Profile/Interaction. Retain the screen reference, supply sources, bind once, immediately RefreshView, then Add to Viewport. Set focus for modal screens.",
-      "runtime": "Health/Stats events and snapshots; target/prompt and progression only as those phases activate. Observe only. Unbind exact old subscriptions before source replacement/close/destruction, clear stale references and bind/pull the new ready source after body/session change. Model views can keep valid session references but may not retain old body components.",
+      "runtime": "Health/Stats events and snapshots; target/prompt and progression only as those phases activate. Observe only. Unbind exact old subscriptions before source replacement/close/destruction, clear stale references and bind/pull the new ready source after body/session change. Model views can keep valid session references but may not retain old body components. Phase 2 BindSources receives Health, Stats and Resources from the same ready body; bind exact resource dispatcher once, immediately query both pools, draw three safe bars and unbind on replacement. No per-frame stat/property-bound authority.",
       "missing": "Optional to authoritative gameplay: missing/removed widget must not suppress commands, stats rebuilds, death, rewards, persistence or charge/effect updates. A missing requested screen is a UI error, not loss of game state.",
-      "test": "Open twice, close/reopen, replace body and run the underlying public command with this view absent; first snapshot is current and no duplicate callback remains.",
+      "test": "Open twice, close/reopen, replace body and run the underlying public command with this view absent; first snapshot is current and no duplicate callback remains. Resource snapshot, zero maximum, no-op/atomic changes and no-HUD gameplay.",
       "dependencies": [
         "BP_PlayerController"
       ]
@@ -1978,7 +2033,7 @@
       ],
       "slot": "abilities view reference",
       "editor": "Open the owning Blueprint graph and Create Widget for this class with the local Controller as Owning Player. After the new body’s Abilities is initialized, nonmodal; suggested retained AbilitiesView reference. Retain the screen reference, supply sources, bind once, immediately RefreshView, then Add to Viewport. Set focus for modal screens.",
-      "runtime": "BPC_Abilities.OnAbilityStateChanged and current derived unlock/charge/recharge queries. Observe only; any bar interpolation is cosmetic and cannot restore a charge. Unbind exact old subscriptions before source replacement/close/destruction, clear stale references and bind/pull the new ready source after body/session change. Model views can keep valid session references but may not retain old body components.",
+      "runtime": "BPC_Abilities.OnAbilityStateChanged and current derived unlock/charge/recharge queries. Observe only; any bar interpolation is cosmetic and cannot restore a charge. Unbind exact old subscriptions before source replacement/close/destruction, clear stale references and bind/pull the new ready source after body/session change. Model views can keep valid session references but may not retain old body components. Bind Resources as well as Abilities, query immediately and distinguish unlocked insufficient-resource status from Locked.",
       "missing": "Optional to authoritative gameplay: missing/removed widget must not suppress commands, stats rebuilds, death, rewards, persistence or charge/effect updates. A missing requested screen is a UI error, not loss of game state.",
       "test": "Open twice, close/reopen, replace body and run the underlying public command with this view absent; first snapshot is current and no duplicate callback remains.",
       "dependencies": [
@@ -2046,6 +2101,22 @@
       "missing": "Intentionally absent for the current global-flag-only dialogue fixture. Required only for an explicitly authored local persistent NPC projection; missing IDs/interfaces then fail that projection’s readiness.",
       "test": "For an authored optional local projection, travel/reapply without replaying dialogue completion. For the baseline NPC, confirm repeat dialogue works without this component.",
       "dependencies": []
+    },
+    {
+      "kind": "component",
+      "phase": 2,
+      "asset": "BPC_Resources",
+      "owners": [
+        "BP_PlayerCharacter"
+      ],
+      "slot": "Resources",
+      "editor": "Open BP_PlayerCharacter → Components → Add BPC_Resources, rename Resources, Compile and Save. Configure after BPC_Stats. Runtime currents are private; no instance-editable balance defaults.",
+      "runtime": "Initialize from ready final Stats while body unready; Resources binds Stats.OnStatsChanged once, fills clean initial pools, and resumes only after body readiness. Controller supplies this same instance to HUD. Death/travel suspend before capture; EndPlay shuts down and unbinds. Later Abilities requests atomic costs.",
+      "missing": "Missing/unready Stats or Resources fails body initialization closed. No HUD/Controller/Profile fallback owner or zero-default substitute.",
+      "test": "Phase 2 real-player lab spending, regeneration, dual rejection, zero capacity and repeat init/teardown; Phase 3 handoff; Phase 9 resource/charge commit.",
+      "dependencies": [
+        "BP_PlayerCharacter"
+      ]
     }
   ],
   "asset_notes": {
@@ -2092,12 +2163,12 @@
     "S_RuntimeTravelState": {
       "first_active": 3,
       "role": "Value-only normal-travel handoff",
-      "text": "GI temporarily retains permitted runtime values while replacing the body. Phase 3 carries health; add effect and ability recharge values in Phase 9. Do not save Actor/executor references, timer handles or old-world deadlines, or replay immediate healing on import."
+      "text": "GI temporarily retains permitted runtime values while replacing the body. Phase 3 carries health; add effect and ability recharge values in Phase 9. Do not save Actor/executor references, timer handles or old-world deadlines, or replay immediate healing on import. Phase 3 CurrentHealth, CurrentMana and CurrentStamina value handoff after suspension; effects/ability state types remain Phase 9."
     },
     "S_CharacterSave": {
       "first_active": 3,
       "role": "Data-only snapshot/recovery shape",
-      "text": "Phase 3 session import/export/recovery can use current supported values. Disk serialization through BP_SaveGame becomes active in Phase 4. Later persistent collections remain empty until their features arrive; the structs do not own live state."
+      "text": "Phase 3 session import/export/recovery can use current supported values. Disk serialization through BP_SaveGame becomes active in Phase 4. Later persistent collections remain empty until their features arrive; the structs do not own live state. No current mana/stamina or final-stat cache fields; disk load rebuilds persistent decisions into full clean resource pools."
     },
     "S_WorldSave": {
       "first_active": 3,
@@ -2377,7 +2448,7 @@
     "E_StatId": {
       "first_active": 2,
       "role": "Data-only contract",
-      "text": "Data-only contract consumed by BPC_Stats.GetStat and S_StatModifier.StatId. Create/compile the type before adding those fields or pins; reopen the listed consumers and connect the complete value. It is not an Actor, component or mutable authority to place in the world. Use the linked phase scenario to exercise this message end to end."
+      "text": "Data-only contract consumed by BPC_Stats.GetStat and S_StatModifier.StatId. Create/compile the type before adding those fields or pins; reopen the listed consumers and connect the complete value. It is not an Actor, component or mutable authority to place in the world. Use the linked phase scenario to exercise this message end to end. Preserve original entries; append MaxMana, MaxStamina, ManaRegenRate, StaminaRegenRate in Phase 2."
     },
     "E_AttackPhase": {
       "first_active": 2,
@@ -2392,7 +2463,7 @@
     "S_StatBlock": {
       "first_active": 2,
       "role": "Data-only contract",
-      "text": "Data-only contract consumed by character/dummy/enemy base configuration and BPC_Stats.Recalculate/GetFinalStats. Create/compile the type before adding those fields or pins; reopen the listed consumers and connect the complete value. It is not an Actor, component or mutable authority to place in the world. Use the linked phase scenario to exercise this message end to end."
+      "text": "Data-only contract consumed by character/dummy/enemy base configuration and BPC_Stats.Recalculate/GetFinalStats. Create/compile the type before adding those fields or pins; reopen the listed consumers and connect the complete value. It is not an Actor, component or mutable authority to place in the world. Use the linked phase scenario to exercise this message end to end. Seven Float members, refreshing every Make/Break/Split/Set Members and cumulative-growth consumer; current pools remain runtime Resources state."
     },
     "S_DamageSpec": {
       "first_active": 2,
@@ -2606,5 +2677,33 @@
       "sources/phase-creation-order.json": "6244f18174c88ef432bcf127a1acf42a8502eca7c6f4e7ec934fa64131d0a3a7"
     },
     "related_game_access": "GitHub connector returned 404; actual RPG project/Editor not inspected in this audit."
+  },
+  "approved_resource_addition": {
+    "date": "2026-10-08",
+    "asset": {
+      "name": "BPC_Resources",
+      "type": "Blueprint Actor Component",
+      "parent": "ActorComponent",
+      "phase": 2,
+      "folder": "Content/Game/Combat/",
+      "path": "/Game/Game/Combat/BPC_Resources",
+      "doc": "assets/Combat/BPC_Resources.html"
+    },
+    "creation_order_after": "BPC_Stats",
+    "policy": "Existing identities/order remain unchanged when this single approved Phase 2 addition is excluded. Historical files remain byte-identical."
+  },
+  "resource_test_contract": {
+    "phase": 2,
+    "map": "L_MovementLab",
+    "development_only_trigger": "F6 with bRunResourceChecks=false by default",
+    "cases": [
+      "Resource setup/reset: save L_MovementLab, assign DA_PlayerBaseStats=(100,10,0,50,100,5,15), ensure one real ready possessed player and the three-bar HUD. Play fresh: health100, mana50/50, stamina100/100. Invalid/unassigned definition or unready Stats must keep the body unready; restore the assignment and Stop/Play. Every resource case logs setup, operation, expected/actual values and resets original Stats/fixture overrides.",
+      "F6 deterministic case with temporary zero regen rates and full pools: call CanAfford(10,20) then GetResourceSnapshot; the query leaves 50/100 unchanged. Call TrySpend(10,20): Success=true, current40/80 and exactly one coherent event. RestoreResources(10,20) returns to50/100. TrySpend(0,0), RestoreResources(0,0) and restore into full pools succeed without a new event. Reset rates and pools after the run.",
+      "F6 rejection/atomicity: start50/100 with zero rates. TrySpend(10,101) and TrySpend(51,20) each fail with both currents unchanged. TrySpend(-1,0), RestoreResources(1,-1) and nonfinite cost/amount tests through BFL_GameRules.IsFiniteNumber validation reject both sides. Observe Reason, no event and no partial write. Nonfinite Blueprint fixture behavior must be verified in the installed engine; do not use a numeric string that silently parses to zero as proof. Reset to the original valid definition/inputs and full pools.",
+      "Capacity rebuild case: at zero rates spend to20/40. Recalculate temporary max75/125: currents stay20/40 and the maximum snapshot changes. Repeat identical rebuild: no duplicated modifiers/no resource event. Recalculate max10/30: currents10/30; max0/0: currents0/0 and zero safe HUD fills. Invalid/nonfinite rebuilt input must fail without replacing the last valid Stats cache. Restore original complete inputs and refill explicitly to repeat; never use ordinary initialization as a refill command.",
+      "Regeneration timing case: restore original rates5/15 and full50/100, spend30/60, record GetGameTimeInSeconds. At two elapsed gameplay seconds expect approximately30/70 (start20/40 plus10/30, capped at max); log actual elapsed and use rate*elapsed with a small declared observation tolerance. Repeat at varied frame times, pause/unpause, zero rates, one full pool and both full. Pause adds nothing; both full disables Resources component Tick; a later spend wakes exactly one update. Reset by restoring original Stats and full pools, not by stacking updates.",
+      "Lifecycle/HUD regression: bind HUD twice and initialize Resources twice with the same ready Stats after spending; no duplicate listener or refill. SuspendResources then TrySpend: reject unchanged and no regeneration; resume an alive ready body with a new time origin. Trigger existing lethal hazard: Resources remains suspended and ordinary Phase 2 restart is Stop/Play (no early checkpoint). Destroy/recreate through a fresh Play session, remove HUD and repeat APIs; no stale callback and gameplay still correct. Restore HUD and fixture gate afterward.",
+      "Zero-resource action regression: with temporary zero rates drain both pools, then walk, turn, perform variable jumps/coyote/buffer and the existing ground/air basic attacks against BP_TrainingDummy. Behavior remains the Phase 1–2 baseline. No resource input/action gate may block these. Restore rates and pools, disable bRunResourceChecks and save the lab after testing."
+    ]
   }
 }

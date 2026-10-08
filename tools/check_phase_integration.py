@@ -93,16 +93,60 @@ def main():
             errors.append(f'Test-environment boundary missing: {phrase}.')
     if build_outputs():
         errors.append('Generated integration/index pages are stale; run build_manual_indexes.py.')
-    identity = [{field: asset[field] for field in IDENTITY_FIELDS} for asset in sorted(manifest, key=lambda asset: asset['name'])]
+    # Only the requested resource addition is excluded from the historical identity proof.
+    approved_resource = {
+        'name': 'BPC_Resources', 'type': 'Blueprint Actor Component', 'parent': 'ActorComponent',
+        'phase': 2, 'folder': 'Content/Game/Combat/', 'path': '/Game/Game/Combat/BPC_Resources',
+        'doc': 'assets/Combat/BPC_Resources.html',
+    }
+    resource_entries = [asset for asset in manifest if asset['name'] == 'BPC_Resources']
+    approved = data.get('approved_resource_addition', {})
+    if (len(resource_entries) != 1 or approved.get('asset') != approved_resource
+            or approved.get('creation_order_after') != 'BPC_Stats'
+            or {field: resource_entries[0][field] for field in IDENTITY_FIELDS} != approved_resource):
+        errors.append('The approved resource addition must register exactly one unchanged Phase 2 BPC_Resources identity.')
+    identity = [{field: asset[field] for field in IDENTITY_FIELDS}
+                for asset in sorted(manifest, key=lambda asset: asset['name'])
+                if asset['name'] != 'BPC_Resources']
     identity_hash = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
     identity_preserved = identity_hash == data['baseline']['asset_identity_sha256']
     if not identity_preserved:
-        errors.append('Asset name/type/parent/phase/Content folder/path/page identity changed from the audited baseline.')
+        errors.append('An existing asset identity changed or an unapproved asset was added to the audited baseline.')
     preserved = {}
     for filename, expected_hash in data['baseline']['preserved_files'].items():
-        preserved[filename] = hashlib.sha256((ROOT / filename).read_bytes()).hexdigest() == expected_hash
+        candidate = (ROOT / filename).read_bytes()
+        if filename == 'sources/phase-creation-order.json':
+            order = json.loads(candidate)
+            resource_order = [number for number, names in order.items() if 'BPC_Resources' in names]
+            names = order.get('2', [])
+            if (resource_order != ['2'] or names.count('BPC_Resources') != 1
+                    or names.index('BPC_Resources') != names.index('BPC_Stats') + 1):
+                errors.append('Create BPC_Resources exactly once, immediately after BPC_Stats in Phase 2.')
+            order = {number: [name for name in names if name != 'BPC_Resources']
+                     for number, names in order.items()}
+            candidate = (json.dumps(order, ensure_ascii=False, indent=2) + '\n').encode()
+        preserved[filename] = hashlib.sha256(candidate).hexdigest() == expected_hash
         if not preserved[filename]:
-            errors.append(f'Preserved historical source or phase order changed: {filename}.')
+            errors.append(f'Historical source or existing phase order changed: {filename}.')
+    for asset in manifest:
+        expected_users = sorted(other['name'] for other in manifest if asset['name'] in other['deps'])
+        if sorted(asset['users']) != expected_users:
+            errors.append(f'{asset["name"]}: direct dependencies and reverse users disagree.')
+    if 'BPC_Resources' in assets['BPC_Combat']['deps']:
+        errors.append('Phase 2 basic Combat must not gain a speculative resource-cost dependency.')
+    for name in ['E_StatId', 'S_StatBlock']:
+        content = (ROOT / assets[name]['doc']).read_text()
+        for stat in ['MaxMana', 'MaxStamina', 'ManaRegenRate', 'StaminaRegenRate']:
+            if f'<code>{stat}</code>' not in content:
+                errors.append(f'{name}: missing approved resource stat {stat}.')
+    resource_source = (ROOT / approved_resource['doc']).read_text()
+    for contract in ['InitializeResources', 'CanAfford', 'TrySpend', 'RestoreResources',
+                     'GetResourceSnapshot', 'ClampToMaximums', 'OnResourcesChanged',
+                     'SuspendResources', 'ShutdownResources', 'BeginDeferredSpend', 'EndDeferredSpend']:
+        if contract not in resource_source:
+            errors.append(f'BPC_Resources: missing required API {contract}.')
+    if not data.get('resource_test_contract', {}).get('cases'):
+        errors.append('Missing source-owned playable resource test cases.')
     report = {
         'date': datetime.now(timezone.utc).date().isoformat(),
         'check': 'Incremental feature integration and development-world static documentation validation',
@@ -110,6 +154,8 @@ def main():
         'phase_workflows': len(phases), 'asset_dispositions': len(manifest),
         'shared_bindings': len(bindings), 'binding_kinds': dict(sorted(Counter(binding['kind'] for binding in bindings).items())),
         'asset_identity_preserved': identity_preserved, 'preserved_files': preserved,
+        'approved_resource_addition': approved_resource,
+        'phase_order_comparison': 'Original order after excluding only the approved BPC_Resources insertion',
         'related_game_access': data['baseline']['related_game_access'],
         'errors': errors, 'blueprints_compiled': False, 'unreal_editor_run': False,
         'runtime_tests_run': False, 'packaged_game_run': False, 'installed_paperzd_compatibility_verified': False,
@@ -118,7 +164,7 @@ def main():
         (ROOT / 'sources/phase-integration-verification.json').write_text(json.dumps(report, indent=2) + '\n')
     if errors:
         raise SystemExit('\n'.join(errors))
-    print(f'Passed: {len(phases)} phase workflows, {len(manifest)} asset dispositions, {len(bindings)} shared assignments; identities, phase order and historical sources preserved.')
+    print(f'Passed: {len(phases)} phase workflows, {len(manifest)} asset dispositions, {len(bindings)} shared assignments; existing identities/order and historical sources preserved; approved BPC_Resources addition validated.')
 
 
 if __name__ == '__main__':
