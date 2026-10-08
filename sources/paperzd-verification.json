@@ -1,15 +1,15 @@
 {
-  "date": "2026-10-05",
+  "date": "2026-10-08",
   "check": "Paper2D + PaperZD static documentation verification",
-  "current_assets": 163,
-  "asset_pages": 163,
-  "html_pages_checked": 252,
-  "search_entries": 252,
+  "current_assets": 164,
+  "asset_pages": 164,
+  "html_pages_checked": 254,
+  "search_entries": 254,
   "folders": 20,
   "phase_counts": [
     8,
     16,
-    24,
+    25,
     32,
     9,
     20,
@@ -21,7 +21,7 @@
     2
   ],
   "type_counts": {
-    "Blueprint Actor Component": 9,
+    "Blueprint Actor Component": 10,
     "Blueprint Class": 29,
     "Blueprint Class \u2014 data schema": 11,
     "Blueprint Enumeration": 10,

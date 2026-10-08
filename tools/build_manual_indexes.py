@@ -60,6 +60,7 @@ def build_outputs():
         items = None
         if rel == 'asset-index.html':
             items = sorted(manifest, key=lambda a: a['name'])
+            source = re.sub(r'(id="asset-count">)\d+ assets', lambda match: match[1] + f'{count} assets', source)
             source = re.sub(r'(<select id="type-filter">).*?(</select>)',
                             lambda m: m[1] + '<option value="">All types</option>' + ''.join(
                                 f'<option value="{escape(t, quote=True)}">{escape(t)}</option>' for t in sorted(types)) + m[2], source, flags=re.S)
@@ -125,7 +126,8 @@ def build_outputs():
         if source != path.read_text():
             outputs[path] = source
     environment_path = ROOT / ENVIRONMENT_PAGE
-    environment_source = render_environments((ROOT / 'index.html').read_text(), integration, assets)
+    home_path = ROOT / 'index.html'
+    environment_source = render_environments(outputs.get(home_path, home_path.read_text()), integration, assets)
     if not environment_path.exists() or environment_path.read_text() != environment_source:
         outputs[environment_path] = environment_source
     app = ROOT / 'site/app.js'

@@ -1,9 +1,9 @@
 {
-  "date": "2026-10-05",
+  "date": "2026-10-08",
   "check": "static documentation validation",
-  "html_pages_checked": 253,
+  "html_pages_checked": 255,
   "engineering_pages": 18,
-  "local_references_checked": 15896,
+  "local_references_checked": 19775,
   "engineering_search_entries": 18,
   "original_roadmap_preserved": true,
   "asset_manifest_preserved": true,

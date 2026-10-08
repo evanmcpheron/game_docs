@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Check engineering structure, offline references, search coverage and source preservation."""
 import argparse
+from datetime import datetime, timezone
 import hashlib
 import json
 from html.parser import HTMLParser
@@ -80,7 +81,7 @@ def main():
         preserved[filename] = hashlib.sha256((ROOT / filename).read_bytes()).hexdigest() == evidence[key]
         if not preserved[filename]:
             errors.append(f'{filename}: preserved baseline changed')
-    report = dict(date='2026-10-05', check='static documentation validation',
+    report = dict(date=datetime.now(timezone.utc).date().isoformat(), check='static documentation validation',
                   html_pages_checked=len(files), engineering_pages=len(engineering_files),
                   local_references_checked=reference_count, engineering_search_entries=len(urls),
                   original_roadmap_preserved=preserved['original-roadmap.html'],

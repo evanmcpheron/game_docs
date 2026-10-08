@@ -10,7 +10,7 @@ TRACK: checklist.html (export progress JSON for a portable backup)
 SOURCE: original-roadmap.html is byte-for-byte unchanged.
 AUDIT: audit.html is historical; animation-migration.html and sources/paperzd-verification.json record current documentation checks.
 
-163 current asset pages (149 in the preserved historical manifest); 12 phases; 19 system chapters; 20 exact Content folders.
+164 current asset pages (149 in the preserved historical manifest); 12 phases; 19 system chapters; 20 exact Content folders.
 This is documentation, not a playable Unreal project or generated .uasset files.
 The target is the requested Unreal Engine 5.8.3. Official mechanism pages were
 consulted in the 5.8 documentation family; no Unreal Editor graphs were compiled
@@ -51,7 +51,9 @@ Edit sources/phase-integration.json; the existing manual generator invokes
 After the existing generation/check sequence, run:
   python3 tools/check_phase_integration.py --write-report
 The current report preserves the original roadmap, historical audit/manifest,
-phase order and all 163 registered identities/folders. This is still documentation,
+phase order and all 164 registered identities/folders. This is still documentation,
 not compiled Blueprints or a tested Unreal game. The related RPG repository was
 not accessible through the GitHub connection during this audit; October 5 game
 repository/engine findings above remain historical evidence only.
+
+Approved mana/stamina addition (08 October 2026): BPC_Resources is the sole new production asset, Phase 2, Content/Game/Combat/. See its asset contract and Phase 2 integration for seven-stat initialization, atomic resource operations, game-time regeneration and three HUD bars. Phase 3 travel and Phase 8/9 skill/ability integration remain explicitly staged. Current resource pools are not disk character fields. Historical roadmap and manifests are unchanged.

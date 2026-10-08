@@ -4,10 +4,10 @@
   "baseline_commit": "383ac235010c3c7d8ab357eb21b7eebd2b87c19f",
   "baseline_tree": "3a518e71f0a71d9a5ee7e7636d0c08e19b739685",
   "phase_workflows": 12,
-  "asset_dispositions": 163,
-  "shared_bindings": 72,
+  "asset_dispositions": 164,
+  "shared_bindings": 73,
   "binding_kinds": {
-    "component": 19,
+    "component": 20,
     "definition": 24,
     "input": 10,
     "interface": 9,
@@ -20,6 +20,16 @@
     "sources/asset-manifest.json": true,
     "sources/phase-creation-order.json": true
   },
+  "approved_resource_addition": {
+    "name": "BPC_Resources",
+    "type": "Blueprint Actor Component",
+    "parent": "ActorComponent",
+    "phase": 2,
+    "folder": "Content/Game/Combat/",
+    "path": "/Game/Game/Combat/BPC_Resources",
+    "doc": "assets/Combat/BPC_Resources.html"
+  },
+  "phase_order_comparison": "Original order after excluding only the approved BPC_Resources insertion",
   "related_game_access": "GitHub connector returned 404; actual RPG project/Editor not inspected in this audit.",
   "errors": [],
   "blueprints_compiled": false,
