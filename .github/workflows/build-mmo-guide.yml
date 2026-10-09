@@ -1,0 +1,87 @@
+name: Build staged MMO documentation
+
+on:
+  push:
+    branches: [docs/mmo-guide-2026-10-09]
+    paths: [.mmo-bootstrap/READY.json]
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the staging revision
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: docs/mmo-guide-2026-10-09
+      - name: Materialize and validate documentation only
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -f .mmo-bootstrap/READY.json ]; then
+            echo "No pending documentation bootstrap."
+            exit 0
+          fi
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          import json
+          import lzma
+          import shutil
+          root = Path.cwd()
+          ready = json.loads((root / '.mmo-bootstrap/READY.json').read_text())
+          payload = b''.join((root / '.mmo-bootstrap' / name).read_bytes() for name in ready['chunks'])
+          if hashlib.sha256(payload).hexdigest() != ready['sha256']:
+              raise SystemExit('Payload checksum mismatch')
+          records = json.loads(lzma.decompress(payload))
+          if not isinstance(records, dict) or len(records) > 500:
+              raise SystemExit('Invalid source payload')
+          for name, content in records.items():
+              path = Path(name)
+              if path.is_absolute() or '..' in path.parts or '.git' in path.parts:
+                  raise SystemExit('Unsafe documentation path')
+              if not isinstance(content, str):
+                  raise SystemExit('Only UTF-8 documentation sources are accepted')
+              target = root / path
+              target.parent.mkdir(parents=True, exist_ok=True)
+              target.write_text(content, encoding='utf-8')
+          shutil.rmtree(root / '.mmo-bootstrap')
+          PY
+          python tools/build_manual_indexes.py
+          python tools/validate_docs.py
+          python tools/check_phase_integration.py
+          python tools/test_validators.py
+          python tools/build_manual_indexes.py --check
+          node --check site/app.js
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import os
+          from datetime import datetime, timezone
+          report = {
+              'status': 'pass',
+              'summary': 'Staged source materialization, generation, static validation, phase checks, validator self-tests, regeneration check and JavaScript syntax check completed. No Unreal or browser runtime test was performed by this workflow.',
+              'workflow_run_id': os.environ['GITHUB_RUN_ID'],
+              'source_commit': os.environ['GITHUB_SHA'],
+              'generated_at': datetime.now(timezone.utc).isoformat(),
+              'commands': [
+                  'python tools/build_manual_indexes.py',
+                  'python tools/validate_docs.py',
+                  'python tools/check_phase_integration.py',
+                  'python tools/test_validators.py',
+                  'python tools/build_manual_indexes.py --check',
+                  'node --check site/app.js'
+              ]
+          }
+          Path('reports/github-generation.json').write_text(json.dumps(report, indent=2) + '\n')
+          PY
+          python tools/build_manual_indexes.py
+          python tools/build_manual_indexes.py --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Generate RPG MMO offline manual with explicit evidence limits"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
