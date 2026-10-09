@@ -1,0 +1,25 @@
+{
+  "status": "blocked_environment",
+  "summary": "Direct file:// and localhost browser navigation could not be verified because Chromium policy returned ERR_BLOCKED_BY_ADMINISTRATOR. Zero generated pages were loaded through either navigation route. Separate in-memory rendering tests are not a substitute.",
+  "browser": "Chromium 144.0.7559.96",
+  "pages_loaded": 0,
+  "attempted_protocols": [
+    "file://",
+    "localhost_http"
+  ],
+  "raw_attempt_record": "reports/browser-navigation-attempts.json",
+  "limited_render_record": "reports/dom-render-validation.json",
+  "not_verified": [
+    "file:// navigation",
+    "cross-page localStorage persistence",
+    "actual progress export download",
+    "real file import after navigation",
+    "complete browser traversal",
+    "assistive technology audit"
+  ],
+  "notes": [
+    "The initial all-pages attempt timed out after navigation was blocked.",
+    "No policy bypass was attempted. In-memory DOM tests supplied local HTML, CSS and JavaScript directly.",
+    "The raw report contains two vacuous no-error/no-request checks after failed navigation; these are not counted as successful site tests."
+  ]
+}

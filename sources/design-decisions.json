@@ -1,0 +1,170 @@
+[
+  {
+    "id": "D01",
+    "topic": "Authority",
+    "decision": "Use dedicated zone servers for live rules and one authenticated backend for durable state. Client input is a request.",
+    "status": "committed requirement",
+    "consequence": "No client SaveGame authority; server session caches carry fencing epoch and character revision."
+  },
+  {
+    "id": "D02",
+    "topic": "Native and Blueprint boundary",
+    "decision": "C++ owns rule validation, GAS, movement extensions and adapters. Blueprints edit definitions and compose visuals/UI.",
+    "status": "committed requirement",
+    "consequence": "Project custom commands are not built-in Blueprint nodes; read-only runtime access, authority checks even on exposed commands."
+  },
+  {
+    "id": "D03",
+    "topic": "Engine baseline",
+    "decision": "Target Unreal Engine 5.8.3; public release verified, local installation/build not verified.",
+    "status": "committed requirement",
+    "consequence": "Pin Build.version/changelist and source build, toolchain and plugin hashes before local acceptance."
+  },
+  {
+    "id": "D04",
+    "topic": "Sprite presentation",
+    "decision": "ACharacter-based native bodies with Paper2D visual components and a single PaperZD presentation adapter.",
+    "status": "proposed architecture",
+    "consequence": "Composition isolates plugin-sensitive code. Confirm the installed Animation Component binding API in Phase 00; no speculative plugin inheritance contract."
+  },
+  {
+    "id": "D05",
+    "topic": "Camera and movement",
+    "decision": "Fixed azimuth, elevated restrained perspective, zoom only; true X/Y locomotion with Z height.",
+    "status": "approved default",
+    "consequence": "Prototype azimuth 45°, elevation 50°, FOV 35°, zoom arm 900–1600 cm; tune in art lab. Orthographic only after comparison."
+  },
+  {
+    "id": "D06",
+    "topic": "Art coverage",
+    "decision": "Four-direction fallback and common body until archive inspection; eight directions and missing actions are production tasks.",
+    "status": "committed requirement",
+    "consequence": "No paid pixels redistributed, no exact source frames guessed, gameplay equipment coverage independent of visual layer coverage."
+  },
+  {
+    "id": "D07",
+    "topic": "Replication",
+    "decision": "Begin with generic actor/property/RPC replication.",
+    "status": "approved default",
+    "consequence": "Measure before replacing with Iris OR Replication Graph; never both. Record compatible installed configuration before optimization."
+  },
+  {
+    "id": "D08",
+    "topic": "Abilities",
+    "decision": "Choose GAS; player ASC on PlayerState, enemy ASC on enemy Character.",
+    "status": "approved default",
+    "consequence": "Possession/avatar lifecycle bridge and prediction need two-client proof. No skeletal montage dependency and no separate parallel combat stack."
+  },
+  {
+    "id": "D09",
+    "topic": "Persistence stack",
+    "decision": "One ASP.NET Core service on .NET 10 plus PostgreSQL 18, authenticated UE HTTP adapter.",
+    "status": "proposed architecture",
+    "consequence": "Compared with TypeScript/Node service: both viable; C# static contracts and long support favor this default. SQL is never accessible to clients."
+  },
+  {
+    "id": "D10",
+    "topic": "Transactions",
+    "decision": "One DB transaction for each economic command, command receipt, affected rows and durable source claim; fence every server write.",
+    "status": "committed requirement",
+    "consequence": "No DB transaction across an HTTP wait. Persist committed result before replicating success. Cache timeout is unknown, not failure."
+  },
+  {
+    "id": "D11",
+    "topic": "Zone handoff",
+    "decision": "ClientTravel connects only the transferring player to an independently hosted destination. Backend ticket redemption changes the fencing epoch.",
+    "status": "proposed architecture",
+    "consequence": "Source body remains frozen; old authority is invalidated at redemption, not delayed until visual acknowledgement. This closes a dual-writer window."
+  },
+  {
+    "id": "D12",
+    "topic": "Early dependencies",
+    "decision": "Introduce identity/item records, reward receipt and session lock in Phase 05; minimal party/credit contract in Phase 08.",
+    "status": "dependency adjustment",
+    "consequence": "Full inventory UI in 09 and full social UX in 19. Phase 08 cannot depend on future item identity or party definitions."
+  },
+  {
+    "id": "D13",
+    "topic": "Resource competition",
+    "decision": "Exclusive transient action reservation, followed by atomic durable depleted-generation claim and reward.",
+    "status": "proposed rule",
+    "consequence": "Losing player receives ResourceBusy or NodeDepleted. Reservations alone never award items."
+  },
+  {
+    "id": "D14",
+    "topic": "Fishing",
+    "decision": "Server-owned attempt, bite window and terminal receipt; deterministic client visuals from accepted times.",
+    "status": "committed requirement",
+    "consequence": "Missed/late cosmetic notify cannot authorize catch. Restart cancels unresolved attempts; committed catches survive."
+  },
+  {
+    "id": "D15",
+    "topic": "Crafting",
+    "decision": "Deterministic output at first; all material, currency, item and profession changes commit together.",
+    "status": "approved default",
+    "consequence": "No failure roll initially. Batch limits and per-command output identity prevent duplication."
+  },
+  {
+    "id": "D16",
+    "topic": "Loot and group credit",
+    "decision": "Initially party-shared kill credit with equal XP split among eligible nearby members, and personal loot allocations.",
+    "status": "proposed balance",
+    "consequence": "Record contribution/eligibility at defeat; eligible solo outsiders receive no party loot. Named encounter rules may later override."
+  },
+  {
+    "id": "D17",
+    "topic": "Equipment",
+    "decision": "15 logical positions: Head, Chest, Legs, Hands, Feet, Waist, Shoulders, Cloak, MainHand, OffHand, Neck, Ring1/2, Trinket1/2.",
+    "status": "committed requirement",
+    "consequence": "Chest/Top and Legs/Pants are aliases. Stats remain valid when a visual mapping is missing. Two-handed gear excludes OffHand."
+  },
+  {
+    "id": "D18",
+    "topic": "Death",
+    "decision": "Retain inventory, XP and quests; safe shrine respawn, remove short harmful effects, reinitialize resources under one recovery policy.",
+    "status": "proposed rule",
+    "consequence": "Default 5% equipped durability loss, no inventory wipe; penalty command is idempotent. Reconnect is not a free respawn/heal."
+  },
+  {
+    "id": "D19",
+    "topic": "Scope stages",
+    "decision": "24 phases, three slices, six zone-family designs; only two graybox zones required for Slice A.",
+    "status": "committed requirement",
+    "consequence": "No claim of thousands of players. Guilds/dungeons/trade later committed; PvP, raids, housing, auctions and monetization optional gates."
+  },
+  {
+    "id": "D20",
+    "topic": "Naming and identity",
+    "decision": "Stable definition IDs, UUIDs for owned nonstackables/characters, integers for quantities and base currency.",
+    "status": "committed requirement",
+    "consequence": "Authoring IDs survive renames via migration aliases. No localization strings or asset display names as database identity."
+  },
+  {
+    "id": "D21",
+    "topic": "Narrative",
+    "decision": "Original world of the Talarin Reach, with river, forest, marsh, highland, mountain and coast regions.",
+    "status": "new design proposal",
+    "consequence": "Original working names are not trademark-cleared. Do not reproduce protected fantasy names, maps or dialogue."
+  },
+  {
+    "id": "D22",
+    "topic": "Daily/escort policy",
+    "decision": "No daily resets or escort production in initial core; define extension gates rather than silently enable.",
+    "status": "scope decision",
+    "consequence": "Repeatable quests opt in with server cycle IDs; escort needs navigation, disconnect, reset and party-credit proof."
+  },
+  {
+    "id": "D23",
+    "topic": "Publication",
+    "decision": "Replace main only after validated documentation generation; retain existing history and a backup reference.",
+    "status": "explicit user authorization",
+    "consequence": "Generating a ZIP is separate from publication; final report must state actual remote commit or failure."
+  },
+  {
+    "id": "D24",
+    "topic": "Evidence status",
+    "decision": "Delivered documentation is an evidence-labeled draft, not an acceptance-complete manual while the archive and installed APIs remain unavailable.",
+    "status": "evidence constraint",
+    "consequence": "Static/browser results are independent of Unreal, database, packaged or multiplayer runtime results."
+  }
+]

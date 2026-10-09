@@ -1,125 +1,104 @@
 #!/usr/bin/env python3
-"""Check phase integration coverage, shared assignments and preserved architecture identities."""
+"""Check creation order, consumers, phase recipes and original world adjacency."""
+from __future__ import annotations
 import argparse
 from collections import Counter
 from datetime import datetime, timezone
-import hashlib
 import json
 from pathlib import Path
 
-from build_manual_indexes import build_outputs
-from phase_integration import END, ENVIRONMENT_PAGE, START, load_integration
+DEFAULT_ROOT = Path(__file__).resolve().parents[1]
 
-ROOT = Path(__file__).resolve().parents[1]
-IDENTITY_FIELDS = ['name', 'type', 'parent', 'phase', 'folder', 'path', 'doc']
-
+def check(root: Path) -> dict:
+    def load(name):
+        return json.loads((root / 'sources' / name).read_text(encoding='utf-8'))
+    errors = []
+    def error(code, message):
+        errors.append({'code': code, 'message': str(message)})
+    assets = load('current-asset-manifest.json')['assets']
+    indexed = {asset['id']: asset for asset in assets}
+    order = load('phase-creation-order.json')['phases']
+    integrations = load('phase-integration.json')['phases']
+    phases = load('phases.json')
+    edges = load('dependency-edges.json')['edges']
+    if [phase['phase'] for phase in order] != list(range(24)) or [phase['phase'] for phase in integrations] != list(range(24)):
+        error('PHASE_SET', 'Require sequential phases00–23')
+    created = set()
+    encountered = []
+    for phase in order:
+        number = phase['phase']
+        for identity in phase['assets']:
+            encountered.append(identity)
+            if identity not in indexed:
+                error('UNKNOWN_ASSET', identity)
+                continue
+            asset = indexed[identity]
+            if asset['first_phase'] != number:
+                error('WRONG_CREATION_PHASE', identity)
+            if not set(asset['dependencies']) <= created:
+                error('CREATION_ORDER', f"{identity}: missing earlier prerequisites {sorted(set(asset['dependencies']) - created)}")
+            created.add(identity)
+        integration = integrations[number]
+        if integration['new_assets'] != phase['assets']:
+            error('PHASE_ORDER_DRIFT', number)
+        if integration['map'] not in indexed or indexed[integration['map']]['first_phase'] > number:
+            error('FUTURE_MAP', integration['map'])
+        if not integration.get('run_now'):
+            error('MISSING_RUN_RECIPE', number)
+        else:
+            for field in ['prepare', 'steps', 'success', 'reject', 'deferred']:
+                if not integration['run_now'].get(field):
+                    error('RUN_RECIPE_DEPTH', f'{number}: {field}')
+        declared = Counter((edge['source'], edge['target'], edge['assignment']) for edge in edges if edge['kind'] == 'integration' and edge['phase'] == number)
+        actual = Counter((record['consumer'], record['asset'], record['change']) for record in integration['reopen'])
+        if actual != declared:
+            error('UNDECLARED_CONSUMER', f'phase{number}: reopen records differ from manifest integration edges')
+        for record in integration['reopen']:
+            for identity in [record['consumer'], record['asset']]:
+                if identity not in indexed or indexed[identity]['first_phase'] > number:
+                    error('FUTURE_CONSUMER', f'{number}: {identity}')
+        if integration['runtime_status'] != 'not_run':
+            error('UNSUPPORTED_RUNTIME_CLAIM', number)
+        if any(dependency >= number for dependency in phases[number]['prerequisites']):
+            error('PHASE_PREREQUISITE', number)
+    if Counter(encountered) != Counter(indexed.keys()):
+        error('CREATION_COVERAGE', 'Every asset must be created exactly once')
+    for edge in edges:
+        if edge['source'] not in indexed or edge['target'] not in indexed:
+            error('UNKNOWN_EDGE', edge)
+        elif edge['phase'] < max(indexed[edge['source']]['first_phase'], indexed[edge['target']]['first_phase']):
+            error('FUTURE_DEPENDENCY', edge)
+    zones = load('world-catalog.json')['zones']
+    zones_by_id = {zone['id']: zone for zone in zones}
+    for zone in zones:
+        for target, outgoing, returning in zone['routes']:
+            if target not in zones_by_id or [zone['id'], returning, outgoing] not in zones_by_id[target]['routes']:
+                error('ZONE_RETURN_PATH', f"{zone['id']} -> {target} ({outgoing})")
+    classes = load('class-catalog.json')
+    for class_record in classes:
+        nodes = {node['id']: node for node in class_record['talents']}
+        resolved = set()
+        while len(resolved) < len(nodes):
+            ready = {identity for identity, node in nodes.items() if identity not in resolved and set(node['requires']) <= resolved}
+            if not ready:
+                error('TALENT_DAG', class_record['name'])
+                break
+            resolved.update(ready)
+    return {'status': 'pass' if not errors else 'fail', 'summary': f"{len(errors)} creation/integration/world-graph errors; runtime recipes not executed.", 'generated_at': datetime.now(timezone.utc).isoformat(), 'counts': {'phases': len(phases), 'assets': len(assets), 'edges': len(edges), 'zones': len(zones)}, 'errors': errors}
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--root', type=Path, default=DEFAULT_ROOT)
     parser.add_argument('--write-report', action='store_true')
     arguments = parser.parse_args()
-    data = load_integration()
-    manifest = json.loads((ROOT / 'sources/current-asset-manifest.json').read_text())
-    assets = {asset['name']: asset for asset in manifest}
-    errors = []
-    phases = data['phases']
-    if [phase['phase'] for phase in phases] != list(range(12)):
-        errors.append('Phase workflows must cover 0–11 exactly once in order.')
-    required_sections = ['existing', 'configure', 'connect', 'world', 'run', 'failure', 'regression', 'deferred']
-    for phase in phases:
-        number = phase['phase']
-        for section in required_sections:
-            if section not in phase or (section != 'existing' and not phase[section]):
-                errors.append(f'Phase {number}: missing operational section {section}.')
-        for modification in phase['existing']:
-            name = modification['asset']
-            if name not in assets or assets[name]['phase'] >= number:
-                errors.append(f'Phase {number}: {name} is not an earlier-phase existing asset.')
-        path = ROOT / f'phases/phase-{number:02}.html'
-        source = path.read_text()
-        for anchor in ['integrate-existing', 'integrate-configure', 'integrate-hook-up', 'integrate-world',
-                       'integrate-run', 'integrate-failure', 'integrate-regression', 'integrate-deferred', 'integrate-complete']:
-            if source.count(f'id="{anchor}"') != 1:
-                errors.append(f'{path.name}: missing/duplicate {anchor}.')
-        if f'data-check="integrated-phase-{number:02}-3"' not in source:
-            errors.append(f'{path.name}: no observed-run completion gate.')
-    bindings = data['bindings']
-    for binding in bindings:
-        name = binding['asset']
-        if name not in assets:
-            errors.append(f'Unknown assigned asset: {name}.')
-            continue
-        if not assets[name]['phase'] <= binding['phase'] <= 11:
-            errors.append(f'{name}: connection predates creation or is outside the roadmap.')
-        for field in ['owners', 'slot', 'editor', 'runtime', 'missing', 'test']:
-            if not binding.get(field):
-                errors.append(f'{name}: incomplete assignment field {field}.')
-        for owner in binding['owners']:
-            if owner not in assets or assets[owner]['phase'] > binding['phase']:
-                errors.append(f'{name}: unavailable owner {owner} in Phase {binding["phase"]}.')
-                continue
-            owner_source = (ROOT / assets[owner]['doc']).read_text()
-            if name not in owner_source.split(START)[-1].split(END)[0]:
-                errors.append(f'{name}: reverse integration is absent from {owner}.')
-        for owner in binding['dependencies']:
-            if owner not in assets or name not in assets[owner]['deps']:
-                errors.append(f'{name}: direct dependency missing on {owner}.')
-    types = {
-        'Blueprint Actor Component': 'component', 'Blueprint Interface': 'interface',
-        'Data Asset instance': 'definition', 'Input Action': 'input', 'Widget Blueprint': 'view',
-    }
-    for asset in manifest:
-        name = asset['name']
-        expected_kind = types.get(asset['type'])
-        matching = [binding for binding in bindings if binding['asset'] == name]
-        if expected_kind and not any(binding['kind'] == expected_kind for binding in matching):
-            errors.append(f'{name}: no explicit {expected_kind} integration contract.')
-        if name not in data['asset_notes'] and not matching:
-            errors.append(f'{name}: no runtime/data/staged disposition.')
-        note = data['asset_notes'].get(name)
-        if note and not asset['phase'] <= note['first_active'] <= 11:
-            errors.append(f'{name}: invalid activation phase.')
-        source = (ROOT / asset['doc']).read_text()
-        if source.count(START) != 1 or source.count(END) != 1 or source.count('id="phase-integration"') != 1:
-            errors.append(f'{name}: missing/duplicate generated asset integration block.')
-    required_staging = {'BP_GameInstance': 3, 'IA_Jump': 1, 'E_EquipmentSlot': 7, 'S_InventoryEntry': 4}
-    for name, number in required_staging.items():
-        if data['asset_notes'].get(name, {}).get('first_active') != number:
-            errors.append(f'{name}: lost explicit staged activation in Phase {number}.')
-    environment = (ROOT / ENVIRONMENT_PAGE).read_text()
-    for phrase in ['L_MovementLab', 'L_Slice_A', 'L_Slice_B', 'L_SystemTests', 'L_Frontend',
-                   'Default Pawn=None', 'not an alternate valid gameplay-area bootstrap', 'not executed gameplay results']:
-        if phrase not in environment:
-            errors.append(f'Test-environment boundary missing: {phrase}.')
-    if build_outputs():
-        errors.append('Generated integration/index pages are stale; run build_manual_indexes.py.')
-    identity = [{field: asset[field] for field in IDENTITY_FIELDS} for asset in sorted(manifest, key=lambda asset: asset['name'])]
-    identity_hash = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
-    identity_preserved = identity_hash == data['baseline']['asset_identity_sha256']
-    if not identity_preserved:
-        errors.append('Asset name/type/parent/phase/Content folder/path/page identity changed from the audited baseline.')
-    preserved = {}
-    for filename, expected_hash in data['baseline']['preserved_files'].items():
-        preserved[filename] = hashlib.sha256((ROOT / filename).read_bytes()).hexdigest() == expected_hash
-        if not preserved[filename]:
-            errors.append(f'Preserved historical source or phase order changed: {filename}.')
-    report = {
-        'date': datetime.now(timezone.utc).date().isoformat(),
-        'check': 'Incremental feature integration and development-world static documentation validation',
-        'baseline_commit': data['baseline']['commit'], 'baseline_tree': data['baseline']['tree'],
-        'phase_workflows': len(phases), 'asset_dispositions': len(manifest),
-        'shared_bindings': len(bindings), 'binding_kinds': dict(sorted(Counter(binding['kind'] for binding in bindings).items())),
-        'asset_identity_preserved': identity_preserved, 'preserved_files': preserved,
-        'related_game_access': data['baseline']['related_game_access'],
-        'errors': errors, 'blueprints_compiled': False, 'unreal_editor_run': False,
-        'runtime_tests_run': False, 'packaged_game_run': False, 'installed_paperzd_compatibility_verified': False,
-    }
+    report = check(arguments.root)
+    report['command'] = 'python tools/check_phase_integration.py' + (' --write-report' if arguments.write_report else '')
     if arguments.write_report:
-        (ROOT / 'sources/phase-integration-verification.json').write_text(json.dumps(report, indent=2) + '\n')
-    if errors:
-        raise SystemExit('\n'.join(errors))
-    print(f'Passed: {len(phases)} phase workflows, {len(manifest)} asset dispositions, {len(bindings)} shared assignments; identities, phase order and historical sources preserved.')
-
+        (arguments.root / 'reports/phase-integration-validation.json').write_text(json.dumps(report, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+    print(report['status'].upper() + ': ' + report['summary'])
+    for error in report['errors'][:50]:
+        print(error['code'] + ': ' + error['message'])
+    return 0 if report['status'] == 'pass' else 1
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())

@@ -1,0 +1,264 @@
+[
+  {
+    "number": 0,
+    "title": "Sources, tools and test bootstrap",
+    "purpose": "Pin engine/toolchain/plugin evidence; establish paths, IDs, documentation and dedicated-server build prerequisites.",
+    "map": "L_TerrainLab",
+    "stop_condition": "Installation record, source provenance, plugin gate and a blank C++ project created by the developer.",
+    "prerequisites": [],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 1,
+    "title": "Sprite, camera and layering lab",
+    "purpose": "Prove a common body on 3D ground with four facings, zoom, depth, feet and a clothing fallback.",
+    "map": "L_ArtLab",
+    "stop_condition": "Local capsule and layered sprite remain aligned through four facings; art source gap stays explicit.",
+    "prerequisites": [
+      0
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 2,
+    "title": "Three-dimensional locomotion",
+    "purpose": "Use CharacterMovement across X/Y with Z height; add jump, sprint, dodge, swim and fall/shoreline rules.",
+    "map": "L_TerrainLab",
+    "stop_condition": "One movement integrator; no X/Z plane constraint or sprite-collision authority.",
+    "prerequisites": [
+      1
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 3,
+    "title": "Dedicated server and two clients",
+    "purpose": "Connect independent clients, possess once, replicate movement and remote appearance intent.",
+    "map": "L_NetworkLab",
+    "stop_condition": "Two remote clients with server authority; connection loss cleans up input and references.",
+    "prerequisites": [
+      2
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 4,
+    "title": "Accounts and character creation",
+    "purpose": "Use a development authenticator boundary; create/list/select a named class/body/appearance record.",
+    "map": "L_FrontEnd",
+    "stop_condition": "Creation is server/backend validated; previews never become persistent authority.",
+    "prerequisites": [
+      3
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 5,
+    "title": "Durable character service",
+    "purpose": "Create the versioned schema, command receipts, session fencing and minimal reward/item identities.",
+    "map": "L_NetworkLab",
+    "stop_condition": "One character lease; retry after a lost acknowledgement returns the existing receipt.",
+    "prerequisites": [
+      4
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 6,
+    "title": "Two-zone handoff",
+    "purpose": "Author two zone catalogs/gates, allocate two servers and transfer only one player.",
+    "map": "L_Rillmere",
+    "stop_condition": "ClientTravel changes that client only; stale source writes and duplicate tickets reject.",
+    "prerequisites": [
+      5
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 7,
+    "title": "GAS and authoritative combat",
+    "purpose": "Initialize PlayerState/enemy ASCs; prove costs, cooldowns, target checks, melee and projectiles.",
+    "map": "L_NetworkLab",
+    "stop_condition": "Accepted attacks apply once without animation notifies and correct predicted UI on rejection.",
+    "prerequisites": [
+      6
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 8,
+    "title": "AI, defeat credit, XP and recovery",
+    "purpose": "Build server AI and defeat ledger, minimal party eligibility, XP awards and safe respawn.",
+    "map": "L_Rillmere",
+    "stop_condition": "Slice A: two players fight and receive recorded XP; death and reconnect do not repeat rewards.",
+    "prerequisites": [
+      7
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 9,
+    "title": "Items, bags and equipment",
+    "purpose": "Create real inventory UI/stack rules, item requirements and replicated logical/visual equipment.",
+    "map": "L_Rillmere",
+    "stop_condition": "Capacity/conflict errors do not partially move gear; missing clothing keeps item stats.",
+    "prerequisites": [
+      8
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 10,
+    "title": "Weighted loot and ownership",
+    "purpose": "Materialize loot once for a defeated spawn generation; expose corpse/container interaction.",
+    "map": "L_Rillmere",
+    "stop_condition": "Guaranteed and random allocations remain unchanged after reload and replay.",
+    "prerequisites": [
+      9
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 11,
+    "title": "Merchants, currency and bank",
+    "purpose": "Commit buy/sell/buyback/repair and deposits/withdrawals through authenticated service commands.",
+    "map": "L_Rillmere",
+    "stop_condition": "Concurrent last-stock/slot/currency operations have one coherent result.",
+    "prerequisites": [
+      10
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 12,
+    "title": "Randomized mining and woodcutting",
+    "purpose": "Select eligible sites per zone seed; validate tools, action leases, yield, XP and respawn.",
+    "map": "L_Rillmere",
+    "stop_condition": "Two players contest the same node and exactly one depleted-generation grant succeeds.",
+    "prerequisites": [
+      11
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 13,
+    "title": "Crafting professions",
+    "purpose": "Learn recipes, use stations and consume materials/currency atomically for deterministic items.",
+    "map": "L_Rillmere",
+    "stop_condition": "Disconnect after confirm and reconnect in another zone preserves exactly one crafted result.",
+    "prerequisites": [
+      12
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 14,
+    "title": "Fishing",
+    "purpose": "Validate shoreline casts, world bobber, bite window, reel and terminal fish reward.",
+    "map": "L_Rillmere",
+    "stop_condition": "One fishing attempt has one terminal outcome; replay/notify/restart cannot add catches.",
+    "prerequisites": [
+      13
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 15,
+    "title": "Village dialogue and quest loop",
+    "purpose": "Author conditional NPC dialogue and a quest DAG using server gameplay events and receipt-backed rewards.",
+    "map": "L_Rillmere",
+    "stop_condition": "Slice B includes quest/fight/loot/gather/fish/craft/shop/equip/death/reconnect.",
+    "prerequisites": [
+      14
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 16,
+    "title": "Four-class talents and progression",
+    "purpose": "Build all four ability catalogs, validated skill graph, derived stats and paid respec.",
+    "map": "L_Rillmere",
+    "stop_condition": "Exclusive branches and prerequisites hold; respec cannot strand required progression.",
+    "prerequisites": [
+      15
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 17,
+    "title": "Exploration and world production",
+    "purpose": "Add discovery/minimap, time/weather, six region plans and a data-driven content factory.",
+    "map": "L_Morrowfen",
+    "stop_condition": "New zones register without native rule changes; weather/discovery survive transfer policies.",
+    "prerequisites": [
+      16
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 18,
+    "title": "Elites, bosses and dungeons",
+    "purpose": "Add phases/telegraphs, four-player instanced ruin allocation and recovery/loot rules.",
+    "map": "L_SluiceVault",
+    "stop_condition": "Party reservation is atomic; boss defeat/reset/instance retry grants only intended rewards.",
+    "prerequisites": [
+      17
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 19,
+    "title": "Social and secure trade",
+    "purpose": "Extend minimal parties into invites/chat/friends/block/private messages and escrow trades.",
+    "map": "L_Rillmere",
+    "stop_condition": "Blocking and moderation affect delivery; both trade acceptances bind one offer revision.",
+    "prerequisites": [
+      18
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 20,
+    "title": "Reputation, trainers and hubs",
+    "purpose": "Add faction thresholds, profession/class training, safe-hub unlocks and world event participation.",
+    "map": "L_KestrelCrown",
+    "stop_condition": "Server-recorded reputation and paid travel/training are validated and durable.",
+    "prerequisites": [
+      19
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 21,
+    "title": "Guilds and committed growth",
+    "purpose": "Add guild roles/invites, social dashboards, content expansion; mounts stay behind an art/movement gate.",
+    "map": "L_VarranHalls",
+    "stop_condition": "Guild mutations are authorized and versioned; no unverified mounted art is enabled.",
+    "prerequisites": [
+      20
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 22,
+    "title": "Operations, security and measured scale",
+    "purpose": "Exercise restarts, restores, fencing, dupe attacks, deployment and replication comparisons.",
+    "map": "L_LoadTest",
+    "stop_condition": "Publish measured budgets and incident runbooks; do not substitute actor counts for real load tests.",
+    "prerequisites": [
+      21
+    ],
+    "status": "planned_not_run"
+  },
+  {
+    "number": 23,
+    "title": "Packaged release-candidate proof",
+    "purpose": "Run complete packaged client/server slices, localization/accessibility and documentation consistency.",
+    "map": "L_Rillmere",
+    "stop_condition": "Slice C requires retained test evidence, recovery proof and no unresolved critical economy failures.",
+    "prerequisites": [
+      22
+    ],
+    "status": "planned_not_run"
+  }
+]

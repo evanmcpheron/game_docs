@@ -1,0 +1,416 @@
+{
+  "world": "Talarin Reach",
+  "status": "original_authored_design_not_built",
+  "zones": [
+    {
+      "id": "zone.rillmere",
+      "name": "Rillmere Valley",
+      "asset": "DA_Zone_Rillmere",
+      "map": "L_Rillmere",
+      "phase": 6,
+      "levels": [
+        1,
+        10
+      ],
+      "climate": "Temperate river terraces; warm sunrise, overcast midday and light river mist. Rain is cosmetic until explicitly enabled in fishing rules.",
+      "factions": [
+        "River Compact",
+        "Ashen Survey"
+      ],
+      "services": "Hearthford hub at the river crossing: Mara merchant/quest giver, Tovin trainer, Ilyra bank clerk, Orun smith, Selka cook and Neris fishing contact. Shrine on the dry west bank.",
+      "routes": [
+        [
+          "zone.thornweald",
+          "gate.rillmere.north",
+          "gate.thornweald.south"
+        ],
+        [
+          "zone.kestrel-crown",
+          "gate.rillmere.pass",
+          "gate.kestrel-crown.valley"
+        ]
+      ],
+      "travel": "Proposed 45–90 seconds between early objectives, 3–5 minutes hub-to-north-gate on foot and a 7–10 minute optional exploration circuit; time real capsule travel, not map distance alone.",
+      "hazards": "Shallow ford transitions into a clearly marked deep channel. A broken footbridge has safe banks and a visible return route. No climbing dependency.",
+      "arc": "First Steps teaches identity and interaction; Road Supplies repairs a warning post; The Sluice Signal reveals old waterworks being disturbed by survey crews.",
+      "landmarks": [
+        "Splitstone Ford",
+        "Lantern Orchard",
+        "Old Sluice Intake"
+      ],
+      "enemies": [
+        "Mossfang prowlers (1–4)",
+        "Reedback beetles (3–6)",
+        "Survey deserters (6–9)"
+      ],
+      "ore": [
+        "CopperOre: common low slopes",
+        "RiverTin: uncommon exposed cuts"
+      ],
+      "trees": [
+        "AshLog: managed edge groves",
+        "WillowBranch: river terraces outside paths"
+      ],
+      "fish": [
+        "SilverDace: river pools",
+        "Brownfin: deep channel",
+        "GlassMinnow: uncommon shaded reeds"
+      ],
+      "music": "Acoustic strings and restrained low winds; water, woodwork and distant birds. Commission/original or licensed stems, never bundled here.",
+      "art": "Graybox landscape, ford/bridge, six small service buildings, ore/tree stand-ins, shoreline and water material. Needs separately sourced terrain, foliage, props, buildings and creature sprites.",
+      "optimization": "One modest graybox map initially; separate town/wilderness actor budgets. Add internal streaming only after measured memory and traversal tests. Zone gates connect separate processes.",
+      "tests": [
+        "Enter every service from spawn without jumping or climbing.",
+        "Two players mine OreSite_01 after deterministic selection; one depletes its generation.",
+        "One client takes north gate; the other stays in Hearthford.",
+        "Fish from both sides of ford; reject cast from deep swimming water."
+      ]
+    },
+    {
+      "id": "zone.thornweald",
+      "name": "Thornweald",
+      "asset": "DA_Zone_Thornweald",
+      "map": "L_Thornweald",
+      "phase": 6,
+      "levels": [
+        8,
+        20
+      ],
+      "climate": "Ancient closed-canopy woodland; dappled light, cool dusk and periodic rain. Maintain readable sprite outlines under canopy.",
+      "factions": [
+        "River Compact",
+        "Cairn Wardens"
+      ],
+      "services": "Boughrest trail camp supplies a merchant, healer contact and return shrine. Wardens occupy a ruined boundary tower; no full bank until a later content milestone.",
+      "routes": [
+        [
+          "zone.rillmere",
+          "gate.thornweald.south",
+          "gate.rillmere.north"
+        ],
+        [
+          "zone.morrowfen",
+          "gate.thornweald.east",
+          "gate.morrowfen.west"
+        ]
+      ],
+      "travel": "Proposed 4–6 minutes between trail camp and boundary tower, with shortcuts unlocked through exploration rather than mandatory vertical climbing.",
+      "hazards": "Roots and narrow bridges test stairs/steps and camera occlusion. Hollow trees are interiors, not fully simulated tree destruction.",
+      "arc": "The Wardens investigate hollow resonators that attract predators; the player chooses a recorded diplomatic response, not an irreversible main-story lock.",
+      "landmarks": [
+        "Hollow Choir",
+        "Boundary Tower",
+        "Sevenroot Bridge"
+      ],
+      "enemies": [
+        "Barkhide boars (8–12)",
+        "Thorn moth swarms (12–16)",
+        "Hollow wardens (16–20)"
+      ],
+      "ore": [
+        "CopperOre: old trail cuts",
+        "DeepIron: rare exposed ravines"
+      ],
+      "trees": [
+        "OakLog: common clearings",
+        "DarkBough: uncommon fallen stands"
+      ],
+      "fish": [
+        "ShadePerch: stream bends",
+        "RootEel: cave-fed pools"
+      ],
+      "music": "Sparse bowed strings and branch creaks; distinguish hostile cues from ambient animal calls visually as well as acoustically.",
+      "art": "Canopy/occluder materials, layered ground cover, bridge meshes, tower kit and three creature sprite families. Phase06 uses only a safe gate courtyard and legal debug placeholders.",
+      "optimization": "Canopy/foliage culling and simple collision; navigation on authored trails; test relevancy across tree occlusion independently of rendering.",
+      "tests": [
+        "Reciprocal Rillmere gate works with source player left behind.",
+        "Tall canopy fades locally without removing server collision.",
+        "Navmesh routes enemies across Sevenroot Bridge and leashes safely.",
+        "Missing creature animation uses debug presentation without changing hit capsule."
+      ]
+    },
+    {
+      "id": "zone.morrowfen",
+      "name": "Morrowfen",
+      "asset": "DA_Zone_Morrowfen",
+      "map": "L_Morrowfen",
+      "phase": 17,
+      "levels": [
+        18,
+        28
+      ],
+      "climate": "Misty wetland with low sun, periodic heavy rain and limited lightning flashes under accessibility settings.",
+      "factions": [
+        "River Compact",
+        "Tidebound League"
+      ],
+      "services": "Reedgate stilt camp has fisher, cook, repair vendor and shrine. Raised boardwalk loop connects quest contacts without swimming.",
+      "routes": [
+        [
+          "zone.thornweald",
+          "gate.morrowfen.west",
+          "gate.thornweald.east"
+        ],
+        [
+          "zone.brinewake",
+          "gate.morrowfen.estuary",
+          "gate.brinewake.marsh"
+        ]
+      ],
+      "travel": "Proposed 3–4 minute boardwalk loop and 5-minute camp-to-estuary route; swimming is an optional shortcut, not the only service access.",
+      "hazards": "Deep channels, slow-mud volumes with explicit tags and low-visibility fog. Mark shore exits and avoid hidden lethal water.",
+      "arc": "Flood gauges disagree with the tide. Craft repaired instruments, fish local species and trace diverted water to the coast.",
+      "landmarks": [
+        "Sunken Bellhouse",
+        "Reedgate Gauge",
+        "Blackwater Causeway"
+      ],
+      "enemies": [
+        "Fen skitters (18–22)",
+        "Mudhorn grazers (20–25)",
+        "Drowned sentries (24–28)"
+      ],
+      "ore": [
+        "BogIron: dry hummocks",
+        "SiltCrystal: rare rock islands"
+      ],
+      "trees": [
+        "WillowBranch: banks",
+        "Bogwood: elevated dead stands"
+      ],
+      "fish": [
+        "MudPike: channels",
+        "LanternCarp: still pools",
+        "MarshEel: storm modifier optional"
+      ],
+      "music": "Low reeds, water insects and soft percussion; subtitled/visual hazard warnings.",
+      "art": "Stilt-house and boardwalk kit, water/shore masks, swamp vegetation, fog volumes and enemy sheets.",
+      "optimization": "Bound translucent overdraw, weather particle count and expensive water reflections. Collision/navmesh separates boardwalk heights from water.",
+      "tests": [
+        "Fish cast intersects approved pool and shore line of sight.",
+        "Swim-to-boardwalk exit cannot clip underside.",
+        "Weather transition does not reroll an active fishing attempt.",
+        "Fog and large text preserve objective/telegraph readability."
+      ]
+    },
+    {
+      "id": "zone.kestrel-crown",
+      "name": "Kestrel Crown",
+      "asset": "DA_Zone_KestrelCrown",
+      "map": "L_KestrelCrown",
+      "phase": 17,
+      "levels": [
+        26,
+        36
+      ],
+      "climate": "Wind-cut highlands with clear long views, fast cloud shadows and occasional sleet.",
+      "factions": [
+        "Cairn Wardens",
+        "Ashen Survey"
+      ],
+      "services": "Crownwatch road fort provides bank extension, trainer, smith, merchant and safe travel hub unlocked by arrival.",
+      "routes": [
+        [
+          "zone.rillmere",
+          "gate.kestrel-crown.valley",
+          "gate.rillmere.pass"
+        ],
+        [
+          "zone.varran-halls",
+          "gate.kestrel-crown.hall",
+          "gate.varran-halls.ridge"
+        ]
+      ],
+      "travel": "Proposed 6-minute valley-to-fort road, 4-minute fort-to-hall approach. Long slopes require measured camera/facing comfort.",
+      "hazards": "Steep drop-offs with visible rails on primary roads; optional fall-damage routes; no forced mount or climbing.",
+      "arc": "Rebuild ridge beacons and decide which faction receives survey records. Either choice retains a route to mountain service access.",
+      "landmarks": [
+        "Three Beacons",
+        "Windcut Steps",
+        "Crownwatch Fort"
+      ],
+      "enemies": [
+        "Ridge talons (26–30)",
+        "Stoneback rams (28–33)",
+        "Survey constructs (32–36)"
+      ],
+      "ore": [
+        "DeepIron: road cuts",
+        "BrightQuartz: high outcrops"
+      ],
+      "trees": [
+        "PineLog: sheltered slopes",
+        "Resinwood: uncommon leeward groves"
+      ],
+      "fish": [
+        "HighlandTrout: cold tarns",
+        "BluegillChar: rare deep tarn"
+      ],
+      "music": "Open restrained brass/strings with wind and stone ambience; no continuous loud gust masking combat cues.",
+      "art": "Cliff/rock kit, fort walls, switchback road, stair meshes, conifers and mountain water.",
+      "optimization": "Distant HLODs/foliage budgets after prototype; server AI only in bounded encounter regions. Test long-view relevancy separately.",
+      "tests": [
+        "Capsule handles all road steps/slopes at 200ms RTT without repeated corrections.",
+        "Fall damage samples server-approved fall, not client Z claim.",
+        "Unlocked fast travel uses signed zone transfer and charges once.",
+        "Bridge/lower-road enemy navigation remains on correct level."
+      ]
+    },
+    {
+      "id": "zone.varran-halls",
+      "name": "Varran Halls",
+      "asset": "DA_Zone_VarranHalls",
+      "map": "L_VarranHalls",
+      "phase": 17,
+      "levels": [
+        34,
+        44
+      ],
+      "climate": "Mountain stronghold and cavern approaches; cool exterior light, warm workshops and low-lit ruins with readable silhouettes.",
+      "factions": [
+        "Cairn Wardens",
+        "Ashen Survey"
+      ],
+      "services": "Forgeward hall has smith, bank, trainer, faction contact, guild registrar and shrine. Maintain service access during schedule changes.",
+      "routes": [
+        [
+          "zone.kestrel-crown",
+          "gate.varran-halls.ridge",
+          "gate.kestrel-crown.hall"
+        ],
+        [
+          "zone.brinewake",
+          "gate.varran-halls.descent",
+          "gate.brinewake.mountain"
+        ]
+      ],
+      "travel": "Proposed 2-minute service circuit, 5–7-minute hall-to-descent route, and 15–25-minute optional ruin outing.",
+      "hazards": "Forge hazard volumes, vertical stacked corridors and bridges. Decorative stairs must have simple collision and validated navigation.",
+      "arc": "Competing guilds seek to restart a pressure engine; expose its failing seals and choose a reversible service alliance.",
+      "landmarks": [
+        "Forgeward Gallery",
+        "Silent Pressure Engine",
+        "Glassward Bridge"
+      ],
+      "enemies": [
+        "Cinder mites (34–38)",
+        "Fault guardians (37–41)",
+        "Engine custodians (41–44)"
+      ],
+      "ore": [
+        "TemperedOre: mine galleries",
+        "Emberstone: rare guarded deposits"
+      ],
+      "trees": [
+        "PineLog: exterior supply sites",
+        "Rootwood: authored cavern roots, not arbitrary rock nodes"
+      ],
+      "fish": [
+        "BlindFin: cisterns",
+        "FrostChar: exterior channels"
+      ],
+      "music": "Stone resonances and forge rhythm; layered ambience lowers during important dialogue.",
+      "art": "Modular hall/interior kit, pipes, forge props, emissive materials, cavern landscape and machinery. All are acquisition/authoring tasks.",
+      "optimization": "Interior streaming may separate wings within this zone only; preserve stable site/gate IDs across sublevels and check persistence unload hooks.",
+      "tests": [
+        "Upper bridge and lower hall sprites occlude correctly; no global sort-priority hacks.",
+        "Unloaded interior nodes reload depleted according to backend state.",
+        "Ambient schedules never remove the only repair service.",
+        "Guild UI cannot mutate bank or economy facts."
+      ]
+    },
+    {
+      "id": "zone.brinewake",
+      "name": "Brinewake Coast",
+      "asset": "DA_Zone_Brinewake",
+      "map": "L_Brinewake",
+      "phase": 17,
+      "levels": [
+        42,
+        50
+      ],
+      "climate": "Storm coast with clear breaks, sea fog, rain and authored tide visuals; initial tide does not dynamically reshape navmesh.",
+      "factions": [
+        "Tidebound League",
+        "River Compact"
+      ],
+      "services": "Saltreach harbor supplies full services, coastal quest contacts, boat-gate waypoint and dungeon assembly point.",
+      "routes": [
+        [
+          "zone.morrowfen",
+          "gate.brinewake.marsh",
+          "gate.morrowfen.estuary"
+        ],
+        [
+          "zone.varran-halls",
+          "gate.brinewake.mountain",
+          "gate.varran-halls.descent"
+        ]
+      ],
+      "travel": "Proposed 4-minute harbor-to-ruin approach and 6-minute coast-road loop. Boat transitions are controlled loading gates, not an unbuilt sailing simulator.",
+      "hazards": "Surf/deep-water boundaries, sea-cliff drops and storm visibility; safe dry fishing platforms and respawn approaches.",
+      "arc": "Water resonators from each region converge at a ruined sea lock. Resolve the regional conflict through a cooperative encounter rather than an endless world simulation.",
+      "landmarks": [
+        "Saltreach Harbor",
+        "Broken Tidewall",
+        "Sea Lock Ruins"
+      ],
+      "enemies": [
+        "Shale crabs (42–45)",
+        "Storm gulls (44–47)",
+        "Tide custodians (47–50)"
+      ],
+      "ore": [
+        "SaltIron: cliffs",
+        "Stormglass: rare exposed ledges"
+      ],
+      "trees": [
+        "Driftwood: beach candidate sites",
+        "CoastPine: sheltered coves"
+      ],
+      "fish": [
+        "TideMackerel: piers",
+        "StormCod: deep water",
+        "PearlSkate: rare weather-enabled pool"
+      ],
+      "music": "Low sea percussion, waves and harbor work; optional reduced storm intensity.",
+      "art": "Coastal cliffs, harbor/boat props, seawall/ruin kit, ocean/shore materials and creatures. No ships are supplied by the character ZIP.",
+      "optimization": "Cap ocean/weather rendering, stage shoreline collision and cull distant decorative boats. Server fishing tests use approved volumes, not rendered wave height.",
+      "tests": [
+        "Boat gate moves only the requesting party members with individual tickets.",
+        "Server restart during bite produces no catch unless receipt committed.",
+        "Rare weather fish rule is disabled until explicitly balanced and versioned.",
+        "Endgame dungeon return retains inventory, quest completion and safe hub."
+      ]
+    }
+  ],
+  "hub": {
+    "id": "hub.hearthford",
+    "name": "Hearthford",
+    "zone": "zone.rillmere",
+    "map": "L_Rillmere",
+    "layout": "Spawn shrine west; central square services; bridge east to wilderness; bank and crafting court north; dry fishing pier south; north road to Thornweald. Keep required services within a proposed 90-second walking loop."
+  },
+  "dungeon": {
+    "id": "dungeon.sluice-vault",
+    "name": "Sluice Vault",
+    "map": "L_SluiceVault",
+    "phase": 18,
+    "party_size": 4,
+    "entry": "Old Sluice Intake in Rillmere",
+    "return_spawn": "entrance.rillmere.sluice",
+    "story": "A damaged ancient water-regulation chamber is drawing wildlife and overloading its stone custodian.",
+    "rooms": [
+      "Intake gallery: two enemy role groups and a safe staging ledge",
+      "Pressure chamber: channel telegraphs and the Sluice Custodian boss"
+    ],
+    "boss": "Sluice Custodian",
+    "phases": [
+      "100–60%: frontal cone and slow lane warning",
+      "60–25%: alternating water lanes and two bounded adds",
+      "25–0%: faster but nonoverlapping cone/lane sequence; tuning proposal"
+    ],
+    "reward": "Personal eligible loot, one encounter reward namespace, no global first-kill grant",
+    "recovery": "Wipe resets encounter state and active adds; reward claims already committed remain claimed. Disconnected member can rejoin same active instance lease; expired instance returns safely."
+  }
+}

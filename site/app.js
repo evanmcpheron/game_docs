@@ -1,15 +1,149 @@
+'use strict';
+(function () {
+  const edition = document.body.dataset.edition;
+  const themeButton = document.getElementById('theme-toggle');
+  let storedTheme = null;
+  try { storedTheme = localStorage.getItem('rpg-manual-theme'); } catch (_) { /* Reading still works without storage. */ }
+  function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    if (themeButton) {
+      themeButton.setAttribute('aria-pressed', String(theme === 'dark'));
+      themeButton.textContent = theme === 'dark' ? 'Light theme' : 'Dark theme';
+    }
+  }
+  applyTheme(storedTheme === 'dark' ? 'dark' : 'light');
+  if (themeButton) themeButton.addEventListener('click', function () {
+    const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    applyTheme(theme);
+    try { localStorage.setItem('rpg-manual-theme', theme); } catch (_) { /* Theme remains active in this page. */ }
+  });
 
-(()=>{'use strict';const sidebar=document.querySelector('.sidebar');const sidebarNav=sidebar?.querySelector('nav');if(sidebarNav&&!sidebarNav.querySelector('[data-engineering]')){const reference=sidebarNav.querySelector('a[href$="unreal-cpp-reference.html"]');if(reference){const engineeringLink=document.createElement('a');engineeringLink.className='navlink';engineeringLink.dataset.engineering='';engineeringLink.href=reference.getAttribute('href').replace('unreal-cpp-reference.html','engineering/index.html');engineeringLink.textContent='C++ engineering standard';reference.after(engineeringLink);}}if(sidebar&&sidebarNav){const navigationId=sidebarNav.id||'site-navigation';sidebarNav.id=navigationId;const mobileNavToggle=document.createElement('button');mobileNavToggle.type='button';mobileNavToggle.className='mobile-nav-toggle';mobileNavToggle.textContent='Menu';mobileNavToggle.setAttribute('aria-expanded','false');mobileNavToggle.setAttribute('aria-controls',navigationId);sidebarNav.before(mobileNavToggle);document.documentElement.classList.add('js');const closeMobileNav=()=>{sidebar.classList.remove('nav-open');mobileNavToggle.setAttribute('aria-expanded','false');mobileNavToggle.textContent='Menu';};mobileNavToggle.addEventListener('click',()=>{const isOpen=sidebar.classList.toggle('nav-open');mobileNavToggle.setAttribute('aria-expanded',String(isOpen));mobileNavToggle.textContent=isOpen?'Close menu':'Menu';});sidebarNav.addEventListener('click',event=>{if(event.target.closest('a'))closeMobileNav();});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&sidebar.classList.contains('nav-open')){closeMobileNav();mobileNavToggle.focus();}});const desktopMedia=window.matchMedia('(min-width:801px)');desktopMedia.addEventListener?.('change',event=>{if(event.matches)closeMobileNav();});}const KEY='blueprint-rpg-guide-progress-v1';let progress={};
-try{progress=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){progress={};}
-const all=[...document.querySelectorAll('[data-check]')];
-function status(){const node=document.getElementById('progress-status');if(node)node.textContent=Object.values(progress).filter(v=>v===true).length+' saved checkmarks in this browser. Export a backup before moving the guide.';}
-function store(){try{localStorage.setItem(KEY,JSON.stringify(progress));status();}catch(e){const node=document.getElementById('progress-status');if(node)node.textContent='Browser storage is unavailable. Use Export progress to keep these checks.';}}
-all.forEach(el=>{el.checked=progress[el.dataset.check]===true;el.addEventListener('change',()=>{progress[el.dataset.check]=el.checked;store();});});status();
-const exp=document.getElementById('export-progress');if(exp)exp.addEventListener('click',()=>{const blob=new Blob([JSON.stringify({guide:'Blueprint_RPG_Development_Guide',version:1,progress},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Blueprint_RPG_Guide_Progress.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);});
-const imp=document.getElementById('import-progress');if(imp)imp.addEventListener('change',async()=>{const f=imp.files&&imp.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(data.guide!=='Blueprint_RPG_Development_Guide'||data.version!==1||!data.progress||typeof data.progress!=='object'||Array.isArray(data.progress))throw new Error('Not a supported guide progress file.');const clean={};for(const[k,v]of Object.entries(data.progress)){if(typeof v==='boolean'&&/^[A-Za-z0-9_-]+$/.test(k))clean[k]=v;}progress=clean;all.forEach(el=>el.checked=progress[el.dataset.check]===true);store();}catch(e){document.getElementById('progress-status').textContent='Import failed: '+e.message;}});
-const filter=document.getElementById('asset-filter');const type=document.getElementById('type-filter');const phase=document.getElementById('phase-filter');const folder=document.getElementById('folder-filter');
-function applyFilter(){const q=(filter?.value||'').toLowerCase().trim();let count=0;document.querySelectorAll('tr[data-asset]').forEach(row=>{const ok=(!q||row.textContent.toLowerCase().includes(q))&&(!type?.value||row.dataset.type===type.value)&&(!phase?.value||row.dataset.phase===phase.value)&&(!folder?.value||row.dataset.folder===folder.value);row.hidden=!ok;if(ok)count++;});const n=document.getElementById('asset-count');if(n)n.textContent=count+' of 163 assets shown';}
-[filter,type,phase,folder].filter(Boolean).forEach(x=>x.addEventListener('input',applyFilter));
-if(filter){const params=new URLSearchParams(location.search);if(params.get('q'))filter.value=params.get('q');if(params.get('type')&&type)type.value=params.get('type');if(params.get('folder')&&folder)folder.value=params.get('folder');applyFilter();}
-const search=document.getElementById('site-search');if(search){const results=document.getElementById('search-results');const count=document.getElementById('search-count');function run(){const q=search.value.toLowerCase().trim();results.replaceChildren();if(q.length<2){count.textContent='Enter at least two characters. Search works locally; no request is sent anywhere.';return;}const terms=q.split(/\s+/).filter(Boolean);const matches=(window.GUIDE_SEARCH||[]).filter(x=>terms.every(t=>(x.title+' '+x.text).toLowerCase().includes(t))).sort((a,b)=>(b.title.toLowerCase().includes(q)?1:0)-(a.title.toLowerCase().includes(q)?1:0));count.textContent=matches.length+' matching pages'+(matches.length>60?' (first 60 shown)':'');for(const item of matches.slice(0,60)){const wrap=document.createElement('section');wrap.className='search-result';const h=document.createElement('h3');const a=document.createElement('a');a.href=item.url;a.textContent=item.title;h.append(a);const k=document.createElement('span');k.className='tag';k.textContent=item.kind;const p=document.createElement('p');const at=item.text.toLowerCase().indexOf(terms[0]);p.textContent=(at>90?'…':'')+item.text.slice(Math.max(0,at-90),Math.max(0,at-90)+270)+'…';wrap.append(h,k,p);results.append(wrap);}}search.addEventListener('input',run);const q=new URLSearchParams(location.search).get('q');if(q)search.value=q;run();}
+  const assetTable = document.getElementById('asset-table');
+  if (assetTable) {
+    const filter = document.getElementById('asset-filter');
+    const category = document.getElementById('asset-category');
+    const count = document.getElementById('asset-count');
+    const tbody = assetTable.tBodies[0];
+    let sortKey = 'phase';
+    let ascending = true;
+    function refreshAssets() {
+      const query = filter.value.trim().toLowerCase();
+      const rows = Array.from(tbody.rows);
+      rows.sort(function (first, second) {
+        const left = sortKey === 'phase' ? Number(first.dataset.phase) : first.dataset[sortKey];
+        const right = sortKey === 'phase' ? Number(second.dataset.phase) : second.dataset[sortKey];
+        const result = typeof left === 'number' ? left - right : left.localeCompare(right);
+        return (ascending ? result : -result) || first.dataset.id.localeCompare(second.dataset.id);
+      });
+      let visible = 0;
+      rows.forEach(function (row) {
+        row.hidden = !(row.textContent.toLowerCase().includes(query) && (!category.value || row.dataset.category === category.value));
+        if (!row.hidden) visible += 1;
+        tbody.appendChild(row);
+      });
+      count.textContent = visible + ' of ' + rows.length + ' planned assets shown.';
+    }
+    filter.addEventListener('input', refreshAssets);
+    category.addEventListener('change', refreshAssets);
+    assetTable.querySelectorAll('[data-sort]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        ascending = sortKey === button.dataset.sort ? !ascending : true;
+        sortKey = button.dataset.sort;
+        assetTable.querySelectorAll('th').forEach(function (header) { header.removeAttribute('aria-sort'); });
+        button.parentElement.setAttribute('aria-sort', ascending ? 'ascending' : 'descending');
+        refreshAssets();
+      });
+    });
+    refreshAssets();
+  }
+
+  const searchForm = document.getElementById('search-form');
+  if (searchForm) {
+    const queryInput = document.getElementById('search-query');
+    const resultsElement = document.getElementById('search-results');
+    const status = document.getElementById('search-status');
+    function search() {
+      const query = queryInput.value.trim().toLowerCase();
+      resultsElement.replaceChildren();
+      if (!query) { status.textContent = 'Enter a term. All search data is local.'; return; }
+      const terms = query.split(/\s+/).filter(Boolean);
+      const matches = (window.RPG_SEARCH_DATA || []).map(function (record) {
+        const combined = (record.title + ' ' + record.text).toLowerCase();
+        if (!terms.every(function (term) { return combined.includes(term); })) return null;
+        return { record: record, score: terms.reduce(function (score, term) { return score + (record.title.toLowerCase().includes(term) ? 10 : 1); }, 0) };
+      }).filter(Boolean).sort(function (first, second) { return second.score - first.score || first.record.title.localeCompare(second.record.title); });
+      status.textContent = matches.length + ' matching pages. Showing ' + Math.min(matches.length, 100) + '.';
+      matches.slice(0, 100).forEach(function (match) {
+        const record = match.record;
+        const article = document.createElement('article'); article.className = 'search-result';
+        const heading = document.createElement('h2');
+        const link = document.createElement('a'); link.href = record.path; link.textContent = record.title;
+        heading.appendChild(link); article.appendChild(heading);
+        const group = document.createElement('small'); group.textContent = record.group + ' · ' + record.path; article.appendChild(group);
+        const position = record.text.toLowerCase().indexOf(terms[0]);
+        const start = Math.max(0, position - 80);
+        const excerpt = document.createElement('p'); excerpt.textContent = (start ? '… ' : '') + record.text.slice(start, start + 280) + ' …';
+        article.appendChild(excerpt); resultsElement.appendChild(article);
+      });
+    }
+    searchForm.addEventListener('submit', function (event) { event.preventDefault(); search(); });
+    queryInput.addEventListener('input', search);
+    const initialQuery = new URLSearchParams(location.search).get('q');
+    if (initialQuery) { queryInput.value = initialQuery; search(); }
+  }
+
+  const progressControls = Array.from(document.querySelectorAll('[data-progress-id]'));
+  if (progressControls.length) {
+    const storageKey = 'rpg-mmo-manual-progress-v1';
+    const status = document.getElementById('progress-status');
+    const validIds = new Set(progressControls.map(function (control) { return control.dataset.progressId; }));
+    let progress = {};
+    function validateProgress(value) {
+      if (!value || value.schemaVersion !== 1 || typeof value.progress !== 'object' || value.progress === null || Array.isArray(value.progress)) throw new Error('Unsupported progress file. Expected schemaVersion 1 and a progress object.');
+      const cleaned = {};
+      Object.entries(value.progress).forEach(function (entry) {
+        if (!validIds.has(entry[0]) || typeof entry[1] !== 'boolean') throw new Error('Unknown checklist ID or non-boolean completion value.');
+        cleaned[entry[0]] = entry[1];
+      });
+      return cleaned;
+    }
+    function snapshot() { return { schemaVersion: 1, edition: edition, exportedAt: new Date().toISOString(), progress: progress }; }
+    function display(message) {
+      progressControls.forEach(function (control) { control.checked = progress[control.dataset.progressId] === true; });
+      const completed = progressControls.filter(function (control) { return control.checked; }).length;
+      status.textContent = (message ? message + ' ' : '') + completed + ' of ' + progressControls.length + ' steps checked. These are your records, not engine test evidence.';
+    }
+    function persist() {
+      try { localStorage.setItem(storageKey, JSON.stringify(snapshot())); display(); }
+      catch (_) { display('Local storage is unavailable; export before closing this page.'); }
+    }
+    try {
+      const stored = localStorage.getItem(storageKey);
+      if (stored) progress = validateProgress(JSON.parse(stored));
+      display();
+    } catch (_) { display('Saved progress could not be read. Import a valid export or start a new local record.'); }
+    progressControls.forEach(function (control) {
+      control.addEventListener('change', function () { progress[control.dataset.progressId] = control.checked; persist(); });
+    });
+    document.getElementById('progress-export').addEventListener('click', function () {
+      const blob = new Blob([JSON.stringify(snapshot(), null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob); const link = document.createElement('a');
+      link.href = url; link.download = 'RPG_MMO_Progress.json'; document.body.appendChild(link); link.click(); link.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+      display('Progress export created.');
+    });
+    document.getElementById('progress-import').addEventListener('change', async function (event) {
+      const file = event.target.files[0]; if (!file) return;
+      try {
+        if (file.size > 1024 * 1024) throw new Error('Progress file exceeds the 1MB safety limit.');
+        const imported = validateProgress(JSON.parse(await file.text()));
+        progress = imported; persist(); display('Progress imported.');
+      } catch (error) { display('Import rejected: ' + error.message); }
+      event.target.value = '';
+    });
+    document.getElementById('progress-reset').addEventListener('click', function () {
+      if (!window.confirm('Reset all local progress? Export a copy first to preserve it.')) return;
+      progress = {}; persist(); display('Local progress reset.');
+    });
+  }
 })();

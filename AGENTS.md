@@ -1,40 +1,35 @@
-# Documentation workflow
+# Documentation engineering workflow
 
-This repository is an offline HTML game-development manual. The project’s C++
-engineering standard starts at [engineering/index.html](engineering/index.html).
-Read [engineering/architecture.html](engineering/architecture.html) before making
-project architecture claims: documented planned assets are not verified game code.
-Use [engineering/16-review-codex.html](engineering/16-review-codex.html) for native
-implementation and review guidance when this standard is used with the game.
+This repository is an offline HTML manual, not an Unreal project. Do not add `.uasset`, `.umap`, `.uproject`, Unreal Source C++ files, production game binaries, paid sprites, credentials or fabricated build/runtime logs.
 
-For engineering documentation changes:
+## Authoritative inputs
 
-- Edit `engineering/content/*.html` and `engineering/pages.json`.
-- Generate assembled pages and offline search with
-  `python3 tools/build_manual_indexes.py` then
-  `python3 tools/build_cpp_standard.py`.
-- Verify with `python3 tools/build_cpp_standard.py --check` and
-  `python3 tools/check_cpp_standard.py`, plus
-  `python3 tools/build_manual_indexes.py --check` and
-  `python3 tools/check_paperzd_docs.py`; use `--write-report` on check scripts
-  when updating committed static verification records.
-- Keep gameplay policy and authoritative ownership intact unless the requested
-  work changes them. Record scope, compatibility and evidence for architecture
-  changes; do not invent unimplemented systems.
-- Preserve the historical original roadmap and asset manifest during standards
-  work. Current asset identities live in `sources/current-asset-manifest.json`;
-  creation order lives in `sources/phase-creation-order.json`. Keep historical
-  audits distinct from new verification records. The current animation contract
-  is `systems/animation.html`, with compatibility in `animation-migration.html`.
-- Report engine builds, Blueprint compilation and runtime tests only when run.
+- `sources/current-asset-manifest.json`: asset identity, type/parent/path, authority, first phase, fields/configuration, creation `dependencies` and phase-stamped `references`. **Do not edit derived `users`, `phase_consumers` or `last_phase` by hand.**
+- `sources/feature-specifications.json`: full-game system contracts and end-to-end flows, with explicit staging and unknown art/API evidence.
+- `sources/phase-run-recipes.json`: current-phase setup, run-now steps, expected success/rejection and deferred scope. This is the operational boundary, not the full-game feature flow.
+- `sources/phases.json`: phase identity/prerequisites/purpose/map/stop condition.
+- `sources/phase-integration.json`: map and regression records; `new_assets`, `features`, `configure`, `run_now`, `reopen`, `run` and `rejections` are derived from manifests/recipes.
+- `sources/page-content.json`: authored architecture, engineering, art and network prose.
+- Other named source records own world/class catalogs, persistent facts, relational models, endpoint proposals, decisions, references and evidence. Keep IDs consistent across them.
 
-Code comments should exist only when they reduce cognitive load. Prefer clear
-code; explain non-obvious intent, constraints, lifecycle or compatibility briefly.
-Do not narrate obvious code or add comments merely because a file changed.
+## Edit → regenerate → verify
 
-## Incremental integration documentation
-- Edit `sources/phase-integration.json` for Phase 0–11 operational recipes, explicit assignments, shared component/interface/input/widget contracts, and staged asset dispositions.
-- `tools/phase_integration.py` renders marked sections through `tools/build_manual_indexes.py`; do not hand-edit generated integration blocks or the generated `development-test-environments.html` page.
-- Keep actual direct dependency changes synchronized in `sources/current-asset-manifest.json`, including reverse `users`. Preserve registered identities, phase ordering and Content folders.
-- After the existing generators/checks, run `python3 tools/check_phase_integration.py`; use `--write-report` to refresh the current static integration evidence.
-- The historical `audit.html` is preserved. Current integration results live in `sources/phase-integration-verification.json`; no static result proves Unreal compilation or runtime behavior.
+1. Inspect the affected source records and linked consumer contracts. Keep existing stable IDs; record any deliberate rename/migration rather than silently creating an alias.
+2. Edit authoritative source fields. A native/definition creation dependency must exist in the same or an earlier phase; a later assignment belongs in `references` with its actual phase. Do not manufacture all future asset shells in00.
+3. Run `python tools/build_manual_indexes.py`. `tools/registry.py` derives reverse users, creation order, dependency edges, phase rewiring and coverage. The HTML, search data, generated page index and top-level derived Markdown records are generated outputs.
+4. **Do not hand-edit generated HTML, repeated tables, reverse links, search data or autogenerated source fields.** Repair their source and regenerate.
+5. Run `python tools/validate_docs.py --write-report` and `python tools/check_phase_integration.py --write-report`. Run mutation self-tests with `python tools/test_validators.py --write-report`. Regenerate again after report status changes, then `python tools/build_manual_indexes.py --check`.
+6. Run `python tools/test_browser.py --write-report` only with the declared browser dependency. Inspect responsive screens and actual browser errors; a static pass is not browser evidence. Browser report changes require another regeneration/check.
+7. Preserve honest statuses: documentation checks are not Unreal/backend tests. Positive runtime status requires attached real commands/builds/process logs/observed results and a deliberate validator-policy update. Unavailable inputs remain unknown, not zero or guessed.
+
+## Content and authority rules
+
+Definitions are immutable. UI and PaperZD observe/request; they never own rewards, damage, movement permission or durable facts. Zone servers validate live behavior; the authenticated service owns durable relational transactions and session fencing. Every durable command uses the current identity/epoch, bounded payload, idempotency key and atomic related-record/receipt commit. Cross-server ticket redemption fences the old writer before the new writer is enabled.
+
+Document actual engine API versus project custom API versus unverified PaperZD API. Do not turn proposed backend methods into alleged Blueprint nodes. Do not preserve old X/Z restrictions, six-slot assumptions, local SaveGame authority or guaranteed-only loot policies in the new online design.
+
+## Evidence and publication
+
+`verification.json` and `reports/` distinguish public-source checks, local documentation tests and tests not run. `content-depth-review.json` is a limitation/review list, not automatic proof of prose completeness. Changes to `sources/publication-receipt.json` record observed GitHub actions separately; never pre-mark a pending publication successful. Preserve the historical backup and use a normal, lease-checked fast-forward/replacement commit. Do not force-push or delete repository history.
+
+The archive-audit tool must operate on an explicitly supplied private ZIP. Do not publish licensed pixels/readme contents based on a creator link alone. Record source paths/hashes and manually verified frame rows only after access and review. No external JS/font/CDN dependency is permitted for basic offline use.

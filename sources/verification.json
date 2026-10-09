@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "edition": "2026-10-09-draft-1",
+  "documentation_status": "partial-evidence-labeled-draft",
+  "engine_target": "5.8.3",
+  "engine_release_reference": "EPIC-583",
+  "installed_engine": "not_available",
+  "engine_compile": "not_run",
+  "blueprint_compile": "not_run",
+  "paperzd_installed_source": "not_available",
+  "database_integration": "not_run",
+  "packaged_client_server": "not_run",
+  "multiplayer_runtime": "not_run",
+  "load_benchmark": "not_run",
+  "archive": {
+    "requested": "2d_game_assets.zip",
+    "status": "not_available",
+    "actual_png_count": null,
+    "prompt_estimate_png_count": 2596,
+    "estimate_is_verified": false,
+    "redistribution_permission": "not_verified",
+    "companion_files": "not_located"
+  },
+  "static_checks": {
+    "status": "pass",
+    "scope": "Documentation structure, reference graph, phase integration and mutation self-tests only; not prose completeness or engine behavior.",
+    "report": "reports/static-validation.json"
+  },
+  "browser_checks": {
+    "status": "blocked_environment",
+    "report": "reports/browser-validation.json",
+    "in_memory_rendering": "5 of 5 smoke groups passed; no navigation or durable browser storage proof",
+    "limited_report": "reports/dom-render-validation.json"
+  },
+  "acceptance_blockers": [
+    "Actual archive inventory, sheet dimensions, page/layer compatibility, frame/timing guide inspection and license review are unavailable.",
+    "Installed Unreal/PaperZD APIs, toolchain and plugin compatibility are not inspected.",
+    "No Unreal build, packaged client/server, database, multiplayer or performance tests have been run.",
+    "Long-term content catalogs are worked examples and production plans, not a complete level-1-to-50 shipped content set.",
+    "Individual contract/Editor walkthrough depth and full database/API implementation review remain unfinished; shared templates and example catalogs are not proof of a complete production specification."
+  ],
+  "publication": {
+    "status": "see_separate_publication_receipt",
+    "record": "sources/publication-receipt.json",
+    "repository": "evanmcpheron/game_docs",
+    "baseline_commit": "6633ca27f7b2fcfc80fc95a1567e97c0eb5a6a25",
+    "backup_branch": "backup/pre-mmo-guide-2026-10-09"
+  }
+}

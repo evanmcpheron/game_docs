@@ -1,0 +1,2113 @@
+[
+  {
+    "path": "getting-started.html",
+    "title": "Start here: from documentation to the first test",
+    "lead": "Read this as an implementation manual, not as an Unreal project. Every game asset is a planned contract; none has been compiled here.",
+    "sections": [
+      {
+        "title": "What you received",
+        "paragraphs": [
+          "Extract the ZIP to an ordinary folder and open index.html directly. Local search, asset tables and progress controls do not require a web server. Internet is needed only for external reference links, installing tools and the online game you will later implement.",
+          "The supplied art ZIP was not accessible in this task. Phase00 must acquire the privately licensed archive and run its audit before exact slicing or plugin-specific art setup is considered ready. Legal debug sprites can de-risk movement; they do not satisfy the source-art acceptance gate."
+        ]
+      },
+      {
+        "title": "Use the manual in this order",
+        "paragraphs": [],
+        "steps": [
+          "Read architecture.html and architecture/source-migration.html to understand why the old local-save platformer model is replaced.",
+          "Open sources-verification.html and distinguish public documentation checked from installed API compatibility not checked.",
+          "Read Phase00, create only its asset order, then follow each asset technical page. Use the Content/Source paths exactly.",
+          "After native build, create the current Blueprint children and Data Assets; assign them into existing consumers listed under phase integration.",
+          "Edit the named map, run its fixture, then record success, rejection and previous-phase regression. Do not mark a phase done just because its assets exist.",
+          "Use first-vertical-slice.html for three acceptance routes. Character creation/persistence/travel grow before combat; professions/social/content expansion follow the working foundation."
+        ]
+      },
+      {
+        "title": "First-time terminology",
+        "paragraphs": [
+          "An Actor is an object placed or spawned in a world. A Pawn is an Actor that can be controlled; Character adds capsule-oriented movement. PlayerController handles a player connection/input, PlayerState carries replicated in-zone player facts, GameState broadcasts shared world facts, GameMode contains server-only world rules, and GameInstance exists once per process. None of these engine lifetimes is a database.",
+          "A Blueprint is an Editor-authored class or visual graph. A Data Asset is read-only authored configuration. C++ owns validation and mutation; Blueprint children expose tuning and visual assignments. A compiled class and a described class are different things.",
+          "A dedicated server has no local player viewport. Two PIE windows are useful but do not prove remote deployment. An RPC asks another network machine to execute a function under engine ownership rules; a server RPC is not a general function anyone may invoke on any world Actor. Replication sends approved state, not every member variable automatically."
+        ]
+      },
+      {
+        "title": "Prepare an implementation workspace",
+        "paragraphs": [],
+        "steps": [
+          "Install the actual Unreal5.8.3 source/toolchain route required by the chosen dedicated-server build; record engine changelist, compiler, SDK and platform. No installation was inspected here.",
+          "In Unreal create a Blank C++ desktop project named RPG with starter content optional. Keep the game implementation repository separate from this documentation repository.",
+          "Enable Paper2D and Enhanced Input, restart when prompted. Add Gameplay Ability System dependencies at Phase07. Obtain PaperZD from its legitimate provider and verify descriptor/source support before choosing exact animation factories.",
+          "Create Content/Game domain folders only as current assets need them. Add the RPG native module folders from engineering/naming-and-content.html.",
+          "Create L_TerrainLab with a floor and clear PlayerStart, BP_ZoneGameMode and BP_PlayerCharacter/BP_RPGPlayerController. Build native classes before Blueprint parent selection.",
+          "Make a normal source-control commit after each accepted phase. Store secrets, licensed source archives and generated engine intermediates outside public documentation."
+        ]
+      },
+      {
+        "title": "Do not confuse three milestones",
+        "paragraphs": [
+          "Reading/checking these docs is a documentation milestone. Creating and compiling classes is an implementation milestone. Running two remote clients against the backend and server is a gameplay acceptance milestone. Record evidence independently; this edition has no engine compile or runtime evidence."
+        ]
+      }
+    ],
+    "references": [
+      "EPIC-583",
+      "EPIC-SERVER",
+      "EPIC-PAPER2D",
+      "EPIC-NET"
+    ]
+  },
+  {
+    "path": "game-overview.html",
+    "title": "RPG: committed design and staged production",
+    "lead": "An original online high-fantasy 2.5D action RPG set in the Talarin Reach.",
+    "sections": [
+      {
+        "title": "Player experience",
+        "paragraphs": [
+          "Create a common-body Vanguard, Ranger, Arcanist or Warden. Travel between authored valley, woodland, marsh, highland, mountain and coastal zones. Fight server-owned enemies with spatial attacks and soft targeting, complete quests, gather ore/wood/fish, craft equipment, trade with merchants, specialize skills and join cooperative parties.",
+          "The fixed elevated camera follows without free rotation and provides clamped zoom. Characters and animated creatures are 2D sprites; floor geometry, collision, slopes, stairs, bridges, interiors and water are 3D. Movement is 360 degrees across X/Y with Z elevation: jump, dodge, sprint and swim, no climbing."
+        ]
+      },
+      {
+        "title": "First playable versus full design",
+        "paragraphs": [],
+        "table": {
+          "headers": [
+            "Case",
+            "Contract"
+          ],
+          "rows": [
+            [
+              "Slice A / through08",
+              "Two clients, dedicated server, authenticated fixtures, durable state, individual two-zone transfer, enemy combat and XP. Minimal item/reward schemas precede rewards."
+            ],
+            [
+              "Slice B / through15",
+              "Creation, village quest, fight/loot, mining/woodcutting/fishing, craft, buy/sell, equipment, XP, death/recovery, reconnect and transfer."
+            ],
+            [
+              "Later committed /16–23",
+              "Four-class talents, six-zone content pipeline, dungeons, social/chat/friends/trade, factions/fast travel, guilds, operations, packaged and measured tests."
+            ],
+            [
+              "Conditional committed",
+              "Mounts require art/movement proof. NPC schedules require safe services/navigation. Optional herbalism shares infrastructure only after verification."
+            ],
+            [
+              "Deferred optional",
+              "PvP, raids, housing, auction house and monetization are separate disabled expansion gates."
+            ]
+          ]
+        }
+      },
+      {
+        "title": "World and scope constraints",
+        "paragraphs": [
+          "The common body is not a verified range of race silhouettes. Four-facing archive descriptions are prompt-supplied, not an eight-direction asset audit. Additional art is needed for magical casting/healing, swims/dodges where missing, diagonals, mounts and many clothing combinations. No finished 3D environment assets are supplied.",
+          "Level50, item rarity, XP curves, costs and travel times are tunable proposals, not tested balance. Start with Vanguard/Ranger to de-risk available weapon pages while documenting all four classes. Do not require the entire six-biome world before basic movement."
+        ]
+      },
+      {
+        "title": "Ownership commitment",
+        "paragraphs": [
+          "Clients request and render. Zone servers validate movement/combat/world actions under current session authority. A small authenticated backend and PostgreSQL persist character/economy/quest/profession/social facts. UI, animation, local GameInstance and SaveGame never become online truth."
+        ]
+      }
+    ],
+    "references": []
+  },
+  {
+    "path": "architecture.html",
+    "title": "Architecture and initialization",
+    "lead": "A small number of explicit owners; authored definitions, live authority, durability and presentation remain distinct.",
+    "sections": [
+      {
+        "title": "The four layers",
+        "paragraphs": [],
+        "table": {
+          "headers": [
+            "Case",
+            "Contract"
+          ],
+          "rows": [
+            [
+              "Client",
+              "Input, camera, local prediction, screens, audio and sprite presentation. Requests are not completed facts."
+            ],
+            [
+              "Zone server",
+              "Live movement validation, GAS combat, AI, resource selection/claims, fishing timing, interaction verification and current character session cache."
+            ],
+            [
+              "GameService + PostgreSQL",
+              "Authenticated identity, persistent character facts, command receipts/ledger, zone allocator/tickets, social/economy state and migrations."
+            ],
+            [
+              "Read-only content",
+              "Definitions with stable IDs, class/ability/quest/recipe graphs, visual maps, zone/encounter/vendor/resource catalogs."
+            ]
+          ]
+        }
+      },
+      {
+        "title": "Initialization sequence",
+        "paragraphs": [],
+        "steps": [
+          "Process boots and checks protocol/catalog/environment. Client local GameInstance obtains account adapter; dedicated process obtains protected service credentials.",
+          "World creates GameMode/GameState and zone runtime. Resolve the ZoneDefinition and safe spawns; initialize backend adapter; reject admissions until ready.",
+          "Client authenticates, selects owned CharacterId and receives a destination-bound ticket. GameMode verifies ticket/lease before possessing a gameplay pawn.",
+          "Load durable snapshot and current epoch into PlayerState projection. Construct native components with explicit injected dependencies; do not depend on arbitrary component BeginPlay order.",
+          "Spawn/possess Character once; bind PlayerState ASC owner and current Character avatar in Phase07. Initialize appearance/movement and ready state.",
+          "On the owning client, PlayerState and possession replication may arrive in either order. A guarded readiness function creates/binds HUD once when both are ready. Immediately refresh after binding.",
+          "On death/unpossession/travel, cancel actions, clear input, unbind old observers and invalidate asynchronous generation tokens. On cross-server arrival construct new framework objects from the snapshot rather than copying pointers."
+        ]
+      },
+      {
+        "title": "Native versus Blueprint",
+        "paragraphs": [
+          "Use shallow native ownership. ACharacter is the initial stable movement body; Paper2D visual components and one isolated PaperZD adapter provide presentation. The exact PaperZD composition API must be checked in the installed release; do not silently adopt an unverified PaperZDCharacter ancestor. Blueprint children tune capsule-safe movement values, reference definitions and assemble visuals.",
+          "Authored values use EditDefaultsOnly/BlueprintReadOnly where appropriate. Runtime state is private with read-only queries and change delegates. Exposing a setter to Blueprint does not make it network-safe; authority and ownership must be checked in native command handlers and again at durable boundaries."
+        ]
+      },
+      {
+        "title": "One module, one backend",
+        "paragraphs": [
+          "Begin with the RPG runtime module organized by domain folders, not a utility/manager directory full of unrelated functions. GameService is one maintainable deployable application with handlers organized by feature. PostgreSQL transactions coordinate related records. Add internal boundaries, not distributed services, when that is sufficient."
+        ]
+      },
+      {
+        "title": "Where this plan needs proof",
+        "paragraphs": [
+          "No installed engine/plugin was available. Public mechanisms were checked; proposed classes, request functions, replication conditions and Editor composition require implementation and two-client tests. The explicit manifest distinguishes a native role from a Blueprint child and an authored asset from runtime state."
+        ]
+      }
+    ],
+    "references": [
+      "EPIC-NET",
+      "EPIC-ASC",
+      "EPIC-REFLECTION",
+      "EPIC-PAPER2D"
+    ]
+  },
+  {
+    "path": "architecture/source-migration.html",
+    "title": "Source-to-target migration",
+    "lead": "The old offline platformer is historical evidence for documentation rigor, not the new MMO specification.",
+    "sections": [
+      {
+        "title": "Inspected source",
+        "paragraphs": [
+          "Reference main was inspected at 6633ca27f7b2fcfc80fc95a1567e97c0eb5a6a25. Read AGENTS.md, architecture.html and early phase-integration records; inspected repository metadata/tree. The full 163-asset legacy catalog and every engineering chapter were not individually reviewed. A container clone failed because DNS was unavailable; connector reads succeeded.",
+          "Retain the original revision in Git history/backup branch rather than copying old gameplay pages into active navigation. This edition rewrites the architecture and phase order; legacy identifiers are not aliases that silently continue local-save rules."
+        ]
+      },
+      {
+        "title": "Migration register",
+        "paragraphs": [],
+        "table": {
+          "headers": [
+            "Old feature / owner",
+            "New owner / rule",
+            "Reason and art/compatibility impact",
+            "Evidence"
+          ],
+          "rows": [
+            [
+              "X/Z plane constraint, Y fixed",
+              "CharacterMovement X/Y ground, Z elevation",
+              "Full-height capsule and 3D navigation; source facing is presentation only",
+              "Inspected legacy phase00; master prompt"
+            ],
+            [
+              "Side camera",
+              "Local URPGCameraComponent fixed elevated azimuth, clamped zoom",
+              "No free rotation; perspective first, orthographic fallback by measured sorting/scale",
+              "Legacy architecture + prompt design"
+            ],
+            [
+              "Platformer custom jump/axis heuristics",
+              "Standard CMC movement with explicit sprint/dodge intent prediction",
+              "No platformer double-jump/climb assumptions; missing swim/dodge art remains visible gap",
+              "Legacy phase01 + EPIC-MOVEMENT"
+            ],
+            [
+              "Small two-map local progression",
+              "Six design biomes, two early zone processes, later dungeon allocation",
+              "World Partition is internal streaming, not cross-server routing",
+              "Prompt + EPIC-WP/EPIC-TRAVEL"
+            ],
+            [
+              "BP_PlayerProfile / local WorldState",
+              "Backend character/world records plus current zone projection",
+              "No local object owns durable online items or quests",
+              "Inspected architecture"
+            ],
+            [
+              "GameInstance transaction/save queue",
+              "Native zone validators + GameService DB transaction/receipt",
+              "One GameInstance per process cannot synchronize users across servers",
+              "Legacy architecture + ownership decision"
+            ],
+            [
+              "SaveGame authoritative checkpoint",
+              "PostgreSQL records, migrations, current session epoch",
+              "Death/reconnect never restores a client disk snapshot",
+              "Prompt + transaction decision"
+            ],
+            [
+              "Guaranteed-only rewards",
+              "Personal guaranteed+weighted loot entitlements with one source claim",
+              "Store rolls and item IDs; corpse reload does not reroll",
+              "Master prompt"
+            ],
+            [
+              "Six-slot presentation",
+              "15 logical equipment slots and a separate visual compatibility map",
+              "Combined outfit sheets may not split chest/legs/gloves/boots; hidden layer does not remove stats",
+              "Prompt-reported archive, audit blocked"
+            ],
+            [
+              "No quests/vendors/crafting/random loot/networking",
+              "Committed feature chapters and server-owned transactions",
+              "These prohibitions are explicitly superseded, not silently carried forward",
+              "Master prompt"
+            ],
+            [
+              "Old custom ability stack / no GAS migration",
+              "PlayerState ASC and enemy Character ASC; GAS authoritative combat",
+              "PaperZD cosmetic bridge, no skeletal montage dependency; new online design justifies change",
+              "EPIC-GAS/ASC + D decisions"
+            ],
+            [
+              "L_MovementLab, L_Slice_A and legacy phases0–11",
+              "L_TerrainLab, L_ArtLab, L_NetworkLab, L_Rillmere and phases00–23",
+              "Do not rename a platformer test and assume networking semantics changed",
+              "Inspected integration + new manifest"
+            ]
+          ]
+        }
+      },
+      {
+        "title": "Retained principles",
+        "paragraphs": [
+          "Definitions remain immutable; UI observes; a persistent identity is not an immortal Actor; one owner changes each fact; rewards must be replay-safe. What changes is the authority/durability implementation, not those invariants. Preserve the old create/configure/integrate/world/run/reject/regress discipline."
+        ]
+      },
+      {
+        "title": "Publication instruction resolution",
+        "paragraphs": [
+          "The master prompt initially defaults to a new ZIP/repository and prohibits overwriting, but its final direct instruction requests overwrite of game_docs. This edition interprets that final instruction as authority for a normal replacement commit, preserving prior history and a backup revision; no force push, repository rename or deletion. Actual publication result is recorded in sources/verification.json."
+        ]
+      }
+    ],
+    "references": [
+      "SOURCE-AGENTS",
+      "SOURCE-ARCH",
+      "SOURCE-INTEGRATION",
+      "EPIC-MOVEMENT",
+      "EPIC-TRAVEL"
+    ]
+  },
+  {
+    "path": "architecture/multiplayer-ownership.html",
+    "title": "Multiplayer ownership and framework roles",
+    "lead": "Persistent facts have one durability owner and a current authority session; replication is a projection, not storage.",
+    "sections": [
+      {
+        "title": "Framework placement",
+        "paragraphs": [],
+        "table": {
+          "headers": [
+            "Framework object",
+            "Owns",
+            "Must not own"
+          ],
+          "rows": [
+            [
+              "GameInstance / subsystems",
+              "Per-process configuration, local auth session, read-only catalog caches",
+              "Other processes’ character truth or shared world ledger"
+            ],
+            [
+              "GameMode",
+              "Server world admission/spawn/rules and ready gate",
+              "A global cross-zone character database"
+            ],
+            [
+              "PlayerController",
+              "Connection ownership, input routing, local UI lifecycle",
+              "Client-side damage/reward completion"
+            ],
+            [
+              "Character/Pawn",
+              "Current physical body, movement, live action, cosmetic sprite bridge",
+              "Permanent player identity through cross-server travel"
+            ],
+            [
+              "PlayerState",
+              "In-zone replicated identity, current character projection, player ASC",
+              "Durability or indefinite cross-server survival"
+            ],
+            [
+              "GameState",
+              "Zone identity, world clock/weather and safe public state",
+              "Private inventory/auth tokens"
+            ],
+            [
+              "ActorComponent",
+              "One scoped rule/presentation responsibility on explicit owner",
+              "An extra hidden global inventory or duplicate movement clock"
+            ],
+            [
+              "Replicated subobject",
+              "Deliberately registered compact runtime projection when justified",
+              "Automatic persistence or assumed Iris compatibility"
+            ],
+            [
+              "Zone runtime manager",
+              "Bounded spawn/resource/instance life cycle under one world authority",
+              "An unbounded catch-all manager"
+            ],
+            [
+              "Backend service/model",
+              "Authenticated commands, constraints, durable records, session fencing",
+              "Rendering or trusting client-supplied rolls"
+            ]
+          ]
+        }
+      },
+      {
+        "title": "Persistent fact table",
+        "paragraphs": [
+          "ownership.html is generated from sources/ownership-records.json. Every row names authoritative owner, runtime cache, replication, store, stable key, changes, validation, revision, reconnect policy and UI observer. Database pages describe separate durable models. Model names do not create extra network services."
+        ]
+      },
+      {
+        "title": "No client-owned truth",
+        "paragraphs": [
+          "A client may predict motion or a harmless swing visual. It may not decide hit success, node ownership, fish bite, price, item affix, quest completion or final balance. Owner-only state means visible to that owning client, not authoritatively writable by it. A hostile client can change its UI text; the server ignores the forged display."
+        ]
+      },
+      {
+        "title": "Replication lifecycle",
+        "paragraphs": [
+          "Bind delegates after both possession and PlayerState readiness. OnRep-style handlers update projections on receipt; they must not reissue durable grants. Late joiners need current property state, not reliance on a past multicast event. Destroyed/recreated bodies reset transient references and rebuild appearance/action from accepted state."
+        ]
+      }
+    ],
+    "references": [
+      "EPIC-NET",
+      "EPIC-ASC"
+    ]
+  },
+  {
+    "path": "architecture/server-zone-topology.html",
+    "title": "Zone/server/backend topology",
+    "lead": "One zone simulation per early dedicated process; one authenticated backend and one relational database.",
+    "sections": [
+      {
+        "title": "Deployment topology",
+        "paragraphs": [
+          "Client A -> Zone_A Rillmere, Client B -> Zone_A Rillmere. Zone_A and Zone_B Thornweald -> authenticated GameService -> PostgreSQL. The frontend talks to identity/roster/admission endpoints; game clients never connect to SQL. After a gate handoff Client A connects to Zone_B while Client B remains on Zone_A.",
+          "A later dungeon is another compatible instance process/reservation, not a local loading shortcut. A future allocator may host multiple processes on a machine, but process count, world size, player count and regions are separate dimensions."
+        ]
+      },
+      {
+        "title": "Service stack decision",
+        "paragraphs": [
+          "Compare ASP.NET Core/.NET10 with a single Node.js/TypeScript service. Both can implement a small authenticated API and PostgreSQL transactions. Select .NET10 here for typed request models, maintained long-term support and straightforward single-service deployment; this is a project preference, not an engine requirement. The developer must verify current provider package/ORM versions before installation.",
+          "Use parameterized PostgreSQL access and one migration path. Either explicit SQL migrations plus typed handlers or a compatible EF Core provider is viable; this edition favors explicit migration SQL specifications and a thin typed data-access layer for transparent row locks. Avoid a second ORM or event bus until there is a demonstrated need."
+        ]
+      },
+      {
+        "title": "Authentication provider boundary",
+        "paragraphs": [
+          "An authenticator verifies a provider proof and maps issuer+subject to AccountId. EOS may be evaluated behind that interface after installed/version/provider compatibility testing. Provider login is not a wallet, inventory database or zone allocator. Development fixture auth must be loopback/private-only and impossible to select in production startup."
+        ]
+      },
+      {
+        "title": "Capacity and failure domains",
+        "paragraphs": [
+          "Allocator reserves compatible capacity before issuing a transfer ticket. Count active sessions plus in-flight reservations. Health signals prevent new admissions to a bad process but do not themselves transfer character write authority; the session epoch/lease does that. If the backend is unavailable, never create local save truth to keep an economic action appearing successful."
+        ]
+      }
+    ],
+    "references": [
+      "EPIC-SERVER",
+      "EPIC-ONLINE",
+      "DOTNET-LIFECYCLE",
+      "PG-ISOLATION"
+    ]
+  },
+  {
+    "path": "architecture/state-transactions.html",
+    "title": "Transactions, receipts and concurrency",
+    "lead": "A reliable reward is an idempotent durable effect, not a claim that networks deliver a message exactly once.",
+    "sections": [
+      {
+        "title": "Command envelope and result",
+        "paragraphs": [
+          "A mutation command carries CommandId (UUID), protocol/payload version, intended action, stable target/item IDs and expected revision. Account/character authority comes from the authenticated connection, not the asserted fields. The zone attaches its current SessionEpoch and service identity. Backend binds the command key to a canonical request hash.",
+          "Return Accepted with committed revision/receipt, Rejected with stable reason and no side effects, or Pending/Unknown while outcome is uncertain. On timeout retry the same key+payload or query status. A new key means a new action and must not be used to recover an uncertain old one."
+        ]
+      },
+      {
+        "title": "Atomic durable algorithm",
+        "paragraphs": [],
+        "steps": [
+          "Authenticate the zone/service and principal. Validate payload sizes/types/IDs and protocol. Begin a short DB transaction; never hold locks during an animation/cast wait.",
+          "Acquire the command unique key or read the existing receipt. Same hash returns the existing outcome; different hash returns IdempotencyConflict. Concurrent identical calls wait/retry through the unique constraint.",
+          "Lock current character session and needed character/container/source rows in a deterministic order. Verify epoch, lease owner, revision and live proof context. For two characters sort by UUID to avoid reversed lock order.",
+          "Resolve authored definitions on the backend trusted catalog and recheck money, materials, binding, slot capacity, tool/profession/recipe gates and source claim availability. Compute the entire final occupancy/delta plan before modifying records.",
+          "Generate server-side rolls/unique item IDs for this accepted transaction; persist outcome with source claim. Insert material/currency/XP/quest deltas, source depletion/stock state, ledger, result receipt and outbox event in the same database transaction.",
+          "Commit. Only then update zone caches from the returned revision and replicate safe projections. Client audio/particles/UI completion are observers.",
+          "If serialization/deadlock failure occurs, retry the complete transaction with the same command within a bounded service retry policy. If transport fails after commit, status/receipt query returns the committed result without rerolling."
+        ]
+      },
+      {
+        "title": "How world claims stay atomic",
+        "paragraphs": [
+          "A node Actor cannot participate in a PostgreSQL transaction. Its durable resource-generation row can. The zone first holds a transient reservation while progress runs; at completion the backend atomically changes that generation to Depleted and grants materials/XP. The zone applies the committed result and replicates depletion. Crash after commit reconstructs depleted state; crash before commit releases/cancels reservation and grants nothing.",
+          "Vendor finite stock, loot entitlement, craft recipe/owned materials and trade escrow use analogous durable rows. Do not deduct currency in a Blueprint, asynchronously request inventory addition, then call that atomic. A compensation workflow is needed only when a real separate authority cannot share the transaction; document states and reconciliation rather than assuming distributed atomicity."
+        ]
+      },
+      {
+        "title": "Inventory capacity is a transaction invariant",
+        "paragraphs": [
+          "A shared container_occupancy relation enforces one stack OR item per slot. Independent unique constraints in stack and item tables do not prevent one of each occupying the same slot. Plan consumed stacks and output slots together, enforce quantity/overflow bounds, and lock container capacity/revision. Binding/equipped/escrow locations cannot overlap."
+        ]
+      },
+      {
+        "title": "Worked concurrency cases",
+        "paragraphs": [],
+        "table": {
+          "headers": [
+            "Case",
+            "Before / commit / expected"
+          ],
+          "rows": [
+            [
+              "Two miners",
+              "Generation7 active; A and B request. One exclusive reservation wins; completion transaction marks generation7 depleted and grants2ore+5XP once. Other sees Busy or Depleted. Restart retains generation7 result; respawn creates generation8 at policy time."
+            ],
+            [
+              "Two vendor purchases",
+              "Stock1, A/B wallets1000, price50. Stock row lock permits one purchase; winner950+1draught, loser1000+0. No negative stock."
+            ],
+            [
+              "Craft disconnect",
+              "A has4ore2logs25currency. Commit consumes exact inputs and creates1hatchet GUID. Disconnect before reply; another-zone snapshot shows1result and one receipt, not another craft."
+            ],
+            [
+              "Quest claim replay",
+              "ReadyToClaim quest/cycle; unique character/quest/cycle reward claim. First commit100XP+200currency; replay returns same receipt after transfer."
+            ],
+            [
+              "Trade offers change",
+              "Revision5 accepted by A; B changes offer to6. Clear both confirmations. Settlement requires both accept6 and locks both characters/escrow/items/wallets atomically."
+            ]
+          ]
+        }
+      },
+      {
+        "title": "Rejection/error catalog",
+        "paragraphs": [
+          "InvalidDefinition, Unauthorized, Forbidden, StaleSession, RevisionConflict, IdempotencyConflict, InsufficientFunds, InventoryFull, ItemChanged, EquipmentConflict, TooFar, NoLineOfSight, Busy, Depleted, StaleQuote, CastInterrupted, AttemptExpired, ZoneFull and TemporarilyUnavailable are proposed project reason codes, not Unreal built-in nodes. Map to localized user text; preserve command IDs for support."
+        ]
+      }
+    ],
+    "references": [
+      "PG-ISOLATION"
+    ]
+  },
+  {
+    "path": "architecture/zone-handoff.html",
+    "title": "Cross-zone handoff: one character, one writer",
+    "lead": "Individual ClientTravel connects a client to another dedicated server. It does not move the whole source population.",
+    "sections": [
+      {
+        "title": "State machine",
+        "paragraphs": [
+          "Requested -> Frozen -> DestinationReserved -> TicketIssued -> Redeemed -> Arrived -> Completed. Before redemption, failure may cancel and resume source under the still-current epoch. After redemption, source is permanently fenced; recovery must proceed from the backend current epoch to destination or a safe hub, never restore the old writer."
+        ]
+      },
+      {
+        "title": "Sequence diagram in table form",
+        "paragraphs": [],
+        "table": {
+          "headers": [
+            "Step",
+            "Client",
+            "Source zone",
+            "Backend / destination"
+          ],
+          "rows": [
+            [
+              "1",
+              "Interact with GateId",
+              "Verify alive, range/LOS, gate destination/requirements, no blocked transaction",
+              "No write yet"
+            ],
+            [
+              "2",
+              "Show preparing state, stop repeated input",
+              "Stop new economics; cancel gather/fish/casts per policy; wait for accepted commands to settle",
+              "Reject preparation if an unresolved trade/commit cannot settle safely"
+            ],
+            [
+              "3",
+              "Loading UI stays local",
+              "Persist accepted snapshot/revision and freeze session; keep old body noninteractive",
+              "Record TransferId, source epoch, snapshot and freeze state"
+            ],
+            [
+              "4",
+              "Still connected to source",
+              "Request destination reservation",
+              "Allocate compatible target with capacity lease; if full cancel before travel"
+            ],
+            [
+              "5",
+              "Receive target route and opaque ticket",
+              "Issue controlled ClientTravel on this player controller only",
+              "Sign short-lived account/character/version/destination/nonce ticket; store nonce hash"
+            ],
+            [
+              "6",
+              "Connect target; old widgets cleared",
+              "No new mutations while frozen",
+              "Target authenticates ticket and identity; transactional one-use redemption compares source epoch"
+            ],
+            [
+              "7",
+              "Wait for admitted body",
+              "Any late source mutation is rejected",
+              "Redemption increments/assigns current epoch to destination BEFORE it can write; construct one PlayerState/Character from snapshot"
+            ],
+            [
+              "8",
+              "Observe correct appearance/inventory/quests and arrival",
+              "Retire old body/session resources on completion acknowledgment",
+              "Target acknowledges arrival; mark transfer completed; release reservation"
+            ],
+            [
+              "9",
+              "Resume input only when target ready",
+              "Other source players remain present",
+              "Receipt replay never creates another body or repeats rewards"
+            ]
+          ]
+        }
+      },
+      {
+        "title": "Why the fencing point is before arrival acknowledgment",
+        "paragraphs": [
+          "Waiting until the final UI acknowledgment to revoke source authority leaves a dual-writer interval if the target has already begun play. This design records the new epoch atomically at ticket redemption. The final acknowledgment only finalizes cleanup. This is an explicit refinement of the suggested ordering, preserving its no-duplicate-authority requirement."
+        ]
+      },
+      {
+        "title": "Travel mechanisms",
+        "paragraphs": [
+          "Use APlayerController::ClientTravel to the validated server endpoint for the selected player. ServerTravel changes the server world and its connected population; reserve it for whole-zone process transitions where explicitly intended. Local streamed sublevels/World Partition load cells inside the same world and do not perform account admission, persistence or cross-server routing. Initial independent-server handoff uses a non-seamless reconnect with loading UI; do not promise Unreal seamless travel migrates live Actors between independent servers."
+        ]
+      },
+      {
+        "title": "Failure matrix",
+        "paragraphs": [],
+        "table": {
+          "headers": [
+            "Failure point",
+            "Required outcome"
+          ],
+          "rows": [
+            [
+              "Invalid gate/destination",
+              "InvalidDestination; remain source, no freeze or charge"
+            ],
+            [
+              "Destination full before ticket",
+              "Release reservation, cancel transfer/freeze and resume source under current epoch"
+            ],
+            [
+              "Source crashes before redemption",
+              "Backend sees frozen source snapshot; reconnect coordinator either cancels/fences safely or issues fresh destination admission; one epoch only"
+            ],
+            [
+              "Duplicate ticket",
+              "One redemption; later attempts return completed/in-progress status or UsedTicket, never a second body"
+            ],
+            [
+              "Destination crashes after redemption",
+              "Old source stays fenced. Reconnect from backend to replacement destination/safe hub with another epoch increment"
+            ],
+            [
+              "Client disconnects during load",
+              "Resume same transfer/status or new safe admission; no reward replay"
+            ],
+            [
+              "Token expires before redemption",
+              "Cancel reservation/ticket, verify source epoch unchanged before resuming; otherwise recovery flow"
+            ],
+            [
+              "Late source save packet",
+              "StaleSession; log and discard"
+            ],
+            [
+              "Corrupted snapshot/unknown catalog",
+              "RecoveryRequired/PatchRequired before possession; quarantine, do not create a default wealthy/empty character"
+            ]
+          ]
+        }
+      },
+      {
+        "title": "Acceptance fixture",
+        "paragraphs": [
+          "Start Zone_A L_Rillmere and Zone_B L_Thornweald with reciprocal north/south GateIds. Connect A and B to Rillmere. A carries one sword GUID, ore quantity, quest count and currency revision. A uses north gate; B remains. Confirm A target epoch increased, same durable IDs, one body, no new reward receipts. Try the old token and old source mutation. Return through the reciprocal gate and repeat under packet loss."
+        ]
+      }
+    ],
+    "references": [
+      "EPIC-TRAVEL",
+      "EPIC-WP"
+    ]
+  },
+  {
+    "path": "architecture/persistence-and-schema.html",
+    "title": "Persistence, schema and migrations",
+    "lead": "PostgreSQL stores records; UE Actors hold short-lived session projections.",
+    "sections": [
+      {
+        "title": "Minimal development setup",
+        "paragraphs": [
+          "Use one PostgreSQL18 instance and one GameService app. Create a game runtime database role with only required data permissions and a separate migration/backup operator role. Clients never receive SQL connection strings. Local development authentication fixtures cannot be enabled by a production client option.",
+          "Start with identity/character/appearance and idempotent creation in Phase04, expand base item/stack/wallet/session/receipt/schema records in05 before rewards08. Inventory presentation arrives09, but stable item identity and transactional reward contracts cannot wait until after kill rewards exist."
+        ]
+      },
+      {
+        "title": "Model contract",
+        "paragraphs": [
+          "Database model pages enumerate keys, integer bounds, row versions, references and transaction paths. Use UUIDs for nonstackable instances and stable definition IDs for immutable templates. Keep quantities and currency as bounded integers. Canonical currency is one base integer; copper/silver/gold are display formatting, never three contradictory balances.",
+          "ReadCommitted with explicit row locking is the initial transaction strategy for known character/container/source rows. Evaluate Serializable for operations whose invariants span predicates; it requires complete-transaction retry on serialization failures. Merely selecting a stronger isolation name does not remove application validation or capacity constraints."
+        ]
+      },
+      {
+        "title": "Save semantics",
+        "paragraphs": [
+          "A accepted durable command is committed before its success is displayed. Ordinary movement may checkpoint periodically under a documented loss window, while high-value economic state is immediately durable. A zone runtime cache cannot silently claim durability for a failed write. Long-lived cooldown/recovery snapshots prevent reconnect from resetting important gates; short combat effects may clear under the documented recovery policy.",
+          "Logout marks the session draining, cancels unresolved actions, settles accepted transactions and writes the current safe location/version. Crash recovery reconstructs latest committed character facts; uncommitted fishing/crafting progress follows explicit cancel/status policies, not rollback of inventory to an old disk snapshot."
+        ]
+      },
+      {
+        "title": "Migration procedure",
+        "paragraphs": [],
+        "steps": [
+          "Write a numbered migration with exact table/constraint changes, expected old version and invariant assertions.",
+          "Restore a backup to disposable staging; run migration, then old/new record decode tests and the economic route.",
+          "Run again: already-applied migration does not duplicate rows or rewards. Inject interruption and test the recovery plan.",
+          "For incompatible patches drain admissions, settle commands, apply tested migration and deploy compatible service/zone/client catalogs.",
+          "Retain backup metadata and a tested forward-fix/restore decision. Do not promise every schema change has a safe automatic reverse migration."
+        ]
+      }
+    ],
+    "references": [
+      "PG-ISOLATION"
+    ]
+  },
+  {
+    "path": "architecture/failure-and-recovery.html",
+    "title": "Failure and recovery playbook",
+    "lead": "A visible error is preferable to a silent partial economic commit.",
+    "sections": [
+      {
+        "title": "Client/zone/backend failures",
+        "paragraphs": [],
+        "table": {
+          "headers": [
+            "Condition",
+            "Recovery contract"
+          ],
+          "rows": [
+            [
+              "Missing loot/recipe/item definition",
+              "Reject before commit; source remains claimable unless an explicit terminal failure policy says otherwise. Log catalog hash and missing ID."
+            ],
+            [
+              "Dead target/actor destroyed",
+              "Cancel pending live action; no damage/grant from later notify. Already committed receipts remain valid."
+            ],
+            [
+              "Full inventory",
+              "Compute final capacity before durable consumption. Craft/loot/vendor reject without partial effects; fishing policy records failed terminal catch without fish/XP."
+            ],
+            [
+              "Stale item GUID/quote",
+              "Reject ItemChanged/StaleQuote and refresh; never substitute another owned item silently."
+            ],
+            [
+              "Equipment conflict",
+              "Reject two-hand/offhand or prerequisite conflict atomically; preserve previous equipment/stats."
+            ],
+            [
+              "Conversation canceled by travel",
+              "Invalidate request generation, close modal and unbind; already committed consequence is recovered from durable state."
+            ],
+            [
+              "Missed animation notify",
+              "Gameplay timer/authority finishes or cancels independently; cosmetic cue may be absent."
+            ],
+            [
+              "Server restart mid-fishing",
+              "Unresolved attempt cancels; committed terminal catch loads once."
+            ],
+            [
+              "Disconnect after craft/trade confirmation",
+              "Query same command/trade terminal status; do not refund/grant from the client."
+            ],
+            [
+              "Corrupted backend record",
+              "Quarantine and support repair with audit, no blind deletion/default grant."
+            ],
+            [
+              "PaperZD absent",
+              "Stop plugin-specific animation creation; use legal debug Paper2D for physics proof only and retain blocked compatibility gate."
+            ],
+            [
+              "Unknown content version",
+              "PatchRequired or recovery before admission; no unversioned reinterpretation."
+            ]
+          ]
+        }
+      },
+      {
+        "title": "Bounded retry",
+        "paragraphs": [
+          "Separate a validation rejection from transient infrastructure failure. Rejected commands with known terminal receipts do not need automatic loops. Transient service retries keep the same key and bounded backoff; UI supplies cancel/help after a clear threshold. Cancellation of an uncertain request is not proof it was never committed."
+        ]
+      },
+      {
+        "title": "Repair policy",
+        "paragraphs": [
+          "Operators inspect immutable receipt/ledger/source claims and current session epoch. Corrections are new auditable administrative commands with reason and reviewer, not manual silent edits through a client console. Test the repair on staging and preserve pre-repair evidence. Sensitive logs remain private."
+        ]
+      }
+    ],
+    "references": []
+  },
+  {
+    "path": "art/asset-audit.html",
+    "title": "Source asset audit: unavailable input",
+    "lead": "The requested 2d_game_assets.zip was not present in accessible conversation/Project files or located Library results.",
+    "sections": [
+      {
+        "title": "Measured versus reported",
+        "paragraphs": [
+          "Actual ZIP entry count: not measured. Actual PNG count: unknown. PNG dimensions, frame rectangles, timing guides and exact paths: unknown. The approximately 2,596 PNG observation and pack names below are supplied by the prompt only; they are not independent audit findings. sources/asset-archive-inventory.csv contains headers and no fabricated file rows.",
+          "No companion ASSET_AUDIT.md, ASSET_INVENTORY.csv, DESIGN_DECISIONS.md or FEATURE_COVERAGE.md input was available. Generated decision/coverage records in this package are new authored sources, not claimed copies of missing companion files."
+        ]
+      },
+      {
+        "title": "Prompt-reported families to verify",
+        "paragraphs": [],
+        "table": {
+          "headers": [
+            "Reported family",
+            "Reported role",
+            "Verification needed"
+          ],
+          "rows": [
+            [
+              "20.01a Character Base2.5c",
+              "p1 locomotion, p2 tools, p3 fishing, p4 misc; p1B/p1C variants",
+              "Exact directories, files, frame/timing guides, body/weapon compatibility"
+            ],
+            [
+              "21.01a Hairstyle v0.5.3",
+              "Hair layers",
+              "Pages/directions/palette and missing combat/fishing sheets"
+            ],
+            [
+              "20.05d Cloak & Hood1.3",
+              "Cloak/hood; stacking layers.txt",
+              "Read actual overlap/stacking rules per facing"
+            ],
+            [
+              "Farmer, Forester, Alchemist, Blacksmith, Angler",
+              "Outfit/hat/apron/pants variants",
+              "Combined outfit versus separate layer coverage"
+            ],
+            [
+              "pBOW, pPOL, pONE combat families",
+              "Bow, spear, sword/shield",
+              "Match body, outfit and weapon page; no p1 clothing assumed compatible"
+            ],
+            [
+              "Twin blade, bug-net addon, free demo",
+              "Extra action families",
+              "Exact capabilities and license distinctions"
+            ]
+          ]
+        }
+      },
+      {
+        "title": "Run a private audit",
+        "paragraphs": [],
+        "steps": [
+          "Keep the licensed archive outside the public documentation folder. Run python tools/audit_asset_archive.py /private/path/2d_game_assets.zip --output /private/audit-output.",
+          "The script records exact ZIP paths, sizes, SHA256 hashes and PNG IHDR dimensions, excluding __MACOSX and AppleDouble files from art counts; it never copies PNG bytes into the public manual.",
+          "Read each included naming/layout/timing/readme/license file. Enter confirmed frame rectangles/action/facing/layer compatibility into sources/animation-frame-map.json; automatic filename parsing is marked inferred, not authoritative.",
+          "Visually inspect body plus clothing/weapon on every page and facing. Record known/inferred/unsupported separately; compare foot pivots and full-outfit masks.",
+          "Review creator license terms independently for private game use versus public redistribution. A purchase or creator link alone does not authorize public source sprite redistribution.",
+          "Merge only non-pixel metadata into sources, regenerate and rerun validation. Do not change audit status to verified until evidence includes archive hash, exact counts and human guide review."
+        ]
+      },
+      {
+        "title": "Distribution boundary",
+        "paragraphs": [
+          "This ZIP contains no third-party sprite PNGs, thumbnails, engine assets, 3D meshes or fonts. Source references and legally reviewed metadata are sufficient for documentation. No paid pack content is copied from the legacy repository or unrelated Library uploads."
+        ]
+      }
+    ],
+    "references": []
+  },
+  {
+    "path": "art/sprite-sheet-reference.html",
+    "title": "Sprite naming and sheet reference",
+    "lead": "A schema and audit workflow, not an invented frame atlas.",
+    "sections": [
+      {
+        "title": "What a verified row must contain",
+        "paragraphs": [
+          "Exact ZIP path/filename/source pack, SHA256, page, layer, palette/variant, pixel width/height, action/facing, frame rectangle/order, source timing guide citation, compatible paired pages, pivot, import path, sprite/flipbook/sequence destinations, provenance and license restriction. Store unknown as null or unsupported, never as a guessed value that looks measured."
+        ]
+      },
+      {
+        "title": "Reported layer vocabulary",
+        "paragraphs": [],
+        "table": {
+          "headers": [
+            "Code",
+            "Reported role",
+            "Restriction"
+          ],
+          "rows": [
+            [
+              "0bot",
+              "Behind body",
+              "Facing-specific overlap; do not assume every pack has it"
+            ],
+            [
+              "0bas",
+              "Base body",
+              "Body/page must match selected animation"
+            ],
+            [
+              "1out",
+              "Outfit",
+              "May combine chest/legs/gloves/feet, not one PNG per gameplay slot"
+            ],
+            [
+              "2clo",
+              "Cloak",
+              "Review stacking guide, front/back facing differences"
+            ],
+            [
+              "3fac",
+              "Face",
+              "Availability unverified"
+            ],
+            [
+              "4har",
+              "Hair",
+              "Hat masking and page match required"
+            ],
+            [
+              "5hat",
+              "Hat/hood",
+              "Hood may conflict with hair/cloak combinations"
+            ],
+            [
+              "6tla",
+              "Main tool/weapon",
+              "p2/p3/pONE/pBOW/pPOL page-specific"
+            ],
+            [
+              "7tlb",
+              "Offhand/shield",
+              "Shield overlap depends facing"
+            ],
+            [
+              "8top",
+              "Special top overlay in some versions",
+              "May be documented but absent in actual archive"
+            ]
+          ]
+        }
+      },
+      {
+        "title": "Direction mapping",
+        "paragraphs": [
+          "Use four presentation directions until diagonal art is actually authored. Project movement onto the fixed camera ground basis, select the dominant component, and use hysteresis around boundaries to avoid rapid facing flicker. Retain last nonzero facing at rest; action facing may be locked for an accepted attack while motion continues under the action policy.",
+          "Do not mirror asymmetric weapons/hair by default. The missing northeast frame maps to an explicitly chosen existing facing, not a fictional sprite. Eight-direction production requires new diagonal body frames and every compatible layer/action, with re-audited timing/pivots."
+        ]
+      },
+      {
+        "title": "Timing",
+        "paragraphs": [
+          "Source animation timing is a visual starting point. Server cast/gather/cooldown/hit windows are separately authored gameplay seconds. A 12fps sheet does not define when a network reward commits. Clothing and weapons sample one shared body phase/frame; independent flipbook clocks eventually drift."
+        ]
+      }
+    ],
+    "references": []
+  },
+  {
+    "path": "art/animation-matrix.html",
+    "title": "Animation compatibility and missing-art matrix",
+    "lead": "Action support must be proven for each body/page/layer/facing combination.",
+    "sections": [
+      {
+        "title": "Current evidence matrix",
+        "paragraphs": [],
+        "table": {
+          "headers": [
+            "Action family",
+            "Prompt-reported candidate",
+            "Current evidence / fallback"
+          ],
+          "rows": [
+            [
+              "Idle/walk/run",
+              "p1, optional p1B/p1C",
+              "Not audited; legal directional debug glyph until exact slicing"
+            ],
+            [
+              "Mining/wood/farm tool",
+              "p2",
+              "Not audited; gather timer works independently"
+            ],
+            [
+              "Fishing/rod",
+              "p3",
+              "Not audited; world bobber and attempt state independent of rod animation"
+            ],
+            [
+              "Bow",
+              "pBOW variants",
+              "Not audited; body+weapon+outfit page must match"
+            ],
+            [
+              "Spear",
+              "pPOL variants",
+              "Not audited; no bow-to-spear page substitution"
+            ],
+            [
+              "Sword/shield",
+              "pONE variants",
+              "Not audited; facing-specific overlap required"
+            ],
+            [
+              "Jump/landing/dodge",
+              "p4 or other only after guide inspection",
+              "Not claimed; use marked locomotion/debug pose while authoring missing action"
+            ],
+            [
+              "Swim",
+              "Unknown",
+              "Missing verification/new art task; capsule swim still testable"
+            ],
+            [
+              "Cast/heal/channel",
+              "Unknown",
+              "New art task for Arcanist/Warden; no skeletal montage assumption"
+            ],
+            [
+              "Eight directions",
+              "No completed diagonal set reported",
+              "Four-direction fallback only; all diagonal layers require authoring"
+            ],
+            [
+              "Mounts",
+              "No mounted art verified",
+              "Production feature gate closed"
+            ],
+            [
+              "Emotes/interactions",
+              "p4 guide pending",
+              "Only register actions after source review; simple debug pose otherwise"
+            ]
+          ]
+        }
+      },
+      {
+        "title": "Resolver contract",
+        "paragraphs": [
+          "DA_AnimationSet_Common maps BodyId + ActionTag + Facing + ActivePage + VisualLayer + ItemAppearanceId to a verified sequence or explicit fallback. Return MissingLayer hides that cosmetic layer without changing stats. Missing required body sequence uses a legal debug pose and a diagnostics warning; no crash or invisible collider-only avatar in a public build.",
+          "URPGPaperDollComponent reads FRPGPresentationState and resolves one active body/action clock. ABP_Common consumes it through the installed PaperZD adapter; equipment layers sample the same normalized phase/frame. Network clients receive accepted action identity/time/facing, not one RPC per animation frame."
+        ]
+      },
+      {
+        "title": "Eight-direction production workflow",
+        "paragraphs": [],
+        "steps": [
+          "Freeze canvas size, foot pivot, scale, frame IDs and palette for the verified four-facing base.",
+          "Author NE/SE/SW/NW for one locomotion action/body first; review silhouette and fixed-camera projection on slopes.",
+          "Author matching outfit/hair/cloak/tool frames page by page. Track every missing combination in the matrix; do not advertise all gear supported from one base diagonal.",
+          "Update resolver to eight-direction sectors with explicit four-direction fallback for incomplete actions; keep saved AppearanceIds stable.",
+          "Test remote interpolation, action-facing locks, weapon overlap, hats/hair and all supported zoom levels before enabling diagonal clips in the released catalog."
+        ]
+      }
+    ],
+    "references": []
+  },
+  {
+    "path": "art/equipment-visual-matrix.html",
+    "title": "Equipment slots are not sprite layers",
+    "lead": "A valid item may provide stats even when its specific overlay is unavailable.",
+    "sections": [
+      {
+        "title": "Logical slots and visual policy",
+        "paragraphs": [],
+        "table": {
+          "headers": [
+            "Gameplay slot",
+            "Possible visual mapping",
+            "Compatibility rule"
+          ],
+          "rows": [
+            [
+              "Head",
+              "5hat / hood, hair mask",
+              "Use active page/facing; unknown hats hide only overlay"
+            ],
+            [
+              "Chest (Top alias)",
+              "1out combined outfit",
+              "Chest/legs cannot both draw competing full outfits; choose one documented outfit preset authority"
+            ],
+            [
+              "Legs (Pants alias)",
+              "Separate pants only when verified, otherwise outfit preset",
+              "Preserve leg stats without promising isolated pants art"
+            ],
+            [
+              "Hands / Feet / Waist",
+              "May be bundled into1out",
+              "Stats-only until genuine separate overlays verified"
+            ],
+            [
+              "Shoulders",
+              "No verified layer",
+              "Stats-only until new art"
+            ],
+            [
+              "Cloak",
+              "2clo or combined hood/cloak",
+              "Review stacking guide with hat/hair/outfit"
+            ],
+            [
+              "MainHand",
+              "6tla or weapon-page family",
+              "Match pONE/pBOW/pPOL/p2/p3; two-hand excludes OffHand gameplay"
+            ],
+            [
+              "OffHand",
+              "7tlb shield/offhand",
+              "Require compatible attack/page and facing overlap"
+            ],
+            [
+              "Neck / Ring1 / Ring2 / Trinket1 / Trinket2",
+              "Normally stats-only",
+              "Never make a missing layer invalidate a valid accessory"
+            ]
+          ]
+        }
+      },
+      {
+        "title": "Full-outfit conflict resolution",
+        "paragraphs": [
+          "Equipment rules and appearance rules are separate. Proposal: chest item may select a full-outfit preset when verified; legs/hands/feet contribute stats but only override individual visual masks when actual separate sheets exist. Preview describes this limitation instead of showing a false per-slot mesh. A later authored outfit-composition table may choose a combined preset for a recognized set.",
+          "When the active combat/fishing page lacks an outfit layer, use a verified compatible fallback outfit or hide only that layer under an explicit policy. Do not keep p1 clothes over a pBOW body just because filenames look similar. Persist item/appearance IDs and versions, not sprite object pointers or absolute user filesystem paths."
+        ]
+      },
+      {
+        "title": "Tests",
+        "paragraphs": [
+          "Equip a two-handed bow while a shield is equipped: reject or execute one explicitly atomic unequip plan with capacity check; never leave incompatible stats. Equip a stats-only shoulder item: attributes update correctly while missing visual warning is nonfatal. Switch sword -> rod -> mining tool across four facings and verify body/gear frame synchronization. Remove all animation notifies: item stats and server actions still work."
+        ]
+      }
+    ],
+    "references": []
+  },
+  {
+    "path": "art/import-pipeline.html",
+    "title": "Private art import and PaperZD integration",
+    "lead": "Import only audited privately licensed source assets; all exact source frame coordinates remain blocked in this edition.",
+    "sections": [
+      {
+        "title": "PNG import and slicing",
+        "paragraphs": [],
+        "steps": [
+          "Copy licensed sources into a private source-art workspace retaining pack/path provenance and hashes. Do not put paid originals in the public docs repository.",
+          "Import a selected PNG into Content/Game/Art privately. Apply the Paper2D texture settings where the installed Editor exposes them; inspect filtering/compression, sRGB, mipmaps and alpha rather than assuming every sheet requires the same setting.",
+          "Start pixel art with nearest filtering and compare mip behavior at all camera zooms; no-mip output may shimmer at reduced scale, so choose from measured scene readability. Keep UI portraits and world sprites separately tunable.",
+          "Use the actual layout guide to extract sprites at known cell rectangles. Transparent gaps can confuse automatic extraction; prefer explicit grid/manual rectangles for a documented sheet. Name sprite action/facing/frame and record the source rectangle.",
+          "Set a shared custom foot pivot and Pixels Per Unreal Unit based on actual measured body height and the collision capsule. Align feet to the capsule floor, not the sprite image center; do not resize physics to compensate for inconsistent art pivots.",
+          "Create ordered flipbooks with verified frames/timing, then PaperZD sequences and the single action/facing resolver after checking the installed source/editor API. Clothing/weapon layers use matching frame rectangles/page and one shared clock."
+        ]
+      },
+      {
+        "title": "Materials, depth and shadows",
+        "paragraphs": [
+          "Prototype a masked, depth-tested sprite material in 3D first; compare unlit readable color to lightly lit material on the actual art. Translucent layers can sort incorrectly against other sprites and world geometry; do not solve all cases by assigning extreme global sort priorities. Keep layer offsets tiny and consistent in sprite-plane space to avoid z-fighting.",
+          "A vertical or deliberately camera-facing presentation plane is a cosmetic choice. Test it at the fixed elevation on slopes, stairs, under bridges and behind walls. Keep the collision capsule upright and independent. Prototype a simple ground-contact blob shadow or separate shadow proxy when sprite shadow artifacts are unacceptable; no universal shadow solution is claimed.",
+          "Occluder fade is local client material presentation. Server collision and LOS remain intact. Keep roof/interior occlusion readable and ensure a transparent wall does not imply attacks pass through it."
+        ]
+      },
+      {
+        "title": "Plugin verification gate",
+        "paragraphs": [
+          "Record PaperZD descriptor VersionName, supported engine/build, module names, animation source/sequence types, AnimInstance binding, directional resolver APIs and callback threading from the installed release. Public product documentation is not proof of compatibility with this installation. If unavailable, keep Paper2D debug presentation and explicitly block PaperZD acceptance.",
+          "GAS abilities publish action tags/times to the presentation bridge. Do not use a skeletal PlayMontage ability task for sprite playback without a verified custom bridge. A sprite notify may play a footstep or spark, but gameplay timing and action release remain authority-owned."
+        ]
+      },
+      {
+        "title": "Reimport and acceptance",
+        "paragraphs": [
+          "Reimport one body sheet and compare manifest hash/frame count/pivots before replacing sequences. Test body+hair+outfit+cloak+weapon in all four directions and every registered page. Check remote player appearance after reconnect and cross-zone transfer. Capture missing assets by ID and repair mappings, not by adding another competing animation system."
+        ]
+      }
+    ],
+    "references": [
+      "EPIC-PAPER2D",
+      "PAPERZD-FAB",
+      "PAPERZD-DOC"
+    ]
+  },
+  {
+    "path": "art/3d-world-art-pipeline.html",
+    "title": "3D environment sourcing and production",
+    "lead": "The character archive is not a 3D environment pack.",
+    "sections": [
+      {
+        "title": "Required production assets",
+        "paragraphs": [
+          "Terrain/landscape materials, roads, stairs, bridges, buildings/interiors, tree and ore meshes, water/shore materials, props, collision, audio and enemy/NPC sprite families need separate licensed acquisition or original authoring. Maintain creator/license/version/source-path and permitted redistribution for each source. Do not label graybox primitives as finished world assets."
+        ]
+      },
+      {
+        "title": "Build one environment module",
+        "paragraphs": [],
+        "steps": [
+          "Write the zone art brief from world catalog: scale, climate/palette, camera readability and gameplay route.",
+          "Graybox route in centimeters using simple collision. Validate jump/step/swim/LOS/navmesh and travel times before detail.",
+          "Create or license a small modular kit with pivots, grid snapping, simple collision, material slots and LODs appropriate to the target hardware.",
+          "Replace one section while preserving gameplay bounds/IDs. Avoid decorative collision blocking roads or resource approaches.",
+          "Evaluate sprite contrast in daylight/night/rain and under canopy; author local occluder masks where needed.",
+          "Measure render cost, memory, streaming transitions and server navigation; register sources and rights. Expand the kit only after this section passes."
+        ]
+      },
+      {
+        "title": "Foliage/resources",
+        "paragraphs": [
+          "Visual trees are not automatically harvestable resource nodes. A selected eligible site spawns or activates a node with durable SiteId/generation and interaction approach. Decorative foliage can remain static and noninteractive; avoid one expensive replicated Actor per blade of grass. Resource depletion may swap/hide a visual but must not silently remove a structural bridge/tree needed for traversal."
+        ]
+      },
+      {
+        "title": "Release restriction",
+        "paragraphs": [
+          "Keep third-party source assets private unless their license explicitly permits redistribution in source form. A packaged-game use license does not necessarily permit a public documentation repository to host the PNG/mesh. This package includes descriptions only."
+        ]
+      }
+    ],
+    "references": []
+  },
+  {
+    "path": "engineering/index.html",
+    "title": "Native C++ and Blueprint engineering standard",
+    "lead": "Use standard Unreal ownership/lifecycle conventions and narrow, explicit project contracts.",
+    "sections": [
+      {
+        "title": "Scope",
+        "paragraphs": [
+          "All Source/RPG paths in asset pages are intended implementation paths, not files delivered here. Build scripts are documentation Python only. Project custom API signatures are design contracts; they are not compiled C++ or existing Blueprint nodes.",
+          "Prioritize one rule owner, explicit dependencies, descriptive names, shallow inheritance and testable transactions. Avoid parallel health/inventory/cooldown stacks, generic Manager/Utils containers and speculative service decomposition."
+        ]
+      },
+      {
+        "title": "Working sequence",
+        "paragraphs": [],
+        "steps": [
+          "Read the current phase, owner feature and individual asset contract before writing native types.",
+          "Create native structs/enums/interfaces/schema bases needed now; compile with the installed Unreal Header Tool/build route.",
+          "Add native implementation with explicit preconditions, errors, authority and asynchronous completion lifetime guards.",
+          "Create Blueprint children and authored data; assign required references into actual consumers and test maps.",
+          "Run native/data tests, Blueprint compile, multi-client fixture and rejection/regression cases. Record actual evidence separately from docs checks.",
+          "Review API exposure, secret leakage, replication privacy, source IDs, cleanup and behavior after reconnect before moving on."
+        ]
+      },
+      {
+        "title": "API categories",
+        "paragraphs": [
+          "Engine API: known public types/functions with reference. PaperZD API: must be verified in installed release before exact signature is accepted. Project custom API: the names and contracts in this guide to implement. Backend endpoint proposal: HTTP service contract, never a magic Blueprint node. Pseudocode: illustrative ordering only. Every asset page uses these labels."
+        ]
+      },
+      {
+        "title": "Review questions",
+        "paragraphs": [
+          "Can a client change the fact directly? Does replay issue another reward? What owns this object after travel? Is its schema immutable? Does the Blueprint child duplicate native rules? Can a late async reply mutate a new character body? Is the success message sent after durable commit? Can missing art break physics? Answers must be visible in implementation and tests."
+        ]
+      }
+    ],
+    "references": [
+      "EPIC-REFLECTION",
+      "EPIC-NATIVE-CREATE"
+    ]
+  },
+  {
+    "path": "engineering/naming-and-content.html",
+    "title": "Naming, folders and stable identities",
+    "lead": "The manifest is the naming authority for this edition.",
+    "sections": [
+      {
+        "title": "Paths and names",
+        "paragraphs": [
+          "Content/Game/Items/DA_Item_CopperOre.uasset is the planned physical path. Its object path is /Game/Game/Items/DA_Item_CopperOre.DA_Item_CopperOre because /Game mounts the Content directory and the project deliberately has a Game subfolder. Do not silently drop the second Game segment in references.",
+          "Native public types belong under Source/RPG/Public/<Domain>; implementation files later belong under Source/RPG/Private/<Domain>. The docs list planned header paths only and generate neither .h nor .cpp. Prefixes A/U/F/E/I follow Unreal type conventions; BP_, DA_, WBP_, IA_, IMC_, SPR_, FB_, AS_, ASQ_, ABP_, L_, M_, SM_ describe asset purpose."
+        ]
+      },
+      {
+        "title": "Identity separation",
+        "paragraphs": [
+          "Item definition item.copper-ore is not a file path or owned item GUID. CharacterId is not player name. SiteId is not Actor label. EncounterResolutionId is not corpse pointer. RecipeId is not translated recipe title. Use semantic IDs and versioned redirects; never reuse released IDs for different content."
+        ]
+      },
+      {
+        "title": "Dependencies versus assignments",
+        "paragraphs": [
+          "Creation dependencies must form a DAG and never require a future phase. Late-binding assignments may point between existing runtime collaborators; each declares its integration phase and reverse user. This avoids creating every shell at00 merely to satisfy a circular blueprint reference. Reopen the consumer at the declared phase and assign the newly ready asset."
+        ]
+      },
+      {
+        "title": "Rename procedure",
+        "paragraphs": [
+          "Update the manifest, Content/Source implementation rename/redirect, definition references, UI labels as separate concerns, creation/integration rows and tests. Regenerate all indexes. For released persistent IDs, add a migration/redirect rather than simply renaming. Run unknown-ID and old-record tests before accepting."
+        ]
+      }
+    ],
+    "references": []
+  },
+  {
+    "path": "engineering/reflection-and-blueprints.html",
+    "title": "Reflection, Blueprint exposure and native creation",
+    "lead": "Expose tuning and observation deliberately; reflection metadata is not a security boundary.",
+    "sections": [
+      {
+        "title": "Native creation",
+        "paragraphs": [
+          "For a new Actor-derived class, the public5.8 tutorial uses Tools > New C++ Class, choose Actor/Character or Show All Classes as appropriate, name the native class without an A/U prefix in the wizard, then inspect generated native declarations in the IDE. For a custom movement default subobject, reflected struct, interface or backend adapter, use the appropriate native file/type workflow and existing module rather than inventing a Blueprint factory.",
+          "Close/rebuild the Editor after reflected layout changes when necessary; do not rely on a stale hot-reloaded class to validate serialized Blueprint properties. The exact toolchain and live coding behavior must be tested in the installed environment. Create a Blueprint child only after the native parent successfully appears in the class picker."
+        ]
+      },
+      {
+        "title": "Exposure table",
+        "paragraphs": [],
+        "table": {
+          "headers": [
+            "Intent",
+            "Proposed Unreal mechanism",
+            "Boundary"
+          ],
+          "rows": [
+            [
+              "Blueprint child allowed",
+              "UCLASS Blueprintable / BlueprintType where appropriate",
+              "Not every service helper needs Blueprint inheritance"
+            ],
+            [
+              "Read-only authored default",
+              "UPROPERTY EditDefaultsOnly, BlueprintReadOnly",
+              "Still immutable at runtime by project policy"
+            ],
+            [
+              "Read-only runtime observer",
+              "Private native field + getter/delegate or BlueprintReadOnly projection",
+              "No public currency/health setter"
+            ],
+            [
+              "Editable instance site ID",
+              "EditInstanceOnly on authored site/gate fields",
+              "Validate uniqueness/collision/zone assignment"
+            ],
+            [
+              "Cosmetic hook",
+              "BlueprintImplementableEvent or BlueprintNativeEvent",
+              "Never required to finish a durable transaction"
+            ],
+            [
+              "Rule command",
+              "Native validated function; BlueprintCallable only where intended",
+              "Authority/ownership checks inside, not only node label"
+            ],
+            [
+              "Server request",
+              "Owned Actor/Component server RPC with validated parameters",
+              "RPC ownership and reliable delivery do not replace idempotency"
+            ],
+            [
+              "Change observation",
+              "Delegate / RepNotify projection",
+              "No grant side effect in UI/OnRep"
+            ],
+            [
+              "Serializable value",
+              "USTRUCT BlueprintType plus versioned adapter",
+              "SaveGame specifier is not online persistence"
+            ]
+          ]
+        }
+      },
+      {
+        "title": "Lifetime and threading",
+        "paragraphs": [
+          "Use reflected strong references for owned Unreal objects that must survive garbage collection and weak handles for asynchronous observers that may disappear. HTTP/DB callbacks must marshal updates to the appropriate game-thread/native owner and verify request generation, CharacterId and epoch before applying. Do not mutate UObject state from an arbitrary worker callback.",
+          "World teardown cancels timers/tasks, unregisters delegates and marks pending callbacks invalid. A successful backend receipt remains durable even if the local observer disappeared; next snapshot resolves it. No callback should resurrect an old pawn or old screen after travel."
+        ]
+      }
+    ],
+    "references": [
+      "EPIC-REFLECTION",
+      "EPIC-NATIVE-CREATE"
+    ]
+  },
+  {
+    "path": "engineering/gas-paperzd-lifecycle.html",
+    "title": "GAS ownership and PaperZD bridge",
+    "lead": "One combat stack; animation is an observer of accepted action state.",
+    "sections": [
+      {
+        "title": "Player owner/avatar sequence",
+        "paragraphs": [
+          "ARPGPlayerState owns the player URPGAbilitySystemComponent and URPGAttributeSet for possession/death continuity within one zone. The current ARPGPlayerCharacter is the avatar. Enemy ASC belongs on ARPGEnemyCharacter. Implement IAbilitySystemInterface on the chosen accessor path and return the same ASC, not a second component.",
+          "After possession on the server and after PlayerState replication on the owning client, call one guarded project initialization path that supplies PlayerState owner and current Character avatar to the installed ASC actor-info initialization API. Public engine name InitAbilityActorInfo is a mechanism to verify in installed headers; this document does not provide a compiled override signature. Bind input only after actor info and granted ability specs are ready.",
+          "On death/unpossession cancel transient abilities, unbind old avatar cues/input and prevent stale callbacks. On new possession reinitialize the avatar. Cross-server travel creates a new PlayerState/ASC and reconstructs durable ability/talent/cooldown state; the old ASC is not serialized and teleported."
+        ]
+      },
+      {
+        "title": "Attributes, grants and prediction",
+        "paragraphs": [
+          "Initial attributes and granted abilities are server-derived from class, level, equipment and durable skill allocations. Recompute derived values once through one rule path; do not apply equipment bonuses again in UI. Attribute changes replicate through the proper GAS attribute/RepNotify route; measure PlayerState update settings in two-client tests so HUD is not stale.",
+          "Begin with server-confirmed execution where prediction is uncertain. Introduce prediction keys for responsive cost/cooldown/cues only after rejection rollback is proven. A rejected predicted action removes its provisional cues/cost display and waits for authoritative attributes. Never let a client prediction key authorize an economy reward."
+        ]
+      },
+      {
+        "title": "PaperZD bridge",
+        "paragraphs": [
+          "Publish FRPGPresentationState with ActionId, tag, start/duration and facing to one sprite adapter. The adapter selects PaperZD sequences and layers. GAS does not automatically understand PaperZD flipbooks as skeletal montages. Avoid PlayMontageAndWait as a assumed sprite implementation; a project animation task may observe the adapter for cosmetics but server timing independently ends/cancels the ability.",
+          "Verify installed PaperZD instance/sequence callbacks and threading before writing exact API bindings. Notify-driven sounds/VFX are permitted. Damage, healing, cooldown release, gathering/catch/reward and inventory changes cannot depend on a notify arriving."
+        ]
+      },
+      {
+        "title": "Two-client proof",
+        "paragraphs": [
+          "A casts Cleave on an enemy while B observes. Server deducts cost once and validates hit; both see action/health. Reject A at insufficient stamina, cancel during cast, kill/repossess A, transfer A to another server, and repeat with missing animation notify. Confirm one ASC per owner, no duplicate grants and correct UI after reinitialization."
+        ]
+      }
+    ],
+    "references": [
+      "EPIC-GAS",
+      "EPIC-ASC",
+      "EPIC-NET",
+      "PAPERZD-FAB"
+    ]
+  },
+  {
+    "path": "engineering/testing-and-review.html",
+    "title": "Implementation test and review standard",
+    "lead": "Assertions target ownership, transactions and actual consumers—not only isolated asset creation.",
+    "sections": [
+      {
+        "title": "Test layers",
+        "paragraphs": [
+          "Static documentation tests detect link/manifest/order/coverage problems. Editor data validation detects bad definitions/IDs/references. Native unit tests check pure math and state transitions. Backend integration tests use real transactions and competing connections. Functional tests run packaged/Editor clients and dedicated servers. None substitutes for all the others."
+        ]
+      },
+      {
+        "title": "Minimum change review",
+        "paragraphs": [],
+        "steps": [
+          "Check the owner and stable IDs match manifest and ownership records.",
+          "Inspect native Blueprint exposure and replication conditions for private facts.",
+          "Run success, invalid input, stale revision, duplicate command with same/different payload, concurrent claim and disconnect-after-commit.",
+          "Test missing definition/animation and world teardown to prove presentation is not a gameplay gate.",
+          "Reopen actual consuming Blueprint, data asset and map; confirm the assignment exists and is used.",
+          "Record build/tool versions, commands, fixtures and observed results. Leave not_run where no runtime exists."
+        ]
+      },
+      {
+        "title": "Regression order",
+        "paragraphs": [
+          "Start with terrain/one-pawn/input foundation; then identity/persistence/handoff; then GAS/enemy/reward; inventory/economy; professions/quest; skills/world/social; operations/release. A new guild widget cannot justify ignoring a broken inventory transaction or duplicate possession."
+        ]
+      },
+      {
+        "title": "Evidence formatting",
+        "paragraphs": [
+          "A test report needs TestCaseId, build/catalog/schema versions, platform/hardware/network conditions, setup, command, expected, observed, result and evidence paths. Screenshots alone rarely prove economic invariants; inspect database rows/receipt IDs too. Never generate fictional compiler or test logs."
+        ]
+      }
+    ],
+    "references": []
+  },
+  {
+    "path": "design/content-pipeline.html",
+    "title": "Repeatable content production",
+    "lead": "Routine zones, enemies, items, quests and recipes should be authored through validated data and Blueprint-exposed references.",
+    "sections": [
+      {
+        "title": "Factory sequence",
+        "paragraphs": [],
+        "steps": [
+          "Write a short content brief with player goal, connected zones, level range, travel targets and art/license needs.",
+          "Create stable IDs and catalog rows using existing schemas; register dependencies and missing-art status. Do not add C++ because one enemy has different health.",
+          "Build the 3D graybox route, collision/navmesh, safe spawns and gates. Measure walking times and test two clients.",
+          "Place eligible resource candidate sites, fishing water regions, NPC service roles, encounters and discovery volumes; enforce density and path/slope constraints.",
+          "Author quest/objective/dialogue/recipe/loot rows using those stable IDs and existing event types.",
+          "Assign all references in zone/runtime/Blueprint consumers, add localization and cue IDs, validate catalogs and cook active maps.",
+          "Run the full content route with empty/full inventory, novice/high-level class, party/no-party, weather, restart and transfer.",
+          "Replace legal debug art incrementally; recheck capsule/foot/depth/LOS/navigation and performance after each replacement."
+        ]
+      },
+      {
+        "title": "Density measurements",
+        "paragraphs": [
+          "Track candidate ore/tree sites per traversable hectare, selected active nodes, enemy groups per route minute, safe-service intervals, optional landmark detour duration, and repeated-content fatigue from playtests. Proposed Rillmere fixture12ore24tree candidates and4/8active quotas are not world balance. Separate decorative foliage density from active replicated resource count."
+        ]
+      },
+      {
+        "title": "Definition validation",
+        "paragraphs": [
+          "Reject missing stable IDs, duplicate SiteIds, gate destinations without return paths, cyclic quests/skills, impossible tool/recipe gates, negative/zero invalid loot weights, unknown items, mutually conflicting full-outfit mappings, recipes requiring unavailable initial materials and inaccessible required services. Missing visual content may use an explicit fallback; missing economy definitions fail closed."
+        ]
+      },
+      {
+        "title": "Expansion checklist",
+        "paragraphs": [
+          "A new biome is ready only when its entrance/return, safe spawn, services, resources/fish, encounters, quests, map markers, localization, art provenance and measured budgets all pass. World Partition and decorative scale do not make a zone ready. Maintain a finite content backlog rather than promising endless handcrafted content."
+        ]
+      }
+    ],
+    "references": []
+  },
+  {
+    "path": "design/economy.html",
+    "title": "Economy design and tuning",
+    "lead": "One integer currency, bounded inventories and auditable source/sink rules.",
+    "sections": [
+      {
+        "title": "Canonical data",
+        "paragraphs": [
+          "Store one base currency balance per character; proposed display100copper=1silver and100silver=1gold uses integer quotient/remainder. Item rarity is a definition/roll result, not a UI color rule. Nonstackable gear has unique instance identity; stack quantity is integer. Item level/prerequisites, binding, durability, affix family restrictions, two-hand exclusion and set bonuses are validated server-side."
+        ]
+      },
+      {
+        "title": "Initial policies",
+        "paragraphs": [
+          "Personal loot avoids an early need/greed dispute system. Eligible party members share XP under the declared proximity/contribution rule; personal rolls are stored once. Start deterministic crafting with known outputs. Vendor finite stock/buyback/repair and bank moves share atomic transactions. Direct consensual trade comes after economy tests; auctions remain deferred."
+        ]
+      },
+      {
+        "title": "Affix and set generation",
+        "paragraphs": [
+          "Choose allowed affix pools by item family/level and store the rolled values/version on the item instance. Never reroll when loading a tooltip. Enforce nonnegative weights, max affix count and duplicate/exclusive affix rules. Set bonuses derive from equipped definition/set IDs through the same stat-recalculation path; removing a piece removes only its relevant bonus.",
+          "Durability loss and repairs are server transactions; broken gear policy must state whether bonuses disable or reduce. Proposal: zero durability disables gear stat bonuses but keeps the visual; tool use rejects BrokenTool. Tooltip displays current/max durability and disabled status. This is a balance proposal, not a verified source-art behavior."
+        ]
+      },
+      {
+        "title": "Review metrics",
+        "paragraphs": [
+          "Track currency creation versus sinks, item supply/destroy rates, rare drop distribution, material/time/XP yields, vendor shortages, repair burden, trade reversals and rejected dupes. Do not balance only by increasing prices. Preserve access to required quests/tools and avoid skill choices that permanently prevent main progression."
+        ]
+      },
+      {
+        "title": "Transactional examples",
+        "paragraphs": [
+          "Rillmere vendor fixture starts wallet1000, draught50 and stock1; one buy ends950 and one draught. Craft fixture consumes4ore2logs25currency and creates one IronHatchet GUID. Every retry/disconnect/transfer must resolve the same receipt. Cost and loot values remain tunable in definitions, never hardcoded in UMG."
+        ]
+      }
+    ],
+    "references": []
+  },
+  {
+    "path": "design/art-gaps.html",
+    "title": "Art gaps and production gates",
+    "lead": "No verified archive frames or 3D environment content are supplied with this documentation edition.",
+    "sections": [
+      {
+        "title": "Blocked evidence",
+        "paragraphs": [
+          "Exact ZIP inventory, dimensions, palette variants, page pairing, frame/timing guide and license redistribution are unavailable. The prompt reports four directions and several profession/weapon pages; this edition does not promote those reports to measured facts."
+        ]
+      },
+      {
+        "title": "Required additional work",
+        "paragraphs": [
+          "Audit swims, jump/dodge/land, cast/channel/heal, emotes, enemy/NPC families and every equipment page combination. Author missing diagonal frames for every supported action/layer before claiming eight directions. Mounted body/gear/locomotion/swim/attack compatibility is a separate art and movement gate.",
+          "Build/license 3D landscapes/roads/stairs/bridges/interiors/water/trees/rocks/props and original effects/audio. A rod overlay is not a fishing ecosystem, and a tree-chopping pose is not a tree mesh."
+        ]
+      },
+      {
+        "title": "Fallback policy",
+        "paragraphs": [
+          "Use developer-authored rights-cleared direction glyphs and simple primitives for technical tests. Label them debug. Missing equipment overlays hide visual layers while stats remain valid. Missing body art uses readable debug presentation; do not ship invisible actors or misleadingly label placeholders as finished. Preserve common body IDs so later art can replace visuals without rewriting persistence."
+        ]
+      }
+    ],
+    "references": []
+  },
+  {
+    "path": "network/server-setup.html",
+    "title": "Dedicated server setup and two-client proof",
+    "lead": "Follow the installed5.8.3 source-build/toolchain route and record actual commands, not fictional logs.",
+    "sections": [
+      {
+        "title": "Preparation",
+        "paragraphs": [
+          "The public dedicated-server tutorial uses a C++ project and source engine build. Record your exact engine branch/changelist, SDK/compiler, platform and PaperZD version. Build the Editor target cleanly, then define the project dedicated-server target in the implementation repository according to the installed build rules. This guide does not emit Unreal target/source files or pretend an executable already exists."
+        ]
+      },
+      {
+        "title": "Local development run",
+        "paragraphs": [],
+        "steps": [
+          "Configure BP_ZoneGameMode with registered controller/pawn/state classes. L_NetworkLab has clear PlayerStarts, blocking terrain and one zone runtime.",
+          "Launch one actual dedicated-server build on a chosen game port and two separate client processes. Use the actual executable/map argument produced by your build; record it in the test evidence.",
+          "Use a private fixture authenticator in03; implement account/provider and durable admission boundaries04–05. The fixture is not production identity.",
+          "Confirm server log has no local player/UI and each connection owns one controller/PlayerState/pawn. Inspect roles on both clients.",
+          "Move, jump, sprint, dodge and swim; observe remote sprites without client-only animation state being treated as a replicated fact.",
+          "Disconnect A; verify B remains and A reconnects under the documented session policy. Test malicious attempts to send server requests through a world Actor the client does not own."
+        ]
+      },
+      {
+        "title": "Server cooking",
+        "paragraphs": [
+          "Ensure required gameplay definitions/maps are cooked and server-only rules do not accidentally require UMG or a rendering component. Cosmetic assets may be absent/stripped on dedicated build; gameplay must continue. Client build must include active visual/UI content but no backend secrets or dev mutation fixtures."
+        ]
+      },
+      {
+        "title": "Acceptance",
+        "paragraphs": [
+          "The test passes only when two real clients move through actual 3D collision, server validation rejects invalid requests, remote state converges and reconnect produces one body. PIE configuration success alone is not packaged server proof."
+        ]
+      }
+    ],
+    "references": [
+      "EPIC-SERVER",
+      "EPIC-NET",
+      "EPIC-MOVEMENT"
+    ]
+  },
+  {
+    "path": "network/character-service.html",
+    "title": "Character service integration",
+    "lead": "One asynchronous native adapter bridges zone validation and durable backend commands.",
+    "sections": [
+      {
+        "title": "Boundary",
+        "paragraphs": [
+          "URPGCharacterServiceAdapter implements IRPGCharacterStore. The client frontend may call identity/roster/admission endpoints; zone-only mutation endpoints require service identity and current character epoch. All API_* pages are proposals to implement in GameService, not Blueprint HTTP nodes already present."
+        ]
+      },
+      {
+        "title": "Request lifecycle",
+        "paragraphs": [
+          "Create a typed request and correlation ID, attach authenticated identity through protected transport, validate response schema/version/status, and marshal completion to the game-thread owner. Check weak owner handle, request generation, CharacterId and epoch before applying a result.",
+          "On timeout keep the command pending/unknown and query API_CommandStatus. If the UI or pawn vanished after a successful commit, discard that observer callback; do not roll back the backend. A later snapshot loads the committed result. Canceling a local HTTP wait does not cancel a committed economy command."
+        ]
+      },
+      {
+        "title": "Backend bootstrap order",
+        "paragraphs": [
+          "Identity/characters/appearance plus idempotent creation first; next sessions/commands/ledger/item/stack/wallet base; then zone registry/transfers and gameplay endpoints by phase. Add foreign keys and constraints as each relation becomes active. Initial grants use unique entitlements so future login and migration do not repeat them."
+        ]
+      },
+      {
+        "title": "Provider evaluation",
+        "paragraphs": [
+          "Compare the actual selected account provider’s platform coverage, recovery, token validation, privacy requirements and engine integration. Keep the authenticator interface independent of durable character records. Document account recovery and soft deletion using verified provider behavior before public deployment; this package does not claim a password/auth service is running."
+        ]
+      }
+    ],
+    "references": [
+      "EPIC-ONLINE",
+      "DOTNET-LIFECYCLE",
+      "PG-ISOLATION"
+    ]
+  },
+  {
+    "path": "network/zone-transfer.html",
+    "title": "Zone transfer test protocol",
+    "lead": "The architecture handoff chapter specifies authority; this page specifies repeatable implementation tests.",
+    "sections": [
+      {
+        "title": "Configure fixture",
+        "paragraphs": [],
+        "steps": [
+          "Create two independent processes: Zone_A loads L_Rillmere, Zone_B loads L_Thornweald; same protocol/catalog, separate ZoneProcessIds.",
+          "Assign DA_Zone_Rillmere north gate to gate.thornweald.south and the reverse gate back to gate.rillmere.north. Register safe spawns and capacity.",
+          "Create Account_A/B and durable Character_A/B. Give A a known sword GUID, ore count, wallet, quest revision and current epoch using backend test fixtures, not a shipping UI cheat.",
+          "Connect both to A, record B position/zone, and use A gate. Observe loading, target admission, appearance and same durable facts.",
+          "Attempt to use old ticket twice and send a late source epoch write. Both must fail without another pawn/reward.",
+          "Repeat with full target, source crash before redemption, target crash after redemption, client lost during loading and unknown catalog; compare failure matrix."
+        ]
+      },
+      {
+        "title": "Assertions",
+        "paragraphs": [
+          "Only A changes zone. B stays connected and can continue combat. Source cannot commit after target redemption. Destination creates exactly one body and initializes new PlayerState ASC when relevant. Quest/item/coin state survives without grant replay; source UI delegates are not left bound to destroyed objects."
+        ]
+      },
+      {
+        "title": "Mechanism",
+        "paragraphs": [
+          "Use the validated individual PlayerController ClientTravel route. Do not call ServerTravel for this gate test. Internal streaming is a separate map-memory optimization and supplies none of the ticket/epoch guarantees."
+        ]
+      }
+    ],
+    "references": [
+      "EPIC-TRAVEL"
+    ]
+  },
+  {
+    "path": "network/security.html",
+    "title": "Security and moderation review",
+    "lead": "Use the security feature contract, authenticated API contracts and ledger invariants as one review checklist.",
+    "sections": [
+      {
+        "title": "Threat model",
+        "paragraphs": [
+          "Threats include forged account/character IDs, client-supplied prices/rolls, replayed commands/tickets, stale zone epochs, negative/overflow quantities, duplicated item locations, bot/rate abuse, teleport/speed manipulation, chat harassment, secret leakage and operator misuse. A dedicated server is necessary here but not sufficient protection."
+        ]
+      },
+      {
+        "title": "Defense checklist",
+        "paragraphs": [],
+        "steps": [
+          "Validate authentication/provider nonce/issuer/audience/expiry and bind tickets to identity/destination/version.",
+          "Reject unauthorized ownership, stale epoch/revision, untrusted catalog data and invalid integer bounds.",
+          "Use parameterized SQL and database uniqueness/foreign-key/check constraints; enforce transaction isolation/lock order.",
+          "Keep secrets out of client assets, URLs/logs, documentation examples and screenshots; rotate compromised credentials.",
+          "Rate-limit bounded requests and inspect movement corrections/approved modes before automated anti-cheat sanctions under lag.",
+          "Filter/rate-limit chat, enforce block lists on every relevant delivery path, provide report/review/escalation and operator audit trails.",
+          "Test backup/restore, patch mismatch and replay after crash, not just the normal happy path."
+        ]
+      },
+      {
+        "title": "Privacy and account recovery",
+        "paragraphs": [
+          "Publish actual collection/retention/deletion/support policies appropriate to the deployment and account provider. This manual is not legal advice or compliance certification. Use minimal data, access control, protected moderation evidence and a reviewed recovery flow; never expose raw credentials or private chat to public telemetry."
+        ]
+      }
+    ],
+    "references": []
+  },
+  {
+    "path": "network/testing.html",
+    "title": "Network and fault-injection test matrix",
+    "lead": "These are executable test recipes for the future implementation; no multiplayer tests were run during documentation generation.",
+    "sections": [
+      {
+        "title": "Profiles",
+        "paragraphs": [],
+        "table": {
+          "headers": [
+            "Profile",
+            "Setup",
+            "Expected invariant"
+          ],
+          "rows": [
+            [
+              "Local baseline",
+              "Dedicated server +2 separate clients, no impairment",
+              "One pawn each; correct authoritative state"
+            ],
+            [
+              "Latency",
+              "100ms and200ms RTT measured, not assumed knob values",
+              "Prediction corrects; UI pending not duplicate grant"
+            ],
+            [
+              "Jitter/loss",
+              "Variable delay and2% loss, actual settings recorded",
+              "Property state converges; lost cosmetic events harmless"
+            ],
+            [
+              "Bandwidth bound",
+              "Apply measured client/server bandwidth limits",
+              "No hidden reliable-RPC flood; operation status remains understandable"
+            ],
+            [
+              "Contention",
+              "2clients same node/vendor slot/trade acceptance",
+              "Exactly one exclusive claim/finite stock winner; atomic settlement"
+            ],
+            [
+              "Crash boundaries",
+              "Before/after commit, transfer redeem, arrival ack",
+              "Durable receipts survive; old epoch cannot write"
+            ],
+            [
+              "Restart/restore",
+              "Zone restart and isolated restored DB",
+              "No duplicate rewards; tested recovery policy and version gate"
+            ],
+            [
+              "Scale steps",
+              "4/8/16/32 only as actually run with representative actors",
+              "Report measured p95/p99 and bottleneck, not extrapolated MMO claims"
+            ]
+          ]
+        }
+      },
+      {
+        "title": "Capture",
+        "paragraphs": [
+          "Record server/client build IDs, hardware, actor populations, tick rates, network emulation settings, operation IDs and database assertions. Turn on needed development diagnostics only. Compare a replicated node/attribute snapshot at late join with expected authoritative state, not only the animation observed by an existing client."
+        ]
+      },
+      {
+        "title": "Stop conditions",
+        "paragraphs": [
+          "Any dual active character writer, inventory duplication, lost acknowledged craft result, client price authority, cross-zone reward replay or both players following one individual gate blocks release. Visual defects and performance issues remain defects even when the transaction invariant holds."
+        ]
+      }
+    ],
+    "references": [
+      "EPIC-NET",
+      "EPIC-MOVEMENT",
+      "EPIC-IRIS"
+    ]
+  },
+  {
+    "path": "network/deployment.html",
+    "title": "Operations and release runbooks",
+    "lead": "A maintainable first deployment is two zone processes, one backend and one database—not an unmeasured global MMO platform.",
+    "sections": [
+      {
+        "title": "Boot and readiness",
+        "paragraphs": [
+          "Start the database and authenticated backend, check migration/catalog compatibility, then start zone processes and register capacity. Admit only after world definitions/spawns/service adapter are ready. Frontend shows maintenance rather than creating a local fallback character when infrastructure is unavailable."
+        ]
+      },
+      {
+        "title": "Drain/restart",
+        "paragraphs": [],
+        "steps": [
+          "Announce maintenance with localized UI and operational deadline. Stop new instance reservations/admissions to draining zones.",
+          "Freeze new economic starts, cancel unresolved gathers/fishing by policy and wait for accepted command receipts; inspect stuck transactions.",
+          "Persist/fence current session snapshots and route players to compatible zones or controlled reconnect.",
+          "Stop process, deploy tested build/catalog, restart and validate readiness before reopening admissions.",
+          "Confirm no stale epoch writes, duplicate grants or leaked capacity reservations. Preserve redacted incident evidence."
+        ]
+      },
+      {
+        "title": "Backup restore",
+        "paragraphs": [
+          "Automated backup success is not restore proof. Restore to an isolated environment, apply supported migrations, validate item uniqueness/occupancy, currency ledgers, reward claims and session/ticket invalidation. Record RecoveryPoint/RecoveryTime objectives as proposals until measured; communicate any acknowledged-operation loss under the actual disaster policy rather than silently replaying client data."
+        ]
+      },
+      {
+        "title": "Patch/security incident",
+        "paragraphs": [
+          "Quarantine incompatible builds, stop admissions to compromised processes, rotate service credentials, revoke relevant sessions, inspect immutable economic receipts and apply audited corrections only. Keep administrative capabilities separate from zone/client capabilities. A source-control rollback is not automatically a safe database rollback."
+        ]
+      },
+      {
+        "title": "Capacity reporting",
+        "paragraphs": [
+          "Publish the tested zone population, encounter/node/projectile count, hardware, build and duration. Compare generic replication to one selected alternative in a controlled branch. Iris and Replication Graph cannot be configured together. Do not turn a small-session success into a promise of thousands of concurrent players."
+        ]
+      }
+    ],
+    "references": [
+      "EPIC-SERVER",
+      "EPIC-IRIS",
+      "PG-ISOLATION"
+    ]
+  },
+  {
+    "path": "troubleshooting.html",
+    "title": "Troubleshooting by observable symptom",
+    "lead": "Find the earliest broken boundary and repair it; do not add a second owner as a workaround.",
+    "sections": [
+      {
+        "title": "Editor/setup problems",
+        "paragraphs": [],
+        "table": {
+          "headers": [
+            "Symptom",
+            "Inspect and fix"
+          ],
+          "rows": [
+            [
+              "Native class absent in Blueprint parent picker",
+              "Build/module/reflection errors and plugin dependencies; class must be Blueprintable when intended. Do not create an unrelated Blueprint with the same name."
+            ],
+            [
+              "Two player bodies",
+              "Placed auto-possessed pawn plus GameMode spawn or duplicate admission callback. Remove duplicate creation path; one guarded spawn per lease."
+            ],
+            [
+              "No movement",
+              "Input context/local-controller readiness, Axis2D values, possessed body and CMC enablement; no old X/Z plane constraint."
+            ],
+            [
+              "Feet float on slope",
+              "Shared sprite foot pivot/root offset and capsule ground position; do not shrink collider to match a bad pivot."
+            ],
+            [
+              "Clothes drift",
+              "Separate clocks or incompatible page/frame/pivot. Sample one body phase, fix mapping or hide unsupported layer."
+            ],
+            [
+              "PaperZD API/node missing",
+              "Installed plugin version not matching assumed instructions. Read descriptor/source; retain blocked status rather than inventing a node."
+            ]
+          ]
+        }
+      },
+      {
+        "title": "Network/economy problems",
+        "paragraphs": [],
+        "table": {
+          "headers": [
+            "Symptom",
+            "Inspect and fix"
+          ],
+          "rows": [
+            [
+              "RPC never reaches server",
+              "Caller owns controller/Actor route? Local UMG cannot call server RPC on arbitrary resource actor it does not own."
+            ],
+            [
+              "Remote HUD stale",
+              "PlayerState/ASC replication settings, actor-info readiness, attribute delegates and initial refresh; test both arrival orders."
+            ],
+            [
+              "Item duplicated after reconnect",
+              "Receipt/source claim uniqueness, epoch fencing, status retry key, initial grant entitlement and OnRep side effects."
+            ],
+            [
+              "Currency deducted without item",
+              "Split transaction bug; move inventory/wallet/stock/capacity into same durable commit, not compensating silently in UI."
+            ],
+            [
+              "Gate moves everyone",
+              "ServerTravel used instead of selected controller ClientTravel."
+            ],
+            [
+              "Old zone can still save",
+              "Redemption did not atomically fence epoch or mutation endpoints do not validate it."
+            ],
+            [
+              "Fish granted after timeout twice",
+              "Terminal AttemptId receipt uniqueness or late notify/client completion used as reward authority."
+            ],
+            [
+              "Quest progress lost",
+              "Verified event not persisted/deduped, UI-only counter, wrong cycle ID or stale snapshot revision."
+            ]
+          ]
+        }
+      },
+      {
+        "title": "Safe reporting",
+        "paragraphs": [
+          "Record command ID, epoch/revision, build/catalog, expected/observed and redacted logs. Do not post bearer tokens, database connection strings or paid source sprites in public issues. Static doc checks do not diagnose a real gameplay race by themselves."
+        ]
+      }
+    ],
+    "references": []
+  },
+  {
+    "path": "glossary.html",
+    "title": "Beginner glossary",
+    "lead": "Plain-language definitions used throughout this manual.",
+    "sections": [
+      {
+        "title": "Core terms",
+        "paragraphs": [],
+        "table": {
+          "headers": [
+            "Term",
+            "Meaning"
+          ],
+          "rows": [
+            [
+              "Actor",
+              "Object that can exist in a world, such as an enemy, gate or resource node."
+            ],
+            [
+              "Pawn / Character",
+              "Controllable Actor; Character includes standard capsule/movement support."
+            ],
+            [
+              "PlayerController",
+              "Connection/input routing object; local client handles UI, server validates owned requests."
+            ],
+            [
+              "PlayerState",
+              "Replicated in-zone player facts. Not a persistent database."
+            ],
+            [
+              "GameMode / GameState",
+              "Server world rules versus shared replicated world state."
+            ],
+            [
+              "GameInstance",
+              "One per process; survives local map changes but does not synchronize processes."
+            ],
+            [
+              "Dedicated server",
+              "Game simulation process without a local player; requires separate identity/storage/hosting systems."
+            ],
+            [
+              "Authority",
+              "The component/service allowed to decide and mutate a fact."
+            ],
+            [
+              "Replication",
+              "Sending selected approved state to relevant clients."
+            ],
+            [
+              "RPC",
+              "Network function request subject to Unreal ownership/execution rules."
+            ],
+            [
+              "Prediction / reconciliation",
+              "Client anticipates responsive behavior; server corrections restore approved state."
+            ],
+            [
+              "Data Asset / Data Table",
+              "Authored immutable definition object or typed row catalog, not player inventory."
+            ],
+            [
+              "Soft reference",
+              "Asset reference by resolvable path/identity that can load later; validate presence and lifetime."
+            ],
+            [
+              "NavMesh",
+              "Navigation representation of walkable surfaces used by AI pathfinding."
+            ],
+            [
+              "World Partition / streaming",
+              "Loading pieces of one world; not transferring a character between server processes."
+            ],
+            [
+              "Paper2D / Flipbook",
+              "2D sprite assets and frame-based playback inside Unreal."
+            ],
+            [
+              "PaperZD",
+              "Third-party animation graph tooling; installed compatibility/API must be verified."
+            ],
+            [
+              "UMG",
+              "Unreal UI widgets and layout system; presentation, not rule authority."
+            ],
+            [
+              "GAS / ASC / Attribute Set",
+              "Gameplay Ability System, its owning Ability System Component and replicated attribute data."
+            ],
+            [
+              "Gameplay Tag",
+              "Structured named gameplay classification, such as State.Dead or Tool.Pickaxe."
+            ],
+            [
+              "Transaction",
+              "All-or-nothing durable set of related record changes."
+            ],
+            [
+              "Idempotency",
+              "Retrying the same command produces the same durable effect/result rather than another reward."
+            ],
+            [
+              "Command receipt",
+              "Stored result bound to command ID and request hash."
+            ],
+            [
+              "Session epoch / fencing",
+              "Monotonic ownership version that makes old server writes invalid."
+            ],
+            [
+              "Schema migration",
+              "Versioned transformation of database structure/records with tested recovery."
+            ],
+            [
+              "Projection / cache",
+              "Local copy/view of authoritative state; not a second independent truth."
+            ],
+            [
+              "Definition ID / instance ID",
+              "Template identity versus one particular owned nonstackable item."
+            ],
+            [
+              "Fixture",
+              "Controlled test map, profiles and data designed to reproduce expected behavior."
+            ],
+            [
+              "Relevancy / dormancy",
+              "Which clients need an Actor and whether unchanged state can stop frequent replication."
+            ],
+            [
+              "Placeholder",
+              "Explicit temporary art/content/test substitute, not proof of a finished asset."
+            ]
+          ]
+        }
+      }
+    ],
+    "references": []
+  },
+  {
+    "path": "asset-audit.html",
+    "title": "Asset audit entry point",
+    "lead": "The source archive is unavailable; no measured PNG count is claimed.",
+    "sections": [
+      {
+        "title": "Read the audit",
+        "paragraphs": [
+          "The full report is art/asset-audit.html. The machine inventory is sources/asset-archive-inventory.csv; it intentionally has no data rows until a real archive is audited. The audit tool can produce exact non-pixel metadata from the privately held ZIP."
+        ]
+      },
+      {
+        "title": "What exists in this manual",
+        "paragraphs": [
+          "The asset manifest lists planned game-facing types, Blueprint children, definitions, widgets, inputs, maps, backend contracts and test/art placeholders. It is a plan to create those assets, not evidence of existing .uasset/.umap files. Source-derived final sprite enumeration remains blocked."
+        ]
+      }
+    ],
+    "references": []
+  },
+  {
+    "path": "original-roadmap.html",
+    "title": "Historical roadmap pointer",
+    "lead": "The prior platformer roadmap is retained in repository history, not adopted as the new specification.",
+    "sections": [
+      {
+        "title": "Historical source",
+        "paragraphs": [
+          "Use the inspected source revision 6633ca27f7b2fcfc80fc95a1567e97c0eb5a6a25 to inspect original-roadmap.html and legacy assets. This edition does not copy their old local-save or side-plane rules. The source migration register records what changed and what was actually inspected."
+        ]
+      },
+      {
+        "title": "Current authority",
+        "paragraphs": [
+          "development-roadmap.html and sources/current-asset-manifest.json define this edition. Old Phase0–11 and L_Slice_A references are historical only. No engine code was read from a playable project in the reference documentation repository."
+        ]
+      }
+    ],
+    "references": [
+      "SOURCE-ARCH"
+    ]
+  }
+]

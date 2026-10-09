@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "blocked_source_archive_unavailable",
+  "required_fields": [
+    "zip_path",
+    "source_sha256",
+    "page",
+    "layer",
+    "palette",
+    "action",
+    "facing",
+    "frame_index",
+    "rectangle_pixels",
+    "duration_seconds",
+    "guide_path",
+    "guide_location",
+    "evidence_state",
+    "compatible_body_pages",
+    "pivot_pixels",
+    "destination_sprite",
+    "destination_flipbook",
+    "destination_paperzd_sequence"
+  ],
+  "rows": [],
+  "unknown_policy": "Null means unverified, not zero frames; never infer exact rectangles from page names alone."
+}

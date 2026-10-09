@@ -1,0 +1,492 @@
+{
+  "L_TerrainLab": {
+    "description": "Separate dry ground and deep pool; do not place a full blocking floor across the water surface.",
+    "actors": [
+      [
+        "MainFloor",
+        "Engine cube, simple blocking collision",
+        "center(-2500,0,-50); dimensions(5000,8000,100) cm"
+      ],
+      [
+        "PlayerStart",
+        "Native PlayerStart",
+        "(-3500,-2500,100); capsule clear"
+      ],
+      [
+        "Slope20 / Slope40",
+        "Graybox ramp sections",
+        "Dry side; 2000cm length,600cm width,20°/40°; fit supporting endpoints in editor"
+      ],
+      [
+        "StairCourse",
+        "Engine cubes",
+        "20cm and35cm risers,100cm treads; mark the over-limit rejection step"
+      ],
+      [
+        "BridgeCourse",
+        "Raised bridge plus lower path",
+        "Bridge deck Z=400; lower path Z=0; independent walkable collision"
+      ],
+      [
+        "PoolBottom",
+        "Engine cube",
+        "center(2000,0,-550); dimensions(4000,3000,100)"
+      ],
+      [
+        "DeepWater",
+        "BP_WaterRegion",
+        "center(2000,0,-200); boundsX0..4000,Y-1500..1500,Z-500..100; water surface Z100"
+      ],
+      [
+        "ShoreRamp",
+        "Graybox slope to dry bank",
+        "Join pool bottom to dry land with validated walkable slope; no full-width invisible surface collider"
+      ],
+      [
+        "HazardFall",
+        "Marked drop test",
+        "Dry test platform with measured fall heights; safe respawn route"
+      ]
+    ]
+  },
+  "L_ArtLab": {
+    "description": "A local presentation comparison scene, not evidence of art compatibility.",
+    "actors": [
+      [
+        "PlayerStart",
+        "Native PlayerStart",
+        "(-800,0,100)"
+      ],
+      [
+        "FootGrid",
+        "Legal debug floor grid",
+        "100cm increments with height marks at0,100,200"
+      ],
+      [
+        "PosePreview_N/E/S/W",
+        "BP_PreviewAvatar-style cosmetic fixture",
+        "Four static direction glyph previews; real source frames remain blocked"
+      ],
+      [
+        "DepthWall",
+        "Engine cube",
+        "(400,0,150); dimensions(100,1000,300)"
+      ],
+      [
+        "BridgeOcclusion",
+        "Graybox bridge/lower path",
+        "DeckZ300; test body above and below"
+      ],
+      [
+        "CueEmitter_A",
+        "Debug cue trigger",
+        "(0,800,100); no gameplay grants"
+      ],
+      [
+        "LightComparison",
+        "Directional/sky light settings",
+        "Record lit/unlit/masked/translucent screenshots locally; no universal winner assumed"
+      ]
+    ]
+  },
+  "L_NetworkLab": {
+    "description": "The terrain/authority lab with separate client identities and observable receipt/epoch state.",
+    "actors": [
+      [
+        "PlayerStart_A",
+        "Native PlayerStart",
+        "(-800,-400,100)"
+      ],
+      [
+        "PlayerStart_B",
+        "Native PlayerStart",
+        "(-800,400,100)"
+      ],
+      [
+        "ZoneRuntime",
+        "BP_ZoneRuntime",
+        "ZoneId=zone.network-lab; one server owner"
+      ],
+      [
+        "BlockingWall",
+        "Engine cube",
+        "(500,0,150), blocks projectile/LOS"
+      ],
+      [
+        "TrainingTarget",
+        "BP_Enemy_Mossfang from08; simple nonreward dummy07",
+        "(1000,0,100); separate health/credit state"
+      ],
+      [
+        "SafeServiceMarker",
+        "Legal debug primitive",
+        "(-1200,800,0); backend test operations require developer fixture only"
+      ]
+    ]
+  },
+  "L_FrontEnd": {
+    "description": "No gameplay pawn. Character preview has no PlayerState, ASC, inventory or collision.",
+    "actors": [
+      [
+        "Preview_Avatar",
+        "BP_PreviewAvatar",
+        "(0,0,0); nonreplicated; fixed camera"
+      ],
+      [
+        "PreviewFloor",
+        "Engine plane/cube",
+        "Simple lit background; no world travel gate"
+      ],
+      [
+        "PreviewCamera",
+        "Native CameraActor",
+        "Fixed elevated view; discrete facing preview controls, no free rotation"
+      ],
+      [
+        "FrontendController",
+        "Spawned by BP_MenuGameMode",
+        "Creates WBP_MainMenu then login/roster/wizard"
+      ]
+    ]
+  },
+  "L_Rillmere": {
+    "description": "Proposed first playable graybox: Hearthford west bank, service court, wilderness road, north gate and dry fishing pier.",
+    "actors": [
+      [
+        "Shrine_Hearthford",
+        "Safe spawn marker",
+        "(-1200,0,100); SpawnId=spawn.hearthford.shrine"
+      ],
+      [
+        "NPC_Mara",
+        "BP_NPC_Mara",
+        "(-800,600,0); NPCId=npc.mara; Vendor11, Dialogue15"
+      ],
+      [
+        "NPC_Ilyra",
+        "ARPGServiceNPC authored bank role",
+        "(-1200,1000,0); Bank interaction11"
+      ],
+      [
+        "Forge_Hearthford",
+        "BP_CraftingStation",
+        "(-800,1400,0); Station.Forge13"
+      ],
+      [
+        "Alchemy/Cooking/Tailoring",
+        "BP_CraftingStation instances",
+        "(-400,1400),(0,1400),(400,1400); station tags13"
+      ],
+      [
+        "NPC_Tovin",
+        "ARPGServiceNPC trainer role",
+        "(-1600,600,0); trainer20"
+      ],
+      [
+        "NorthGate",
+        "BP_ZoneGate",
+        "(0,6000,0); GateId=gate.rillmere.north -> gate.thornweald.south"
+      ],
+      [
+        "PassGate",
+        "BP_ZoneGate",
+        "(5000,2500,0); disabled until zone17 route active"
+      ],
+      [
+        "WestRoadEncounter",
+        "BP_EncounterSpawner",
+        "(1200,1600,0); DA_Encounter_WestRoad; Mossfang generation08"
+      ],
+      [
+        "ResourceDirector",
+        "BP_ResourceDirector",
+        "DA_ResourceRule_Rillmere; candidate table12"
+      ],
+      [
+        "RiverPool_Rillmere",
+        "BP_WaterRegion + approved fishing pool IDs",
+        "East bank river strip; author water/collision separately; dry cast positions14"
+      ],
+      [
+        "FishingPier",
+        "Graybox pier",
+        "(1800,-1200,100); unobstructed valid water ray"
+      ],
+      [
+        "SluiceEntrance",
+        "BP_ZoneGate",
+        "(3000,3000,0); individual dungeon admission18"
+      ],
+      [
+        "Discovery_Hearthford",
+        "BP_DiscoveryVolume",
+        "Hub bounds with server overlap17"
+      ],
+      [
+        "Clock/EventController",
+        "BP_WorldClock / BP_WorldEventController",
+        "One per zone; clock17, event20"
+      ]
+    ]
+  },
+  "L_Thornweald": {
+    "description": "Phase06 builds only a receiving courtyard and return gate. Full woodland content begins17.",
+    "actors": [
+      [
+        "SouthGate",
+        "BP_ZoneGate",
+        "(0,-1200,0); gate.thornweald.south -> gate.rillmere.north"
+      ],
+      [
+        "SouthArrival",
+        "Native safe spawn",
+        "(0,-800,100); outside gate trigger to prevent immediate bounce"
+      ],
+      [
+        "BoughrestShrine",
+        "Safe spawn marker",
+        "(800,0,100); later woodland service camp"
+      ],
+      [
+        "ZoneRuntime",
+        "BP_ZoneRuntime",
+        "DA_Zone_Thornweald; distinct ZoneProcessId"
+      ],
+      [
+        "BoundaryBridge",
+        "Graybox raised bridge",
+        "Full content phase17; validate canopy/sprite occlusion and navmesh"
+      ]
+    ]
+  },
+  "L_SluiceVault": {
+    "description": "Four-player instance: intake group room then custodian chamber; safe admission and return do not reset rewards.",
+    "actors": [
+      [
+        "ArrivalPlatform",
+        "Four clear PlayerStart locations",
+        "X=-800,-400,0,400; Y=-1500; Z100; outside combat aggro"
+      ],
+      [
+        "DungeonController",
+        "BP_DungeonController",
+        "DA_Dungeon_SluiceVault; InstanceId/lease/PartyId injected"
+      ],
+      [
+        "IntakeGroup",
+        "BP_EncounterSpawner",
+        "Two roles with bounded spawns; return-home anchors"
+      ],
+      [
+        "SluiceCustodian",
+        "ARPGEnemyCharacter variant",
+        "DA_Enemy_SluiceKeeper; phase thresholds60/25%"
+      ],
+      [
+        "ConeTelegraph / WaterLanes",
+        "Server hazard shape + local cue",
+        "Server shape matches visible extent; non-color-only warning"
+      ],
+      [
+        "ReturnGate",
+        "BP_ZoneGate",
+        "return spawn entrance.rillmere.sluice; tickets per member"
+      ],
+      [
+        "WipeShrine",
+        "Safe spawn marker",
+        "Outside encounter LOS; one reset authority"
+      ]
+    ]
+  },
+  "L_LoadTest": {
+    "description": "Representative active workload with controlled population, not an empty-map concurrency claim.",
+    "actors": [
+      [
+        "PlayerGrid",
+        "Measured clients/bots with actual movement intents",
+        "16 starting positions spaced300cm; increase only recorded load steps"
+      ],
+      [
+        "EncounterGrid",
+        "BP_EncounterSpawner",
+        "100 active AI is a proposed load input; record navigation/replication cost"
+      ],
+      [
+        "ResourceSites",
+        "BP_ResourceDirector",
+        "40 active resources proposed; measure relevancy/dormancy"
+      ],
+      [
+        "ProjectileLane",
+        "Server projectile fixture",
+        "Sustained bounded abilities; no unbounded actor leak"
+      ],
+      [
+        "MetricsProbe",
+        "WBP_Diagnostics on clients + server logs",
+        "Capture p50/p95/p99 tick, memory, bytes and actor/channel counts"
+      ]
+    ]
+  },
+  "L_Morrowfen": {
+    "description": "Morrowfen expansion production fixture; coordinates are authored after its graybox route is approved.",
+    "actors": [
+      [
+        "Arrival_Morrowfen",
+        "Native safe spawn",
+        "At each receiving gate, outside trigger and collision; stable SpawnId"
+      ],
+      [
+        "PrimaryRoad",
+        "Graybox terrain/road",
+        "Follow zone travel targets; measure from real capsule walking"
+      ],
+      [
+        "ServiceCamp",
+        "ARPGServiceNPC role instances",
+        "Reedgate stilt camp has fisher, cook, repair vendor and shrine. Raised boardwalk loop connects quest contacts without swimming."
+      ],
+      [
+        "EncounterPopulation",
+        "BP_EncounterSpawner",
+        "Author bounded groups from zone enemy families; correct navmesh levels"
+      ],
+      [
+        "ResourceCandidates",
+        "BP_ResourceDirector",
+        "Ore/tree candidate table validated against terrain/roads; no arbitrary scatter"
+      ],
+      [
+        "FishingRegions",
+        "BP_WaterRegion + pool definitions",
+        "Dry access points and approved water; test swim shoreline"
+      ],
+      [
+        "ZoneGates",
+        "BP_ZoneGate",
+        "Register both outbound destinations and corresponding inbound safe spawns"
+      ]
+    ]
+  },
+  "L_KestrelCrown": {
+    "description": "Kestrel Crown expansion production fixture; coordinates are authored after its graybox route is approved.",
+    "actors": [
+      [
+        "Arrival_Kestrel_Crown",
+        "Native safe spawn",
+        "At each receiving gate, outside trigger and collision; stable SpawnId"
+      ],
+      [
+        "PrimaryRoad",
+        "Graybox terrain/road",
+        "Follow zone travel targets; measure from real capsule walking"
+      ],
+      [
+        "ServiceCamp",
+        "ARPGServiceNPC role instances",
+        "Crownwatch road fort provides bank extension, trainer, smith, merchant and safe travel hub unlocked by arrival."
+      ],
+      [
+        "EncounterPopulation",
+        "BP_EncounterSpawner",
+        "Author bounded groups from zone enemy families; correct navmesh levels"
+      ],
+      [
+        "ResourceCandidates",
+        "BP_ResourceDirector",
+        "Ore/tree candidate table validated against terrain/roads; no arbitrary scatter"
+      ],
+      [
+        "FishingRegions",
+        "BP_WaterRegion + pool definitions",
+        "Dry access points and approved water; test swim shoreline"
+      ],
+      [
+        "ZoneGates",
+        "BP_ZoneGate",
+        "Register both outbound destinations and corresponding inbound safe spawns"
+      ]
+    ]
+  },
+  "L_VarranHalls": {
+    "description": "Varran Halls expansion production fixture; coordinates are authored after its graybox route is approved.",
+    "actors": [
+      [
+        "Arrival_Varran_Halls",
+        "Native safe spawn",
+        "At each receiving gate, outside trigger and collision; stable SpawnId"
+      ],
+      [
+        "PrimaryRoad",
+        "Graybox terrain/road",
+        "Follow zone travel targets; measure from real capsule walking"
+      ],
+      [
+        "ServiceCamp",
+        "ARPGServiceNPC role instances",
+        "Forgeward hall has smith, bank, trainer, faction contact, guild registrar and shrine. Maintain service access during schedule changes."
+      ],
+      [
+        "EncounterPopulation",
+        "BP_EncounterSpawner",
+        "Author bounded groups from zone enemy families; correct navmesh levels"
+      ],
+      [
+        "ResourceCandidates",
+        "BP_ResourceDirector",
+        "Ore/tree candidate table validated against terrain/roads; no arbitrary scatter"
+      ],
+      [
+        "FishingRegions",
+        "BP_WaterRegion + pool definitions",
+        "Dry access points and approved water; test swim shoreline"
+      ],
+      [
+        "ZoneGates",
+        "BP_ZoneGate",
+        "Register both outbound destinations and corresponding inbound safe spawns"
+      ]
+    ]
+  },
+  "L_Brinewake": {
+    "description": "Brinewake Coast expansion production fixture; coordinates are authored after its graybox route is approved.",
+    "actors": [
+      [
+        "Arrival_Brinewake_Coast",
+        "Native safe spawn",
+        "At each receiving gate, outside trigger and collision; stable SpawnId"
+      ],
+      [
+        "PrimaryRoad",
+        "Graybox terrain/road",
+        "Follow zone travel targets; measure from real capsule walking"
+      ],
+      [
+        "ServiceCamp",
+        "ARPGServiceNPC role instances",
+        "Saltreach harbor supplies full services, coastal quest contacts, boat-gate waypoint and dungeon assembly point."
+      ],
+      [
+        "EncounterPopulation",
+        "BP_EncounterSpawner",
+        "Author bounded groups from zone enemy families; correct navmesh levels"
+      ],
+      [
+        "ResourceCandidates",
+        "BP_ResourceDirector",
+        "Ore/tree candidate table validated against terrain/roads; no arbitrary scatter"
+      ],
+      [
+        "FishingRegions",
+        "BP_WaterRegion + pool definitions",
+        "Dry access points and approved water; test swim shoreline"
+      ],
+      [
+        "ZoneGates",
+        "BP_ZoneGate",
+        "Register both outbound destinations and corresponding inbound safe spawns"
+      ]
+    ]
+  }
+}

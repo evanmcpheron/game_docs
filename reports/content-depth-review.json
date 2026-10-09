@@ -1,0 +1,31 @@
+{
+  "status": "specialist_review_required",
+  "summary": "Flagged generic actor/visual identity fields were refined into specific contracts. No automatic prose-completeness or installed-Editor correctness certification is claimed.",
+  "reviewed_generic_candidates": [
+    "ARPGWaterRegion",
+    "ARPGPreviewAvatar",
+    "ARPGZoneGate",
+    "ARPGProjectile",
+    "ARPGEnemyCharacter",
+    "ARPGServiceNPC",
+    "ARPGResourceNode",
+    "ARPGCraftingStation",
+    "ARPGFishingBobber",
+    "ARPGDiscoveryVolume",
+    "AS_Common",
+    "ABP_Common",
+    "SPR_DebugAvatar",
+    "T_DebugAvatar",
+    "SM_DebugOre",
+    "SM_DebugTree",
+    "M_SpriteMasked",
+    "M_OccluderFade"
+  ],
+  "remaining_reviews": [
+    "Verify every Editor/plugin click/property against the installed version",
+    "Complete source-sheet/frame-derived registry after private ZIP audit",
+    "Implement/review relational column constraints and API handlers; run races and migrations",
+    "Author and test full production content; examples are not a shipped catalog",
+    "Review shared per-asset lifecycle/test scaffolding for implementation-specific omissions"
+  ]
+}

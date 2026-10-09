@@ -1,0 +1,598 @@
+[
+  {
+    "phase": 0,
+    "prepare": [
+      "Record installed engine/changelist/compiler/SDK and plugin evidence. Keep source ZIP and license check blocked until the actual private archive is available.",
+      "In the separate RPG C++ project create the registered native bootstrap classes, build Development Editor, then create BP_PlayerCharacter, BP_RPGPlayerController, BP_ZoneGameMode and BP_RPGGameInstance.",
+      "Set Project Settings > Maps & Modes: BP_RPGGameInstance. L_TerrainLab World Settings > GameMode Override: BP_ZoneGameMode; child Class Defaults controller/pawn point to registered children. Create IA_Move as Axis2D, IA_Cancel as Boolean and the two mapping contexts; no movement implementation is implied yet."
+    ],
+    "steps": [
+      "Save L_TerrainLab with a clear PlayerStart and a blocking dry floor. Do not place an auto-possessed duplicate pawn.",
+      "Launch ordinary Play In Editor from PlayerStart. Inspect the effective GameMode, controller and pawn identities and local screen router.",
+      "Stop and restart twice; open WBP_Options through the local controller and close with Cancel."
+    ],
+    "success": [
+      "Exactly one controller and possessed body are created; no duplicate mapping or menu screen exists.",
+      "The native project build result and actual plugin inventory are recorded separately from this documentation."
+    ],
+    "reject": [
+      "Remove DefaultPawnClass temporarily: spawn validation reports MissingPawnClass; restore it rather than placing an extra pawn.",
+      "Missing required native parent prevents child creation; do not select an unrelated engine parent to conceal a build failure."
+    ],
+    "deferred": [
+      "Source art audit and PaperZD compatibility are unresolved until supplied/inspected. Full movement begins02; networked identity/economics do not exist in00."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 1,
+    "prepare": [
+      "Create an original diagnostic 32x64 transparent avatar texture, its bottom-center sprite and masked material using their individual pages; do not invent a paid sheet layout.",
+      "Create AS_Common before ABP_Common and its current-phase sequences. Bind each to the corresponding diagnostic flipbook after installed PaperZD factory inspection. Stop the PaperZD portion if no compatible plugin is available; physics may use a clearly labeled Paper2D debug fallback.",
+      "Add the one URPGCameraComponent and URPGPaperDollComponent to the current character; assign DA_Camera_Default/DA_AnimationSet_Common. Set fixed azimuth45/elevation50 and perspective35-degree FOV as proposals, zoom900–1600cm."
+    ],
+    "steps": [
+      "Open L_ArtLab and position the body at floor, ramp, upper bridge and lower walkway markers in turn.",
+      "Resolve Idle/Walk for North/East/South/West via a development presentation selector; observe body/overlay foot markers and ordering at near/far zoom.",
+      "Move camera-follow target behind the occlusion wall. Zoom to both clamps; attempt rotate input, which is intentionally unmapped."
+    ],
+    "success": [
+      "Foot pivot follows 3D floor elevation without changing capsule height; no camera rotation is available.",
+      "Masked sprite ordering is stable across bridge levels; an absent overlay leaves the body visible. Exact paid-body compatibility remains unverified."
+    ],
+    "reject": [
+      "Remove one cosmetic clip: log MissingVisual and use the declared debug fallback; do not block movement or alter stats.",
+      "An invalid camera clamp min>max fails data validation instead of inverting zoom."
+    ],
+    "deferred": [
+      "No claim that the actual archive has diagonal/swim/cast/mount art. Orthographic is a measured fallback, not the default."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 2,
+    "prepare": [
+      "Replace the Character’s native movement default subobject with URPGCharacterMovementComponent in C++; do not add a second component in Blueprint.",
+      "Keep X/Y movement and Z gravity; remove X/Z plane constraints. Configure capsule34/88, speed450, sprint650, jump420, step35, slope40 as proposals. Map WASD/stick Axis2D relative to fixed camera ground axes, jump, sprint, dodge and swim controls.",
+      "Build TerrainLab dry floor,20/40-degree ramps,20/35cm stairs, elevated bridge and true water recess. BP_WaterRegion uses a real swimming physics volume; do not leave a dry blocking floor across its surface."
+    ],
+    "steps": [
+      "Walk a circle using keyboard diagonals and analog stick; normalize keyboard input so diagonal speed does not exceed straight speed.",
+      "Sprint, jump, dodge and land at each obstacle; test a low ceiling, ledge and falling threshold. Enter the water from both shores, swim and leave at a walkable exit.",
+      "Repeat at30/60/120 client frames per second. Remove PaperZD presentation and repeat physical movement."
+    ],
+    "success": [
+      "One capsule follows full3D geometry with no planar lock; bridge and lower path remain distinct.",
+      "Stamina/action eligibility uses one injected movement resource interface. The pre-GAS fixture is transient and replaced by ASC attributes at07, not retained as a second stamina owner."
+    ],
+    "reject": [
+      "Blocked dodge endpoint/insufficient budget rejects the action; no teleport through walls or extra jump from repeated presses.",
+      "Movement intent clears on UI focus loss and controller replacement; held input is not replayed unexpectedly."
+    ],
+    "deferred": [
+      "Latency/prediction proof begins03. Cast/weapon combat begins07. No climbing or mounted movement is introduced."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 3,
+    "prepare": [
+      "Build the actual dedicated-server target using the official installed engine/toolchain route; retain commands and compiler result. Start L_NetworkLab on a private test port.",
+      "Use two explicitly configured development identities DevA and DevB in the native admission fixture. These are server-process session IDs, not real accounts, SQL rows or durable characters. No GameService is required before04. Reject production startup with fixture mode enabled.",
+      "Assign BP_RPGPlayerState/BP_ZoneGameState in BP_ZoneGameMode; place one BP_ZoneRuntime and one BP_InteractionProbe. Native server handlers validate ownership/range/LOS."
+    ],
+    "steps": [
+      "Launch one server process and two client processes with distinct test identities. Confirm the server has no local player or UMG.",
+      "A moves/jumps/swims while B observes. Compare owning-client prediction, authoritative capsule and remote sprite facing; emulate latency/loss using the installed network emulation controls and record settings.",
+      "A interacts from behind the wall: reject. A walks around the wall and interacts within150cm: accept one development diagnostic event.",
+      "Disconnect A while B remains. Reconnect DevA and verify one new body, no old held input or duplicate connection authority."
+    ],
+    "success": [
+      "Two clients see server-approved physical movement and public presentation. Private diagnostics are not incorrectly multicast.",
+      "Owned RPC route accepts valid interaction and rejects an unowned-actor/forged target request. A’s reconnect does not move or disconnect B."
+    ],
+    "reject": [
+      "Reuse DevA on two connections: AlreadyOnline or explicit fixture takeover that retires the first session, never two active writers.",
+      "Wrong content version rejects before possession. Disconnect/actor destruction cancels pending transient interaction."
+    ],
+    "deferred": [
+      "Database durability, real login, account recovery, persisted character inventory and signed cross-zone tickets are NOT phase03 evidence. They enter04–06. The final packaged release proof remains23."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 4,
+    "prepare": [
+      "Create the small GameService development deployment and base accounts/characters/appearance/command_receipts models. No client SQL connection is permitted.",
+      "Implement API_Identity/API_Characters and a provider adapter with isolated development credentials. Configure DA_Environment_Development; secrets live outside Content and docs.",
+      "Open L_FrontEnd with BP_MenuGameMode and no gameplay pawn. Bind WBP_Login, roster, WBP_CharacterCreate and BP_PreviewAvatar to the local screen router. Author four class IDs but expose only ready appearance options."
+    ],
+    "steps": [
+      "Log in DevAccountA, request character slots and create Character_A as Vanguard using a selected common-body appearance and unique creation CommandId.",
+      "Send the same create request twice, then disconnect immediately after the response could have committed.",
+      "Log in again, fetch roster and preview the saved class/hair/palette/outfit. Create Character_B for a second account as Ranger.",
+      "Request deletion using typed confirmation, then exercise the documented retention-window recovery flow in a disposable fixture."
+    ],
+    "success": [
+      "The same creation command resolves to one CharacterId and one starter grant policy, never an extra slot/body.",
+      "Appearance comes from persisted validated option IDs, not a local screenshot; invalid names have structured rejection text and focus returns correctly."
+    ],
+    "reject": [
+      "Duplicate/forbidden/confusable name and invalid class/appearance combination reject without consuming a slot.",
+      "Delete another account’s CharacterId -> Forbidden. Reusing a CommandId with a changed name -> IdempotencyConflict."
+    ],
+    "deferred": [
+      "Full inventory/XP hydration and durable single-character session fencing are phase05. Online appearance observation is verified again once admitted. No invented race silhouettes."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 5,
+    "prepare": [
+      "Apply base durable schema including containers, item_instances, inventory_stacks, shared container_occupancy, wallet, progression, receipt, ledger, outbox and character_sessions. Container identity exists before inventory UI09.",
+      "Implement API_Admission, API_CharacterSnapshot and API_CommandStatus behind URPGCharacterServiceAdapter. A session has a monotonic epoch, lease expiry and current zone holder.",
+      "Replace03 identity fixture admission with authenticated character selection and current snapshot hydration. Fail closed on invalid schema/content; do not fall back to local SaveGame."
+    ],
+    "steps": [
+      "Select Character_A and admit to L_NetworkLab through the trusted development service. Seed one nonstackable sword GUID, wallet1000 and a stack of ore only through a recorded fixture command.",
+      "Disconnect after a successful fixture mutation but before UI acknowledgment; reconnect and query the same command receipt.",
+      "Attempt a second simultaneous admission of Character_A. Revoke the old lease through controlled takeover, increment epoch and try one old-session write.",
+      "Restart GameService/zone process, preserving the disposable PostgreSQL database; hydrate a fresh PlayerState and body."
+    ],
+    "success": [
+      "CharacterId/item GUID/quantity/currency/XP revisions survive reconnect; one accepted command has one receipt and one ledger effect.",
+      "Only the current epoch may write. A timeout is Pending/Unknown until queried, never an automatic second grant."
+    ],
+    "reject": [
+      "Corrupt required version or item definition -> RecoveryRequired/PatchRequired before enabling gameplay.",
+      "Cross-container occupancy collision or negative quantity -> rejection/constraint rollback; neither half commits."
+    ],
+    "deferred": [
+      "Inventory screen/equipment09, loot allocation10 and production economy follow later. These are minimal identity/record contracts, not all game content."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 6,
+    "prepare": [
+      "Register zone.rillmere and zone.thornweald with reciprocal north/south gates; L_Thornweald needs only a receiving courtyard now.",
+      "Run independent Zone_A and Zone_B processes on separate endpoints, backed by one trusted service. Configure reserve/full/timeout fixture switches and token signing keys outside content.",
+      "Implement freeze/drain/snapshot/reservation/one-use redemption with epoch fencing BEFORE target writes. Route selected player via ClientTravel, never ServerTravel for this handoff."
+    ],
+    "steps": [
+      "Connect A and B to Rillmere. A holds the persisted item GUID/currency/revision from05; B remains near the source gate.",
+      "A uses north gate. Observe source freezes A, destination reserves, ticket redeems once, target epoch advances, one target body hydrates and loading screen closes only after readiness.",
+      "Return A through Thornweald’s south gate. Repeat with packet loss and an interrupted client connection.",
+      "Replay the consumed ticket and send a late source mutation with its old epoch. Exercise destination-full and crash-after-redemption fixtures."
+    ],
+    "success": [
+      "B remains on Zone_A and does not travel. A preserves accepted character records and never has two writable bodies.",
+      "Full destination before redemption safely resumes source; after redemption a crash recovers via current backend epoch to destination/safe hub, not the old source writer."
+    ],
+    "reject": [
+      "Invalid gate/destination or expired ticket rejects without partial travel/currency mutation.",
+      "Duplicate token and old epoch cannot create another body or replay initial rewards."
+    ],
+    "deferred": [
+      "Internal sublevel/World Partition streaming is separate and optional. No assumption that seamless travel moves live Actors between independent server processes."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 7,
+    "prepare": [
+      "Enable/build GAS dependencies. Add one ASC to ARPGPlayerState, one to ARPGEnemyCharacter; initialize owner/avatar actor info on possession and replicated readiness.",
+      "Replace the movement fixture’s resource adapter with ASC stamina. Define replicated health/mana/stamina and damage/effect rules; remove duplicate resource variables.",
+      "Place BP_CombatProbe in L_NetworkLab. Assign DA_Ability_Vanguard_Cleave and Ranger projectile example, DA_CombatRules_Default, targeting and action-bar assets. The probe has100health and no AI/rewards."
+    ],
+    "steps": [
+      "Connect A and B. A soft-selects the probe, attacks within range and LOS, then attacks from behind the blocking wall.",
+      "Use a projectile and a radius heal/damage fixture; server resolves allowed targets, mitigation and accepted health deltas once per action.",
+      "Interrupt a cast, overdraw stamina/mana and attempt cooldown replay; inspect prediction correction and owner attribute UI.",
+      "Remove/skip PaperZD notifies and presentation, then repeat damage and cooldown expiry."
+    ],
+    "success": [
+      "Health changes only on server-approved hits/effects; action-bar resources converge to ASC state.",
+      "Prediction rejection removes predicted cost/cues appropriately; missed animation notify cannot duplicate damage or hold the gameplay action forever."
+    ],
+    "reject": [
+      "Dead/out-of-range/blocked target and invalid ability ID reject. One melee action cannot hit the same target twice unless its definition explicitly permits ticks.",
+      "Missing visual sequence is cosmetic failure, not permission to bypass cooldown or grant a hit."
+    ],
+    "deferred": [
+      "Enemy pathfinding, defeat/XP and recovery enter08. Production casting art is absent/unverified; magic placeholders must be labeled."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 8,
+    "prepare": [
+      "Author DA_Enemy_Mossfang and DA_Encounter_WestRoad, BP_EnemyAIController with Blackboard/Behavior Tree, perception and a valid NavMesh over Rillmere roads/bridge.",
+      "Configure minimal Party_AB membership/eligibility fixture and authoritative defeat/XP receipt before full social UX19. Preserve existing item/receipt definitions; no random corpse loot UI yet.",
+      "Place a safe shrine; set recovery to retained inventory/quests/XP, cleared temporary hostile effects and proposed durability policy once gear exists."
+    ],
+    "steps": [
+      "A and B contribute legitimate combat actions against the same Mossfang spawn generation. Server records eligibility and the final defeat.",
+      "For a40XP enemy and two equally eligible party members, verify20XP each with no duplicate defeat receipt. Repeat corpse reload/duplicate death notification.",
+      "Pull the enemy beyond leash, evade/reset and attack again; reset alone does not award XP. Test upper bridge/lower path navigation.",
+      "Kill A, recover at shrine, reconnect and repeat a zone transfer."
+    ],
+    "success": [
+      "One spawn-generation defeat creates one allocation/XP decision. Leash reset clears threat and does not leave a free reward source.",
+      "Slice A requires two remote clients, proper3D/sprite movement, individual two-zone transfer, reconnect and server-owned enemy/XP proof."
+    ],
+    "reject": [
+      "Nonparticipant/out-of-range/leech request cannot invent contribution or XP; duplicate defeat cannot regrant.",
+      "Unknown spawn definition blocks that encounter, not a fallback infinite reward actor."
+    ],
+    "deferred": [
+      "Random loot, visible equipment and the full inventory UI are09–10. Full invite/chat/party UX is19."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 9,
+    "prepare": [
+      "Configure16-slot bag and shared slot planner; implement owner-only URPGInventoryComponent and URPGEquipmentComponent snapshots. Bind WBP_Inventory/WBP_Equipment/WBP_ItemTooltip.",
+      "Author registered ore/log/potion/sword/shield/hatchet examples. Item definitions, instance GUIDs, quantities and world sources remain distinct.",
+      "Set15logical equipment slots, two-hand conflicts and combined-outfit compatibility mapping; missing layers never suppress valid stats."
+    ],
+    "steps": [
+      "Fill a bag with one full ore stack, one partial stack, a sword GUID and one empty slot. Move/split/merge stacks through native request and backend planner.",
+      "Equip sword/shield, then request a two-handed configuration that conflicts with OffHand. Inspect stats, owner tooltips and B’s remote equipment projection.",
+      "Consume one healing potion and retry its command; the receipt grants one effect/consumption path under the declared cooldown policy.",
+      "Reconnect and verify item identity/slot/equipment relationships; test an item replaced in the source slot before a delayed move arrives."
+    ],
+    "success": [
+      "No two payloads occupy a slot, all nonstackables retain unique identity, stack limits and binding keys are preserved.",
+      "Invalid visual combination uses neutral/combined outfit fallback; equipped item stats remain correct."
+    ],
+    "reject": [
+      "Full inventory, replaced GUID, stale revision, incompatible slot and two-hand conflict reject without losing either item.",
+      "Unknown appearance mapping changes only presentation; unknown required item definition quarantines the record."
+    ],
+    "deferred": [
+      "Shoulders/boots/gloves or separate chest/legs overlays are not promised. Bank11 and trade19 reuse the same planner."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 10,
+    "prepare": [
+      "Author DA_Loot_Mossfang with guaranteed and bounded weighted entries. Add loot_entitlements tied uniquely to defeat/recipient; use personal loot initially.",
+      "Place BP_LootContainer as a domain actor with URPGLootComponent; corpse merely presents existing entitlement. Bind WBP_Loot and claim command."
+    ],
+    "steps": [
+      "A and B kill one eligible Mossfang. Record one server-generated allocation per eligible recipient and configured guaranteed/random results.",
+      "A opens/closes corpse repeatedly, claims a row, disconnects before acknowledgment and reopens after reconnect.",
+      "Fill A’s bag and attempt another claim; free a slot and retry the SAME pending claim according to receipt policy."
+    ],
+    "success": [
+      "Open/close never rerolls. A’s claimed entitlement is consumed once, B’s personal entitlement remains independent.",
+      "Full bag does not silently erase an unclaimed durable entitlement; successful claim and item grant commit together."
+    ],
+    "reject": [
+      "Another character claims A’s entitlement -> Forbidden; stale/claimed row returns existing result or AlreadyClaimed.",
+      "Missing required loot definition fails the encounter reward configuration, not an unbounded default drop."
+    ],
+    "deferred": [
+      "Need/greed/master loot and auction behavior are not implemented. Visible pickups are optional projections, not separate reward authorities."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 11,
+    "prepare": [
+      "Place BP_NPC_Mara in Hearthford and assign DA_Vendor_Mara; potion buy price50, fixturewallet1000 and stock1. Add bank40slot fixture.",
+      "Implement vendor quote/version, buy/sell/buyback/repair/bank endpoints using the same inventory/currency transaction planner. Bind merchant/bank screens to accepted revisions."
+    ],
+    "steps": [
+      "A buys the potion: wallet950, one potion, stock0 in one transaction. Retry exact command and verify unchanged totals.",
+      "Reset disposable stock1 and issue simultaneous A/B purchases; exactly one succeeds. Sell A’s item and buy it back through its durable buyback identity.",
+      "Repair damaged equipment, then deposit and withdraw one GUID through bank; disconnect at acknowledgment and inspect receipt."
+    ],
+    "success": [
+      "Inventory, wallet, stock/buyback and durability update together or not at all. Bank movement changes location, not identity.",
+      "Telemetry records command/reason/catalog/revision without secrets; integer base currency renders denominations without additional balances."
+    ],
+    "reject": [
+      "Insufficient funds/space, stale quote, expired buyback, moved GUID and out-of-range NPC reject without partial debit.",
+      "Simultaneous bank/gear move cannot duplicate one instance."
+    ],
+    "deferred": [
+      "Player trade19; auction house deferred. Vendor expansion/balancing is data-driven after transactional proof."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 12,
+    "prepare": [
+      "Author eligible Rillmere sites:12ore and24tree candidates, quotas4/8, spacing800cm, road exclusion250cm, slope limit30degrees as test proposals. Store reproducible zone seed/generation.",
+      "Place BP_ResourceDirector once and BP_ResourceNode projections only at validated candidate transforms. Assign mining/wood tools and profession records; add gathering progress UI."
+    ],
+    "steps": [
+      "Restart the disposable zone with a recorded seed and candidate-set revision; inspect selected site IDs. Reject one road/steep/blocked candidate.",
+      "A and B start mining the same active ore generation. At commit, exactly one claim wins:2ore and5miningXP once; loser receives NodeDepleted.",
+      "A chops a valid biome tree: tool check,4second server progress,3logs/5woodXP, depletion, proposed180second respawn.",
+      "Disconnect/cancel and restart around both progress and committed-depletion boundaries."
+    ],
+    "success": [
+      "No reward comes from client timer/notify; node generation claim and material/professionXP commit are atomic.",
+      "Depletion replicates to both clients. Durable respawn generation policy recreates only eligible unclaimed nodes without duplicating rewards."
+    ],
+    "reject": [
+      "Wrong tool/skill, unreachable transform, actor destroyed, full bag and duplicate completion reject/cancel with no partial reward.",
+      "A stale node-generation request cannot claim a newly respawned life."
+    ],
+    "deferred": [
+      "Herbalism is optional infrastructure reuse; no supplied3Dore/tree meshes or biome ecosystems are claimed."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 13,
+    "prepare": [
+      "Place forge/anvil, alchemy, cooking and tailoring station roles with tool/range gates. Author DA_Recipe_IronHatchet and profession/learned-recipe records.",
+      "Recipe fixture consumes4ore+2logs+25currency and produces one unique IronHatchet after4seconds; deterministic success once accepted. Bind material preview and craft confirmation."
+    ],
+    "steps": [
+      "A learns the recipe through an approved fixture command, approaches forge and previews exact requirements/capacity.",
+      "Confirm craft using one CommandId; server validates live station and recipe. At completion one backend transaction consumes materials/currency and generates one item GUID/professionXP.",
+      "Disconnect immediately after confirmation/commit uncertainty. Reconnect through another zone and query same command before submitting anything new.",
+      "Test a bounded repeat request and cancel between units, treating each committed unit as independently receipted."
+    ],
+    "success": [
+      "Exactly one committed output survives cross-zone reconnect; no duplicated materials or lost debit.",
+      "Interrupted uncommitted work consumes nothing under this policy; committed work is never undone by local screen closure."
+    ],
+    "reject": [
+      "Unlearned recipe, wrong station, insufficient skill/material/currency, inventory full and stale item reservation reject all mutation.",
+      "Changed payload under existing CommandId returns IdempotencyConflict."
+    ],
+    "deferred": [
+      "Random crafting failure and quality outcomes remain disabled; production recipe libraries are later content, not engine code changes."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 14,
+    "prepare": [
+      "Add Rillmere water fish pool and safe pier, BP_FishingBobber and matching fishing UI. Source p3/rod clips remain audit-gated; use visibly labeled debug presentation.",
+      "Configure maxcast1200cm, serverwait3–8seconds, reactionwindow1.5seconds and weighted species. One active attempt per character; fish/profession reward commit terminal."
+    ],
+    "steps": [
+      "Equip rod, aim at suitable water and cast. Server validates shore/player/volume and creates one bobber/attempt; B sees only public fishing presentation.",
+      "Wait for the server bite state and reel within the accepted time window. Resolve one fish and5fishingXP via durable attempt receipt.",
+      "Replay reel and a delayed animation notify after success; disconnect/rejoin and verify the same inventory result.",
+      "Crash/restart before bite and immediately after committed success."
+    ],
+    "success": [
+      "Unresolved interrupted attempts cancel without catch; committed catches survive. One attempt has one terminal outcome.",
+      "Bobber uses3Dworld coordinates; shoreline and range constraints are independent of cosmetic rod pose."
+    ],
+    "reject": [
+      "Bad water, missing rod, early/late reel, duplicate input, travel/death and full bag cannot grant extra fish.",
+      "For full bag, this fixture terminates failed with no fish/XP; do not silently grant after reconnect."
+    ],
+    "deferred": [
+      "Weather/time modifiers exist as controlled optional data but stay disabled until17. No fabricated swim/casting sheet frames."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 15,
+    "prepare": [
+      "Assign DA_Dialogue_Mara and DA_Quest_RoadSupplies; author village chain FirstSteps -> RoadSupplies -> TheSluiceSignal. Add journal/tracker/dialogue/choice UI and server event receipts.",
+      "RoadSupplies fixture requires1kill,1loot,2ore,3logs,1fish,1craft. Reward100XP+200currency through one final claim transaction; use recorded server events, not client counters."
+    ],
+    "steps": [
+      "Create/select A, speak to Mara, accept available quest and leave village. Fight/loot, mine/chop/fish, craft, buy/sell and equip a visible or labeled-compatible item.",
+      "Open journal after each approved event; re-open dialogue to observe changed conditions. Reach a level threshold and verify native progression recomputation.",
+      "Return to Mara and claim once; resend final claim while disconnecting/crossing zones. Die/recover and re-login."
+    ],
+    "success": [
+      "Slice B route completes with correct persistent inventory/XP/currency/profession/quest facts; event replay does not overcount and final claim grants once.",
+      "NPC actor/dialogue screen never owns the character’s quest/inventory truth; close modal safely during death/travel."
+    ],
+    "reject": [
+      "Client-invented kill/gather count, unavailable quest, broken dependency, wrong target/deliver items and duplicate claim reject.",
+      "Abandonment/choice consequence follows definition policy; required progression cannot become permanently impossible."
+    ],
+    "deferred": [
+      "Daily/repeatable policy remains disabled until approved. Escort quests and schedules need AI/recovery proof before production."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 16,
+    "prepare": [
+      "Author all four class catalogs and skill trees using registered example abilities/nodes; common body only. Validate prerequisite DAG and exclusive branch groups.",
+      "Wire WBP_Skills to server spend/respec commands. Derived stats recalculate from level, gear and active talents once; no UI mutation or second attribute owner."
+    ],
+    "steps": [
+      "A earns/spends a point in a valid Vanguard prerequisite chain. Attempt both mutually exclusive branches.",
+      "Respec at suitable NPC with a quoted integer currency cost; atomically remove talents/refund points/recompute attributes and unlocked action bar.",
+      "Repeat for Ranger, Arcanist and Warden example active/passive definitions; test interruption/prediction with missing magic visual placeholders."
+    ],
+    "success": [
+      "One accepted spend consumes the declared point cost; graph requirements and exclusivity remain consistent after respec/reconnect.",
+      "Ability availability follows accepted class/talent definitions, never a client-edited action bar."
+    ],
+    "reject": [
+      "Cycle, nonexistent parent, insufficient points, wrong class, stale build and invalid exclusivity reject before mutation.",
+      "Respec disconnect retains exactly the accepted build and debit; no partial talent reset."
+    ],
+    "deferred": [
+      "Example catalogs are not a complete balanced level1–50 library. Remaining art, talents and encounter balance require authored content expansion."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 17,
+    "prepare": [
+      "Use world/biome-authoring.html to expand beyond the two-zone courtyard proof; author one biome at a time with explicit metrics and placeholder inventory.",
+      "Add map/minimap discovery IDs, marker types and UI focus; place BP_DiscoveryVolume at named landmarks. Configure server clock/weather definitions with gameplay modifiers disabled initially."
+    ],
+    "steps": [
+      "Discover a Rillmere landmark, reconnect and cross zones; the same durable region marker remains unlocked. Compare public vs hidden quest markers for A/B.",
+      "Advance server time/weather in a development control; both clients observe bounded clock convergence and accessible cues.",
+      "Produce one new biome from the catalog: return gates, road NavMesh, valid ore/tree candidates, fish volumes, NPC services, encounters, ambience and QA records."
+    ],
+    "success": [
+      "No routine biome registration needs a new C++ owner; metrics are measured against proposed density/travel-time targets.",
+      "Map/clock/weather remain server-sourced where shared; client options may reduce cosmetic effects without changing outcomes."
+    ],
+    "reject": [
+      "Unknown/one-way gate, disconnected NavMesh, missing safe spawn and invalid resource density block content acceptance.",
+      "Changing local clock cannot reroll fish or resources."
+    ],
+    "deferred": [
+      "Six biome briefs are production designs, not completed3Dmaps. Ambient schedules enter only after functional zone lifecycle proof."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 18,
+    "prepare": [
+      "Register Sluice Vault instance template and boss phases/telegraphs. Minimal party membership08 supplies eligibility; full invite UI is19.",
+      "Configure instance reservation/admission and per-instance locks/defeat records. Add wipe recovery, return route and readable floor telegraphs under3Dsprites."
+    ],
+    "steps": [
+      "Use Party_AB fixture to reserve one instance and transfer its members individually; an unrelated player cannot enter by guessing endpoint.",
+      "Fight the Sluice Custodian through health-threshold phases; server owns phase/timing/hit validation, clients render cues.",
+      "Wipe, recover and retry. Disconnect one member during encounter and test permitted rejoin; defeat once and claim personal loot."
+    ],
+    "success": [
+      "One instance identity controls eligibility, reset and boss credit. Wipe does not create stale attacks or duplicate reward generations.",
+      "Party members can recover/rejoin according to lock policy without moving uninvolved zone players."
+    ],
+    "reject": [
+      "Expired reservation, full/closed instance and nonmember ticket reject. Duplicate defeat/re-entry cannot farm the same reward receipt.",
+      "Missed telegraph animation still cannot apply unvalidated hits."
+    ],
+    "deferred": [
+      "Raid scale and advanced matching are deferred until measured. Initial matching can use explicit party reservation, not an unexplained global matchmaker."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 19,
+    "prepare": [
+      "Activate full party invites/leadership/leave UI using existing minimal contract. Add chat/local/zone/party/private routing, friends/block and moderation policy.",
+      "Enable two-party secure trade escrow in the single backend database: offers carry revisions, both accept the same revision, final ownership/currency exchange is atomic."
+    ],
+    "steps": [
+      "A invites B; B accepts; change leader, leave and reconnect. Confirm group XP/quest sharing uses authored eligibility rather than all online friends.",
+      "Send zone/party/private messages, exceed rate limits and block A from B. Confirm channel membership/privacy and localized rejection.",
+      "A offers sword/currency, B offers potion. Both accept same version; commit one exchange. Modify offer after one acceptance and verify both acceptances reset.",
+      "Disconnect during final trade uncertainty and reconnect; inspect single receipt/escrow resolution."
+    ],
+    "success": [
+      "Party relationship version is consistent across zones. Blocking affects contact/delivery/invites without exposing hidden presence.",
+      "Trade commits both sides completely or leaves/releases escrow by recovery policy; no duplicated item or partial debit."
+    ],
+    "reject": [
+      "Old offer acceptance, forged item GUID, bound item, insufficient free bag space and cross-account impersonation reject.",
+      "Chat oversized payload/spam/blocked DM rejects and records bounded moderation metadata without leaking credentials."
+    ],
+    "deferred": [
+      "Guild21; auction house/PvP/housing/monetization remain deferred expansions. No guild bank or mail-item attachment system implied."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 20,
+    "prepare": [
+      "Author faction thresholds/services and trainer curriculum. Add respec/learn/unlock quotes to suitable NPCs and server-recorded reputation events.",
+      "Register Hearthford safe hub fast travel and a bounded Riverwatch world event with source-event IDs; require unlocked destination and no blocked combat/trade state."
+    ],
+    "steps": [
+      "Complete one recorded faction action, inspect standing/price/unlock change and replay the event.",
+      "Train a valid unlock at Tovin; insufficient reputation/currency/level rejects without debit.",
+      "Unlock a safe hub and fast travel, reusing the06handoff protocol; cancel an invalid destination before any fee commit.",
+      "Start/end/reset Riverwatch through development event controls; verify event rewards once per definition eligibility."
+    ],
+    "success": [
+      "One reputation event applies once and remains bounded; service prices are serverquoted, not UIcomputed truth.",
+      "Fast travel uses current session fencing and safe destination validation; world event reset does not repeat a receipt."
+    ],
+    "reject": [
+      "Negative/overflow standings, invalid hub, active trade/combat and duplicate event reward reject consistently."
+    ],
+    "deferred": [
+      "Faction geopolitics and uncontrolled ecosystem simulation are out of scope. Additional professions use the verified resource/craft architecture."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 21,
+    "prepare": [
+      "Create guild roles/invites/membership schema and WBP_Guild; configure bounded membership30as a proposal and no shared item bank.",
+      "Add support/moderation dashboards and durable permission audit. Keep DA_Mount_Prototype disabled until mounted art, collision, network movement and water/gate behavior pass separately."
+    ],
+    "steps": [
+      "A creates guild, invites B, promotes/removes a member and reconnects from another zone. Verify capability checks for each role.",
+      "Attempt duplicate invitation/acceptance and disband with concurrent membership change; inspect guild revision and receipt.",
+      "Exercise maintenance/support workflow using redacted account/command IDs and least-privilege credentials."
+    ],
+    "success": [
+      "Guild membership/roles persist, unauthorized actions reject and no new item economy is introduced by guild UI.",
+      "Mount gate remains visibly disabled unless its independent art/runtime proof is actually attached."
+    ],
+    "reject": [
+      "Nonofficer promotion, stale guild revision and duplicate membership reject. Account deletion/recovery resolves membership explicitly."
+    ],
+    "deferred": [
+      "Mounts remain a committed feasibility-gated later system, not existing art or enabled production feature. Guild banks/raids are not assumed."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 22,
+    "prepare": [
+      "Use L_LoadTest with a declared matrix of clients/AI/resources/zones and exact hardware/build/network conditions. Begin with small populations and report measured limits rather than claiming MMO scale.",
+      "Instrument server tick p50/p95, actor/channel count, bandwidth, packet loss, backend latency/locks, rejected stale epochs and command retry rates. Compare generic replication against one separately configured optimization candidate only.",
+      "Prepare actual backup/restore, drain/restart, schema/content compatibility and secret-rotation runbooks in a disposable deployment."
+    ],
+    "steps": [
+      "Run gradually increasing independent clients/parties and multi-zone transfer/economy contention workload; stop at the recorded budget threshold.",
+      "Kill source/target/service processes at defined transaction/handoff boundaries, restore and reconcile accepted receipts/ledger balances.",
+      "Restore a database backup into isolated staging, verify character/item/economy checks and re-admit clients with fresh epochs.",
+      "Attempt replay/ownership/rate/SQL-injection/speed forgery cases; review lag-induced false positives before sanctions."
+    ],
+    "success": [
+      "Publish actual measurements and failure boundary, not guessed concurrency. Restored acknowledged commits match receipts/ledger and no old writer resumes.",
+      "Use either Iris or Replication Graph for a candidate net driver, never both; generic baseline remains until measured improvement justifies migration."
+    ],
+    "reject": [
+      "Overbudget load triggers controlled admission rejection/drain, not silent data loss. Failed restore/migration blocks release."
+    ],
+    "deferred": [
+      "No measured numbers exist in this documentation edition. Regional/global scale requires subsequent benchmarks and capacity planning."
+    ],
+    "status": "recipe_only_not_run"
+  },
+  {
+    "phase": 23,
+    "prepare": [
+      "Build/cook/package real client and dedicated server for the target desktop platform; include necessary data/maps and exclude dev auth/secrets/debug grants.",
+      "Run documentation generator/static/integration/browser tests separately from the real game suite. Review content license, unresolved art/API gates, accessibility and localization status."
+    ],
+    "steps": [
+      "On independent machines/processes execute Slice A, then the entire Slice B route, then Slice C party/dungeon/social/restart/zone/economy scenarios.",
+      "Repeat with keyboard/mouse and controller focus, text scaling, reduced cosmetic effects and two localized text-length fixtures; the shared server never pauses when a client opens options.",
+      "Record exact executable/build/content/schema IDs, commands, network conditions, server/backend receipts and observed outcomes.",
+      "Review remaining release blockers and sign off only the tested population/platform/content scope."
+    ],
+    "success": [
+      "Packaged gameplay, durability, security/recovery, UI and measured operating budgets pass with retained evidence; documentation checks alone cannot satisfy this gate."
+    ],
+    "reject": [
+      "Any dupe, stale-session write, unauthorized access, corrupt migration, missing required content or unresolved packaging/compatibility gate blocks release."
+    ],
+    "deferred": [
+      "Mass concurrency, optional auction/PvP/raid/housing/monetization and unverified mounted/eight-direction art remain outside release claims until separately implemented/tested."
+    ],
+    "status": "recipe_only_not_run"
+  }
+]

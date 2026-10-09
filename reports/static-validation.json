@@ -1,0 +1,21 @@
+{
+  "status": "pass",
+  "summary": "0 structural errors; source/runtime completion remains blocked.",
+  "scope": "Offline documentation structural integrity only",
+  "generated_at": "2026-10-09T18:17:13.579165+00:00",
+  "counts": {
+    "html_pages": 727,
+    "internal_links_checked": 41113,
+    "assets": 588,
+    "features": 55,
+    "ownership_records": 39,
+    "dependency_edges": 969
+  },
+  "errors": [],
+  "warnings": [
+    "Static integrity does not prove prose completeness, valid Unreal APIs, Blueprint compilation, backend correctness or multiplayer behavior.",
+    "Source archive, licenses, installed plugin compatibility and source-derived asset enumeration remain unverified.",
+    "Individual contract depth/content production still require specialist implementation review; see reports/content-depth-review.json."
+  ],
+  "command": "python tools/validate_docs.py --write-report"
+}

@@ -1,0 +1,3637 @@
+[
+  {
+    "path": "getting-started.html",
+    "title": "Start here: from documentation to the first test",
+    "group": "Guide"
+  },
+  {
+    "path": "game-overview.html",
+    "title": "RPG: committed design and staged production",
+    "group": "Guide"
+  },
+  {
+    "path": "architecture.html",
+    "title": "Architecture and initialization",
+    "group": "Guide"
+  },
+  {
+    "path": "architecture/source-migration.html",
+    "title": "Source-to-target migration",
+    "group": "Architecture"
+  },
+  {
+    "path": "architecture/multiplayer-ownership.html",
+    "title": "Multiplayer ownership and framework roles",
+    "group": "Architecture"
+  },
+  {
+    "path": "architecture/server-zone-topology.html",
+    "title": "Zone/server/backend topology",
+    "group": "Architecture"
+  },
+  {
+    "path": "architecture/state-transactions.html",
+    "title": "Transactions, receipts and concurrency",
+    "group": "Architecture"
+  },
+  {
+    "path": "architecture/zone-handoff.html",
+    "title": "Cross-zone handoff: one character, one writer",
+    "group": "Architecture"
+  },
+  {
+    "path": "architecture/persistence-and-schema.html",
+    "title": "Persistence, schema and migrations",
+    "group": "Architecture"
+  },
+  {
+    "path": "architecture/failure-and-recovery.html",
+    "title": "Failure and recovery playbook",
+    "group": "Architecture"
+  },
+  {
+    "path": "art/asset-audit.html",
+    "title": "Source asset audit: unavailable input",
+    "group": "Art"
+  },
+  {
+    "path": "art/sprite-sheet-reference.html",
+    "title": "Sprite naming and sheet reference",
+    "group": "Art"
+  },
+  {
+    "path": "art/animation-matrix.html",
+    "title": "Animation compatibility and missing-art matrix",
+    "group": "Art"
+  },
+  {
+    "path": "art/equipment-visual-matrix.html",
+    "title": "Equipment slots are not sprite layers",
+    "group": "Art"
+  },
+  {
+    "path": "art/import-pipeline.html",
+    "title": "Private art import and PaperZD integration",
+    "group": "Art"
+  },
+  {
+    "path": "art/3d-world-art-pipeline.html",
+    "title": "3D environment sourcing and production",
+    "group": "Art"
+  },
+  {
+    "path": "engineering/index.html",
+    "title": "Native C++ and Blueprint engineering standard",
+    "group": "Engineering"
+  },
+  {
+    "path": "engineering/naming-and-content.html",
+    "title": "Naming, folders and stable identities",
+    "group": "Engineering"
+  },
+  {
+    "path": "engineering/reflection-and-blueprints.html",
+    "title": "Reflection, Blueprint exposure and native creation",
+    "group": "Engineering"
+  },
+  {
+    "path": "engineering/gas-paperzd-lifecycle.html",
+    "title": "GAS ownership and PaperZD bridge",
+    "group": "Engineering"
+  },
+  {
+    "path": "engineering/testing-and-review.html",
+    "title": "Implementation test and review standard",
+    "group": "Engineering"
+  },
+  {
+    "path": "design/content-pipeline.html",
+    "title": "Repeatable content production",
+    "group": "Design"
+  },
+  {
+    "path": "design/economy.html",
+    "title": "Economy design and tuning",
+    "group": "Design"
+  },
+  {
+    "path": "design/art-gaps.html",
+    "title": "Art gaps and production gates",
+    "group": "Design"
+  },
+  {
+    "path": "network/server-setup.html",
+    "title": "Dedicated server setup and two-client proof",
+    "group": "Network"
+  },
+  {
+    "path": "network/character-service.html",
+    "title": "Character service integration",
+    "group": "Network"
+  },
+  {
+    "path": "network/zone-transfer.html",
+    "title": "Zone transfer test protocol",
+    "group": "Network"
+  },
+  {
+    "path": "network/security.html",
+    "title": "Security and moderation review",
+    "group": "Network"
+  },
+  {
+    "path": "network/testing.html",
+    "title": "Network and fault-injection test matrix",
+    "group": "Network"
+  },
+  {
+    "path": "network/deployment.html",
+    "title": "Operations and release runbooks",
+    "group": "Network"
+  },
+  {
+    "path": "troubleshooting.html",
+    "title": "Troubleshooting by observable symptom",
+    "group": "Guide"
+  },
+  {
+    "path": "glossary.html",
+    "title": "Beginner glossary",
+    "group": "Guide"
+  },
+  {
+    "path": "asset-audit.html",
+    "title": "Asset audit entry point",
+    "group": "Guide"
+  },
+  {
+    "path": "original-roadmap.html",
+    "title": "Historical roadmap pointer",
+    "group": "Guide"
+  },
+  {
+    "path": "systems/login.html",
+    "title": "Accounts, login and environment selection",
+    "group": "System"
+  },
+  {
+    "path": "systems/character-creation.html",
+    "title": "Character slots, creation, selection and recovery",
+    "group": "System"
+  },
+  {
+    "path": "systems/presentation.html",
+    "title": "Layered sprites, facing, appearance and remote avatars",
+    "group": "System"
+  },
+  {
+    "path": "systems/locomotion.html",
+    "title": "Capsule locomotion, sprint, jump, dodge and fall damage",
+    "group": "System"
+  },
+  {
+    "path": "systems/swimming.html",
+    "title": "Water, swimming and shoreline transitions",
+    "group": "System"
+  },
+  {
+    "path": "systems/camera.html",
+    "title": "Fixed camera, zoom, depth and occluder handling",
+    "group": "System"
+  },
+  {
+    "path": "systems/input-ui.html",
+    "title": "Input, UMG screen ownership, options and accessibility",
+    "group": "System"
+  },
+  {
+    "path": "systems/interaction.html",
+    "title": "Interaction targeting, range and modal cleanup",
+    "group": "System"
+  },
+  {
+    "path": "systems/dedicated-server.html",
+    "title": "Dedicated-server bootstrap, possession and replication",
+    "group": "System"
+  },
+  {
+    "path": "systems/persistence.html",
+    "title": "Character persistence, schema, command receipts and sessions",
+    "group": "System"
+  },
+  {
+    "path": "systems/zone-travel.html",
+    "title": "Biome servers, loading screens and fenced handoff",
+    "group": "System"
+  },
+  {
+    "path": "systems/combat-gas.html",
+    "title": "GAS ownership, attributes, costs and prediction",
+    "group": "System"
+  },
+  {
+    "path": "systems/targeting.html",
+    "title": "Soft targets, utility targeting, LOS and telegraphs",
+    "group": "System"
+  },
+  {
+    "path": "systems/attacks.html",
+    "title": "Melee sweeps, server projectiles and hit deduplication",
+    "group": "System"
+  },
+  {
+    "path": "systems/effects.html",
+    "title": "Damage, healing, resistances, status effects and interruption",
+    "group": "System"
+  },
+  {
+    "path": "systems/enemy-ai.html",
+    "title": "NavMesh AI, perception, threat, leash and evade",
+    "group": "System"
+  },
+  {
+    "path": "systems/spawns-rewards.html",
+    "title": "Enemy spawning, defeat ledger, XP and group credit",
+    "group": "System"
+  },
+  {
+    "path": "systems/death-recovery.html",
+    "title": "Death, shrine respawn and reconnect policy",
+    "group": "System"
+  },
+  {
+    "path": "systems/progression.html",
+    "title": "Levels, derived stats and profession progression",
+    "group": "System"
+  },
+  {
+    "path": "systems/items.html",
+    "title": "Item definitions, instances, rarities and generated affixes",
+    "group": "System"
+  },
+  {
+    "path": "systems/inventory.html",
+    "title": "Inventory bags, stacks, capacity and atomic moves",
+    "group": "System"
+  },
+  {
+    "path": "systems/equipment.html",
+    "title": "Equipment slots, two-hand conflicts and paper-doll visuals",
+    "group": "System"
+  },
+  {
+    "path": "systems/consumables.html",
+    "title": "Consumables, tools and item-use effects",
+    "group": "System"
+  },
+  {
+    "path": "systems/loot.html",
+    "title": "Guaranteed/random loot, corpse access and replay safety",
+    "group": "System"
+  },
+  {
+    "path": "systems/merchants.html",
+    "title": "Currency, merchants, stock, buyback and repairs",
+    "group": "System"
+  },
+  {
+    "path": "systems/banking.html",
+    "title": "Bank storage and bag expansion",
+    "group": "System"
+  },
+  {
+    "path": "systems/resource-spawning.html",
+    "title": "Biome resource sites, random placement and respawn",
+    "group": "System"
+  },
+  {
+    "path": "systems/gathering.html",
+    "title": "Mining and woodcutting with exclusive claims",
+    "group": "System"
+  },
+  {
+    "path": "systems/crafting.html",
+    "title": "Recipes, professions, stations and deterministic results",
+    "group": "System"
+  },
+  {
+    "path": "systems/fishing.html",
+    "title": "Water casts, bobber, bite, reel and catch transaction",
+    "group": "System"
+  },
+  {
+    "path": "systems/dialogue-npcs.html",
+    "title": "NPC roles, branching dialogue and consequence records",
+    "group": "System"
+  },
+  {
+    "path": "systems/quests.html",
+    "title": "Quest DAG, objectives, journal and once-only rewards",
+    "group": "System"
+  },
+  {
+    "path": "systems/skills.html",
+    "title": "Four classes, talents, prerequisites and respec",
+    "group": "System"
+  },
+  {
+    "path": "systems/maps-discovery.html",
+    "title": "World map, minimap, markers and discovery",
+    "group": "System"
+  },
+  {
+    "path": "systems/world-time-weather.html",
+    "title": "Shared time, lighting, weather and biome modifiers",
+    "group": "System"
+  },
+  {
+    "path": "systems/world-content.html",
+    "title": "Biome production, navigation, density and interiors",
+    "group": "System"
+  },
+  {
+    "path": "systems/parties.html",
+    "title": "Parties, invitations, group credit and leadership",
+    "group": "System"
+  },
+  {
+    "path": "systems/dungeons-bosses.html",
+    "title": "Elite phases, boss telegraphs and instanced dungeons",
+    "group": "System"
+  },
+  {
+    "path": "systems/chat.html",
+    "title": "Zone/local/party chat, private messages and moderation",
+    "group": "System"
+  },
+  {
+    "path": "systems/friends-block.html",
+    "title": "Friends, presence, blocking and account recovery",
+    "group": "System"
+  },
+  {
+    "path": "systems/trading.html",
+    "title": "Consensual player trading and escrow",
+    "group": "System"
+  },
+  {
+    "path": "systems/factions.html",
+    "title": "Factions, reputation and service unlocks",
+    "group": "System"
+  },
+  {
+    "path": "systems/trainers.html",
+    "title": "NPC training, recipe unlocks and profession gates",
+    "group": "System"
+  },
+  {
+    "path": "systems/fast-travel.html",
+    "title": "Safe hubs, roads, boats and paid fast travel",
+    "group": "System"
+  },
+  {
+    "path": "systems/mounts.html",
+    "title": "Mount feasibility and later movement/content gate",
+    "group": "System"
+  },
+  {
+    "path": "systems/guilds.html",
+    "title": "Guild membership, roles and durable social administration",
+    "group": "System"
+  },
+  {
+    "path": "systems/world-events.html",
+    "title": "World events, ambient villagers and later schedules",
+    "group": "System"
+  },
+  {
+    "path": "systems/audio-vfx.html",
+    "title": "Audio, particles and 2D/3D presentation cues",
+    "group": "System"
+  },
+  {
+    "path": "systems/security.html",
+    "title": "Authentication boundaries, abuse prevention and privacy",
+    "group": "System"
+  },
+  {
+    "path": "systems/deployment.html",
+    "title": "Deployment, zone allocation and operational recovery",
+    "group": "System"
+  },
+  {
+    "path": "systems/network-performance.html",
+    "title": "Replication, interest management and measured scale",
+    "group": "System"
+  },
+  {
+    "path": "systems/telemetry.html",
+    "title": "Diagnostics, economy telemetry and support evidence",
+    "group": "System"
+  },
+  {
+    "path": "systems/versioning.html",
+    "title": "Content versions, schema migrations and patch compatibility",
+    "group": "System"
+  },
+  {
+    "path": "systems/testing-release.html",
+    "title": "End-to-end testing, packaging and release acceptance",
+    "group": "System"
+  },
+  {
+    "path": "systems/optional-expansions.html",
+    "title": "Deferred expansion gates: PvP, raids, housing, auctions and monetization",
+    "group": "System"
+  },
+  {
+    "path": "assets/Core/ARPGMenuGameMode.html",
+    "title": "ARPGMenuGameMode",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Player/ARPGPlayerCharacter.html",
+    "title": "ARPGPlayerCharacter",
+    "group": "Asset · Player"
+  },
+  {
+    "path": "assets/Player/ARPGPlayerController.html",
+    "title": "ARPGPlayerController",
+    "group": "Asset · Player"
+  },
+  {
+    "path": "assets/Core/ARPGZoneGameMode.html",
+    "title": "ARPGZoneGameMode",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/BP_MenuGameMode.html",
+    "title": "BP_MenuGameMode",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Player/BP_PlayerCharacter.html",
+    "title": "BP_PlayerCharacter",
+    "group": "Asset · Player"
+  },
+  {
+    "path": "assets/Core/BP_RPGGameInstance.html",
+    "title": "BP_RPGGameInstance",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Player/BP_RPGPlayerController.html",
+    "title": "BP_RPGPlayerController",
+    "group": "Asset · Player"
+  },
+  {
+    "path": "assets/Core/BP_ZoneGameMode.html",
+    "title": "BP_ZoneGameMode",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/DA_InputPolicy_Default.html",
+    "title": "DA_InputPolicy_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Input/IA_Cancel.html",
+    "title": "IA_Cancel",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Input/IA_Move.html",
+    "title": "IA_Move",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Input/IMC_UI.html",
+    "title": "IMC_UI",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Input/IMC_World.html",
+    "title": "IMC_World",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Core/IRPGDefinitionValidator.html",
+    "title": "IRPGDefinitionValidator",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Maps/L_TerrainLab.html",
+    "title": "L_TerrainLab",
+    "group": "Asset · Maps"
+  },
+  {
+    "path": "assets/Core/RPG.html",
+    "title": "RPG",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase00.html",
+    "title": "TEST_Phase00",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Core/URPGGameInstance.html",
+    "title": "URPGGameInstance",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/URPGInputPolicyDefinition.html",
+    "title": "URPGInputPolicyDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/URPGPolicyDefinition.html",
+    "title": "URPGPolicyDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/UI/URPGScreenRouter.html",
+    "title": "URPGScreenRouter",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/UI/WBP_MainMenu.html",
+    "title": "WBP_MainMenu",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/UI/WBP_Options.html",
+    "title": "WBP_Options",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Animation/ABP_Common.html",
+    "title": "ABP_Common",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Idle_East.html",
+    "title": "ASQ_Common_Idle_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Idle_North.html",
+    "title": "ASQ_Common_Idle_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Idle_South.html",
+    "title": "ASQ_Common_Idle_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Idle_West.html",
+    "title": "ASQ_Common_Idle_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Walk_East.html",
+    "title": "ASQ_Common_Walk_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Walk_North.html",
+    "title": "ASQ_Common_Walk_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Walk_South.html",
+    "title": "ASQ_Common_Walk_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Walk_West.html",
+    "title": "ASQ_Common_Walk_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/AS_Common.html",
+    "title": "AS_Common",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/DA_AnimationSet_Common.html",
+    "title": "DA_AnimationSet_Common",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Core/DA_Camera_Default.html",
+    "title": "DA_Camera_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Animation/ERPGFacing4.html",
+    "title": "ERPGFacing4",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Idle_East.html",
+    "title": "FB_Common_Idle_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Idle_North.html",
+    "title": "FB_Common_Idle_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Idle_South.html",
+    "title": "FB_Common_Idle_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Idle_West.html",
+    "title": "FB_Common_Idle_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Walk_East.html",
+    "title": "FB_Common_Walk_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Walk_North.html",
+    "title": "FB_Common_Walk_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Walk_South.html",
+    "title": "FB_Common_Walk_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Walk_West.html",
+    "title": "FB_Common_Walk_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FRPGAppearanceSnapshot.html",
+    "title": "FRPGAppearanceSnapshot",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FRPGPresentationState.html",
+    "title": "FRPGPresentationState",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Input/IA_Zoom.html",
+    "title": "IA_Zoom",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Core/IRPGPresentationSource.html",
+    "title": "IRPGPresentationSource",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Maps/L_ArtLab.html",
+    "title": "L_ArtLab",
+    "group": "Asset · Maps"
+  },
+  {
+    "path": "assets/Art/M_OccluderFade.html",
+    "title": "M_OccluderFade",
+    "group": "Asset · Art"
+  },
+  {
+    "path": "assets/Art/M_SpriteMasked.html",
+    "title": "M_SpriteMasked",
+    "group": "Asset · Art"
+  },
+  {
+    "path": "assets/Art/SPR_DebugAvatar.html",
+    "title": "SPR_DebugAvatar",
+    "group": "Asset · Art"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase01.html",
+    "title": "TEST_Phase01",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Art/T_DebugAvatar.html",
+    "title": "T_DebugAvatar",
+    "group": "Asset · Art"
+  },
+  {
+    "path": "assets/Animation/URPGAnimationSetDefinition.html",
+    "title": "URPGAnimationSetDefinition",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/URPGAppearanceDefinition.html",
+    "title": "URPGAppearanceDefinition",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Player/URPGCameraComponent.html",
+    "title": "URPGCameraComponent",
+    "group": "Asset · Player"
+  },
+  {
+    "path": "assets/Core/URPGCameraDefinition.html",
+    "title": "URPGCameraDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Animation/URPGPaperDollComponent.html",
+    "title": "URPGPaperDollComponent",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/UI/WBP_Portrait.html",
+    "title": "WBP_Portrait",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/World/ARPGWaterRegion.html",
+    "title": "ARPGWaterRegion",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Dodge_East.html",
+    "title": "ASQ_Common_Dodge_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Dodge_North.html",
+    "title": "ASQ_Common_Dodge_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Dodge_South.html",
+    "title": "ASQ_Common_Dodge_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Dodge_West.html",
+    "title": "ASQ_Common_Dodge_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Jump_East.html",
+    "title": "ASQ_Common_Jump_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Jump_North.html",
+    "title": "ASQ_Common_Jump_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Jump_South.html",
+    "title": "ASQ_Common_Jump_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Jump_West.html",
+    "title": "ASQ_Common_Jump_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Run_East.html",
+    "title": "ASQ_Common_Run_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Run_North.html",
+    "title": "ASQ_Common_Run_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Run_South.html",
+    "title": "ASQ_Common_Run_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Run_West.html",
+    "title": "ASQ_Common_Run_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Swim_East.html",
+    "title": "ASQ_Common_Swim_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Swim_North.html",
+    "title": "ASQ_Common_Swim_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Swim_South.html",
+    "title": "ASQ_Common_Swim_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Swim_West.html",
+    "title": "ASQ_Common_Swim_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/World/BP_WaterRegion.html",
+    "title": "BP_WaterRegion",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/Core/DA_Movement_Default.html",
+    "title": "DA_Movement_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/DA_Swim_Default.html",
+    "title": "DA_Swim_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Player/ERPGActionState.html",
+    "title": "ERPGActionState",
+    "group": "Asset · Player"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Dodge_East.html",
+    "title": "FB_Common_Dodge_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Dodge_North.html",
+    "title": "FB_Common_Dodge_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Dodge_South.html",
+    "title": "FB_Common_Dodge_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Dodge_West.html",
+    "title": "FB_Common_Dodge_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Jump_East.html",
+    "title": "FB_Common_Jump_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Jump_North.html",
+    "title": "FB_Common_Jump_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Jump_South.html",
+    "title": "FB_Common_Jump_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Jump_West.html",
+    "title": "FB_Common_Jump_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Run_East.html",
+    "title": "FB_Common_Run_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Run_North.html",
+    "title": "FB_Common_Run_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Run_South.html",
+    "title": "FB_Common_Run_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Run_West.html",
+    "title": "FB_Common_Run_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Swim_East.html",
+    "title": "FB_Common_Swim_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Swim_North.html",
+    "title": "FB_Common_Swim_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Swim_South.html",
+    "title": "FB_Common_Swim_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Swim_West.html",
+    "title": "FB_Common_Swim_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Core/GT_Core.html",
+    "title": "GT_Core",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Input/IA_Dodge.html",
+    "title": "IA_Dodge",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Input/IA_Jump.html",
+    "title": "IA_Jump",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Input/IA_Sprint.html",
+    "title": "IA_Sprint",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase02.html",
+    "title": "TEST_Phase02",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Player/URPGCharacterMovementComponent.html",
+    "title": "URPGCharacterMovementComponent",
+    "group": "Asset · Player"
+  },
+  {
+    "path": "assets/Core/URPGMovementDefinition.html",
+    "title": "URPGMovementDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/URPGSwimDefinition.html",
+    "title": "URPGSwimDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/World/URPGSwimmingComponent.html",
+    "title": "URPGSwimmingComponent",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/UI/WBP_HUD.html",
+    "title": "WBP_HUD",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Player/ARPGPlayerState.html",
+    "title": "ARPGPlayerState",
+    "group": "Asset · Player"
+  },
+  {
+    "path": "assets/Core/ARPGZoneGameState.html",
+    "title": "ARPGZoneGameState",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Zones/ARPGZoneRuntime.html",
+    "title": "ARPGZoneRuntime",
+    "group": "Asset · Zones"
+  },
+  {
+    "path": "assets/Player/BP_RPGPlayerState.html",
+    "title": "BP_RPGPlayerState",
+    "group": "Asset · Player"
+  },
+  {
+    "path": "assets/Core/BP_ZoneGameState.html",
+    "title": "BP_ZoneGameState",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Zones/BP_ZoneRuntime.html",
+    "title": "BP_ZoneRuntime",
+    "group": "Asset · Zones"
+  },
+  {
+    "path": "assets/Core/DA_Interaction_Default.html",
+    "title": "DA_Interaction_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/DA_SecurityPolicy_Development.html",
+    "title": "DA_SecurityPolicy_Development",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Zones/DA_Zone_NetworkLab.html",
+    "title": "DA_Zone_NetworkLab",
+    "group": "Asset · Zones"
+  },
+  {
+    "path": "assets/Network/ERPGCommandStatus.html",
+    "title": "ERPGCommandStatus",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Network/FRPGCommandEnvelope.html",
+    "title": "FRPGCommandEnvelope",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Network/FRPGCommandResult.html",
+    "title": "FRPGCommandResult",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Input/IA_Interact.html",
+    "title": "IA_Interact",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Core/IRPGInteractable.html",
+    "title": "IRPGInteractable",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Maps/L_NetworkLab.html",
+    "title": "L_NetworkLab",
+    "group": "Asset · Maps"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase03.html",
+    "title": "TEST_Phase03",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Network/URPGAdmissionValidator.html",
+    "title": "URPGAdmissionValidator",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/World/URPGInteractionComponent.html",
+    "title": "URPGInteractionComponent",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/Core/URPGInteractionDefinition.html",
+    "title": "URPGInteractionDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/URPGSecurityPolicyDefinition.html",
+    "title": "URPGSecurityPolicyDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Zones/URPGZoneDefinition.html",
+    "title": "URPGZoneDefinition",
+    "group": "Asset · Zones"
+  },
+  {
+    "path": "assets/UI/WBP_Diagnostics.html",
+    "title": "WBP_Diagnostics",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/UI/WBP_Notifications.html",
+    "title": "WBP_Notifications",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Network/API_Characters.html",
+    "title": "API_Characters",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Network/API_Identity.html",
+    "title": "API_Identity",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/CharacterCreation/ARPGPreviewAvatar.html",
+    "title": "ARPGPreviewAvatar",
+    "group": "Asset · CharacterCreation"
+  },
+  {
+    "path": "assets/CharacterCreation/BP_PreviewAvatar.html",
+    "title": "BP_PreviewAvatar",
+    "group": "Asset · CharacterCreation"
+  },
+  {
+    "path": "assets/CharacterCreation/DA_Class_Arcanist.html",
+    "title": "DA_Class_Arcanist",
+    "group": "Asset · CharacterCreation"
+  },
+  {
+    "path": "assets/CharacterCreation/DA_Class_Ranger.html",
+    "title": "DA_Class_Ranger",
+    "group": "Asset · CharacterCreation"
+  },
+  {
+    "path": "assets/CharacterCreation/DA_Class_Vanguard.html",
+    "title": "DA_Class_Vanguard",
+    "group": "Asset · CharacterCreation"
+  },
+  {
+    "path": "assets/CharacterCreation/DA_Class_Warden.html",
+    "title": "DA_Class_Warden",
+    "group": "Asset · CharacterCreation"
+  },
+  {
+    "path": "assets/Core/DA_Environment_Development.html",
+    "title": "DA_Environment_Development",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Persistence/DB_accounts.html",
+    "title": "DB_accounts",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_character_appearance.html",
+    "title": "DB_character_appearance",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_characters.html",
+    "title": "DB_characters",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_command_receipts.html",
+    "title": "DB_command_receipts",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/GameService.html",
+    "title": "GameService",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Core/IRPGCharacterStore.html",
+    "title": "IRPGCharacterStore",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Maps/L_FrontEnd.html",
+    "title": "L_FrontEnd",
+    "group": "Asset · Maps"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase04.html",
+    "title": "TEST_Phase04",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/CharacterCreation/URPGAccountSession.html",
+    "title": "URPGAccountSession",
+    "group": "Asset · CharacterCreation"
+  },
+  {
+    "path": "assets/CharacterCreation/URPGCharacterRoster.html",
+    "title": "URPGCharacterRoster",
+    "group": "Asset · CharacterCreation"
+  },
+  {
+    "path": "assets/Persistence/URPGCharacterServiceAdapter.html",
+    "title": "URPGCharacterServiceAdapter",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/CharacterCreation/URPGClassDefinition.html",
+    "title": "URPGClassDefinition",
+    "group": "Asset · CharacterCreation"
+  },
+  {
+    "path": "assets/Persistence/URPGContentVersionGate.html",
+    "title": "URPGContentVersionGate",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Core/URPGEnvironmentDefinition.html",
+    "title": "URPGEnvironmentDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/UI/WBP_CharacterCreate.html",
+    "title": "WBP_CharacterCreate",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/UI/WBP_CharacterSelect.html",
+    "title": "WBP_CharacterSelect",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/UI/WBP_Login.html",
+    "title": "WBP_Login",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Network/API_Admission.html",
+    "title": "API_Admission",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Network/API_CharacterSnapshot.html",
+    "title": "API_CharacterSnapshot",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Network/API_CommandStatus.html",
+    "title": "API_CommandStatus",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Core/DA_ContentVersion_Development.html",
+    "title": "DA_ContentVersion_Development",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/DA_ServicePolicy_Development.html",
+    "title": "DA_ServicePolicy_Development",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Persistence/DB_character_progression.html",
+    "title": "DB_character_progression",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_character_sessions.html",
+    "title": "DB_character_sessions",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_character_wallets.html",
+    "title": "DB_character_wallets",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_container_occupancy.html",
+    "title": "DB_container_occupancy",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_economic_ledger.html",
+    "title": "DB_economic_ledger",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_inventory_stacks.html",
+    "title": "DB_inventory_stacks",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_item_instances.html",
+    "title": "DB_item_instances",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_outbox_events.html",
+    "title": "DB_outbox_events",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Equipment/ERPGEquipmentSlot.html",
+    "title": "ERPGEquipmentSlot",
+    "group": "Asset · Equipment"
+  },
+  {
+    "path": "assets/Items/ERPGRarity.html",
+    "title": "ERPGRarity",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Persistence/FRPGCharacterSnapshot.html",
+    "title": "FRPGCharacterSnapshot",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Inventory/FRPGInventorySnapshot.html",
+    "title": "FRPGInventorySnapshot",
+    "group": "Asset · Inventory"
+  },
+  {
+    "path": "assets/Items/FRPGOwnedItem.html",
+    "title": "FRPGOwnedItem",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Inventory/FRPGStackRecord.html",
+    "title": "FRPGStackRecord",
+    "group": "Asset · Inventory"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase05.html",
+    "title": "TEST_Phase05",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Core/URPGContentVersionDefinition.html",
+    "title": "URPGContentVersionDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Items/URPGItemCatalog.html",
+    "title": "URPGItemCatalog",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Items/URPGItemDefinition.html",
+    "title": "URPGItemDefinition",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Core/URPGServicePolicyDefinition.html",
+    "title": "URPGServicePolicyDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/UI/WBP_ItemTooltip.html",
+    "title": "WBP_ItemTooltip",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/UI/WBP_Loading.html",
+    "title": "WBP_Loading",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Network/API_Transfer.html",
+    "title": "API_Transfer",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Network/API_ZoneRegistry.html",
+    "title": "API_ZoneRegistry",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Zones/ARPGZoneGate.html",
+    "title": "ARPGZoneGate",
+    "group": "Asset · Zones"
+  },
+  {
+    "path": "assets/Zones/BP_ZoneGate.html",
+    "title": "BP_ZoneGate",
+    "group": "Asset · Zones"
+  },
+  {
+    "path": "assets/Zones/DA_Zone_Rillmere.html",
+    "title": "DA_Zone_Rillmere",
+    "group": "Asset · Zones"
+  },
+  {
+    "path": "assets/Zones/DA_Zone_Thornweald.html",
+    "title": "DA_Zone_Thornweald",
+    "group": "Asset · Zones"
+  },
+  {
+    "path": "assets/Persistence/DB_character_locations.html",
+    "title": "DB_character_locations",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_zone_processes.html",
+    "title": "DB_zone_processes",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_zone_transfers.html",
+    "title": "DB_zone_transfers",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Zones/ERPGTransferState.html",
+    "title": "ERPGTransferState",
+    "group": "Asset · Zones"
+  },
+  {
+    "path": "assets/Zones/FRPGTransferTicket.html",
+    "title": "FRPGTransferTicket",
+    "group": "Asset · Zones"
+  },
+  {
+    "path": "assets/Maps/L_Rillmere.html",
+    "title": "L_Rillmere",
+    "group": "Asset · Maps"
+  },
+  {
+    "path": "assets/Maps/L_Thornweald.html",
+    "title": "L_Thornweald",
+    "group": "Asset · Maps"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase06.html",
+    "title": "TEST_Phase06",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Zones/URPGZoneTransferComponent.html",
+    "title": "URPGZoneTransferComponent",
+    "group": "Asset · Zones"
+  },
+  {
+    "path": "assets/Combat/ARPGProjectile.html",
+    "title": "ARPGProjectile",
+    "group": "Asset · Combat"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Bow_East.html",
+    "title": "ASQ_Common_Bow_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Bow_North.html",
+    "title": "ASQ_Common_Bow_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Bow_South.html",
+    "title": "ASQ_Common_Bow_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Bow_West.html",
+    "title": "ASQ_Common_Bow_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Melee_East.html",
+    "title": "ASQ_Common_Melee_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Melee_North.html",
+    "title": "ASQ_Common_Melee_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Melee_South.html",
+    "title": "ASQ_Common_Melee_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Melee_West.html",
+    "title": "ASQ_Common_Melee_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Combat/BP_Projectile_TrainingArrow.html",
+    "title": "BP_Projectile_TrainingArrow",
+    "group": "Asset · Combat"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Ranger_AimedArrow.html",
+    "title": "DA_Ability_Ranger_AimedArrow",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Vanguard_Cleave.html",
+    "title": "DA_Ability_Vanguard_Cleave",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Core/DA_CombatRules_Default.html",
+    "title": "DA_CombatRules_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/DA_CueSet_Common.html",
+    "title": "DA_CueSet_Common",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/DA_Targeting_Default.html",
+    "title": "DA_Targeting_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Persistence/DB_character_cooldowns.html",
+    "title": "DB_character_cooldowns",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Bow_East.html",
+    "title": "FB_Common_Bow_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Bow_North.html",
+    "title": "FB_Common_Bow_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Bow_South.html",
+    "title": "FB_Common_Bow_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Bow_West.html",
+    "title": "FB_Common_Bow_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Melee_East.html",
+    "title": "FB_Common_Melee_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Melee_North.html",
+    "title": "FB_Common_Melee_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Melee_South.html",
+    "title": "FB_Common_Melee_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Melee_West.html",
+    "title": "FB_Common_Melee_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Core/GT_Combat.html",
+    "title": "GT_Combat",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Input/IA_Ability1.html",
+    "title": "IA_Ability1",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Input/IA_Ability2.html",
+    "title": "IA_Ability2",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Input/IA_Ability3.html",
+    "title": "IA_Ability3",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Input/IA_Ability4.html",
+    "title": "IA_Ability4",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Input/IA_Primary.html",
+    "title": "IA_Primary",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Input/IA_TargetNext.html",
+    "title": "IA_TargetNext",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase07.html",
+    "title": "TEST_Phase07",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Abilities/URPGAbilityDefinition.html",
+    "title": "URPGAbilityDefinition",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Combat/URPGAbilitySystemComponent.html",
+    "title": "URPGAbilitySystemComponent",
+    "group": "Asset · Combat"
+  },
+  {
+    "path": "assets/Combat/URPGAttributeSet.html",
+    "title": "URPGAttributeSet",
+    "group": "Asset · Combat"
+  },
+  {
+    "path": "assets/Core/URPGCombatRulesDefinition.html",
+    "title": "URPGCombatRulesDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/URPGCueSetDefinition.html",
+    "title": "URPGCueSetDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Abilities/URPGEffectRules.html",
+    "title": "URPGEffectRules",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Combat/URPGHitResolver.html",
+    "title": "URPGHitResolver",
+    "group": "Asset · Combat"
+  },
+  {
+    "path": "assets/Effects/URPGPresentationCueComponent.html",
+    "title": "URPGPresentationCueComponent",
+    "group": "Asset · Effects"
+  },
+  {
+    "path": "assets/Combat/URPGTargetingComponent.html",
+    "title": "URPGTargetingComponent",
+    "group": "Asset · Combat"
+  },
+  {
+    "path": "assets/Core/URPGTargetingDefinition.html",
+    "title": "URPGTargetingDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/UI/WBP_ActionBar.html",
+    "title": "WBP_ActionBar",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/UI/WBP_TargetFrame.html",
+    "title": "WBP_TargetFrame",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Network/API_Party.html",
+    "title": "API_Party",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Network/API_Reward.html",
+    "title": "API_Reward",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Enemies/ARPGEnemyAIController.html",
+    "title": "ARPGEnemyAIController",
+    "group": "Asset · Enemies"
+  },
+  {
+    "path": "assets/Enemies/ARPGEnemyCharacter.html",
+    "title": "ARPGEnemyCharacter",
+    "group": "Asset · Enemies"
+  },
+  {
+    "path": "assets/Enemies/BB_Enemy.html",
+    "title": "BB_Enemy",
+    "group": "Asset · Enemies"
+  },
+  {
+    "path": "assets/Enemies/BP_EncounterSpawner.html",
+    "title": "BP_EncounterSpawner",
+    "group": "Asset · Enemies"
+  },
+  {
+    "path": "assets/Enemies/BP_EnemyAIController.html",
+    "title": "BP_EnemyAIController",
+    "group": "Asset · Enemies"
+  },
+  {
+    "path": "assets/Enemies/BP_Enemy_Mossfang.html",
+    "title": "BP_Enemy_Mossfang",
+    "group": "Asset · Enemies"
+  },
+  {
+    "path": "assets/Enemies/BT_Enemy.html",
+    "title": "BT_Enemy",
+    "group": "Asset · Enemies"
+  },
+  {
+    "path": "assets/Enemies/DA_Encounter_WestRoad.html",
+    "title": "DA_Encounter_WestRoad",
+    "group": "Asset · Enemies"
+  },
+  {
+    "path": "assets/Enemies/DA_Enemy_Mossfang.html",
+    "title": "DA_Enemy_Mossfang",
+    "group": "Asset · Enemies"
+  },
+  {
+    "path": "assets/Core/DA_PartyPolicy_Default.html",
+    "title": "DA_PartyPolicy_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/DA_Progression_Default.html",
+    "title": "DA_Progression_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/DA_Recovery_Default.html",
+    "title": "DA_Recovery_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Persistence/DB_encounter_resolutions.html",
+    "title": "DB_encounter_resolutions",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_party_memberships.html",
+    "title": "DB_party_memberships",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Progression/DT_LevelThresholds.html",
+    "title": "DT_LevelThresholds",
+    "group": "Asset · Progression"
+  },
+  {
+    "path": "assets/Progression/FRPGLevelRow.html",
+    "title": "FRPGLevelRow",
+    "group": "Asset · Progression"
+  },
+  {
+    "path": "assets/Loot/FRPGLootAllocation.html",
+    "title": "FRPGLootAllocation",
+    "group": "Asset · Loot"
+  },
+  {
+    "path": "assets/Social/FRPGPartySnapshot.html",
+    "title": "FRPGPartySnapshot",
+    "group": "Asset · Social"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase08.html",
+    "title": "TEST_Phase08",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Enemies/URPGEncounterComponent.html",
+    "title": "URPGEncounterComponent",
+    "group": "Asset · Enemies"
+  },
+  {
+    "path": "assets/Enemies/URPGEncounterDefinition.html",
+    "title": "URPGEncounterDefinition",
+    "group": "Asset · Enemies"
+  },
+  {
+    "path": "assets/Enemies/URPGEnemyDefinition.html",
+    "title": "URPGEnemyDefinition",
+    "group": "Asset · Enemies"
+  },
+  {
+    "path": "assets/Loot/URPGLootDefinition.html",
+    "title": "URPGLootDefinition",
+    "group": "Asset · Loot"
+  },
+  {
+    "path": "assets/Social/URPGPartyComponent.html",
+    "title": "URPGPartyComponent",
+    "group": "Asset · Social"
+  },
+  {
+    "path": "assets/Core/URPGPartyPolicyDefinition.html",
+    "title": "URPGPartyPolicyDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Progression/URPGProgressionComponent.html",
+    "title": "URPGProgressionComponent",
+    "group": "Asset · Progression"
+  },
+  {
+    "path": "assets/Core/URPGProgressionDefinition.html",
+    "title": "URPGProgressionDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Player/URPGRecoveryComponent.html",
+    "title": "URPGRecoveryComponent",
+    "group": "Asset · Player"
+  },
+  {
+    "path": "assets/Core/URPGRecoveryDefinition.html",
+    "title": "URPGRecoveryDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/UI/WBP_Death.html",
+    "title": "WBP_Death",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/UI/WBP_Party.html",
+    "title": "WBP_Party",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/UI/WBP_Stats.html",
+    "title": "WBP_Stats",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Network/API_Inventory.html",
+    "title": "API_Inventory",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Core/DA_EquipmentRules_Default.html",
+    "title": "DA_EquipmentRules_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/DA_Inventory_Default.html",
+    "title": "DA_Inventory_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Items/DA_Item_AshLog.html",
+    "title": "DA_Item_AshLog",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Items/DA_Item_ClearReagent.html",
+    "title": "DA_Item_ClearReagent",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Items/DA_Item_CopperOre.html",
+    "title": "DA_Item_CopperOre",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Items/DA_Item_FishingRod.html",
+    "title": "DA_Item_FishingRod",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Items/DA_Item_GrilledDace.html",
+    "title": "DA_Item_GrilledDace",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Items/DA_Item_HealingDraught.html",
+    "title": "DA_Item_HealingDraught",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Items/DA_Item_IronHatchet.html",
+    "title": "DA_Item_IronHatchet",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Items/DA_Item_LinenThread.html",
+    "title": "DA_Item_LinenThread",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Items/DA_Item_MiningPick.html",
+    "title": "DA_Item_MiningPick",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Items/DA_Item_RiverDace.html",
+    "title": "DA_Item_RiverDace",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Items/DA_Item_TrainingBow.html",
+    "title": "DA_Item_TrainingBow",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Items/DA_Item_TrainingShield.html",
+    "title": "DA_Item_TrainingShield",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Items/DA_Item_TrainingSpear.html",
+    "title": "DA_Item_TrainingSpear",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Items/DA_Item_TrainingSword.html",
+    "title": "DA_Item_TrainingSword",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Items/DA_Item_WovenCloak.html",
+    "title": "DA_Item_WovenCloak",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/Persistence/DB_containers.html",
+    "title": "DB_containers",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_equipment_slots.html",
+    "title": "DB_equipment_slots",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Equipment/FRPGEquipmentSnapshot.html",
+    "title": "FRPGEquipmentSnapshot",
+    "group": "Asset · Equipment"
+  },
+  {
+    "path": "assets/Input/IA_Inventory.html",
+    "title": "IA_Inventory",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase09.html",
+    "title": "TEST_Phase09",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Equipment/URPGEquipmentComponent.html",
+    "title": "URPGEquipmentComponent",
+    "group": "Asset · Equipment"
+  },
+  {
+    "path": "assets/Core/URPGEquipmentRulesDefinition.html",
+    "title": "URPGEquipmentRulesDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Inventory/URPGInventoryComponent.html",
+    "title": "URPGInventoryComponent",
+    "group": "Asset · Inventory"
+  },
+  {
+    "path": "assets/Core/URPGInventoryDefinition.html",
+    "title": "URPGInventoryDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Items/URPGItemUseComponent.html",
+    "title": "URPGItemUseComponent",
+    "group": "Asset · Items"
+  },
+  {
+    "path": "assets/UI/WBP_Equipment.html",
+    "title": "WBP_Equipment",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/UI/WBP_Inventory.html",
+    "title": "WBP_Inventory",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Network/API_Loot.html",
+    "title": "API_Loot",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Loot/BP_LootContainer.html",
+    "title": "BP_LootContainer",
+    "group": "Asset · Loot"
+  },
+  {
+    "path": "assets/Loot/DA_Loot_Mossfang.html",
+    "title": "DA_Loot_Mossfang",
+    "group": "Asset · Loot"
+  },
+  {
+    "path": "assets/Persistence/DB_loot_entitlements.html",
+    "title": "DB_loot_entitlements",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase10.html",
+    "title": "TEST_Phase10",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Loot/URPGLootComponent.html",
+    "title": "URPGLootComponent",
+    "group": "Asset · Loot"
+  },
+  {
+    "path": "assets/UI/WBP_Loot.html",
+    "title": "WBP_Loot",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Network/API_Bank.html",
+    "title": "API_Bank",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Network/API_Merchant.html",
+    "title": "API_Merchant",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/NPCs/ARPGServiceNPC.html",
+    "title": "ARPGServiceNPC",
+    "group": "Asset · NPCs"
+  },
+  {
+    "path": "assets/NPCs/BP_NPC_Mara.html",
+    "title": "BP_NPC_Mara",
+    "group": "Asset · NPCs"
+  },
+  {
+    "path": "assets/Core/DA_Bank_Default.html",
+    "title": "DA_Bank_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/DA_TelemetryPolicy_Default.html",
+    "title": "DA_TelemetryPolicy_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Merchants/DA_Vendor_Mara.html",
+    "title": "DA_Vendor_Mara",
+    "group": "Asset · Merchants"
+  },
+  {
+    "path": "assets/Persistence/DB_buyback_entries.html",
+    "title": "DB_buyback_entries",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_vendor_stock.html",
+    "title": "DB_vendor_stock",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Merchants/FRPGVendorQuote.html",
+    "title": "FRPGVendorQuote",
+    "group": "Asset · Merchants"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase11.html",
+    "title": "TEST_Phase11",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Inventory/URPGBankComponent.html",
+    "title": "URPGBankComponent",
+    "group": "Asset · Inventory"
+  },
+  {
+    "path": "assets/Core/URPGBankDefinition.html",
+    "title": "URPGBankDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Merchants/URPGMerchantComponent.html",
+    "title": "URPGMerchantComponent",
+    "group": "Asset · Merchants"
+  },
+  {
+    "path": "assets/NPCs/URPGNPCDefinition.html",
+    "title": "URPGNPCDefinition",
+    "group": "Asset · NPCs"
+  },
+  {
+    "path": "assets/Network/URPGTelemetryAdapter.html",
+    "title": "URPGTelemetryAdapter",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Core/URPGTelemetryPolicyDefinition.html",
+    "title": "URPGTelemetryPolicyDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Merchants/URPGVendorDefinition.html",
+    "title": "URPGVendorDefinition",
+    "group": "Asset · Merchants"
+  },
+  {
+    "path": "assets/UI/WBP_Bank.html",
+    "title": "WBP_Bank",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/UI/WBP_Merchant.html",
+    "title": "WBP_Merchant",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Network/API_Resources.html",
+    "title": "API_Resources",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Resources/ARPGResourceNode.html",
+    "title": "ARPGResourceNode",
+    "group": "Asset · Resources"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_GatherMine_East.html",
+    "title": "ASQ_Common_GatherMine_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_GatherMine_North.html",
+    "title": "ASQ_Common_GatherMine_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_GatherMine_South.html",
+    "title": "ASQ_Common_GatherMine_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_GatherMine_West.html",
+    "title": "ASQ_Common_GatherMine_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_GatherWood_East.html",
+    "title": "ASQ_Common_GatherWood_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_GatherWood_North.html",
+    "title": "ASQ_Common_GatherWood_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_GatherWood_South.html",
+    "title": "ASQ_Common_GatherWood_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_GatherWood_West.html",
+    "title": "ASQ_Common_GatherWood_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Resources/BP_ResourceDirector.html",
+    "title": "BP_ResourceDirector",
+    "group": "Asset · Resources"
+  },
+  {
+    "path": "assets/Resources/BP_ResourceNode.html",
+    "title": "BP_ResourceNode",
+    "group": "Asset · Resources"
+  },
+  {
+    "path": "assets/Resources/DA_GatherRule_Mining.html",
+    "title": "DA_GatherRule_Mining",
+    "group": "Asset · Resources"
+  },
+  {
+    "path": "assets/Resources/DA_GatherRule_Woodcutting.html",
+    "title": "DA_GatherRule_Woodcutting",
+    "group": "Asset · Resources"
+  },
+  {
+    "path": "assets/Resources/DA_ResourceRule_Rillmere.html",
+    "title": "DA_ResourceRule_Rillmere",
+    "group": "Asset · Resources"
+  },
+  {
+    "path": "assets/Persistence/DB_character_professions.html",
+    "title": "DB_character_professions",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_resource_generations.html",
+    "title": "DB_resource_generations",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Resources/DT_ResourceSites_Rillmere.html",
+    "title": "DT_ResourceSites_Rillmere",
+    "group": "Asset · Resources"
+  },
+  {
+    "path": "assets/Resources/ERPGResourceState.html",
+    "title": "ERPGResourceState",
+    "group": "Asset · Resources"
+  },
+  {
+    "path": "assets/Animation/FB_Common_GatherMine_East.html",
+    "title": "FB_Common_GatherMine_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_GatherMine_North.html",
+    "title": "FB_Common_GatherMine_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_GatherMine_South.html",
+    "title": "FB_Common_GatherMine_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_GatherMine_West.html",
+    "title": "FB_Common_GatherMine_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_GatherWood_East.html",
+    "title": "FB_Common_GatherWood_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_GatherWood_North.html",
+    "title": "FB_Common_GatherWood_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_GatherWood_South.html",
+    "title": "FB_Common_GatherWood_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_GatherWood_West.html",
+    "title": "FB_Common_GatherWood_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Resources/FRPGResourceSite.html",
+    "title": "FRPGResourceSite",
+    "group": "Asset · Resources"
+  },
+  {
+    "path": "assets/Core/GT_Professions.html",
+    "title": "GT_Professions",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Art/SM_DebugOre.html",
+    "title": "SM_DebugOre",
+    "group": "Asset · Art"
+  },
+  {
+    "path": "assets/Art/SM_DebugTree.html",
+    "title": "SM_DebugTree",
+    "group": "Asset · Art"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase12.html",
+    "title": "TEST_Phase12",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Gathering/URPGGatheringComponent.html",
+    "title": "URPGGatheringComponent",
+    "group": "Asset · Gathering"
+  },
+  {
+    "path": "assets/Resources/URPGResourceDirector.html",
+    "title": "URPGResourceDirector",
+    "group": "Asset · Resources"
+  },
+  {
+    "path": "assets/Resources/URPGResourceRuleDefinition.html",
+    "title": "URPGResourceRuleDefinition",
+    "group": "Asset · Resources"
+  },
+  {
+    "path": "assets/UI/WBP_Gathering.html",
+    "title": "WBP_Gathering",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Network/API_Craft.html",
+    "title": "API_Craft",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Crafting/ARPGCraftingStation.html",
+    "title": "ARPGCraftingStation",
+    "group": "Asset · Crafting"
+  },
+  {
+    "path": "assets/Crafting/BP_CraftingStation.html",
+    "title": "BP_CraftingStation",
+    "group": "Asset · Crafting"
+  },
+  {
+    "path": "assets/Crafting/DA_Recipe_GrilledDace.html",
+    "title": "DA_Recipe_GrilledDace",
+    "group": "Asset · Crafting"
+  },
+  {
+    "path": "assets/Crafting/DA_Recipe_HealingDraught.html",
+    "title": "DA_Recipe_HealingDraught",
+    "group": "Asset · Crafting"
+  },
+  {
+    "path": "assets/Crafting/DA_Recipe_IronHatchet.html",
+    "title": "DA_Recipe_IronHatchet",
+    "group": "Asset · Crafting"
+  },
+  {
+    "path": "assets/Crafting/DA_Recipe_WovenCloak.html",
+    "title": "DA_Recipe_WovenCloak",
+    "group": "Asset · Crafting"
+  },
+  {
+    "path": "assets/Persistence/DB_character_recipes.html",
+    "title": "DB_character_recipes",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Crafting/FRPGCraftRequest.html",
+    "title": "FRPGCraftRequest",
+    "group": "Asset · Crafting"
+  },
+  {
+    "path": "assets/Core/GT_Stations.html",
+    "title": "GT_Stations",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase13.html",
+    "title": "TEST_Phase13",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Crafting/URPGCraftingComponent.html",
+    "title": "URPGCraftingComponent",
+    "group": "Asset · Crafting"
+  },
+  {
+    "path": "assets/Crafting/URPGRecipeDefinition.html",
+    "title": "URPGRecipeDefinition",
+    "group": "Asset · Crafting"
+  },
+  {
+    "path": "assets/UI/WBP_Crafting.html",
+    "title": "WBP_Crafting",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Network/API_Fishing.html",
+    "title": "API_Fishing",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Fishing/ARPGFishingBobber.html",
+    "title": "ARPGFishingBobber",
+    "group": "Asset · Fishing"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Fish_East.html",
+    "title": "ASQ_Common_Fish_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Fish_North.html",
+    "title": "ASQ_Common_Fish_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Fish_South.html",
+    "title": "ASQ_Common_Fish_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Fish_West.html",
+    "title": "ASQ_Common_Fish_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Fishing/BP_FishingBobber.html",
+    "title": "BP_FishingBobber",
+    "group": "Asset · Fishing"
+  },
+  {
+    "path": "assets/Fishing/DA_FishingPool_Rillmere.html",
+    "title": "DA_FishingPool_Rillmere",
+    "group": "Asset · Fishing"
+  },
+  {
+    "path": "assets/Persistence/DB_fishing_attempts.html",
+    "title": "DB_fishing_attempts",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Fishing/ERPGFishingState.html",
+    "title": "ERPGFishingState",
+    "group": "Asset · Fishing"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Fish_East.html",
+    "title": "FB_Common_Fish_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Fish_North.html",
+    "title": "FB_Common_Fish_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Fish_South.html",
+    "title": "FB_Common_Fish_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Fish_West.html",
+    "title": "FB_Common_Fish_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Fishing/FRPGFishingAttempt.html",
+    "title": "FRPGFishingAttempt",
+    "group": "Asset · Fishing"
+  },
+  {
+    "path": "assets/Input/IA_FishReel.html",
+    "title": "IA_FishReel",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase14.html",
+    "title": "TEST_Phase14",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Fishing/URPGFishingComponent.html",
+    "title": "URPGFishingComponent",
+    "group": "Asset · Fishing"
+  },
+  {
+    "path": "assets/Fishing/URPGFishingPoolDefinition.html",
+    "title": "URPGFishingPoolDefinition",
+    "group": "Asset · Fishing"
+  },
+  {
+    "path": "assets/UI/WBP_Fishing.html",
+    "title": "WBP_Fishing",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Network/API_Dialogue.html",
+    "title": "API_Dialogue",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Network/API_Quest.html",
+    "title": "API_Quest",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/NPCs/DA_Dialogue_Mara.html",
+    "title": "DA_Dialogue_Mara",
+    "group": "Asset · NPCs"
+  },
+  {
+    "path": "assets/Quests/DA_Quest_FirstSteps.html",
+    "title": "DA_Quest_FirstSteps",
+    "group": "Asset · Quests"
+  },
+  {
+    "path": "assets/Quests/DA_Quest_RoadSupplies.html",
+    "title": "DA_Quest_RoadSupplies",
+    "group": "Asset · Quests"
+  },
+  {
+    "path": "assets/Quests/DA_Quest_TheSluiceSignal.html",
+    "title": "DA_Quest_TheSluiceSignal",
+    "group": "Asset · Quests"
+  },
+  {
+    "path": "assets/Persistence/DB_character_flags.html",
+    "title": "DB_character_flags",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_character_quests.html",
+    "title": "DB_character_quests",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_quest_event_receipts.html",
+    "title": "DB_quest_event_receipts",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Quests/ERPGQuestState.html",
+    "title": "ERPGQuestState",
+    "group": "Asset · Quests"
+  },
+  {
+    "path": "assets/NPCs/FRPGDialogueContext.html",
+    "title": "FRPGDialogueContext",
+    "group": "Asset · NPCs"
+  },
+  {
+    "path": "assets/Quests/FRPGQuestObjective.html",
+    "title": "FRPGQuestObjective",
+    "group": "Asset · Quests"
+  },
+  {
+    "path": "assets/Quests/FRPGQuestProgress.html",
+    "title": "FRPGQuestProgress",
+    "group": "Asset · Quests"
+  },
+  {
+    "path": "assets/Input/IA_QuestJournal.html",
+    "title": "IA_QuestJournal",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase15.html",
+    "title": "TEST_Phase15",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/NPCs/URPGDialogueComponent.html",
+    "title": "URPGDialogueComponent",
+    "group": "Asset · NPCs"
+  },
+  {
+    "path": "assets/NPCs/URPGDialogueDefinition.html",
+    "title": "URPGDialogueDefinition",
+    "group": "Asset · NPCs"
+  },
+  {
+    "path": "assets/Quests/URPGQuestComponent.html",
+    "title": "URPGQuestComponent",
+    "group": "Asset · Quests"
+  },
+  {
+    "path": "assets/Quests/URPGQuestDefinition.html",
+    "title": "URPGQuestDefinition",
+    "group": "Asset · Quests"
+  },
+  {
+    "path": "assets/UI/WBP_Dialogue.html",
+    "title": "WBP_Dialogue",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/UI/WBP_ObjectiveTracker.html",
+    "title": "WBP_ObjectiveTracker",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/UI/WBP_QuestJournal.html",
+    "title": "WBP_QuestJournal",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Network/API_Skills.html",
+    "title": "API_Skills",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Cast_East.html",
+    "title": "ASQ_Common_Cast_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Cast_North.html",
+    "title": "ASQ_Common_Cast_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Cast_South.html",
+    "title": "ASQ_Common_Cast_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Cast_West.html",
+    "title": "ASQ_Common_Cast_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Heal_East.html",
+    "title": "ASQ_Common_Heal_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Heal_North.html",
+    "title": "ASQ_Common_Heal_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Heal_South.html",
+    "title": "ASQ_Common_Heal_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Heal_West.html",
+    "title": "ASQ_Common_Heal_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Combat/BP_Projectile_ArcSpark.html",
+    "title": "BP_Projectile_ArcSpark",
+    "group": "Asset · Combat"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Arcanist_ArcaneWard.html",
+    "title": "DA_Ability_Arcanist_ArcaneWard",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Arcanist_CinderField.html",
+    "title": "DA_Ability_Arcanist_CinderField",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Arcanist_Disrupt.html",
+    "title": "DA_Ability_Arcanist_Disrupt",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Arcanist_EmberBolt.html",
+    "title": "DA_Ability_Arcanist_EmberBolt",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Arcanist_FocusedSurge.html",
+    "title": "DA_Ability_Arcanist_FocusedSurge",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Arcanist_FrostRing.html",
+    "title": "DA_Ability_Arcanist_FrostRing",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Ranger_PinningShot.html",
+    "title": "DA_Ability_Ranger_PinningShot",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Ranger_Quickstep.html",
+    "title": "DA_Ability_Ranger_Quickstep",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Ranger_SpearSweep.html",
+    "title": "DA_Ability_Ranger_SpearSweep",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Ranger_TrailMark.html",
+    "title": "DA_Ability_Ranger_TrailMark",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Ranger_Volley.html",
+    "title": "DA_Ability_Ranger_Volley",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Vanguard_Brace.html",
+    "title": "DA_Ability_Vanguard_Brace",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Vanguard_Challenge.html",
+    "title": "DA_Ability_Vanguard_Challenge",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Vanguard_Rally.html",
+    "title": "DA_Ability_Vanguard_Rally",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Vanguard_ResoluteStrike.html",
+    "title": "DA_Ability_Vanguard_ResoluteStrike",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Vanguard_ShieldPulse.html",
+    "title": "DA_Ability_Vanguard_ShieldPulse",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Warden_BriarThrust.html",
+    "title": "DA_Ability_Warden_BriarThrust",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Warden_Cleanse.html",
+    "title": "DA_Ability_Warden_Cleanse",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Warden_Mend.html",
+    "title": "DA_Ability_Warden_Mend",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Warden_Renewal.html",
+    "title": "DA_Ability_Warden_Renewal",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Warden_ReturnToVigor.html",
+    "title": "DA_Ability_Warden_ReturnToVigor",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Abilities/DA_Ability_Warden_Shelter.html",
+    "title": "DA_Ability_Warden_Shelter",
+    "group": "Asset · Abilities"
+  },
+  {
+    "path": "assets/Skills/DA_SkillTree_Arcanist.html",
+    "title": "DA_SkillTree_Arcanist",
+    "group": "Asset · Skills"
+  },
+  {
+    "path": "assets/Skills/DA_SkillTree_Ranger.html",
+    "title": "DA_SkillTree_Ranger",
+    "group": "Asset · Skills"
+  },
+  {
+    "path": "assets/Skills/DA_SkillTree_Vanguard.html",
+    "title": "DA_SkillTree_Vanguard",
+    "group": "Asset · Skills"
+  },
+  {
+    "path": "assets/Skills/DA_SkillTree_Warden.html",
+    "title": "DA_SkillTree_Warden",
+    "group": "Asset · Skills"
+  },
+  {
+    "path": "assets/Persistence/DB_character_skills.html",
+    "title": "DB_character_skills",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Cast_East.html",
+    "title": "FB_Common_Cast_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Cast_North.html",
+    "title": "FB_Common_Cast_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Cast_South.html",
+    "title": "FB_Common_Cast_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Cast_West.html",
+    "title": "FB_Common_Cast_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Heal_East.html",
+    "title": "FB_Common_Heal_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Heal_North.html",
+    "title": "FB_Common_Heal_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Heal_South.html",
+    "title": "FB_Common_Heal_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Heal_West.html",
+    "title": "FB_Common_Heal_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Skills/FRPGSkillNode.html",
+    "title": "FRPGSkillNode",
+    "group": "Asset · Skills"
+  },
+  {
+    "path": "assets/Input/IA_Skills.html",
+    "title": "IA_Skills",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase16.html",
+    "title": "TEST_Phase16",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Skills/URPGSkillComponent.html",
+    "title": "URPGSkillComponent",
+    "group": "Asset · Skills"
+  },
+  {
+    "path": "assets/Skills/URPGSkillTreeDefinition.html",
+    "title": "URPGSkillTreeDefinition",
+    "group": "Asset · Skills"
+  },
+  {
+    "path": "assets/UI/WBP_Skills.html",
+    "title": "WBP_Skills",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/World/ARPGDiscoveryVolume.html",
+    "title": "ARPGDiscoveryVolume",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Emote_East.html",
+    "title": "ASQ_Common_Emote_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Emote_North.html",
+    "title": "ASQ_Common_Emote_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Emote_South.html",
+    "title": "ASQ_Common_Emote_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/ASQ_Common_Emote_West.html",
+    "title": "ASQ_Common_Emote_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/World/BP_DiscoveryVolume.html",
+    "title": "BP_DiscoveryVolume",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/World/BP_WorldClock.html",
+    "title": "BP_WorldClock",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/Core/DA_Map_Rillmere.html",
+    "title": "DA_Map_Rillmere",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/World/DA_Weather_Rillmere.html",
+    "title": "DA_Weather_Rillmere",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/Zones/DA_Zone_Brinewake.html",
+    "title": "DA_Zone_Brinewake",
+    "group": "Asset · Zones"
+  },
+  {
+    "path": "assets/Zones/DA_Zone_KestrelCrown.html",
+    "title": "DA_Zone_KestrelCrown",
+    "group": "Asset · Zones"
+  },
+  {
+    "path": "assets/Zones/DA_Zone_Morrowfen.html",
+    "title": "DA_Zone_Morrowfen",
+    "group": "Asset · Zones"
+  },
+  {
+    "path": "assets/Zones/DA_Zone_VarranHalls.html",
+    "title": "DA_Zone_VarranHalls",
+    "group": "Asset · Zones"
+  },
+  {
+    "path": "assets/Persistence/DB_character_discoveries.html",
+    "title": "DB_character_discoveries",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_zone_cycles.html",
+    "title": "DB_zone_cycles",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Emote_East.html",
+    "title": "FB_Common_Emote_East",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Emote_North.html",
+    "title": "FB_Common_Emote_North",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Emote_South.html",
+    "title": "FB_Common_Emote_South",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/Animation/FB_Common_Emote_West.html",
+    "title": "FB_Common_Emote_West",
+    "group": "Asset · Animation"
+  },
+  {
+    "path": "assets/World/FRPGWorldClock.html",
+    "title": "FRPGWorldClock",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/Input/IA_Map.html",
+    "title": "IA_Map",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Maps/L_Brinewake.html",
+    "title": "L_Brinewake",
+    "group": "Asset · Maps"
+  },
+  {
+    "path": "assets/Maps/L_KestrelCrown.html",
+    "title": "L_KestrelCrown",
+    "group": "Asset · Maps"
+  },
+  {
+    "path": "assets/Maps/L_Morrowfen.html",
+    "title": "L_Morrowfen",
+    "group": "Asset · Maps"
+  },
+  {
+    "path": "assets/Maps/L_VarranHalls.html",
+    "title": "L_VarranHalls",
+    "group": "Asset · Maps"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase17.html",
+    "title": "TEST_Phase17",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/World/URPGDiscoveryComponent.html",
+    "title": "URPGDiscoveryComponent",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/Core/URPGMapDefinition.html",
+    "title": "URPGMapDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/World/URPGWeatherDefinition.html",
+    "title": "URPGWeatherDefinition",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/World/URPGWorldClockComponent.html",
+    "title": "URPGWorldClockComponent",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/World/URPGZoneCatalog.html",
+    "title": "URPGZoneCatalog",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/UI/WBP_Map.html",
+    "title": "WBP_Map",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/UI/WBP_Minimap.html",
+    "title": "WBP_Minimap",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Network/API_Dungeon.html",
+    "title": "API_Dungeon",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Enemies/BP_DungeonController.html",
+    "title": "BP_DungeonController",
+    "group": "Asset · Enemies"
+  },
+  {
+    "path": "assets/World/DA_Dungeon_SluiceVault.html",
+    "title": "DA_Dungeon_SluiceVault",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/Enemies/DA_Enemy_SluiceKeeper.html",
+    "title": "DA_Enemy_SluiceKeeper",
+    "group": "Asset · Enemies"
+  },
+  {
+    "path": "assets/Persistence/DB_dungeon_instances.html",
+    "title": "DB_dungeon_instances",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Maps/L_SluiceVault.html",
+    "title": "L_SluiceVault",
+    "group": "Asset · Maps"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase18.html",
+    "title": "TEST_Phase18",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/World/URPGDungeonDefinition.html",
+    "title": "URPGDungeonDefinition",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/Enemies/URPGDungeonInstanceComponent.html",
+    "title": "URPGDungeonInstanceComponent",
+    "group": "Asset · Enemies"
+  },
+  {
+    "path": "assets/UI/WBP_DungeonFinder.html",
+    "title": "WBP_DungeonFinder",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Network/API_Chat.html",
+    "title": "API_Chat",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Network/API_Moderation.html",
+    "title": "API_Moderation",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Network/API_Social.html",
+    "title": "API_Social",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Network/API_Trade.html",
+    "title": "API_Trade",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Core/DA_ChatPolicy_Default.html",
+    "title": "DA_ChatPolicy_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/DA_SocialPolicy_Default.html",
+    "title": "DA_SocialPolicy_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/DA_TradePolicy_Default.html",
+    "title": "DA_TradePolicy_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Persistence/DB_moderation_actions.html",
+    "title": "DB_moderation_actions",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_social_edges.html",
+    "title": "DB_social_edges",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Persistence/DB_trade_sessions.html",
+    "title": "DB_trade_sessions",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Economy/FRPGTradeOffer.html",
+    "title": "FRPGTradeOffer",
+    "group": "Asset · Economy"
+  },
+  {
+    "path": "assets/Input/IA_Chat.html",
+    "title": "IA_Chat",
+    "group": "Asset · Input"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase19.html",
+    "title": "TEST_Phase19",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Social/URPGChatComponent.html",
+    "title": "URPGChatComponent",
+    "group": "Asset · Social"
+  },
+  {
+    "path": "assets/Core/URPGChatPolicyDefinition.html",
+    "title": "URPGChatPolicyDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Social/URPGSocialComponent.html",
+    "title": "URPGSocialComponent",
+    "group": "Asset · Social"
+  },
+  {
+    "path": "assets/Core/URPGSocialPolicyDefinition.html",
+    "title": "URPGSocialPolicyDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Economy/URPGTradeComponent.html",
+    "title": "URPGTradeComponent",
+    "group": "Asset · Economy"
+  },
+  {
+    "path": "assets/Core/URPGTradePolicyDefinition.html",
+    "title": "URPGTradePolicyDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/UI/WBP_Chat.html",
+    "title": "WBP_Chat",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/UI/WBP_Social.html",
+    "title": "WBP_Social",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/UI/WBP_Trade.html",
+    "title": "WBP_Trade",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Network/API_Reputation.html",
+    "title": "API_Reputation",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/World/BP_WorldEventController.html",
+    "title": "BP_WorldEventController",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/World/DA_Event_Riverwatch.html",
+    "title": "DA_Event_Riverwatch",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/Factions/DA_Faction_AshenSurvey.html",
+    "title": "DA_Faction_AshenSurvey",
+    "group": "Asset · Factions"
+  },
+  {
+    "path": "assets/Factions/DA_Faction_CairnWardens.html",
+    "title": "DA_Faction_CairnWardens",
+    "group": "Asset · Factions"
+  },
+  {
+    "path": "assets/Factions/DA_Faction_RiverCompact.html",
+    "title": "DA_Faction_RiverCompact",
+    "group": "Asset · Factions"
+  },
+  {
+    "path": "assets/Factions/DA_Faction_TideboundLeague.html",
+    "title": "DA_Faction_TideboundLeague",
+    "group": "Asset · Factions"
+  },
+  {
+    "path": "assets/Core/DA_Trainer_Tovin.html",
+    "title": "DA_Trainer_Tovin",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/DA_TravelHub_Hearthford.html",
+    "title": "DA_TravelHub_Hearthford",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Persistence/DB_character_reputation.html",
+    "title": "DB_character_reputation",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase20.html",
+    "title": "TEST_Phase20",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Factions/URPGFactionDefinition.html",
+    "title": "URPGFactionDefinition",
+    "group": "Asset · Factions"
+  },
+  {
+    "path": "assets/Zones/URPGFastTravelComponent.html",
+    "title": "URPGFastTravelComponent",
+    "group": "Asset · Zones"
+  },
+  {
+    "path": "assets/Factions/URPGReputationComponent.html",
+    "title": "URPGReputationComponent",
+    "group": "Asset · Factions"
+  },
+  {
+    "path": "assets/Core/URPGTrainerDefinition.html",
+    "title": "URPGTrainerDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/NPCs/URPGTrainingComponent.html",
+    "title": "URPGTrainingComponent",
+    "group": "Asset · NPCs"
+  },
+  {
+    "path": "assets/Core/URPGTravelHubDefinition.html",
+    "title": "URPGTravelHubDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/World/URPGWorldEventComponent.html",
+    "title": "URPGWorldEventComponent",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/World/URPGWorldEventDefinition.html",
+    "title": "URPGWorldEventDefinition",
+    "group": "Asset · World"
+  },
+  {
+    "path": "assets/Network/API_Guild.html",
+    "title": "API_Guild",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Core/DA_GuildPolicy_Default.html",
+    "title": "DA_GuildPolicy_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/DA_Mount_Prototype.html",
+    "title": "DA_Mount_Prototype",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Persistence/DB_guild_memberships.html",
+    "title": "DB_guild_memberships",
+    "group": "Asset · Persistence"
+  },
+  {
+    "path": "assets/Social/FRPGGuildSnapshot.html",
+    "title": "FRPGGuildSnapshot",
+    "group": "Asset · Social"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase21.html",
+    "title": "TEST_Phase21",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Social/URPGGuildComponent.html",
+    "title": "URPGGuildComponent",
+    "group": "Asset · Social"
+  },
+  {
+    "path": "assets/Core/URPGGuildPolicyDefinition.html",
+    "title": "URPGGuildPolicyDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Player/URPGMountComponent.html",
+    "title": "URPGMountComponent",
+    "group": "Asset · Player"
+  },
+  {
+    "path": "assets/Core/URPGMountDefinition.html",
+    "title": "URPGMountDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/UI/WBP_Guild.html",
+    "title": "WBP_Guild",
+    "group": "Asset · UI"
+  },
+  {
+    "path": "assets/Core/DA_Deployment_Development.html",
+    "title": "DA_Deployment_Development",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/DA_NetworkBudget_Development.html",
+    "title": "DA_NetworkBudget_Development",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Maps/L_LoadTest.html",
+    "title": "L_LoadTest",
+    "group": "Asset · Maps"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase22.html",
+    "title": "TEST_Phase22",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Core/URPGDeploymentDefinition.html",
+    "title": "URPGDeploymentDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/URPGNetworkBudgetDefinition.html",
+    "title": "URPGNetworkBudgetDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Network/URPGReplicationPolicy.html",
+    "title": "URPGReplicationPolicy",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Network/URPGZoneHeartbeatComponent.html",
+    "title": "URPGZoneHeartbeatComponent",
+    "group": "Asset · Network"
+  },
+  {
+    "path": "assets/Core/DA_ExpansionPolicy_Default.html",
+    "title": "DA_ExpansionPolicy_Default",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/DA_TestPlan_Release.html",
+    "title": "DA_TestPlan_Release",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Tests/TEST_Phase23.html",
+    "title": "TEST_Phase23",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Tests/URPGAcceptanceHarness.html",
+    "title": "URPGAcceptanceHarness",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Core/URPGExpansionPolicy.html",
+    "title": "URPGExpansionPolicy",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/URPGExpansionPolicyDefinition.html",
+    "title": "URPGExpansionPolicyDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Core/URPGTestPlanDefinition.html",
+    "title": "URPGTestPlanDefinition",
+    "group": "Asset · Core"
+  },
+  {
+    "path": "assets/Tests/BP_InteractionProbe.html",
+    "title": "BP_InteractionProbe",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "assets/Tests/BP_CombatProbe.html",
+    "title": "BP_CombatProbe",
+    "group": "Asset · Tests"
+  },
+  {
+    "path": "phases/phase-00.html",
+    "title": "Phase 00 · Sources, tools and test bootstrap",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-01.html",
+    "title": "Phase 01 · Sprite, camera and layering lab",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-02.html",
+    "title": "Phase 02 · Three-dimensional locomotion",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-03.html",
+    "title": "Phase 03 · Dedicated server and two clients",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-04.html",
+    "title": "Phase 04 · Accounts and character creation",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-05.html",
+    "title": "Phase 05 · Durable character service",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-06.html",
+    "title": "Phase 06 · Two-zone handoff",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-07.html",
+    "title": "Phase 07 · GAS and authoritative combat",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-08.html",
+    "title": "Phase 08 · AI, defeat credit, XP and recovery",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-09.html",
+    "title": "Phase 09 · Items, bags and equipment",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-10.html",
+    "title": "Phase 10 · Weighted loot and ownership",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-11.html",
+    "title": "Phase 11 · Merchants, currency and bank",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-12.html",
+    "title": "Phase 12 · Randomized mining and woodcutting",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-13.html",
+    "title": "Phase 13 · Crafting professions",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-14.html",
+    "title": "Phase 14 · Fishing",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-15.html",
+    "title": "Phase 15 · Village dialogue and quest loop",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-16.html",
+    "title": "Phase 16 · Four-class talents and progression",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-17.html",
+    "title": "Phase 17 · Exploration and world production",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-18.html",
+    "title": "Phase 18 · Elites, bosses and dungeons",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-19.html",
+    "title": "Phase 19 · Social and secure trade",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-20.html",
+    "title": "Phase 20 · Reputation, trainers and hubs",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-21.html",
+    "title": "Phase 21 · Guilds and committed growth",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-22.html",
+    "title": "Phase 22 · Operations, security and measured scale",
+    "group": "Build phase"
+  },
+  {
+    "path": "phases/phase-23.html",
+    "title": "Phase 23 · Packaged release-candidate proof",
+    "group": "Build phase"
+  },
+  {
+    "path": "index.html",
+    "title": "RPG MMO Development Guide",
+    "group": "Guide"
+  },
+  {
+    "path": "development-roadmap.html",
+    "title": "Development roadmap",
+    "group": "Guide"
+  },
+  {
+    "path": "asset-index.html",
+    "title": "Asset registry",
+    "group": "Guide"
+  },
+  {
+    "path": "systems/index.html",
+    "title": "System chapters",
+    "group": "Systems"
+  },
+  {
+    "path": "feature-coverage.html",
+    "title": "Feature coverage",
+    "group": "Guide"
+  },
+  {
+    "path": "dependency-map.html",
+    "title": "Dependency graph and reverse navigation",
+    "group": "Guide"
+  },
+  {
+    "path": "ownership.html",
+    "title": "Persistent fact ownership",
+    "group": "Guide"
+  },
+  {
+    "path": "checklist.html",
+    "title": "Progress checklist",
+    "group": "Guide"
+  },
+  {
+    "path": "search.html",
+    "title": "Search the offline manual",
+    "group": "Guide"
+  },
+  {
+    "path": "network/index.html",
+    "title": "Network and backend guides",
+    "group": "Network"
+  },
+  {
+    "path": "design/decisions.html",
+    "title": "Design-decision register",
+    "group": "Design"
+  },
+  {
+    "path": "design/classes.html",
+    "title": "Classes, abilities and skill-tree examples",
+    "group": "Design"
+  },
+  {
+    "path": "design/world-and-biomes.html",
+    "title": "World and biome catalog",
+    "group": "World"
+  },
+  {
+    "path": "world/index.html",
+    "title": "World and biome catalog",
+    "group": "World"
+  },
+  {
+    "path": "world/rillmere.html",
+    "title": "Rillmere Valley",
+    "group": "World design"
+  },
+  {
+    "path": "world/thornweald.html",
+    "title": "Thornweald",
+    "group": "World design"
+  },
+  {
+    "path": "world/morrowfen.html",
+    "title": "Morrowfen",
+    "group": "World design"
+  },
+  {
+    "path": "world/kestrel-crown.html",
+    "title": "Kestrel Crown",
+    "group": "World design"
+  },
+  {
+    "path": "world/varran-halls.html",
+    "title": "Varran Halls",
+    "group": "World design"
+  },
+  {
+    "path": "world/brinewake.html",
+    "title": "Brinewake Coast",
+    "group": "World design"
+  },
+  {
+    "path": "world/hearthford.html",
+    "title": "Hearthford first playable village",
+    "group": "World"
+  },
+  {
+    "path": "world/sluice-vault.html",
+    "title": "Sluice Vault cooperative instance",
+    "group": "World"
+  },
+  {
+    "path": "world/biome-authoring.html",
+    "title": "Author one new biome",
+    "group": "World"
+  },
+  {
+    "path": "first-vertical-slice.html",
+    "title": "Three vertical-slice acceptance gates",
+    "group": "Guide"
+  },
+  {
+    "path": "sources-verification.html",
+    "title": "Sources, verification and limitations",
+    "group": "Guide"
+  },
+  {
+    "path": "all-pages.html",
+    "title": "All chapters and asset contracts",
+    "group": "Guide"
+  }
+]

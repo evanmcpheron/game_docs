@@ -1,0 +1,838 @@
+[
+  {
+    "id": "DB_accounts",
+    "table": "accounts",
+    "phase": 4,
+    "primary_and_unique": "AccountId UUID; unique (provider,subject)",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "authenticated provider exchange",
+    "owner_fact": "account",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_characters",
+    "table": "characters",
+    "phase": 4,
+    "primary_and_unique": "CharacterId UUID; unique active (AccountId,SlotIndex), normalized realm name",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "create/delete/restore command",
+    "owner_fact": "character",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_character_appearance",
+    "table": "character_appearance",
+    "phase": 4,
+    "primary_and_unique": "CharacterId + AppearanceVersion",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "validated character create/appearance command",
+    "owner_fact": "appearance",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_character_progression",
+    "table": "character_progression",
+    "phase": 5,
+    "primary_and_unique": "CharacterId; revision",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "verified encounter/quest reward receipt",
+    "owner_fact": "progression",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_character_skills",
+    "table": "character_skills",
+    "phase": 16,
+    "primary_and_unique": "(CharacterId,SkillNodeId); class invariant",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "spend/respec command",
+    "owner_fact": "skills",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_item_instances",
+    "table": "item_instances",
+    "phase": 5,
+    "primary_and_unique": "ItemInstanceId UUID; one owner/location; version",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0",
+      "ItemInstanceId UUID primary key, DefinitionId text, OwnerCharacterId UUID",
+      "ContainerId UUID and SlotIndex OR equipment location, never two locations",
+      "AffixRolls versioned immutable JSON, Durability integer 0..MaxDurability, BindingOwnerId nullable UUID",
+      "Unique occupancy enforced by a shared container occupancy relation, not separate stack/item indexes that can collide"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "loot/craft/buy/trade transaction",
+    "owner_fact": "item_instances",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_inventory_stacks",
+    "table": "inventory_stacks",
+    "phase": 5,
+    "primary_and_unique": "StackId UUID; (ContainerId,SlotIndex) unique across occupancy",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "reward/move/use/trade transaction",
+    "owner_fact": "stacks",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_equipment_slots",
+    "table": "equipment_slots",
+    "phase": 9,
+    "primary_and_unique": "(CharacterId,SlotId) unique; ItemInstanceId unique",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "equip/unequip command",
+    "owner_fact": "equipment",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_character_wallets",
+    "table": "character_wallets",
+    "phase": 5,
+    "primary_and_unique": "CharacterId; signed 64-bit nonnegative balance",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "ledger-backed buy/sell/craft/reward",
+    "owner_fact": "currency",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_containers",
+    "table": "containers",
+    "phase": 5,
+    "primary_and_unique": "ContainerId UUID; owner + kind; nonnegative capacity",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "bank move/approved capacity entitlement",
+    "owner_fact": "containers",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_character_professions",
+    "table": "character_professions",
+    "phase": 12,
+    "primary_and_unique": "(CharacterId,ProfessionId); XP >=0",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "committed gather/fish/craft receipt",
+    "owner_fact": "professions",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_character_recipes",
+    "table": "character_recipes",
+    "phase": 13,
+    "primary_and_unique": "(CharacterId,RecipeId) unique",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "trainer/quest unlock transaction",
+    "owner_fact": "recipes",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_character_quests",
+    "table": "character_quests",
+    "phase": 15,
+    "primary_and_unique": "(CharacterId,QuestId,CycleId); revision",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "verified event with event deduplication",
+    "owner_fact": "quests",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_character_flags",
+    "table": "character_flags",
+    "phase": 15,
+    "primary_and_unique": "(CharacterId,FlagId); typed value",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "validated dialogue choice commit",
+    "owner_fact": "consequences",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_quest_event_receipts",
+    "table": "quest_event_receipts",
+    "phase": 15,
+    "primary_and_unique": "(CharacterId,QuestId,ObjectiveId,EventId) unique",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "server verified domain event",
+    "owner_fact": "quest_events",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_command_receipts",
+    "table": "command_receipts",
+    "phase": 4,
+    "primary_and_unique": "(PrincipalId,CommandId) unique; RequestHash immutable",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0",
+      "PrincipalId UUID, CommandId UUID, RequestHash text",
+      "Status Accepted|Rejected, ResultPayload versioned JSON, ResultRevision bigint",
+      "Unique (PrincipalId,CommandId); hash mismatch always conflicts"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "every durable mutation transaction",
+    "owner_fact": "command_receipts",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_economic_ledger",
+    "table": "economic_ledger",
+    "phase": 5,
+    "primary_and_unique": "LedgerEntryId; CommandId FK; balanced transfer entries",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "transaction commit, append only",
+    "owner_fact": "ledger",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_outbox_events",
+    "table": "outbox_events",
+    "phase": 5,
+    "primary_and_unique": "EventId UUID; CommandId FK; delivery attempt",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "same DB commit as durable state",
+    "owner_fact": "outbox",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_character_sessions",
+    "table": "character_sessions",
+    "phase": 5,
+    "primary_and_unique": "CharacterId unique; Epoch monotonically increasing",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0",
+      "CharacterId UUID primary key, Epoch bigint > 0",
+      "ZoneProcessId nullable UUID, LeaseExpiresAt timestamptz, State Active|Frozen|Transferring|Released",
+      "Update requires expected epoch; takeover increments epoch before granting new writer"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "admission/lease renewal/transfer/revoke",
+    "owner_fact": "sessions",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_zone_transfers",
+    "table": "zone_transfers",
+    "phase": 6,
+    "primary_and_unique": "TransferId UUID; token nonce hash unique; epoch/destination bound",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "freeze/reserve/redeem/complete/cancel",
+    "owner_fact": "transfers",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_zone_processes",
+    "table": "zone_processes",
+    "phase": 6,
+    "primary_and_unique": "ZoneProcessId; build/region/heartbeat sequence",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "authenticated register/heartbeat/reserve",
+    "owner_fact": "zone_registry",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_character_locations",
+    "table": "character_locations",
+    "phase": 6,
+    "primary_and_unique": "CharacterId; ZoneId + SpawnId; validated transform when used",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "checkpoint/death/transfer commit",
+    "owner_fact": "checkpoints",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_character_cooldowns",
+    "table": "character_cooldowns",
+    "phase": 7,
+    "primary_and_unique": "(CharacterId,AbilityId); ExpiresAtUtc",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "accepted cooldown snapshot/recovery boundary",
+    "owner_fact": "cooldowns",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_encounter_resolutions",
+    "table": "encounter_resolutions",
+    "phase": 8,
+    "primary_and_unique": "(ZoneInstanceId,SpawnId,Generation) unique",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "server kill resolution commit",
+    "owner_fact": "encounters",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_loot_entitlements",
+    "table": "loot_entitlements",
+    "phase": 10,
+    "primary_and_unique": "(EncounterResolutionId,CharacterId,RollIndex) unique",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "validated defeat allocation/claim",
+    "owner_fact": "loot",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_vendor_stock",
+    "table": "vendor_stock",
+    "phase": 11,
+    "primary_and_unique": "(VendorId,OfferId,StockScopeId); revision",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "buy/restock transaction",
+    "owner_fact": "stock",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_buyback_entries",
+    "table": "buyback_entries",
+    "phase": 11,
+    "primary_and_unique": "BuybackId UUID; seller only; expires",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "sell/buyback transaction",
+    "owner_fact": "buyback",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_resource_generations",
+    "table": "resource_generations",
+    "phase": 12,
+    "primary_and_unique": "(ZoneInstanceId,SiteId,Generation) unique",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0",
+      "ZoneInstanceId UUID, SiteId text, Generation bigint",
+      "SelectedCycleSeedHash, RuleVersion, NodeDefinitionId, State Active|Depleted",
+      "ClaimCommandId unique nullable UUID, DepletedAt, RespawnAt",
+      "Unique (ZoneInstanceId,SiteId,Generation) and conditional active-generation invariant"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "selected cycle/depletion/respawn transaction",
+    "owner_fact": "resource_generations",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_fishing_attempts",
+    "table": "fishing_attempts",
+    "phase": 14,
+    "primary_and_unique": "AttemptId UUID; at most one terminal result",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0",
+      "AttemptId UUID, CharacterId UUID, SessionEpoch, PoolId, RuleVersion",
+      "State Waiting|Bite|Succeeded|Failed|Canceled; TerminalCommandId unique nullable UUID",
+      "Durable terminal reward rolls/receipt; unresolved runtime wait is canceled after crash by explicit policy"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "server reel/cancel/timeout",
+    "owner_fact": "fishing_attempts",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_character_discoveries",
+    "table": "character_discoveries",
+    "phase": 17,
+    "primary_and_unique": "(CharacterId,DiscoveryId) unique",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "server region crossing or approved quest unlock",
+    "owner_fact": "discovery",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_zone_cycles",
+    "table": "zone_cycles",
+    "phase": 17,
+    "primary_and_unique": "(ZoneInstanceId,CycleType); generation",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "server scheduled state transition",
+    "owner_fact": "world_cycles",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_character_reputation",
+    "table": "character_reputation",
+    "phase": 20,
+    "primary_and_unique": "(CharacterId,FactionId); bounded standing",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "recorded reward/consequence transaction",
+    "owner_fact": "reputation",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_social_edges",
+    "table": "social_edges",
+    "phase": 19,
+    "primary_and_unique": "(OwnerAccountId,TargetAccountId,EdgeType) unique",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "authenticated social command",
+    "owner_fact": "social_edges",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_party_memberships",
+    "table": "party_memberships",
+    "phase": 8,
+    "primary_and_unique": "PartyId; CharacterId in at most one active party",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "invite/accept/leave/disband transaction",
+    "owner_fact": "parties",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_trade_sessions",
+    "table": "trade_sessions",
+    "phase": 19,
+    "primary_and_unique": "TradeId; two participant IDs; revision; terminal receipt",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "offer/reconfirm/settle/cancel transaction",
+    "owner_fact": "trades",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_guild_memberships",
+    "table": "guild_memberships",
+    "phase": 21,
+    "primary_and_unique": "GuildId; CharacterId one active guild; role version",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "guild create/invite/promote/leave command",
+    "owner_fact": "guilds",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_dungeon_instances",
+    "table": "dungeon_instances",
+    "phase": 18,
+    "primary_and_unique": "InstanceId UUID; PartyId; lease; return gate",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "reserve/admit/resolve/expire",
+    "owner_fact": "dungeons",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_moderation_actions",
+    "table": "moderation_actions",
+    "phase": 19,
+    "primary_and_unique": "ReportId/ActionId UUID; reviewed operator identity",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "report and authorized moderation commands",
+    "owner_fact": "moderation",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  },
+  {
+    "id": "DB_container_occupancy",
+    "table": "container_occupancy",
+    "phase": 5,
+    "primary_and_unique": "(ContainerId,SlotIndex) primary key; XOR ItemInstanceId/StackId; unique referenced identity",
+    "columns": [
+      "Primary identity and foreign keys above",
+      "Revision bigint NOT NULL >= 0",
+      "CreatedAt/UpdatedAt timestamptz from backend",
+      "RecordVersion integer NOT NULL > 0"
+    ],
+    "checks": [
+      "Foreign keys reference valid identities; define delete/recovery semantics explicitly",
+      "Quantities/currency/XP use bounded integers, reject negative and overflow before arithmetic",
+      "Never trust a client-provided owner, price, roll, revision increment or expiry"
+    ],
+    "transaction": "locked container move/equip/craft/reward transaction",
+    "owner_fact": "occupancy",
+    "retention": "Versioned retention and deletion policy; retain required economic receipt/audit references under reviewed privacy policy",
+    "migration": "Numbered additive migration, explicit precondition, staging restore test, uniqueness backfill and forward recovery; no silent drop of unknown saved content"
+  }
+]

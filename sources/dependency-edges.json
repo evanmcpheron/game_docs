@@ -1,0 +1,6164 @@
+{
+  "schema_version": 1,
+  "semantics": "source requires target; creation DAG is distinct from phase-stamped runtime assignments",
+  "edges": [
+    {
+      "source": "ARPGMenuGameMode",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "ARPGPlayerCharacter",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "ARPGPlayerController",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "ARPGZoneGameMode",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "ARPGZoneGameMode",
+      "target": "DA_Zone_NetworkLab",
+      "kind": "integration",
+      "phase": 3,
+      "assignment": "Typed definition/configuration supplied at dedicated-server readiness"
+    },
+    {
+      "source": "ARPGZoneGameMode",
+      "target": "WBP_Diagnostics",
+      "kind": "integration",
+      "phase": 3,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "BP_MenuGameMode",
+      "target": "ARPGMenuGameMode",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "BP_MenuGameMode",
+      "target": "BP_RPGPlayerController",
+      "kind": "integration",
+      "phase": 0,
+      "assignment": "PlayerControllerClass; frontend default pawn none"
+    },
+    {
+      "source": "BP_PlayerCharacter",
+      "target": "ARPGPlayerCharacter",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "BP_PlayerCharacter",
+      "target": "URPGCharacterMovementComponent",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Native default subobject replacement, not a second component added in Blueprint"
+    },
+    {
+      "source": "BP_PlayerCharacter",
+      "target": "URPGPaperDollComponent",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Owned component or native composition; initialize with current body and cleanup on unpossess"
+    },
+    {
+      "source": "BP_PlayerCharacter",
+      "target": "URPGCameraComponent",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Owned component or native composition; initialize with current body and cleanup on unpossess"
+    },
+    {
+      "source": "BP_PlayerCharacter",
+      "target": "URPGSwimmingComponent",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Owned component or native composition; initialize with current body and cleanup on unpossess"
+    },
+    {
+      "source": "BP_PlayerCharacter",
+      "target": "URPGInteractionComponent",
+      "kind": "integration",
+      "phase": 3,
+      "assignment": "Owned component or native composition; initialize with current body and cleanup on unpossess"
+    },
+    {
+      "source": "BP_PlayerCharacter",
+      "target": "URPGTargetingComponent",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Owned component or native composition; initialize with current body and cleanup on unpossess"
+    },
+    {
+      "source": "BP_PlayerCharacter",
+      "target": "URPGPresentationCueComponent",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Owned component or native composition; initialize with current body and cleanup on unpossess"
+    },
+    {
+      "source": "BP_PlayerCharacter",
+      "target": "URPGGatheringComponent",
+      "kind": "integration",
+      "phase": 12,
+      "assignment": "Owned component or native composition; initialize with current body and cleanup on unpossess"
+    },
+    {
+      "source": "BP_PlayerCharacter",
+      "target": "URPGFishingComponent",
+      "kind": "integration",
+      "phase": 14,
+      "assignment": "Owned component or native composition; initialize with current body and cleanup on unpossess"
+    },
+    {
+      "source": "BP_RPGGameInstance",
+      "target": "URPGGameInstance",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "BP_RPGGameInstance",
+      "target": "URPGAccountSession",
+      "kind": "integration",
+      "phase": 4,
+      "assignment": "Auto subsystem access, not a replicated account singleton"
+    },
+    {
+      "source": "BP_RPGPlayerController",
+      "target": "ARPGPlayerController",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "BP_RPGPlayerController",
+      "target": "URPGScreenRouter",
+      "kind": "integration",
+      "phase": 0,
+      "assignment": "Local player screen router reference; never instantiate duplicate UI authority"
+    },
+    {
+      "source": "BP_RPGPlayerController",
+      "target": "IMC_World",
+      "kind": "integration",
+      "phase": 0,
+      "assignment": "Local Enhanced Input mapping context"
+    },
+    {
+      "source": "BP_RPGPlayerController",
+      "target": "IMC_UI",
+      "kind": "integration",
+      "phase": 0,
+      "assignment": "Modal input context"
+    },
+    {
+      "source": "BP_ZoneGameMode",
+      "target": "ARPGZoneGameMode",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "BP_ZoneGameMode",
+      "target": "BP_RPGPlayerController",
+      "kind": "integration",
+      "phase": 0,
+      "assignment": "PlayerControllerClass"
+    },
+    {
+      "source": "BP_ZoneGameMode",
+      "target": "BP_PlayerCharacter",
+      "kind": "integration",
+      "phase": 0,
+      "assignment": "DefaultPawnClass"
+    },
+    {
+      "source": "BP_ZoneGameMode",
+      "target": "BP_RPGPlayerState",
+      "kind": "integration",
+      "phase": 3,
+      "assignment": "PlayerStateClass"
+    },
+    {
+      "source": "BP_ZoneGameMode",
+      "target": "BP_ZoneGameState",
+      "kind": "integration",
+      "phase": 3,
+      "assignment": "GameStateClass"
+    },
+    {
+      "source": "DA_InputPolicy_Default",
+      "target": "URPGInputPolicyDefinition",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_Move",
+      "kind": "integration",
+      "phase": 0,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_Jump",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_Sprint",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_Dodge",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_Zoom",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_Interact",
+      "kind": "integration",
+      "phase": 3,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_Primary",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_TargetNext",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_FishReel",
+      "kind": "integration",
+      "phase": 14,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_Inventory",
+      "kind": "integration",
+      "phase": 9,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_QuestJournal",
+      "kind": "integration",
+      "phase": 15,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_Map",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_Skills",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_Chat",
+      "kind": "integration",
+      "phase": 19,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_Cancel",
+      "kind": "integration",
+      "phase": 0,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_Ability1",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_Ability2",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_Ability3",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_UI",
+      "target": "IA_Ability4",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_Move",
+      "kind": "integration",
+      "phase": 0,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_Jump",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_Sprint",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_Dodge",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_Zoom",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_Interact",
+      "kind": "integration",
+      "phase": 3,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_Primary",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_TargetNext",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_FishReel",
+      "kind": "integration",
+      "phase": 14,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_Inventory",
+      "kind": "integration",
+      "phase": 9,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_QuestJournal",
+      "kind": "integration",
+      "phase": 15,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_Map",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_Skills",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_Chat",
+      "kind": "integration",
+      "phase": 19,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_Cancel",
+      "kind": "integration",
+      "phase": 0,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_Ability1",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_Ability2",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_Ability3",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IMC_World",
+      "target": "IA_Ability4",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Mappings: add binding at this phase; Cancel available in UI, world actions suspended appropriately"
+    },
+    {
+      "source": "IRPGDefinitionValidator",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "L_TerrainLab",
+      "target": "BP_ZoneGameMode",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "TEST_Phase00",
+      "target": "L_TerrainLab",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "URPGGameInstance",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "URPGInputPolicyDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "URPGPolicyDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "URPGScreenRouter",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "URPGScreenRouter",
+      "target": "DA_InputPolicy_Default",
+      "kind": "integration",
+      "phase": 0,
+      "assignment": "Typed definition/configuration supplied at input-ui readiness"
+    },
+    {
+      "source": "URPGScreenRouter",
+      "target": "WBP_Options",
+      "kind": "integration",
+      "phase": 0,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "WBP_MainMenu",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "WBP_Options",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 0
+    },
+    {
+      "source": "WBP_Options",
+      "target": "URPGCameraComponent",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Inject read-only model/result delegate for camera; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Options",
+      "target": "URPGScreenRouter",
+      "kind": "integration",
+      "phase": 0,
+      "assignment": "Inject read-only model/result delegate for input-ui; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Options",
+      "target": "URPGPresentationCueComponent",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Inject read-only model/result delegate for audio-vfx; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Options",
+      "target": "URPGExpansionPolicy",
+      "kind": "integration",
+      "phase": 23,
+      "assignment": "Inject read-only model/result delegate for optional-expansions; requests go through its validated handler"
+    },
+    {
+      "source": "ABP_Common",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "ASQ_Common_Idle_East",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "ASQ_Common_Idle_East",
+      "target": "FB_Common_Idle_East",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "ASQ_Common_Idle_North",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "ASQ_Common_Idle_North",
+      "target": "FB_Common_Idle_North",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "ASQ_Common_Idle_South",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "ASQ_Common_Idle_South",
+      "target": "FB_Common_Idle_South",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "ASQ_Common_Idle_West",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "ASQ_Common_Idle_West",
+      "target": "FB_Common_Idle_West",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "ASQ_Common_Walk_East",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "ASQ_Common_Walk_East",
+      "target": "FB_Common_Walk_East",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "ASQ_Common_Walk_North",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "ASQ_Common_Walk_North",
+      "target": "FB_Common_Walk_North",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "ASQ_Common_Walk_South",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "ASQ_Common_Walk_South",
+      "target": "FB_Common_Walk_South",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "ASQ_Common_Walk_West",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "ASQ_Common_Walk_West",
+      "target": "FB_Common_Walk_West",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "URPGAnimationSetDefinition",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Idle_North",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Action=Idle, Facing=North; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Idle_East",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Action=Idle, Facing=East; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Idle_South",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Action=Idle, Facing=South; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Idle_West",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Action=Idle, Facing=West; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Walk_North",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Action=Walk, Facing=North; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Walk_East",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Action=Walk, Facing=East; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Walk_South",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Action=Walk, Facing=South; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Walk_West",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Action=Walk, Facing=West; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Run_North",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Action=Run, Facing=North; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Run_East",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Action=Run, Facing=East; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Run_South",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Action=Run, Facing=South; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Run_West",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Action=Run, Facing=West; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Jump_North",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Action=Jump, Facing=North; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Jump_East",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Action=Jump, Facing=East; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Jump_South",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Action=Jump, Facing=South; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Jump_West",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Action=Jump, Facing=West; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Dodge_North",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Action=Dodge, Facing=North; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Dodge_East",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Action=Dodge, Facing=East; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Dodge_South",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Action=Dodge, Facing=South; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Dodge_West",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Action=Dodge, Facing=West; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Swim_North",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Action=Swim, Facing=North; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Swim_East",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Action=Swim, Facing=East; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Swim_South",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Action=Swim, Facing=South; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Swim_West",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Action=Swim, Facing=West; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Melee_North",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Action=Melee, Facing=North; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Melee_East",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Action=Melee, Facing=East; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Melee_South",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Action=Melee, Facing=South; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Melee_West",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Action=Melee, Facing=West; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Bow_North",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Action=Bow, Facing=North; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Bow_East",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Action=Bow, Facing=East; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Bow_South",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Action=Bow, Facing=South; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Bow_West",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Action=Bow, Facing=West; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_GatherMine_North",
+      "kind": "integration",
+      "phase": 12,
+      "assignment": "Action=GatherMine, Facing=North; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_GatherMine_East",
+      "kind": "integration",
+      "phase": 12,
+      "assignment": "Action=GatherMine, Facing=East; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_GatherMine_South",
+      "kind": "integration",
+      "phase": 12,
+      "assignment": "Action=GatherMine, Facing=South; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_GatherMine_West",
+      "kind": "integration",
+      "phase": 12,
+      "assignment": "Action=GatherMine, Facing=West; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_GatherWood_North",
+      "kind": "integration",
+      "phase": 12,
+      "assignment": "Action=GatherWood, Facing=North; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_GatherWood_East",
+      "kind": "integration",
+      "phase": 12,
+      "assignment": "Action=GatherWood, Facing=East; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_GatherWood_South",
+      "kind": "integration",
+      "phase": 12,
+      "assignment": "Action=GatherWood, Facing=South; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_GatherWood_West",
+      "kind": "integration",
+      "phase": 12,
+      "assignment": "Action=GatherWood, Facing=West; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Fish_North",
+      "kind": "integration",
+      "phase": 14,
+      "assignment": "Action=Fish, Facing=North; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Fish_East",
+      "kind": "integration",
+      "phase": 14,
+      "assignment": "Action=Fish, Facing=East; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Fish_South",
+      "kind": "integration",
+      "phase": 14,
+      "assignment": "Action=Fish, Facing=South; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Fish_West",
+      "kind": "integration",
+      "phase": 14,
+      "assignment": "Action=Fish, Facing=West; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Cast_North",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Action=Cast, Facing=North; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Cast_East",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Action=Cast, Facing=East; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Cast_South",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Action=Cast, Facing=South; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Cast_West",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Action=Cast, Facing=West; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Heal_North",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Action=Heal, Facing=North; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Heal_East",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Action=Heal, Facing=East; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Heal_South",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Action=Heal, Facing=South; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Heal_West",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Action=Heal, Facing=West; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Emote_North",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Action=Emote, Facing=North; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Emote_East",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Action=Emote, Facing=East; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Emote_South",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Action=Emote, Facing=South; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ASQ_Common_Emote_West",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Action=Emote, Facing=West; missing gear page hides that layer only"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "ABP_Common",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "AnimInstance class for local PaperZD bridge; validate actual installed property/API before assignment"
+    },
+    {
+      "source": "DA_AnimationSet_Common",
+      "target": "AS_Common",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Common action/facing Animation Source"
+    },
+    {
+      "source": "DA_Camera_Default",
+      "target": "URPGCameraDefinition",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "ERPGFacing4",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "FB_Common_Idle_East",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "FB_Common_Idle_North",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "FB_Common_Idle_South",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "FB_Common_Idle_West",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "FB_Common_Walk_East",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "FB_Common_Walk_North",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "FB_Common_Walk_South",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "FB_Common_Walk_West",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "FRPGAppearanceSnapshot",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "FRPGPresentationState",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "IRPGPresentationSource",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "L_ArtLab",
+      "target": "BP_ZoneGameMode",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "SPR_DebugAvatar",
+      "target": "T_DebugAvatar",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "SPR_DebugAvatar",
+      "target": "M_SpriteMasked",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "SPR_DebugAvatar",
+      "target": "T_DebugAvatar",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Source Texture and checked pivot; no automatic guessed slicing"
+    },
+    {
+      "source": "TEST_Phase01",
+      "target": "L_ArtLab",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "URPGAnimationSetDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "URPGAppearanceDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "URPGCameraComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "URPGCameraComponent",
+      "target": "DA_Camera_Default",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Typed definition/configuration supplied at camera readiness"
+    },
+    {
+      "source": "URPGCameraComponent",
+      "target": "WBP_Options",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGCameraDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "URPGPaperDollComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "URPGPaperDollComponent",
+      "target": "DA_AnimationSet_Common",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Typed definition/configuration supplied at presentation readiness"
+    },
+    {
+      "source": "URPGPaperDollComponent",
+      "target": "WBP_Portrait",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "WBP_Portrait",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 1
+    },
+    {
+      "source": "WBP_Portrait",
+      "target": "URPGPaperDollComponent",
+      "kind": "integration",
+      "phase": 1,
+      "assignment": "Inject read-only model/result delegate for presentation; requests go through its validated handler"
+    },
+    {
+      "source": "ARPGWaterRegion",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Dodge_East",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Dodge_East",
+      "target": "FB_Common_Dodge_East",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Dodge_North",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Dodge_North",
+      "target": "FB_Common_Dodge_North",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Dodge_South",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Dodge_South",
+      "target": "FB_Common_Dodge_South",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Dodge_West",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Dodge_West",
+      "target": "FB_Common_Dodge_West",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Jump_East",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Jump_East",
+      "target": "FB_Common_Jump_East",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Jump_North",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Jump_North",
+      "target": "FB_Common_Jump_North",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Jump_South",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Jump_South",
+      "target": "FB_Common_Jump_South",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Jump_West",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Jump_West",
+      "target": "FB_Common_Jump_West",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Run_East",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Run_East",
+      "target": "FB_Common_Run_East",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Run_North",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Run_North",
+      "target": "FB_Common_Run_North",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Run_South",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Run_South",
+      "target": "FB_Common_Run_South",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Run_West",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Run_West",
+      "target": "FB_Common_Run_West",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Swim_East",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Swim_East",
+      "target": "FB_Common_Swim_East",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Swim_North",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Swim_North",
+      "target": "FB_Common_Swim_North",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Swim_South",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Swim_South",
+      "target": "FB_Common_Swim_South",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Swim_West",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ASQ_Common_Swim_West",
+      "target": "FB_Common_Swim_West",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "BP_WaterRegion",
+      "target": "ARPGWaterRegion",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "DA_Movement_Default",
+      "target": "URPGMovementDefinition",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "DA_Swim_Default",
+      "target": "URPGSwimDefinition",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "ERPGActionState",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "FB_Common_Dodge_East",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "FB_Common_Dodge_North",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "FB_Common_Dodge_South",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "FB_Common_Dodge_West",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "FB_Common_Jump_East",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "FB_Common_Jump_North",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "FB_Common_Jump_South",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "FB_Common_Jump_West",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "FB_Common_Run_East",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "FB_Common_Run_North",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "FB_Common_Run_South",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "FB_Common_Run_West",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "FB_Common_Swim_East",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "FB_Common_Swim_North",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "FB_Common_Swim_South",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "FB_Common_Swim_West",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "GT_Core",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "TEST_Phase02",
+      "target": "L_TerrainLab",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "URPGCharacterMovementComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "URPGCharacterMovementComponent",
+      "target": "DA_Movement_Default",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Typed definition/configuration supplied at locomotion readiness"
+    },
+    {
+      "source": "URPGCharacterMovementComponent",
+      "target": "WBP_HUD",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGMovementDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "URPGSwimDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "URPGSwimmingComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "URPGSwimmingComponent",
+      "target": "DA_Swim_Default",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Typed definition/configuration supplied at swimming readiness"
+    },
+    {
+      "source": "URPGSwimmingComponent",
+      "target": "WBP_HUD",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "WBP_HUD",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 2
+    },
+    {
+      "source": "WBP_HUD",
+      "target": "URPGCharacterMovementComponent",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Inject read-only model/result delegate for locomotion; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_HUD",
+      "target": "URPGSwimmingComponent",
+      "kind": "integration",
+      "phase": 2,
+      "assignment": "Inject read-only model/result delegate for swimming; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_HUD",
+      "target": "URPGHitResolver",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Inject read-only model/result delegate for attacks; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_HUD",
+      "target": "URPGEffectRules",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Inject read-only model/result delegate for effects; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_HUD",
+      "target": "URPGEncounterComponent",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Inject read-only model/result delegate for spawns-rewards; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_HUD",
+      "target": "URPGWorldClockComponent",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Inject read-only model/result delegate for world-time-weather; requests go through its validated handler"
+    },
+    {
+      "source": "ARPGPlayerState",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "ARPGZoneGameState",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "ARPGZoneRuntime",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "BP_RPGPlayerState",
+      "target": "ARPGPlayerState",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "BP_RPGPlayerState",
+      "target": "URPGAbilitySystemComponent",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Owned in-zone projection/component; rehydrate after zone transfer; private fields owner-only"
+    },
+    {
+      "source": "BP_RPGPlayerState",
+      "target": "URPGAttributeSet",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Owned in-zone projection/component; rehydrate after zone transfer; private fields owner-only"
+    },
+    {
+      "source": "BP_RPGPlayerState",
+      "target": "URPGProgressionComponent",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Owned in-zone projection/component; rehydrate after zone transfer; private fields owner-only"
+    },
+    {
+      "source": "BP_RPGPlayerState",
+      "target": "URPGInventoryComponent",
+      "kind": "integration",
+      "phase": 9,
+      "assignment": "Owned in-zone projection/component; rehydrate after zone transfer; private fields owner-only"
+    },
+    {
+      "source": "BP_RPGPlayerState",
+      "target": "URPGEquipmentComponent",
+      "kind": "integration",
+      "phase": 9,
+      "assignment": "Owned in-zone projection/component; rehydrate after zone transfer; private fields owner-only"
+    },
+    {
+      "source": "BP_RPGPlayerState",
+      "target": "URPGQuestComponent",
+      "kind": "integration",
+      "phase": 15,
+      "assignment": "Owned in-zone projection/component; rehydrate after zone transfer; private fields owner-only"
+    },
+    {
+      "source": "BP_RPGPlayerState",
+      "target": "URPGSkillComponent",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Owned in-zone projection/component; rehydrate after zone transfer; private fields owner-only"
+    },
+    {
+      "source": "BP_RPGPlayerState",
+      "target": "URPGPartyComponent",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Owned in-zone projection/component; rehydrate after zone transfer; private fields owner-only"
+    },
+    {
+      "source": "BP_RPGPlayerState",
+      "target": "URPGReputationComponent",
+      "kind": "integration",
+      "phase": 20,
+      "assignment": "Owned in-zone projection/component; rehydrate after zone transfer; private fields owner-only"
+    },
+    {
+      "source": "BP_ZoneGameState",
+      "target": "ARPGZoneGameState",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "BP_ZoneRuntime",
+      "target": "ARPGZoneRuntime",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "DA_Interaction_Default",
+      "target": "URPGInteractionDefinition",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "DA_SecurityPolicy_Development",
+      "target": "URPGSecurityPolicyDefinition",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "DA_Zone_NetworkLab",
+      "target": "URPGZoneDefinition",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "ERPGCommandStatus",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "FRPGCommandEnvelope",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "FRPGCommandResult",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "IRPGInteractable",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "L_NetworkLab",
+      "target": "BP_ZoneGameMode",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "L_NetworkLab",
+      "target": "BP_InteractionProbe",
+      "kind": "integration",
+      "phase": 3,
+      "assignment": "Place one InteractProbe beyond the LOS wall; no production reward"
+    },
+    {
+      "source": "L_NetworkLab",
+      "target": "BP_CombatProbe",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Place stationary 100-health target; no AI/XP/loot until phase08"
+    },
+    {
+      "source": "TEST_Phase03",
+      "target": "L_NetworkLab",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "URPGAdmissionValidator",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "URPGAdmissionValidator",
+      "target": "DA_SecurityPolicy_Development",
+      "kind": "integration",
+      "phase": 3,
+      "assignment": "Typed definition/configuration supplied at security readiness"
+    },
+    {
+      "source": "URPGAdmissionValidator",
+      "target": "WBP_Diagnostics",
+      "kind": "integration",
+      "phase": 3,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGInteractionComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "URPGInteractionComponent",
+      "target": "DA_Interaction_Default",
+      "kind": "integration",
+      "phase": 3,
+      "assignment": "Typed definition/configuration supplied at interaction readiness"
+    },
+    {
+      "source": "URPGInteractionComponent",
+      "target": "WBP_Notifications",
+      "kind": "integration",
+      "phase": 3,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGInteractionDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "URPGSecurityPolicyDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "URPGZoneDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "WBP_Diagnostics",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "WBP_Diagnostics",
+      "target": "ARPGZoneGameMode",
+      "kind": "integration",
+      "phase": 3,
+      "assignment": "Inject read-only model/result delegate for dedicated-server; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Diagnostics",
+      "target": "URPGCharacterServiceAdapter",
+      "kind": "integration",
+      "phase": 5,
+      "assignment": "Inject read-only model/result delegate for persistence; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Diagnostics",
+      "target": "URPGResourceDirector",
+      "kind": "integration",
+      "phase": 12,
+      "assignment": "Inject read-only model/result delegate for resource-spawning; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Diagnostics",
+      "target": "URPGZoneCatalog",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Inject read-only model/result delegate for world-content; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Diagnostics",
+      "target": "URPGAdmissionValidator",
+      "kind": "integration",
+      "phase": 3,
+      "assignment": "Inject read-only model/result delegate for security; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Diagnostics",
+      "target": "URPGZoneHeartbeatComponent",
+      "kind": "integration",
+      "phase": 22,
+      "assignment": "Inject read-only model/result delegate for deployment; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Diagnostics",
+      "target": "URPGReplicationPolicy",
+      "kind": "integration",
+      "phase": 22,
+      "assignment": "Inject read-only model/result delegate for network-performance; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Diagnostics",
+      "target": "URPGTelemetryAdapter",
+      "kind": "integration",
+      "phase": 11,
+      "assignment": "Inject read-only model/result delegate for telemetry; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Diagnostics",
+      "target": "URPGAcceptanceHarness",
+      "kind": "integration",
+      "phase": 23,
+      "assignment": "Inject read-only model/result delegate for testing-release; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Notifications",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "WBP_Notifications",
+      "target": "URPGInteractionComponent",
+      "kind": "integration",
+      "phase": 3,
+      "assignment": "Inject read-only model/result delegate for interaction; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Notifications",
+      "target": "URPGWorldEventComponent",
+      "kind": "integration",
+      "phase": 20,
+      "assignment": "Inject read-only model/result delegate for world-events; requests go through its validated handler"
+    },
+    {
+      "source": "API_Characters",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "API_Identity",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "ARPGPreviewAvatar",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "BP_PreviewAvatar",
+      "target": "ARPGPreviewAvatar",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "DA_Class_Arcanist",
+      "target": "URPGClassDefinition",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "DA_Class_Arcanist",
+      "target": "DA_Ability_Arcanist_EmberBolt",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Arcanist",
+      "target": "DA_Ability_Arcanist_FrostRing",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Arcanist",
+      "target": "DA_Ability_Arcanist_ArcaneWard",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Arcanist",
+      "target": "DA_Ability_Arcanist_Disrupt",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Arcanist",
+      "target": "DA_Ability_Arcanist_CinderField",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Arcanist",
+      "target": "DA_Ability_Arcanist_FocusedSurge",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Arcanist",
+      "target": "DA_SkillTree_Arcanist",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "SkillTree soft reference; validate class and graph before spending"
+    },
+    {
+      "source": "DA_Class_Ranger",
+      "target": "URPGClassDefinition",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "DA_Class_Ranger",
+      "target": "DA_Ability_Ranger_AimedArrow",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Ranger",
+      "target": "DA_Ability_Ranger_Quickstep",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Ranger",
+      "target": "DA_Ability_Ranger_PinningShot",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Ranger",
+      "target": "DA_Ability_Ranger_SpearSweep",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Ranger",
+      "target": "DA_Ability_Ranger_TrailMark",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Ranger",
+      "target": "DA_Ability_Ranger_Volley",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Ranger",
+      "target": "DA_SkillTree_Ranger",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "SkillTree soft reference; validate class and graph before spending"
+    },
+    {
+      "source": "DA_Class_Vanguard",
+      "target": "URPGClassDefinition",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "DA_Class_Vanguard",
+      "target": "DA_Ability_Vanguard_Cleave",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Vanguard",
+      "target": "DA_Ability_Vanguard_Brace",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Vanguard",
+      "target": "DA_Ability_Vanguard_Challenge",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Vanguard",
+      "target": "DA_Ability_Vanguard_ShieldPulse",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Vanguard",
+      "target": "DA_Ability_Vanguard_Rally",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Vanguard",
+      "target": "DA_Ability_Vanguard_ResoluteStrike",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Vanguard",
+      "target": "DA_SkillTree_Vanguard",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "SkillTree soft reference; validate class and graph before spending"
+    },
+    {
+      "source": "DA_Class_Warden",
+      "target": "URPGClassDefinition",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "DA_Class_Warden",
+      "target": "DA_Ability_Warden_Mend",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Warden",
+      "target": "DA_Ability_Warden_BriarThrust",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Warden",
+      "target": "DA_Ability_Warden_Renewal",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Warden",
+      "target": "DA_Ability_Warden_Cleanse",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Warden",
+      "target": "DA_Ability_Warden_Shelter",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Warden",
+      "target": "DA_Ability_Warden_ReturnToVigor",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Abilities array: add the definition only when its execution family is ready"
+    },
+    {
+      "source": "DA_Class_Warden",
+      "target": "DA_SkillTree_Warden",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "SkillTree soft reference; validate class and graph before spending"
+    },
+    {
+      "source": "DA_Environment_Development",
+      "target": "URPGEnvironmentDefinition",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "DB_accounts",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "DB_character_appearance",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "DB_characters",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "DB_command_receipts",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "IRPGCharacterStore",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "L_FrontEnd",
+      "target": "BP_MenuGameMode",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "TEST_Phase04",
+      "target": "L_FrontEnd",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "URPGAccountSession",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "URPGAccountSession",
+      "target": "DA_Environment_Development",
+      "kind": "integration",
+      "phase": 4,
+      "assignment": "Typed definition/configuration supplied at login readiness"
+    },
+    {
+      "source": "URPGAccountSession",
+      "target": "WBP_Login",
+      "kind": "integration",
+      "phase": 4,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGCharacterRoster",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "URPGCharacterRoster",
+      "target": "DA_Class_Vanguard",
+      "kind": "integration",
+      "phase": 4,
+      "assignment": "Typed definition/configuration supplied at character-creation readiness"
+    },
+    {
+      "source": "URPGCharacterRoster",
+      "target": "WBP_CharacterCreate",
+      "kind": "integration",
+      "phase": 4,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGCharacterServiceAdapter",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "URPGCharacterServiceAdapter",
+      "target": "DA_ServicePolicy_Development",
+      "kind": "integration",
+      "phase": 5,
+      "assignment": "Typed definition/configuration supplied at persistence readiness"
+    },
+    {
+      "source": "URPGCharacterServiceAdapter",
+      "target": "WBP_Diagnostics",
+      "kind": "integration",
+      "phase": 5,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGClassDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "URPGContentVersionGate",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "URPGContentVersionGate",
+      "target": "DA_ContentVersion_Development",
+      "kind": "integration",
+      "phase": 5,
+      "assignment": "Typed definition/configuration supplied at versioning readiness"
+    },
+    {
+      "source": "URPGContentVersionGate",
+      "target": "WBP_Loading",
+      "kind": "integration",
+      "phase": 5,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGEnvironmentDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "WBP_CharacterCreate",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "WBP_CharacterCreate",
+      "target": "URPGCharacterRoster",
+      "kind": "integration",
+      "phase": 4,
+      "assignment": "Inject read-only model/result delegate for character-creation; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_CharacterSelect",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "WBP_Login",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 4
+    },
+    {
+      "source": "WBP_Login",
+      "target": "URPGAccountSession",
+      "kind": "integration",
+      "phase": 4,
+      "assignment": "Inject read-only model/result delegate for login; requests go through its validated handler"
+    },
+    {
+      "source": "API_Admission",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "API_CharacterSnapshot",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "API_CommandStatus",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "DA_ContentVersion_Development",
+      "target": "URPGContentVersionDefinition",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "DA_ServicePolicy_Development",
+      "target": "URPGServicePolicyDefinition",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "DB_character_progression",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "DB_character_sessions",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "DB_character_wallets",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "DB_container_occupancy",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "DB_container_occupancy",
+      "target": "DB_containers",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "DB_container_occupancy",
+      "target": "DB_inventory_stacks",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "DB_container_occupancy",
+      "target": "DB_item_instances",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "DB_economic_ledger",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "DB_inventory_stacks",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "DB_inventory_stacks",
+      "target": "DB_containers",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "DB_item_instances",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "DB_item_instances",
+      "target": "DB_containers",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "DB_outbox_events",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "ERPGEquipmentSlot",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "ERPGRarity",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "FRPGCharacterSnapshot",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "FRPGInventorySnapshot",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "FRPGOwnedItem",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "FRPGStackRecord",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "TEST_Phase05",
+      "target": "L_NetworkLab",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "URPGContentVersionDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "URPGItemCatalog",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "URPGItemCatalog",
+      "target": "URPGItemDefinition",
+      "kind": "integration",
+      "phase": 5,
+      "assignment": "Typed definition/configuration supplied at items readiness"
+    },
+    {
+      "source": "URPGItemCatalog",
+      "target": "WBP_ItemTooltip",
+      "kind": "integration",
+      "phase": 5,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGItemDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "URPGServicePolicyDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "WBP_ItemTooltip",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "WBP_ItemTooltip",
+      "target": "URPGItemCatalog",
+      "kind": "integration",
+      "phase": 5,
+      "assignment": "Inject read-only model/result delegate for items; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Loading",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "WBP_Loading",
+      "target": "URPGZoneTransferComponent",
+      "kind": "integration",
+      "phase": 6,
+      "assignment": "Inject read-only model/result delegate for zone-travel; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Loading",
+      "target": "URPGContentVersionGate",
+      "kind": "integration",
+      "phase": 5,
+      "assignment": "Inject read-only model/result delegate for versioning; requests go through its validated handler"
+    },
+    {
+      "source": "API_Transfer",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 6
+    },
+    {
+      "source": "API_ZoneRegistry",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 6
+    },
+    {
+      "source": "ARPGZoneGate",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 6
+    },
+    {
+      "source": "BP_ZoneGate",
+      "target": "ARPGZoneGate",
+      "kind": "creation",
+      "phase": 6
+    },
+    {
+      "source": "DA_Zone_Rillmere",
+      "target": "URPGZoneDefinition",
+      "kind": "creation",
+      "phase": 6
+    },
+    {
+      "source": "DA_Zone_Rillmere",
+      "target": "L_Rillmere",
+      "kind": "integration",
+      "phase": 6,
+      "assignment": "Map soft reference and registered safe spawn IDs; cooker includes active zones"
+    },
+    {
+      "source": "DA_Zone_Thornweald",
+      "target": "URPGZoneDefinition",
+      "kind": "creation",
+      "phase": 6
+    },
+    {
+      "source": "DA_Zone_Thornweald",
+      "target": "L_Thornweald",
+      "kind": "integration",
+      "phase": 6,
+      "assignment": "Map soft reference and registered safe spawn IDs; cooker includes active zones"
+    },
+    {
+      "source": "DB_character_locations",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 6
+    },
+    {
+      "source": "DB_zone_processes",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 6
+    },
+    {
+      "source": "DB_zone_transfers",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 6
+    },
+    {
+      "source": "ERPGTransferState",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 6
+    },
+    {
+      "source": "FRPGTransferTicket",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 6
+    },
+    {
+      "source": "L_Rillmere",
+      "target": "BP_ZoneGameMode",
+      "kind": "creation",
+      "phase": 6
+    },
+    {
+      "source": "L_Thornweald",
+      "target": "BP_ZoneGameMode",
+      "kind": "creation",
+      "phase": 6
+    },
+    {
+      "source": "TEST_Phase06",
+      "target": "L_Rillmere",
+      "kind": "creation",
+      "phase": 6
+    },
+    {
+      "source": "URPGZoneTransferComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 6
+    },
+    {
+      "source": "URPGZoneTransferComponent",
+      "target": "DA_Zone_Rillmere",
+      "kind": "integration",
+      "phase": 6,
+      "assignment": "Typed definition/configuration supplied at zone-travel readiness"
+    },
+    {
+      "source": "URPGZoneTransferComponent",
+      "target": "WBP_Loading",
+      "kind": "integration",
+      "phase": 6,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "ARPGProjectile",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "ASQ_Common_Bow_East",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "ASQ_Common_Bow_East",
+      "target": "FB_Common_Bow_East",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "ASQ_Common_Bow_North",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "ASQ_Common_Bow_North",
+      "target": "FB_Common_Bow_North",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "ASQ_Common_Bow_South",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "ASQ_Common_Bow_South",
+      "target": "FB_Common_Bow_South",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "ASQ_Common_Bow_West",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "ASQ_Common_Bow_West",
+      "target": "FB_Common_Bow_West",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "ASQ_Common_Melee_East",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "ASQ_Common_Melee_East",
+      "target": "FB_Common_Melee_East",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "ASQ_Common_Melee_North",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "ASQ_Common_Melee_North",
+      "target": "FB_Common_Melee_North",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "ASQ_Common_Melee_South",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "ASQ_Common_Melee_South",
+      "target": "FB_Common_Melee_South",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "ASQ_Common_Melee_West",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "ASQ_Common_Melee_West",
+      "target": "FB_Common_Melee_West",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "BP_Projectile_TrainingArrow",
+      "target": "ARPGProjectile",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "DA_Ability_Ranger_AimedArrow",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "DA_Ability_Vanguard_Cleave",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "DA_CombatRules_Default",
+      "target": "URPGCombatRulesDefinition",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "DA_CueSet_Common",
+      "target": "URPGCueSetDefinition",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "DA_Targeting_Default",
+      "target": "URPGTargetingDefinition",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "DB_character_cooldowns",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "FB_Common_Bow_East",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "FB_Common_Bow_North",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "FB_Common_Bow_South",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "FB_Common_Bow_West",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "FB_Common_Melee_East",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "FB_Common_Melee_North",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "FB_Common_Melee_South",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "FB_Common_Melee_West",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "GT_Combat",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "TEST_Phase07",
+      "target": "L_NetworkLab",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "URPGAbilityDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "URPGAbilitySystemComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "URPGAbilitySystemComponent",
+      "target": "DA_CombatRules_Default",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Typed definition/configuration supplied at combat-gas readiness"
+    },
+    {
+      "source": "URPGAbilitySystemComponent",
+      "target": "WBP_ActionBar",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGAttributeSet",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "URPGCombatRulesDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "URPGCueSetDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "URPGEffectRules",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "URPGEffectRules",
+      "target": "DA_CombatRules_Default",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Typed definition/configuration supplied at effects readiness"
+    },
+    {
+      "source": "URPGEffectRules",
+      "target": "WBP_HUD",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGHitResolver",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "URPGHitResolver",
+      "target": "DA_Ability_Vanguard_Cleave",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Typed definition/configuration supplied at attacks readiness"
+    },
+    {
+      "source": "URPGHitResolver",
+      "target": "WBP_HUD",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGPresentationCueComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "URPGPresentationCueComponent",
+      "target": "DA_CueSet_Common",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Typed definition/configuration supplied at audio-vfx readiness"
+    },
+    {
+      "source": "URPGPresentationCueComponent",
+      "target": "WBP_Options",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGTargetingComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "URPGTargetingComponent",
+      "target": "DA_Targeting_Default",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Typed definition/configuration supplied at targeting readiness"
+    },
+    {
+      "source": "URPGTargetingComponent",
+      "target": "WBP_TargetFrame",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGTargetingDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "WBP_ActionBar",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "WBP_ActionBar",
+      "target": "URPGAbilitySystemComponent",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Inject read-only model/result delegate for combat-gas; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_ActionBar",
+      "target": "URPGItemUseComponent",
+      "kind": "integration",
+      "phase": 9,
+      "assignment": "Inject read-only model/result delegate for consumables; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_ActionBar",
+      "target": "URPGMountComponent",
+      "kind": "integration",
+      "phase": 21,
+      "assignment": "Inject read-only model/result delegate for mounts; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_TargetFrame",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "WBP_TargetFrame",
+      "target": "URPGTargetingComponent",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Inject read-only model/result delegate for targeting; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_TargetFrame",
+      "target": "ARPGEnemyAIController",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Inject read-only model/result delegate for enemy-ai; requests go through its validated handler"
+    },
+    {
+      "source": "API_Party",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "API_Reward",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "ARPGEnemyAIController",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "ARPGEnemyAIController",
+      "target": "DA_Enemy_Mossfang",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Typed definition/configuration supplied at enemy-ai readiness"
+    },
+    {
+      "source": "ARPGEnemyAIController",
+      "target": "WBP_TargetFrame",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "ARPGEnemyCharacter",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "ARPGEnemyCharacter",
+      "target": "URPGAbilitySystemComponent",
+      "kind": "integration",
+      "phase": 7,
+      "assignment": "Native enemy ASC owner/avatar; initialize before enabling hit acceptance"
+    },
+    {
+      "source": "BB_Enemy",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "BP_EncounterSpawner",
+      "target": "URPGEncounterComponent",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "BP_EncounterSpawner",
+      "target": "URPGEncounterComponent",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Owned component configured with WestRoad encounter definition and stable spawn IDs"
+    },
+    {
+      "source": "BP_EnemyAIController",
+      "target": "ARPGEnemyAIController",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "BP_EnemyAIController",
+      "target": "BT_Enemy",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "RunBehaviorTree after server possession/definition readiness"
+    },
+    {
+      "source": "BP_Enemy_Mossfang",
+      "target": "ARPGEnemyCharacter",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "BP_Enemy_Mossfang",
+      "target": "URPGAbilitySystemComponent",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Enemy Character-owned ASC"
+    },
+    {
+      "source": "BP_Enemy_Mossfang",
+      "target": "DA_Enemy_Mossfang",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "EnemyDefinition"
+    },
+    {
+      "source": "BP_Enemy_Mossfang",
+      "target": "BP_EnemyAIController",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "AIControllerClass"
+    },
+    {
+      "source": "BT_Enemy",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "BT_Enemy",
+      "target": "BB_Enemy",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Blackboard Asset; selectors read exact registered keys"
+    },
+    {
+      "source": "DA_Encounter_WestRoad",
+      "target": "URPGEncounterDefinition",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "DA_Enemy_Mossfang",
+      "target": "URPGEnemyDefinition",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "DA_PartyPolicy_Default",
+      "target": "URPGPartyPolicyDefinition",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "DA_Progression_Default",
+      "target": "URPGProgressionDefinition",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "DA_Recovery_Default",
+      "target": "URPGRecoveryDefinition",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "DB_encounter_resolutions",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "DB_party_memberships",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "DT_LevelThresholds",
+      "target": "FRPGLevelRow",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "DT_LevelThresholds",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "FRPGLevelRow",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "FRPGLootAllocation",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "FRPGPartySnapshot",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "TEST_Phase08",
+      "target": "L_Rillmere",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "URPGEncounterComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "URPGEncounterComponent",
+      "target": "DA_Encounter_WestRoad",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Typed definition/configuration supplied at spawns-rewards readiness"
+    },
+    {
+      "source": "URPGEncounterComponent",
+      "target": "WBP_HUD",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGEncounterDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "URPGEnemyDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "URPGLootDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "URPGPartyComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "URPGPartyComponent",
+      "target": "DA_PartyPolicy_Default",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Typed definition/configuration supplied at parties readiness"
+    },
+    {
+      "source": "URPGPartyComponent",
+      "target": "WBP_Party",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGPartyPolicyDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "URPGProgressionComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "URPGProgressionComponent",
+      "target": "DA_Progression_Default",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Typed definition/configuration supplied at progression readiness"
+    },
+    {
+      "source": "URPGProgressionComponent",
+      "target": "WBP_Stats",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGProgressionDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "URPGRecoveryComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "URPGRecoveryComponent",
+      "target": "DA_Recovery_Default",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Typed definition/configuration supplied at death-recovery readiness"
+    },
+    {
+      "source": "URPGRecoveryComponent",
+      "target": "WBP_Death",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGRecoveryDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "WBP_Death",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "WBP_Death",
+      "target": "URPGRecoveryComponent",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Inject read-only model/result delegate for death-recovery; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Party",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "WBP_Party",
+      "target": "URPGPartyComponent",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Inject read-only model/result delegate for parties; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Stats",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 8
+    },
+    {
+      "source": "WBP_Stats",
+      "target": "URPGProgressionComponent",
+      "kind": "integration",
+      "phase": 8,
+      "assignment": "Inject read-only model/result delegate for progression; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Stats",
+      "target": "URPGReputationComponent",
+      "kind": "integration",
+      "phase": 20,
+      "assignment": "Inject read-only model/result delegate for factions; requests go through its validated handler"
+    },
+    {
+      "source": "API_Inventory",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DA_EquipmentRules_Default",
+      "target": "URPGEquipmentRulesDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DA_Inventory_Default",
+      "target": "URPGInventoryDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DA_Item_AshLog",
+      "target": "URPGItemDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DA_Item_ClearReagent",
+      "target": "URPGItemDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DA_Item_CopperOre",
+      "target": "URPGItemDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DA_Item_FishingRod",
+      "target": "URPGItemDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DA_Item_GrilledDace",
+      "target": "URPGItemDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DA_Item_HealingDraught",
+      "target": "URPGItemDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DA_Item_IronHatchet",
+      "target": "URPGItemDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DA_Item_LinenThread",
+      "target": "URPGItemDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DA_Item_MiningPick",
+      "target": "URPGItemDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DA_Item_RiverDace",
+      "target": "URPGItemDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DA_Item_TrainingBow",
+      "target": "URPGItemDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DA_Item_TrainingShield",
+      "target": "URPGItemDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DA_Item_TrainingSpear",
+      "target": "URPGItemDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DA_Item_TrainingSword",
+      "target": "URPGItemDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DA_Item_WovenCloak",
+      "target": "URPGItemDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "DB_containers",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 5
+    },
+    {
+      "source": "DB_equipment_slots",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "FRPGEquipmentSnapshot",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "TEST_Phase09",
+      "target": "L_Rillmere",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "URPGEquipmentComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "URPGEquipmentComponent",
+      "target": "DA_EquipmentRules_Default",
+      "kind": "integration",
+      "phase": 9,
+      "assignment": "Typed definition/configuration supplied at equipment readiness"
+    },
+    {
+      "source": "URPGEquipmentComponent",
+      "target": "WBP_Equipment",
+      "kind": "integration",
+      "phase": 9,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGEquipmentRulesDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "URPGInventoryComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "URPGInventoryComponent",
+      "target": "DA_Inventory_Default",
+      "kind": "integration",
+      "phase": 9,
+      "assignment": "Typed definition/configuration supplied at inventory readiness"
+    },
+    {
+      "source": "URPGInventoryComponent",
+      "target": "WBP_Inventory",
+      "kind": "integration",
+      "phase": 9,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGInventoryDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "URPGItemUseComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "URPGItemUseComponent",
+      "target": "DA_Item_HealingDraught",
+      "kind": "integration",
+      "phase": 9,
+      "assignment": "Typed definition/configuration supplied at consumables readiness"
+    },
+    {
+      "source": "URPGItemUseComponent",
+      "target": "WBP_ActionBar",
+      "kind": "integration",
+      "phase": 9,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "WBP_Equipment",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "WBP_Equipment",
+      "target": "URPGEquipmentComponent",
+      "kind": "integration",
+      "phase": 9,
+      "assignment": "Inject read-only model/result delegate for equipment; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Inventory",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 9
+    },
+    {
+      "source": "WBP_Inventory",
+      "target": "URPGInventoryComponent",
+      "kind": "integration",
+      "phase": 9,
+      "assignment": "Inject read-only model/result delegate for inventory; requests go through its validated handler"
+    },
+    {
+      "source": "API_Loot",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 10
+    },
+    {
+      "source": "BP_LootContainer",
+      "target": "URPGLootComponent",
+      "kind": "creation",
+      "phase": 10
+    },
+    {
+      "source": "BP_LootContainer",
+      "target": "URPGLootComponent",
+      "kind": "integration",
+      "phase": 10,
+      "assignment": "Owned component configured with EncounterResolutionId and owner-filtered entitlement projection"
+    },
+    {
+      "source": "DA_Loot_Mossfang",
+      "target": "URPGLootDefinition",
+      "kind": "creation",
+      "phase": 10
+    },
+    {
+      "source": "DB_loot_entitlements",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 10
+    },
+    {
+      "source": "TEST_Phase10",
+      "target": "L_Rillmere",
+      "kind": "creation",
+      "phase": 10
+    },
+    {
+      "source": "URPGLootComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 10
+    },
+    {
+      "source": "URPGLootComponent",
+      "target": "DA_Loot_Mossfang",
+      "kind": "integration",
+      "phase": 10,
+      "assignment": "Typed definition/configuration supplied at loot readiness"
+    },
+    {
+      "source": "URPGLootComponent",
+      "target": "WBP_Loot",
+      "kind": "integration",
+      "phase": 10,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "WBP_Loot",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 10
+    },
+    {
+      "source": "WBP_Loot",
+      "target": "URPGLootComponent",
+      "kind": "integration",
+      "phase": 10,
+      "assignment": "Inject read-only model/result delegate for loot; requests go through its validated handler"
+    },
+    {
+      "source": "API_Bank",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "API_Merchant",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "ARPGServiceNPC",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "BP_NPC_Mara",
+      "target": "ARPGServiceNPC",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "BP_NPC_Mara",
+      "target": "DA_Vendor_Mara",
+      "kind": "integration",
+      "phase": 11,
+      "assignment": "Vendor role catalog; persistent NPCId=npc.mara"
+    },
+    {
+      "source": "BP_NPC_Mara",
+      "target": "DA_Dialogue_Mara",
+      "kind": "integration",
+      "phase": 15,
+      "assignment": "Dialogue role catalog; same NPC identity and shared interaction"
+    },
+    {
+      "source": "DA_Bank_Default",
+      "target": "URPGBankDefinition",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "DA_TelemetryPolicy_Default",
+      "target": "URPGTelemetryPolicyDefinition",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "DA_Vendor_Mara",
+      "target": "URPGVendorDefinition",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "DB_buyback_entries",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "DB_vendor_stock",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "FRPGVendorQuote",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "TEST_Phase11",
+      "target": "L_Rillmere",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "URPGBankComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "URPGBankComponent",
+      "target": "DA_Bank_Default",
+      "kind": "integration",
+      "phase": 11,
+      "assignment": "Typed definition/configuration supplied at banking readiness"
+    },
+    {
+      "source": "URPGBankComponent",
+      "target": "WBP_Bank",
+      "kind": "integration",
+      "phase": 11,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGBankDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "URPGMerchantComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "URPGMerchantComponent",
+      "target": "DA_Vendor_Mara",
+      "kind": "integration",
+      "phase": 11,
+      "assignment": "Typed definition/configuration supplied at merchants readiness"
+    },
+    {
+      "source": "URPGMerchantComponent",
+      "target": "WBP_Merchant",
+      "kind": "integration",
+      "phase": 11,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGNPCDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "URPGTelemetryAdapter",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "URPGTelemetryAdapter",
+      "target": "DA_TelemetryPolicy_Default",
+      "kind": "integration",
+      "phase": 11,
+      "assignment": "Typed definition/configuration supplied at telemetry readiness"
+    },
+    {
+      "source": "URPGTelemetryAdapter",
+      "target": "WBP_Diagnostics",
+      "kind": "integration",
+      "phase": 11,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGTelemetryPolicyDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "URPGVendorDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "WBP_Bank",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "WBP_Bank",
+      "target": "URPGBankComponent",
+      "kind": "integration",
+      "phase": 11,
+      "assignment": "Inject read-only model/result delegate for banking; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Merchant",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 11
+    },
+    {
+      "source": "WBP_Merchant",
+      "target": "URPGMerchantComponent",
+      "kind": "integration",
+      "phase": 11,
+      "assignment": "Inject read-only model/result delegate for merchants; requests go through its validated handler"
+    },
+    {
+      "source": "API_Resources",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ARPGResourceNode",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ASQ_Common_GatherMine_East",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ASQ_Common_GatherMine_East",
+      "target": "FB_Common_GatherMine_East",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ASQ_Common_GatherMine_North",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ASQ_Common_GatherMine_North",
+      "target": "FB_Common_GatherMine_North",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ASQ_Common_GatherMine_South",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ASQ_Common_GatherMine_South",
+      "target": "FB_Common_GatherMine_South",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ASQ_Common_GatherMine_West",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ASQ_Common_GatherMine_West",
+      "target": "FB_Common_GatherMine_West",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ASQ_Common_GatherWood_East",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ASQ_Common_GatherWood_East",
+      "target": "FB_Common_GatherWood_East",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ASQ_Common_GatherWood_North",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ASQ_Common_GatherWood_North",
+      "target": "FB_Common_GatherWood_North",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ASQ_Common_GatherWood_South",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ASQ_Common_GatherWood_South",
+      "target": "FB_Common_GatherWood_South",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ASQ_Common_GatherWood_West",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ASQ_Common_GatherWood_West",
+      "target": "FB_Common_GatherWood_West",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "BP_ResourceDirector",
+      "target": "URPGResourceDirector",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "BP_ResourceDirector",
+      "target": "URPGResourceDirector",
+      "kind": "integration",
+      "phase": 12,
+      "assignment": "Owned component configured with Resource rule and candidate table"
+    },
+    {
+      "source": "BP_ResourceNode",
+      "target": "ARPGResourceNode",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "DA_GatherRule_Mining",
+      "target": "URPGResourceRuleDefinition",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "DA_GatherRule_Woodcutting",
+      "target": "URPGResourceRuleDefinition",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "DA_ResourceRule_Rillmere",
+      "target": "URPGResourceRuleDefinition",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "DA_ResourceRule_Rillmere",
+      "target": "DT_ResourceSites_Rillmere",
+      "kind": "integration",
+      "phase": 12,
+      "assignment": "EligibleSiteTable; reject invalid terrain/path/collision candidates"
+    },
+    {
+      "source": "DB_character_professions",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "DB_resource_generations",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "DT_ResourceSites_Rillmere",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "DT_ResourceSites_Rillmere",
+      "target": "FRPGResourceSite",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "ERPGResourceState",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "FB_Common_GatherMine_East",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "FB_Common_GatherMine_North",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "FB_Common_GatherMine_South",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "FB_Common_GatherMine_West",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "FB_Common_GatherWood_East",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "FB_Common_GatherWood_North",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "FB_Common_GatherWood_South",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "FB_Common_GatherWood_West",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "FRPGResourceSite",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "GT_Professions",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "TEST_Phase12",
+      "target": "L_Rillmere",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "URPGGatheringComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "URPGGatheringComponent",
+      "target": "DA_GatherRule_Mining",
+      "kind": "integration",
+      "phase": 12,
+      "assignment": "Typed definition/configuration supplied at gathering readiness"
+    },
+    {
+      "source": "URPGGatheringComponent",
+      "target": "WBP_Gathering",
+      "kind": "integration",
+      "phase": 12,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGResourceDirector",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "URPGResourceDirector",
+      "target": "DA_ResourceRule_Rillmere",
+      "kind": "integration",
+      "phase": 12,
+      "assignment": "Typed definition/configuration supplied at resource-spawning readiness"
+    },
+    {
+      "source": "URPGResourceDirector",
+      "target": "WBP_Diagnostics",
+      "kind": "integration",
+      "phase": 12,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGResourceRuleDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "WBP_Gathering",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 12
+    },
+    {
+      "source": "WBP_Gathering",
+      "target": "URPGGatheringComponent",
+      "kind": "integration",
+      "phase": 12,
+      "assignment": "Inject read-only model/result delegate for gathering; requests go through its validated handler"
+    },
+    {
+      "source": "API_Craft",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 13
+    },
+    {
+      "source": "ARPGCraftingStation",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 13
+    },
+    {
+      "source": "BP_CraftingStation",
+      "target": "ARPGCraftingStation",
+      "kind": "creation",
+      "phase": 13
+    },
+    {
+      "source": "DA_Recipe_GrilledDace",
+      "target": "URPGRecipeDefinition",
+      "kind": "creation",
+      "phase": 13
+    },
+    {
+      "source": "DA_Recipe_GrilledDace",
+      "target": "DA_Item_GrilledDace",
+      "kind": "integration",
+      "phase": 13,
+      "assignment": "OutputDefinition; server creates one unique instance for nonstackable gear"
+    },
+    {
+      "source": "DA_Recipe_HealingDraught",
+      "target": "URPGRecipeDefinition",
+      "kind": "creation",
+      "phase": 13
+    },
+    {
+      "source": "DA_Recipe_HealingDraught",
+      "target": "DA_Item_HealingDraught",
+      "kind": "integration",
+      "phase": 13,
+      "assignment": "OutputDefinition; server creates one unique instance for nonstackable gear"
+    },
+    {
+      "source": "DA_Recipe_IronHatchet",
+      "target": "URPGRecipeDefinition",
+      "kind": "creation",
+      "phase": 13
+    },
+    {
+      "source": "DA_Recipe_IronHatchet",
+      "target": "DA_Item_IronHatchet",
+      "kind": "integration",
+      "phase": 13,
+      "assignment": "OutputDefinition; server creates one unique instance for nonstackable gear"
+    },
+    {
+      "source": "DA_Recipe_WovenCloak",
+      "target": "URPGRecipeDefinition",
+      "kind": "creation",
+      "phase": 13
+    },
+    {
+      "source": "DA_Recipe_WovenCloak",
+      "target": "DA_Item_WovenCloak",
+      "kind": "integration",
+      "phase": 13,
+      "assignment": "OutputDefinition; server creates one unique instance for nonstackable gear"
+    },
+    {
+      "source": "DB_character_recipes",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 13
+    },
+    {
+      "source": "FRPGCraftRequest",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 13
+    },
+    {
+      "source": "GT_Stations",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 13
+    },
+    {
+      "source": "TEST_Phase13",
+      "target": "L_Rillmere",
+      "kind": "creation",
+      "phase": 13
+    },
+    {
+      "source": "URPGCraftingComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 13
+    },
+    {
+      "source": "URPGCraftingComponent",
+      "target": "DA_Recipe_IronHatchet",
+      "kind": "integration",
+      "phase": 13,
+      "assignment": "Typed definition/configuration supplied at crafting readiness"
+    },
+    {
+      "source": "URPGCraftingComponent",
+      "target": "WBP_Crafting",
+      "kind": "integration",
+      "phase": 13,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGRecipeDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 13
+    },
+    {
+      "source": "WBP_Crafting",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 13
+    },
+    {
+      "source": "WBP_Crafting",
+      "target": "URPGCraftingComponent",
+      "kind": "integration",
+      "phase": 13,
+      "assignment": "Inject read-only model/result delegate for crafting; requests go through its validated handler"
+    },
+    {
+      "source": "API_Fishing",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "ARPGFishingBobber",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "ASQ_Common_Fish_East",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "ASQ_Common_Fish_East",
+      "target": "FB_Common_Fish_East",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "ASQ_Common_Fish_North",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "ASQ_Common_Fish_North",
+      "target": "FB_Common_Fish_North",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "ASQ_Common_Fish_South",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "ASQ_Common_Fish_South",
+      "target": "FB_Common_Fish_South",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "ASQ_Common_Fish_West",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "ASQ_Common_Fish_West",
+      "target": "FB_Common_Fish_West",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "BP_FishingBobber",
+      "target": "ARPGFishingBobber",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "DA_FishingPool_Rillmere",
+      "target": "URPGFishingPoolDefinition",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "DB_fishing_attempts",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "ERPGFishingState",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "FB_Common_Fish_East",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "FB_Common_Fish_North",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "FB_Common_Fish_South",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "FB_Common_Fish_West",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "FRPGFishingAttempt",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "TEST_Phase14",
+      "target": "L_Rillmere",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "URPGFishingComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "URPGFishingComponent",
+      "target": "DA_FishingPool_Rillmere",
+      "kind": "integration",
+      "phase": 14,
+      "assignment": "Typed definition/configuration supplied at fishing readiness"
+    },
+    {
+      "source": "URPGFishingComponent",
+      "target": "WBP_Fishing",
+      "kind": "integration",
+      "phase": 14,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGFishingPoolDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "WBP_Fishing",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 14
+    },
+    {
+      "source": "WBP_Fishing",
+      "target": "URPGFishingComponent",
+      "kind": "integration",
+      "phase": 14,
+      "assignment": "Inject read-only model/result delegate for fishing; requests go through its validated handler"
+    },
+    {
+      "source": "API_Dialogue",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "API_Quest",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "DA_Dialogue_Mara",
+      "target": "URPGDialogueDefinition",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "DA_Quest_FirstSteps",
+      "target": "URPGQuestDefinition",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "DA_Quest_RoadSupplies",
+      "target": "URPGQuestDefinition",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "DA_Quest_TheSluiceSignal",
+      "target": "URPGQuestDefinition",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "DB_character_flags",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "DB_character_quests",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "DB_quest_event_receipts",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "ERPGQuestState",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "FRPGDialogueContext",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "FRPGQuestObjective",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "FRPGQuestProgress",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "TEST_Phase15",
+      "target": "L_Rillmere",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "URPGDialogueComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "URPGDialogueComponent",
+      "target": "DA_Dialogue_Mara",
+      "kind": "integration",
+      "phase": 15,
+      "assignment": "Typed definition/configuration supplied at dialogue-npcs readiness"
+    },
+    {
+      "source": "URPGDialogueComponent",
+      "target": "WBP_Dialogue",
+      "kind": "integration",
+      "phase": 15,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGDialogueDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "URPGQuestComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "URPGQuestComponent",
+      "target": "DA_Quest_RoadSupplies",
+      "kind": "integration",
+      "phase": 15,
+      "assignment": "Typed definition/configuration supplied at quests readiness"
+    },
+    {
+      "source": "URPGQuestComponent",
+      "target": "WBP_QuestJournal",
+      "kind": "integration",
+      "phase": 15,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGQuestDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "WBP_Dialogue",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "WBP_Dialogue",
+      "target": "URPGDialogueComponent",
+      "kind": "integration",
+      "phase": 15,
+      "assignment": "Inject read-only model/result delegate for dialogue-npcs; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_ObjectiveTracker",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "WBP_QuestJournal",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 15
+    },
+    {
+      "source": "WBP_QuestJournal",
+      "target": "URPGQuestComponent",
+      "kind": "integration",
+      "phase": 15,
+      "assignment": "Inject read-only model/result delegate for quests; requests go through its validated handler"
+    },
+    {
+      "source": "API_Skills",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "ASQ_Common_Cast_East",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "ASQ_Common_Cast_East",
+      "target": "FB_Common_Cast_East",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "ASQ_Common_Cast_North",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "ASQ_Common_Cast_North",
+      "target": "FB_Common_Cast_North",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "ASQ_Common_Cast_South",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "ASQ_Common_Cast_South",
+      "target": "FB_Common_Cast_South",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "ASQ_Common_Cast_West",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "ASQ_Common_Cast_West",
+      "target": "FB_Common_Cast_West",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "ASQ_Common_Heal_East",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "ASQ_Common_Heal_East",
+      "target": "FB_Common_Heal_East",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "ASQ_Common_Heal_North",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "ASQ_Common_Heal_North",
+      "target": "FB_Common_Heal_North",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "ASQ_Common_Heal_South",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "ASQ_Common_Heal_South",
+      "target": "FB_Common_Heal_South",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "ASQ_Common_Heal_West",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "ASQ_Common_Heal_West",
+      "target": "FB_Common_Heal_West",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "BP_Projectile_ArcSpark",
+      "target": "ARPGProjectile",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Arcanist_ArcaneWard",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Arcanist_CinderField",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Arcanist_Disrupt",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Arcanist_EmberBolt",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Arcanist_FocusedSurge",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Arcanist_FrostRing",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Ranger_PinningShot",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Ranger_Quickstep",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Ranger_SpearSweep",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Ranger_TrailMark",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Ranger_Volley",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Vanguard_Brace",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Vanguard_Challenge",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Vanguard_Rally",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Vanguard_ResoluteStrike",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Vanguard_ShieldPulse",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Warden_BriarThrust",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Warden_Cleanse",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Warden_Mend",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Warden_Renewal",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Warden_ReturnToVigor",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_Ability_Warden_Shelter",
+      "target": "URPGAbilityDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_SkillTree_Arcanist",
+      "target": "URPGSkillTreeDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_SkillTree_Ranger",
+      "target": "URPGSkillTreeDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_SkillTree_Vanguard",
+      "target": "URPGSkillTreeDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DA_SkillTree_Warden",
+      "target": "URPGSkillTreeDefinition",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "DB_character_skills",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "FB_Common_Cast_East",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "FB_Common_Cast_North",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "FB_Common_Cast_South",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "FB_Common_Cast_West",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "FB_Common_Heal_East",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "FB_Common_Heal_North",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "FB_Common_Heal_South",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "FB_Common_Heal_West",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "FRPGSkillNode",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "TEST_Phase16",
+      "target": "L_Rillmere",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "URPGSkillComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "URPGSkillComponent",
+      "target": "DA_SkillTree_Vanguard",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Typed definition/configuration supplied at skills readiness"
+    },
+    {
+      "source": "URPGSkillComponent",
+      "target": "WBP_Skills",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGSkillTreeDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "WBP_Skills",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 16
+    },
+    {
+      "source": "WBP_Skills",
+      "target": "URPGSkillComponent",
+      "kind": "integration",
+      "phase": 16,
+      "assignment": "Inject read-only model/result delegate for skills; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Skills",
+      "target": "URPGTrainingComponent",
+      "kind": "integration",
+      "phase": 20,
+      "assignment": "Inject read-only model/result delegate for trainers; requests go through its validated handler"
+    },
+    {
+      "source": "ARPGDiscoveryVolume",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "ASQ_Common_Emote_East",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "ASQ_Common_Emote_East",
+      "target": "FB_Common_Emote_East",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "ASQ_Common_Emote_North",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "ASQ_Common_Emote_North",
+      "target": "FB_Common_Emote_North",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "ASQ_Common_Emote_South",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "ASQ_Common_Emote_South",
+      "target": "FB_Common_Emote_South",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "ASQ_Common_Emote_West",
+      "target": "AS_Common",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "ASQ_Common_Emote_West",
+      "target": "FB_Common_Emote_West",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "BP_DiscoveryVolume",
+      "target": "ARPGDiscoveryVolume",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "BP_WorldClock",
+      "target": "URPGWorldClockComponent",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "BP_WorldClock",
+      "target": "URPGWorldClockComponent",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Owned component configured with Zone weather/time policy"
+    },
+    {
+      "source": "DA_Map_Rillmere",
+      "target": "URPGMapDefinition",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "DA_Weather_Rillmere",
+      "target": "URPGWeatherDefinition",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "DA_Zone_Brinewake",
+      "target": "URPGZoneDefinition",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "DA_Zone_Brinewake",
+      "target": "L_Brinewake",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Map soft reference and registered safe spawn IDs; cooker includes active zones"
+    },
+    {
+      "source": "DA_Zone_KestrelCrown",
+      "target": "URPGZoneDefinition",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "DA_Zone_KestrelCrown",
+      "target": "L_KestrelCrown",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Map soft reference and registered safe spawn IDs; cooker includes active zones"
+    },
+    {
+      "source": "DA_Zone_Morrowfen",
+      "target": "URPGZoneDefinition",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "DA_Zone_Morrowfen",
+      "target": "L_Morrowfen",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Map soft reference and registered safe spawn IDs; cooker includes active zones"
+    },
+    {
+      "source": "DA_Zone_VarranHalls",
+      "target": "URPGZoneDefinition",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "DA_Zone_VarranHalls",
+      "target": "L_VarranHalls",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Map soft reference and registered safe spawn IDs; cooker includes active zones"
+    },
+    {
+      "source": "DB_character_discoveries",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "DB_zone_cycles",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "FB_Common_Emote_East",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "FB_Common_Emote_North",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "FB_Common_Emote_South",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "FB_Common_Emote_West",
+      "target": "SPR_DebugAvatar",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "FRPGWorldClock",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "L_Brinewake",
+      "target": "BP_ZoneGameMode",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "L_KestrelCrown",
+      "target": "BP_ZoneGameMode",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "L_Morrowfen",
+      "target": "BP_ZoneGameMode",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "L_VarranHalls",
+      "target": "BP_ZoneGameMode",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "TEST_Phase17",
+      "target": "L_Morrowfen",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "URPGDiscoveryComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "URPGDiscoveryComponent",
+      "target": "DA_Map_Rillmere",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Typed definition/configuration supplied at maps-discovery readiness"
+    },
+    {
+      "source": "URPGDiscoveryComponent",
+      "target": "WBP_Map",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGMapDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "URPGWeatherDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "URPGWorldClockComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "URPGWorldClockComponent",
+      "target": "DA_Weather_Rillmere",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Typed definition/configuration supplied at world-time-weather readiness"
+    },
+    {
+      "source": "URPGWorldClockComponent",
+      "target": "WBP_HUD",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGZoneCatalog",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "URPGZoneCatalog",
+      "target": "DA_Zone_Morrowfen",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Typed definition/configuration supplied at world-content readiness"
+    },
+    {
+      "source": "URPGZoneCatalog",
+      "target": "WBP_Diagnostics",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "WBP_Map",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "WBP_Map",
+      "target": "URPGDiscoveryComponent",
+      "kind": "integration",
+      "phase": 17,
+      "assignment": "Inject read-only model/result delegate for maps-discovery; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Map",
+      "target": "URPGFastTravelComponent",
+      "kind": "integration",
+      "phase": 20,
+      "assignment": "Inject read-only model/result delegate for fast-travel; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Minimap",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 17
+    },
+    {
+      "source": "API_Dungeon",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 18
+    },
+    {
+      "source": "BP_DungeonController",
+      "target": "URPGDungeonInstanceComponent",
+      "kind": "creation",
+      "phase": 18
+    },
+    {
+      "source": "BP_DungeonController",
+      "target": "URPGDungeonInstanceComponent",
+      "kind": "integration",
+      "phase": 18,
+      "assignment": "Owned component configured with SluiceVault definition/instance lease"
+    },
+    {
+      "source": "DA_Dungeon_SluiceVault",
+      "target": "URPGDungeonDefinition",
+      "kind": "creation",
+      "phase": 18
+    },
+    {
+      "source": "DA_Enemy_SluiceKeeper",
+      "target": "URPGEnemyDefinition",
+      "kind": "creation",
+      "phase": 18
+    },
+    {
+      "source": "DB_dungeon_instances",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 18
+    },
+    {
+      "source": "L_SluiceVault",
+      "target": "BP_ZoneGameMode",
+      "kind": "creation",
+      "phase": 18
+    },
+    {
+      "source": "TEST_Phase18",
+      "target": "L_SluiceVault",
+      "kind": "creation",
+      "phase": 18
+    },
+    {
+      "source": "URPGDungeonDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 18
+    },
+    {
+      "source": "URPGDungeonInstanceComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 18
+    },
+    {
+      "source": "URPGDungeonInstanceComponent",
+      "target": "DA_Dungeon_SluiceVault",
+      "kind": "integration",
+      "phase": 18,
+      "assignment": "Typed definition/configuration supplied at dungeons-bosses readiness"
+    },
+    {
+      "source": "URPGDungeonInstanceComponent",
+      "target": "WBP_DungeonFinder",
+      "kind": "integration",
+      "phase": 18,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "WBP_DungeonFinder",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 18
+    },
+    {
+      "source": "WBP_DungeonFinder",
+      "target": "URPGDungeonInstanceComponent",
+      "kind": "integration",
+      "phase": 18,
+      "assignment": "Inject read-only model/result delegate for dungeons-bosses; requests go through its validated handler"
+    },
+    {
+      "source": "API_Chat",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "API_Moderation",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "API_Social",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "API_Trade",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "DA_ChatPolicy_Default",
+      "target": "URPGChatPolicyDefinition",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "DA_SocialPolicy_Default",
+      "target": "URPGSocialPolicyDefinition",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "DA_TradePolicy_Default",
+      "target": "URPGTradePolicyDefinition",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "DB_moderation_actions",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "DB_social_edges",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "DB_trade_sessions",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "FRPGTradeOffer",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "TEST_Phase19",
+      "target": "L_Rillmere",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "URPGChatComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "URPGChatComponent",
+      "target": "DA_ChatPolicy_Default",
+      "kind": "integration",
+      "phase": 19,
+      "assignment": "Typed definition/configuration supplied at chat readiness"
+    },
+    {
+      "source": "URPGChatComponent",
+      "target": "WBP_Chat",
+      "kind": "integration",
+      "phase": 19,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGChatPolicyDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "URPGSocialComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "URPGSocialComponent",
+      "target": "DA_SocialPolicy_Default",
+      "kind": "integration",
+      "phase": 19,
+      "assignment": "Typed definition/configuration supplied at friends-block readiness"
+    },
+    {
+      "source": "URPGSocialComponent",
+      "target": "WBP_Social",
+      "kind": "integration",
+      "phase": 19,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGSocialPolicyDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "URPGTradeComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "URPGTradeComponent",
+      "target": "DA_TradePolicy_Default",
+      "kind": "integration",
+      "phase": 19,
+      "assignment": "Typed definition/configuration supplied at trading readiness"
+    },
+    {
+      "source": "URPGTradeComponent",
+      "target": "WBP_Trade",
+      "kind": "integration",
+      "phase": 19,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGTradePolicyDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "WBP_Chat",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "WBP_Chat",
+      "target": "URPGChatComponent",
+      "kind": "integration",
+      "phase": 19,
+      "assignment": "Inject read-only model/result delegate for chat; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Social",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "WBP_Social",
+      "target": "URPGSocialComponent",
+      "kind": "integration",
+      "phase": 19,
+      "assignment": "Inject read-only model/result delegate for friends-block; requests go through its validated handler"
+    },
+    {
+      "source": "WBP_Trade",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 19
+    },
+    {
+      "source": "WBP_Trade",
+      "target": "URPGTradeComponent",
+      "kind": "integration",
+      "phase": 19,
+      "assignment": "Inject read-only model/result delegate for trading; requests go through its validated handler"
+    },
+    {
+      "source": "API_Reputation",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "BP_WorldEventController",
+      "target": "URPGWorldEventComponent",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "BP_WorldEventController",
+      "target": "URPGWorldEventComponent",
+      "kind": "integration",
+      "phase": 20,
+      "assignment": "Owned component configured with Riverwatch event and cycle identity"
+    },
+    {
+      "source": "DA_Event_Riverwatch",
+      "target": "URPGWorldEventDefinition",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "DA_Faction_AshenSurvey",
+      "target": "URPGFactionDefinition",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "DA_Faction_CairnWardens",
+      "target": "URPGFactionDefinition",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "DA_Faction_RiverCompact",
+      "target": "URPGFactionDefinition",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "DA_Faction_TideboundLeague",
+      "target": "URPGFactionDefinition",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "DA_Trainer_Tovin",
+      "target": "URPGTrainerDefinition",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "DA_TravelHub_Hearthford",
+      "target": "URPGTravelHubDefinition",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "DB_character_reputation",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "TEST_Phase20",
+      "target": "L_KestrelCrown",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "URPGFactionDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "URPGFastTravelComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "URPGFastTravelComponent",
+      "target": "DA_TravelHub_Hearthford",
+      "kind": "integration",
+      "phase": 20,
+      "assignment": "Typed definition/configuration supplied at fast-travel readiness"
+    },
+    {
+      "source": "URPGFastTravelComponent",
+      "target": "WBP_Map",
+      "kind": "integration",
+      "phase": 20,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGReputationComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "URPGReputationComponent",
+      "target": "DA_Faction_RiverCompact",
+      "kind": "integration",
+      "phase": 20,
+      "assignment": "Typed definition/configuration supplied at factions readiness"
+    },
+    {
+      "source": "URPGReputationComponent",
+      "target": "WBP_Stats",
+      "kind": "integration",
+      "phase": 20,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGTrainerDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "URPGTrainingComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "URPGTrainingComponent",
+      "target": "DA_Trainer_Tovin",
+      "kind": "integration",
+      "phase": 20,
+      "assignment": "Typed definition/configuration supplied at trainers readiness"
+    },
+    {
+      "source": "URPGTrainingComponent",
+      "target": "WBP_Skills",
+      "kind": "integration",
+      "phase": 20,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGTravelHubDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "URPGWorldEventComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "URPGWorldEventComponent",
+      "target": "DA_Event_Riverwatch",
+      "kind": "integration",
+      "phase": 20,
+      "assignment": "Typed definition/configuration supplied at world-events readiness"
+    },
+    {
+      "source": "URPGWorldEventComponent",
+      "target": "WBP_Notifications",
+      "kind": "integration",
+      "phase": 20,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGWorldEventDefinition",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 20
+    },
+    {
+      "source": "API_Guild",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 21
+    },
+    {
+      "source": "DA_GuildPolicy_Default",
+      "target": "URPGGuildPolicyDefinition",
+      "kind": "creation",
+      "phase": 21
+    },
+    {
+      "source": "DA_Mount_Prototype",
+      "target": "URPGMountDefinition",
+      "kind": "creation",
+      "phase": 21
+    },
+    {
+      "source": "DB_guild_memberships",
+      "target": "GameService",
+      "kind": "creation",
+      "phase": 21
+    },
+    {
+      "source": "FRPGGuildSnapshot",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 21
+    },
+    {
+      "source": "TEST_Phase21",
+      "target": "L_VarranHalls",
+      "kind": "creation",
+      "phase": 21
+    },
+    {
+      "source": "URPGGuildComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 21
+    },
+    {
+      "source": "URPGGuildComponent",
+      "target": "DA_GuildPolicy_Default",
+      "kind": "integration",
+      "phase": 21,
+      "assignment": "Typed definition/configuration supplied at guilds readiness"
+    },
+    {
+      "source": "URPGGuildComponent",
+      "target": "WBP_Guild",
+      "kind": "integration",
+      "phase": 21,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGGuildPolicyDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 21
+    },
+    {
+      "source": "URPGMountComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 21
+    },
+    {
+      "source": "URPGMountComponent",
+      "target": "DA_Mount_Prototype",
+      "kind": "integration",
+      "phase": 21,
+      "assignment": "Typed definition/configuration supplied at mounts readiness"
+    },
+    {
+      "source": "URPGMountComponent",
+      "target": "WBP_ActionBar",
+      "kind": "integration",
+      "phase": 21,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGMountDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 21
+    },
+    {
+      "source": "WBP_Guild",
+      "target": "URPGScreenRouter",
+      "kind": "creation",
+      "phase": 21
+    },
+    {
+      "source": "WBP_Guild",
+      "target": "URPGGuildComponent",
+      "kind": "integration",
+      "phase": 21,
+      "assignment": "Inject read-only model/result delegate for guilds; requests go through its validated handler"
+    },
+    {
+      "source": "DA_Deployment_Development",
+      "target": "URPGDeploymentDefinition",
+      "kind": "creation",
+      "phase": 22
+    },
+    {
+      "source": "DA_NetworkBudget_Development",
+      "target": "URPGNetworkBudgetDefinition",
+      "kind": "creation",
+      "phase": 22
+    },
+    {
+      "source": "L_LoadTest",
+      "target": "BP_ZoneGameMode",
+      "kind": "creation",
+      "phase": 22
+    },
+    {
+      "source": "TEST_Phase22",
+      "target": "L_LoadTest",
+      "kind": "creation",
+      "phase": 22
+    },
+    {
+      "source": "URPGDeploymentDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 22
+    },
+    {
+      "source": "URPGNetworkBudgetDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 22
+    },
+    {
+      "source": "URPGReplicationPolicy",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 22
+    },
+    {
+      "source": "URPGReplicationPolicy",
+      "target": "DA_NetworkBudget_Development",
+      "kind": "integration",
+      "phase": 22,
+      "assignment": "Typed definition/configuration supplied at network-performance readiness"
+    },
+    {
+      "source": "URPGReplicationPolicy",
+      "target": "WBP_Diagnostics",
+      "kind": "integration",
+      "phase": 22,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGZoneHeartbeatComponent",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 22
+    },
+    {
+      "source": "URPGZoneHeartbeatComponent",
+      "target": "DA_Deployment_Development",
+      "kind": "integration",
+      "phase": 22,
+      "assignment": "Typed definition/configuration supplied at deployment readiness"
+    },
+    {
+      "source": "URPGZoneHeartbeatComponent",
+      "target": "WBP_Diagnostics",
+      "kind": "integration",
+      "phase": 22,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "DA_ExpansionPolicy_Default",
+      "target": "URPGExpansionPolicyDefinition",
+      "kind": "creation",
+      "phase": 23
+    },
+    {
+      "source": "DA_TestPlan_Release",
+      "target": "URPGTestPlanDefinition",
+      "kind": "creation",
+      "phase": 23
+    },
+    {
+      "source": "TEST_Phase23",
+      "target": "L_Rillmere",
+      "kind": "creation",
+      "phase": 23
+    },
+    {
+      "source": "URPGAcceptanceHarness",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 23
+    },
+    {
+      "source": "URPGAcceptanceHarness",
+      "target": "DA_TestPlan_Release",
+      "kind": "integration",
+      "phase": 23,
+      "assignment": "Typed definition/configuration supplied at testing-release readiness"
+    },
+    {
+      "source": "URPGAcceptanceHarness",
+      "target": "WBP_Diagnostics",
+      "kind": "integration",
+      "phase": 23,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGExpansionPolicy",
+      "target": "RPG",
+      "kind": "creation",
+      "phase": 23
+    },
+    {
+      "source": "URPGExpansionPolicy",
+      "target": "DA_ExpansionPolicy_Default",
+      "kind": "integration",
+      "phase": 23,
+      "assignment": "Typed definition/configuration supplied at optional-expansions readiness"
+    },
+    {
+      "source": "URPGExpansionPolicy",
+      "target": "WBP_Options",
+      "kind": "integration",
+      "phase": 23,
+      "assignment": "Observer is injected/bound locally; server component never creates UMG"
+    },
+    {
+      "source": "URPGExpansionPolicyDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 23
+    },
+    {
+      "source": "URPGTestPlanDefinition",
+      "target": "URPGPolicyDefinition",
+      "kind": "creation",
+      "phase": 23
+    },
+    {
+      "source": "BP_InteractionProbe",
+      "target": "IRPGInteractable",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "BP_InteractionProbe",
+      "target": "URPGInteractionComponent",
+      "kind": "creation",
+      "phase": 3
+    },
+    {
+      "source": "BP_CombatProbe",
+      "target": "ARPGEnemyCharacter",
+      "kind": "creation",
+      "phase": 7
+    },
+    {
+      "source": "BP_CombatProbe",
+      "target": "URPGAbilitySystemComponent",
+      "kind": "creation",
+      "phase": 7
+    }
+  ]
+}

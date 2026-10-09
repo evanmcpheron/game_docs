@@ -1,0 +1,76 @@
+{
+  "status": "pass",
+  "summary": "14 of 14 documentation/audit self-tests passed; no game tests run.",
+  "generated_at": "2026-10-09T18:16:22.963159+00:00",
+  "command": "python tools/test_validators.py --write-report",
+  "tests": [
+    {
+      "name": "broken relative link",
+      "status": "pass",
+      "expected_detection": "BROKEN_LINK"
+    },
+    {
+      "name": "duplicate anchor",
+      "status": "pass",
+      "expected_detection": "DUPLICATE_ANCHOR"
+    },
+    {
+      "name": "duplicate asset identity",
+      "status": "pass",
+      "expected_detection": "DUPLICATE_ASSET"
+    },
+    {
+      "name": "invalid planned folder",
+      "status": "pass",
+      "expected_detection": "ASSET_PATH"
+    },
+    {
+      "name": "missing ownership field",
+      "status": "pass",
+      "expected_detection": "MISSING_OWNERSHIP"
+    },
+    {
+      "name": "future creation dependency",
+      "status": "pass",
+      "expected_detection": "CREATION_ORDER"
+    },
+    {
+      "name": "undeclared phase consumer",
+      "status": "pass",
+      "expected_detection": "UNDECLARED_CONSUMER"
+    },
+    {
+      "name": "broken UI coverage link",
+      "status": "pass",
+      "expected_detection": "FEATURE_LINK"
+    },
+    {
+      "name": "fabricated archive count",
+      "status": "pass",
+      "expected_detection": "FABRICATED_ARCHIVE_COUNT"
+    },
+    {
+      "name": "unsupported runtime pass",
+      "status": "pass",
+      "expected_detection": "UNSUPPORTED_RUNTIME_CLAIM"
+    },
+    {
+      "name": "missing world return path",
+      "status": "pass",
+      "expected_detection": "ZONE_RETURN_PATH"
+    },
+    {
+      "name": "synthetic PNG counts/AppleDouble/duplicate hashes/unknown frames",
+      "status": "pass",
+      "scope": "Synthetic fixture only; requested archive unavailable"
+    },
+    {
+      "name": "ZIP traversal rejection",
+      "status": "pass"
+    },
+    {
+      "name": "invalid PNG header rejection",
+      "status": "pass"
+    }
+  ]
+}

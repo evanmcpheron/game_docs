@@ -1,0 +1,20 @@
+{
+  "repository": "evanmcpheron/game_docs",
+  "branch": "main",
+  "commit": "6633ca27f7b2fcfc80fc95a1567e97c0eb5a6a25",
+  "tree": "e52c31a9e93a8c740098a5e208a4d237039cc78b",
+  "read": [
+    "AGENTS.md",
+    "architecture.html",
+    "sources/phase-integration.json (opening phases)",
+    "recursive tree and main commit metadata"
+  ],
+  "not_read": [
+    "every historical asset page",
+    "entire historical engineering standard",
+    "historical source ZIP"
+  ],
+  "clone": "Attempt failed: container could not resolve github.com. GitHub connector reads succeeded.",
+  "asset_archive": "No uploaded conversation files; exact Library search and ZIP listing did not locate 2d_game_assets.zip. Unrelated older platformer archives are not substituted.",
+  "last_instruction_resolution": "The final explicit instruction to overwrite game_docs supersedes the earlier default no-overwrite instruction. Preserve original commit in backup branch; never force-push."
+}

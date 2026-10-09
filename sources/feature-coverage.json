@@ -1,0 +1,1115 @@
+{
+  "schema_version": 1,
+  "coverage_claim": "Every registered feature has an authored chapter; completeness of all source-sheet assets and installed API verification remains blocked.",
+  "features": [
+    {
+      "id": "login",
+      "title": "Accounts, login and environment selection",
+      "scope": "committed",
+      "first_phase": 4,
+      "chapter": "systems/login.html",
+      "assets": [
+        "API_Identity",
+        "DA_Environment_Development",
+        "URPGAccountSession",
+        "URPGEnvironmentDefinition",
+        "WBP_Login"
+      ],
+      "ui": "assets/UI/WBP_Login.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "character-creation",
+      "title": "Character slots, creation, selection and recovery",
+      "scope": "committed",
+      "first_phase": 4,
+      "chapter": "systems/character-creation.html",
+      "assets": [
+        "API_Characters",
+        "ARPGPreviewAvatar",
+        "DA_Class_Vanguard",
+        "URPGCharacterRoster",
+        "WBP_CharacterCreate"
+      ],
+      "ui": "assets/UI/WBP_CharacterCreate.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "presentation",
+      "title": "Layered sprites, facing, appearance and remote avatars",
+      "scope": "committed",
+      "first_phase": 1,
+      "chapter": "systems/presentation.html",
+      "assets": [
+        "ABP_Common",
+        "ASQ_Common_Idle_East",
+        "ASQ_Common_Idle_North",
+        "ASQ_Common_Idle_South",
+        "ASQ_Common_Idle_West",
+        "ASQ_Common_Walk_East",
+        "ASQ_Common_Walk_North",
+        "ASQ_Common_Walk_South",
+        "ASQ_Common_Walk_West",
+        "AS_Common",
+        "DA_AnimationSet_Common",
+        "FB_Common_Idle_East",
+        "FB_Common_Idle_North",
+        "FB_Common_Idle_South",
+        "FB_Common_Idle_West",
+        "FB_Common_Walk_East",
+        "FB_Common_Walk_North",
+        "FB_Common_Walk_South",
+        "FB_Common_Walk_West",
+        "M_OccluderFade",
+        "M_SpriteMasked",
+        "SPR_DebugAvatar",
+        "T_DebugAvatar",
+        "URPGPaperDollComponent",
+        "WBP_Portrait",
+        "ASQ_Common_Dodge_East",
+        "ASQ_Common_Dodge_North",
+        "ASQ_Common_Dodge_South",
+        "ASQ_Common_Dodge_West",
+        "ASQ_Common_Jump_East",
+        "ASQ_Common_Jump_North",
+        "ASQ_Common_Jump_South",
+        "ASQ_Common_Jump_West",
+        "ASQ_Common_Run_East",
+        "ASQ_Common_Run_North",
+        "ASQ_Common_Run_South",
+        "ASQ_Common_Run_West",
+        "ASQ_Common_Swim_East",
+        "ASQ_Common_Swim_North",
+        "ASQ_Common_Swim_South",
+        "ASQ_Common_Swim_West",
+        "FB_Common_Dodge_East",
+        "FB_Common_Dodge_North",
+        "FB_Common_Dodge_South",
+        "FB_Common_Dodge_West",
+        "FB_Common_Jump_East",
+        "FB_Common_Jump_North",
+        "FB_Common_Jump_South",
+        "FB_Common_Jump_West",
+        "FB_Common_Run_East",
+        "FB_Common_Run_North",
+        "FB_Common_Run_South",
+        "FB_Common_Run_West",
+        "FB_Common_Swim_East",
+        "FB_Common_Swim_North",
+        "FB_Common_Swim_South",
+        "FB_Common_Swim_West",
+        "ASQ_Common_Bow_East",
+        "ASQ_Common_Bow_North",
+        "ASQ_Common_Bow_South",
+        "ASQ_Common_Bow_West",
+        "ASQ_Common_Melee_East",
+        "ASQ_Common_Melee_North",
+        "ASQ_Common_Melee_South",
+        "ASQ_Common_Melee_West",
+        "FB_Common_Bow_East",
+        "FB_Common_Bow_North",
+        "FB_Common_Bow_South",
+        "FB_Common_Bow_West",
+        "FB_Common_Melee_East",
+        "FB_Common_Melee_North",
+        "FB_Common_Melee_South",
+        "FB_Common_Melee_West",
+        "ASQ_Common_GatherMine_East",
+        "ASQ_Common_GatherMine_North",
+        "ASQ_Common_GatherMine_South",
+        "ASQ_Common_GatherMine_West",
+        "ASQ_Common_GatherWood_East",
+        "ASQ_Common_GatherWood_North",
+        "ASQ_Common_GatherWood_South",
+        "ASQ_Common_GatherWood_West",
+        "FB_Common_GatherMine_East",
+        "FB_Common_GatherMine_North",
+        "FB_Common_GatherMine_South",
+        "FB_Common_GatherMine_West",
+        "FB_Common_GatherWood_East",
+        "FB_Common_GatherWood_North",
+        "FB_Common_GatherWood_South",
+        "FB_Common_GatherWood_West",
+        "ASQ_Common_Fish_East",
+        "ASQ_Common_Fish_North",
+        "ASQ_Common_Fish_South",
+        "ASQ_Common_Fish_West",
+        "FB_Common_Fish_East",
+        "FB_Common_Fish_North",
+        "FB_Common_Fish_South",
+        "FB_Common_Fish_West",
+        "ASQ_Common_Cast_East",
+        "ASQ_Common_Cast_North",
+        "ASQ_Common_Cast_South",
+        "ASQ_Common_Cast_West",
+        "ASQ_Common_Heal_East",
+        "ASQ_Common_Heal_North",
+        "ASQ_Common_Heal_South",
+        "ASQ_Common_Heal_West",
+        "FB_Common_Cast_East",
+        "FB_Common_Cast_North",
+        "FB_Common_Cast_South",
+        "FB_Common_Cast_West",
+        "FB_Common_Heal_East",
+        "FB_Common_Heal_North",
+        "FB_Common_Heal_South",
+        "FB_Common_Heal_West",
+        "ASQ_Common_Emote_East",
+        "ASQ_Common_Emote_North",
+        "ASQ_Common_Emote_South",
+        "ASQ_Common_Emote_West",
+        "FB_Common_Emote_East",
+        "FB_Common_Emote_North",
+        "FB_Common_Emote_South",
+        "FB_Common_Emote_West"
+      ],
+      "ui": "assets/UI/WBP_Portrait.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "locomotion",
+      "title": "Capsule locomotion, sprint, jump, dodge and fall damage",
+      "scope": "committed",
+      "first_phase": 2,
+      "chapter": "systems/locomotion.html",
+      "assets": [
+        "DA_Movement_Default",
+        "URPGCharacterMovementComponent",
+        "URPGMovementDefinition",
+        "WBP_HUD"
+      ],
+      "ui": "assets/UI/WBP_HUD.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 6
+    },
+    {
+      "id": "swimming",
+      "title": "Water, swimming and shoreline transitions",
+      "scope": "committed",
+      "first_phase": 2,
+      "chapter": "systems/swimming.html",
+      "assets": [
+        "ARPGWaterRegion",
+        "DA_Swim_Default",
+        "URPGSwimDefinition",
+        "URPGSwimmingComponent"
+      ],
+      "ui": "assets/UI/WBP_HUD.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "camera",
+      "title": "Fixed camera, zoom, depth and occluder handling",
+      "scope": "committed",
+      "first_phase": 1,
+      "chapter": "systems/camera.html",
+      "assets": [
+        "WBP_Options",
+        "DA_Camera_Default",
+        "URPGCameraComponent",
+        "URPGCameraDefinition"
+      ],
+      "ui": "assets/UI/WBP_Options.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "input-ui",
+      "title": "Input, UMG screen ownership, options and accessibility",
+      "scope": "committed",
+      "first_phase": 0,
+      "chapter": "systems/input-ui.html",
+      "assets": [
+        "DA_InputPolicy_Default",
+        "URPGInputPolicyDefinition",
+        "URPGScreenRouter",
+        "WBP_MainMenu",
+        "WBP_CharacterSelect",
+        "WBP_ObjectiveTracker",
+        "WBP_Minimap"
+      ],
+      "ui": "assets/UI/WBP_Options.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "interaction",
+      "title": "Interaction targeting, range and modal cleanup",
+      "scope": "committed",
+      "first_phase": 3,
+      "chapter": "systems/interaction.html",
+      "assets": [
+        "DA_Interaction_Default",
+        "URPGInteractionComponent",
+        "URPGInteractionDefinition",
+        "WBP_Notifications",
+        "BP_InteractionProbe"
+      ],
+      "ui": "assets/UI/WBP_Notifications.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "dedicated-server",
+      "title": "Dedicated-server bootstrap, possession and replication",
+      "scope": "committed",
+      "first_phase": 3,
+      "chapter": "systems/dedicated-server.html",
+      "assets": [
+        "ARPGZoneGameMode",
+        "DA_Zone_NetworkLab",
+        "WBP_Diagnostics",
+        "API_Admission"
+      ],
+      "ui": "assets/UI/WBP_Diagnostics.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "persistence",
+      "title": "Character persistence, schema, command receipts and sessions",
+      "scope": "committed",
+      "first_phase": 5,
+      "chapter": "systems/persistence.html",
+      "assets": [
+        "GameService",
+        "URPGCharacterServiceAdapter",
+        "API_CharacterSnapshot",
+        "API_CommandStatus",
+        "DA_ServicePolicy_Development",
+        "URPGServicePolicyDefinition"
+      ],
+      "ui": "assets/UI/WBP_Diagnostics.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 6
+    },
+    {
+      "id": "zone-travel",
+      "title": "Biome servers, loading screens and fenced handoff",
+      "scope": "committed",
+      "first_phase": 6,
+      "chapter": "systems/zone-travel.html",
+      "assets": [
+        "WBP_Loading",
+        "API_Transfer",
+        "ARPGZoneGate",
+        "DA_Zone_Rillmere",
+        "DA_Zone_Thornweald",
+        "URPGZoneTransferComponent"
+      ],
+      "ui": "assets/UI/WBP_Loading.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 6
+    },
+    {
+      "id": "combat-gas",
+      "title": "GAS ownership, attributes, costs and prediction",
+      "scope": "committed",
+      "first_phase": 7,
+      "chapter": "systems/combat-gas.html",
+      "assets": [
+        "DA_CombatRules_Default",
+        "URPGAbilitySystemComponent",
+        "URPGAttributeSet",
+        "URPGCombatRulesDefinition",
+        "WBP_ActionBar",
+        "BP_CombatProbe"
+      ],
+      "ui": "assets/UI/WBP_ActionBar.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "targeting",
+      "title": "Soft targets, utility targeting, LOS and telegraphs",
+      "scope": "committed",
+      "first_phase": 7,
+      "chapter": "systems/targeting.html",
+      "assets": [
+        "DA_Targeting_Default",
+        "URPGTargetingComponent",
+        "URPGTargetingDefinition",
+        "WBP_TargetFrame"
+      ],
+      "ui": "assets/UI/WBP_TargetFrame.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "attacks",
+      "title": "Melee sweeps, server projectiles and hit deduplication",
+      "scope": "committed",
+      "first_phase": 7,
+      "chapter": "systems/attacks.html",
+      "assets": [
+        "ARPGProjectile",
+        "DA_Ability_Ranger_AimedArrow",
+        "DA_Ability_Vanguard_Cleave",
+        "URPGHitResolver"
+      ],
+      "ui": "assets/UI/WBP_HUD.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "effects",
+      "title": "Damage, healing, resistances, status effects and interruption",
+      "scope": "committed",
+      "first_phase": 7,
+      "chapter": "systems/effects.html",
+      "assets": [
+        "DA_CombatRules_Default",
+        "URPGEffectRules"
+      ],
+      "ui": "assets/UI/WBP_HUD.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "enemy-ai",
+      "title": "NavMesh AI, perception, threat, leash and evade",
+      "scope": "committed",
+      "first_phase": 8,
+      "chapter": "systems/enemy-ai.html",
+      "assets": [
+        "ARPGEnemyAIController",
+        "ARPGEnemyCharacter",
+        "BB_Enemy",
+        "BT_Enemy",
+        "DA_Enemy_Mossfang"
+      ],
+      "ui": "assets/UI/WBP_TargetFrame.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "spawns-rewards",
+      "title": "Enemy spawning, defeat ledger, XP and group credit",
+      "scope": "committed",
+      "first_phase": 8,
+      "chapter": "systems/spawns-rewards.html",
+      "assets": [
+        "API_Reward",
+        "DA_Encounter_WestRoad",
+        "URPGEncounterComponent"
+      ],
+      "ui": "assets/UI/WBP_HUD.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "death-recovery",
+      "title": "Death, shrine respawn and reconnect policy",
+      "scope": "committed",
+      "first_phase": 8,
+      "chapter": "systems/death-recovery.html",
+      "assets": [
+        "DA_Recovery_Default",
+        "URPGRecoveryComponent",
+        "URPGRecoveryDefinition",
+        "WBP_Death"
+      ],
+      "ui": "assets/UI/WBP_Death.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "progression",
+      "title": "Levels, derived stats and profession progression",
+      "scope": "committed",
+      "first_phase": 8,
+      "chapter": "systems/progression.html",
+      "assets": [
+        "DA_Progression_Default",
+        "DT_LevelThresholds",
+        "URPGProgressionComponent",
+        "URPGProgressionDefinition",
+        "WBP_Stats"
+      ],
+      "ui": "assets/UI/WBP_Stats.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "items",
+      "title": "Item definitions, instances, rarities and generated affixes",
+      "scope": "committed",
+      "first_phase": 5,
+      "chapter": "systems/items.html",
+      "assets": [
+        "URPGItemCatalog",
+        "WBP_ItemTooltip",
+        "DA_Item_AshLog",
+        "DA_Item_ClearReagent",
+        "DA_Item_CopperOre",
+        "DA_Item_FishingRod",
+        "DA_Item_GrilledDace",
+        "DA_Item_HealingDraught",
+        "DA_Item_IronHatchet",
+        "DA_Item_LinenThread",
+        "DA_Item_MiningPick",
+        "DA_Item_RiverDace",
+        "DA_Item_TrainingBow",
+        "DA_Item_TrainingShield",
+        "DA_Item_TrainingSpear",
+        "DA_Item_TrainingSword",
+        "DA_Item_WovenCloak"
+      ],
+      "ui": "assets/UI/WBP_ItemTooltip.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "inventory",
+      "title": "Inventory bags, stacks, capacity and atomic moves",
+      "scope": "committed",
+      "first_phase": 9,
+      "chapter": "systems/inventory.html",
+      "assets": [
+        "API_Inventory",
+        "DA_Inventory_Default",
+        "URPGInventoryComponent",
+        "URPGInventoryDefinition",
+        "WBP_Inventory"
+      ],
+      "ui": "assets/UI/WBP_Inventory.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "equipment",
+      "title": "Equipment slots, two-hand conflicts and paper-doll visuals",
+      "scope": "committed",
+      "first_phase": 9,
+      "chapter": "systems/equipment.html",
+      "assets": [
+        "DA_EquipmentRules_Default",
+        "URPGEquipmentComponent",
+        "URPGEquipmentRulesDefinition",
+        "WBP_Equipment"
+      ],
+      "ui": "assets/UI/WBP_Equipment.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "consumables",
+      "title": "Consumables, tools and item-use effects",
+      "scope": "committed",
+      "first_phase": 9,
+      "chapter": "systems/consumables.html",
+      "assets": [
+        "DA_Item_HealingDraught",
+        "URPGItemUseComponent"
+      ],
+      "ui": "assets/UI/WBP_ActionBar.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "loot",
+      "title": "Guaranteed/random loot, corpse access and replay safety",
+      "scope": "committed",
+      "first_phase": 10,
+      "chapter": "systems/loot.html",
+      "assets": [
+        "API_Loot",
+        "DA_Loot_Mossfang",
+        "URPGLootComponent",
+        "WBP_Loot"
+      ],
+      "ui": "assets/UI/WBP_Loot.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "merchants",
+      "title": "Currency, merchants, stock, buyback and repairs",
+      "scope": "committed",
+      "first_phase": 11,
+      "chapter": "systems/merchants.html",
+      "assets": [
+        "API_Merchant",
+        "ARPGServiceNPC",
+        "DA_Vendor_Mara",
+        "URPGMerchantComponent",
+        "WBP_Merchant"
+      ],
+      "ui": "assets/UI/WBP_Merchant.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 6
+    },
+    {
+      "id": "banking",
+      "title": "Bank storage and bag expansion",
+      "scope": "committed",
+      "first_phase": 11,
+      "chapter": "systems/banking.html",
+      "assets": [
+        "API_Bank",
+        "DA_Bank_Default",
+        "URPGBankComponent",
+        "URPGBankDefinition",
+        "WBP_Bank"
+      ],
+      "ui": "assets/UI/WBP_Bank.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "resource-spawning",
+      "title": "Biome resource sites, random placement and respawn",
+      "scope": "committed",
+      "first_phase": 12,
+      "chapter": "systems/resource-spawning.html",
+      "assets": [
+        "DA_ResourceRule_Rillmere",
+        "DT_ResourceSites_Rillmere",
+        "SM_DebugOre",
+        "SM_DebugTree",
+        "URPGResourceDirector"
+      ],
+      "ui": "assets/UI/WBP_Diagnostics.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "gathering",
+      "title": "Mining and woodcutting with exclusive claims",
+      "scope": "committed",
+      "first_phase": 12,
+      "chapter": "systems/gathering.html",
+      "assets": [
+        "API_Resources",
+        "ARPGResourceNode",
+        "DA_GatherRule_Mining",
+        "DA_GatherRule_Woodcutting",
+        "URPGGatheringComponent",
+        "WBP_Gathering"
+      ],
+      "ui": "assets/UI/WBP_Gathering.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 6
+    },
+    {
+      "id": "crafting",
+      "title": "Recipes, professions, stations and deterministic results",
+      "scope": "committed",
+      "first_phase": 13,
+      "chapter": "systems/crafting.html",
+      "assets": [
+        "API_Craft",
+        "ARPGCraftingStation",
+        "DA_Recipe_GrilledDace",
+        "DA_Recipe_HealingDraught",
+        "DA_Recipe_IronHatchet",
+        "DA_Recipe_WovenCloak",
+        "URPGCraftingComponent",
+        "WBP_Crafting"
+      ],
+      "ui": "assets/UI/WBP_Crafting.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 6
+    },
+    {
+      "id": "fishing",
+      "title": "Water casts, bobber, bite, reel and catch transaction",
+      "scope": "committed",
+      "first_phase": 14,
+      "chapter": "systems/fishing.html",
+      "assets": [
+        "API_Fishing",
+        "ARPGFishingBobber",
+        "DA_FishingPool_Rillmere",
+        "URPGFishingComponent",
+        "WBP_Fishing"
+      ],
+      "ui": "assets/UI/WBP_Fishing.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 6
+    },
+    {
+      "id": "dialogue-npcs",
+      "title": "NPC roles, branching dialogue and consequence records",
+      "scope": "committed",
+      "first_phase": 15,
+      "chapter": "systems/dialogue-npcs.html",
+      "assets": [
+        "API_Dialogue",
+        "DA_Dialogue_Mara",
+        "URPGDialogueComponent",
+        "WBP_Dialogue"
+      ],
+      "ui": "assets/UI/WBP_Dialogue.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "quests",
+      "title": "Quest DAG, objectives, journal and once-only rewards",
+      "scope": "committed",
+      "first_phase": 15,
+      "chapter": "systems/quests.html",
+      "assets": [
+        "API_Quest",
+        "DA_Quest_FirstSteps",
+        "DA_Quest_RoadSupplies",
+        "DA_Quest_TheSluiceSignal",
+        "URPGQuestComponent",
+        "WBP_QuestJournal"
+      ],
+      "ui": "assets/UI/WBP_QuestJournal.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 6
+    },
+    {
+      "id": "skills",
+      "title": "Four classes, talents, prerequisites and respec",
+      "scope": "committed",
+      "first_phase": 16,
+      "chapter": "systems/skills.html",
+      "assets": [
+        "API_Skills",
+        "DA_Ability_Arcanist_ArcaneWard",
+        "DA_Ability_Arcanist_CinderField",
+        "DA_Ability_Arcanist_Disrupt",
+        "DA_Ability_Arcanist_EmberBolt",
+        "DA_Ability_Arcanist_FocusedSurge",
+        "DA_Ability_Arcanist_FrostRing",
+        "DA_Ability_Ranger_PinningShot",
+        "DA_Ability_Ranger_Quickstep",
+        "DA_Ability_Ranger_SpearSweep",
+        "DA_Ability_Ranger_TrailMark",
+        "DA_Ability_Ranger_Volley",
+        "DA_Ability_Vanguard_Brace",
+        "DA_Ability_Vanguard_Challenge",
+        "DA_Ability_Vanguard_Rally",
+        "DA_Ability_Vanguard_ResoluteStrike",
+        "DA_Ability_Vanguard_ShieldPulse",
+        "DA_Ability_Warden_BriarThrust",
+        "DA_Ability_Warden_Cleanse",
+        "DA_Ability_Warden_Mend",
+        "DA_Ability_Warden_Renewal",
+        "DA_Ability_Warden_ReturnToVigor",
+        "DA_Ability_Warden_Shelter",
+        "DA_SkillTree_Arcanist",
+        "DA_SkillTree_Ranger",
+        "DA_SkillTree_Vanguard",
+        "DA_SkillTree_Warden",
+        "URPGSkillComponent",
+        "WBP_Skills"
+      ],
+      "ui": "assets/UI/WBP_Skills.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "maps-discovery",
+      "title": "World map, minimap, markers and discovery",
+      "scope": "committed",
+      "first_phase": 17,
+      "chapter": "systems/maps-discovery.html",
+      "assets": [
+        "ARPGDiscoveryVolume",
+        "DA_Map_Rillmere",
+        "URPGDiscoveryComponent",
+        "URPGMapDefinition",
+        "WBP_Map"
+      ],
+      "ui": "assets/UI/WBP_Map.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "world-time-weather",
+      "title": "Shared time, lighting, weather and biome modifiers",
+      "scope": "committed",
+      "first_phase": 17,
+      "chapter": "systems/world-time-weather.html",
+      "assets": [
+        "DA_Weather_Rillmere",
+        "URPGWorldClockComponent"
+      ],
+      "ui": "assets/UI/WBP_HUD.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "world-content",
+      "title": "Biome production, navigation, density and interiors",
+      "scope": "committed",
+      "first_phase": 17,
+      "chapter": "systems/world-content.html",
+      "assets": [
+        "DA_Zone_Brinewake",
+        "DA_Zone_KestrelCrown",
+        "DA_Zone_Morrowfen",
+        "DA_Zone_VarranHalls",
+        "URPGZoneCatalog"
+      ],
+      "ui": "assets/UI/WBP_Diagnostics.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "parties",
+      "title": "Parties, invitations, group credit and leadership",
+      "scope": "committed",
+      "first_phase": 8,
+      "chapter": "systems/parties.html",
+      "assets": [
+        "API_Party",
+        "DA_PartyPolicy_Default",
+        "URPGPartyComponent",
+        "URPGPartyPolicyDefinition",
+        "WBP_Party"
+      ],
+      "ui": "assets/UI/WBP_Party.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "dungeons-bosses",
+      "title": "Elite phases, boss telegraphs and instanced dungeons",
+      "scope": "committed",
+      "first_phase": 18,
+      "chapter": "systems/dungeons-bosses.html",
+      "assets": [
+        "API_Dungeon",
+        "DA_Dungeon_SluiceVault",
+        "DA_Enemy_SluiceKeeper",
+        "URPGDungeonInstanceComponent",
+        "WBP_DungeonFinder"
+      ],
+      "ui": "assets/UI/WBP_DungeonFinder.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "chat",
+      "title": "Zone/local/party chat, private messages and moderation",
+      "scope": "committed",
+      "first_phase": 19,
+      "chapter": "systems/chat.html",
+      "assets": [
+        "API_Chat",
+        "DA_ChatPolicy_Default",
+        "URPGChatComponent",
+        "URPGChatPolicyDefinition",
+        "WBP_Chat"
+      ],
+      "ui": "assets/UI/WBP_Chat.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "friends-block",
+      "title": "Friends, presence, blocking and account recovery",
+      "scope": "committed",
+      "first_phase": 19,
+      "chapter": "systems/friends-block.html",
+      "assets": [
+        "API_Social",
+        "DA_SocialPolicy_Default",
+        "URPGSocialComponent",
+        "URPGSocialPolicyDefinition",
+        "WBP_Social"
+      ],
+      "ui": "assets/UI/WBP_Social.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "trading",
+      "title": "Consensual player trading and escrow",
+      "scope": "committed",
+      "first_phase": 19,
+      "chapter": "systems/trading.html",
+      "assets": [
+        "API_Trade",
+        "DA_TradePolicy_Default",
+        "URPGTradeComponent",
+        "URPGTradePolicyDefinition",
+        "WBP_Trade"
+      ],
+      "ui": "assets/UI/WBP_Trade.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "factions",
+      "title": "Factions, reputation and service unlocks",
+      "scope": "committed",
+      "first_phase": 20,
+      "chapter": "systems/factions.html",
+      "assets": [
+        "API_Reputation",
+        "DA_Faction_AshenSurvey",
+        "DA_Faction_CairnWardens",
+        "DA_Faction_RiverCompact",
+        "DA_Faction_TideboundLeague",
+        "URPGReputationComponent"
+      ],
+      "ui": "assets/UI/WBP_Stats.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "trainers",
+      "title": "NPC training, recipe unlocks and profession gates",
+      "scope": "committed",
+      "first_phase": 20,
+      "chapter": "systems/trainers.html",
+      "assets": [
+        "DA_Trainer_Tovin",
+        "URPGTrainerDefinition",
+        "URPGTrainingComponent"
+      ],
+      "ui": "assets/UI/WBP_Skills.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 3
+    },
+    {
+      "id": "fast-travel",
+      "title": "Safe hubs, roads, boats and paid fast travel",
+      "scope": "committed",
+      "first_phase": 20,
+      "chapter": "systems/fast-travel.html",
+      "assets": [
+        "DA_TravelHub_Hearthford",
+        "URPGFastTravelComponent",
+        "URPGTravelHubDefinition"
+      ],
+      "ui": "assets/UI/WBP_Map.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "mounts",
+      "title": "Mount feasibility and later movement/content gate",
+      "scope": "committed",
+      "first_phase": 21,
+      "chapter": "systems/mounts.html",
+      "assets": [
+        "DA_Mount_Prototype",
+        "URPGMountComponent",
+        "URPGMountDefinition"
+      ],
+      "ui": "assets/UI/WBP_ActionBar.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "guilds",
+      "title": "Guild membership, roles and durable social administration",
+      "scope": "committed",
+      "first_phase": 21,
+      "chapter": "systems/guilds.html",
+      "assets": [
+        "API_Guild",
+        "DA_GuildPolicy_Default",
+        "URPGGuildComponent",
+        "URPGGuildPolicyDefinition",
+        "WBP_Guild"
+      ],
+      "ui": "assets/UI/WBP_Guild.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "world-events",
+      "title": "World events, ambient villagers and later schedules",
+      "scope": "committed",
+      "first_phase": 20,
+      "chapter": "systems/world-events.html",
+      "assets": [
+        "DA_Event_Riverwatch",
+        "URPGWorldEventComponent"
+      ],
+      "ui": "assets/UI/WBP_Notifications.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "audio-vfx",
+      "title": "Audio, particles and 2D/3D presentation cues",
+      "scope": "committed",
+      "first_phase": 7,
+      "chapter": "systems/audio-vfx.html",
+      "assets": [
+        "DA_CueSet_Common",
+        "URPGCueSetDefinition",
+        "URPGPresentationCueComponent"
+      ],
+      "ui": "assets/UI/WBP_Options.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "security",
+      "title": "Authentication boundaries, abuse prevention and privacy",
+      "scope": "committed",
+      "first_phase": 3,
+      "chapter": "systems/security.html",
+      "assets": [
+        "DA_SecurityPolicy_Development",
+        "URPGAdmissionValidator",
+        "URPGSecurityPolicyDefinition",
+        "API_Moderation"
+      ],
+      "ui": "assets/UI/WBP_Diagnostics.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 6
+    },
+    {
+      "id": "deployment",
+      "title": "Deployment, zone allocation and operational recovery",
+      "scope": "committed",
+      "first_phase": 22,
+      "chapter": "systems/deployment.html",
+      "assets": [
+        "API_ZoneRegistry",
+        "DA_Deployment_Development",
+        "URPGDeploymentDefinition",
+        "URPGZoneHeartbeatComponent"
+      ],
+      "ui": "assets/UI/WBP_Diagnostics.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "network-performance",
+      "title": "Replication, interest management and measured scale",
+      "scope": "committed",
+      "first_phase": 22,
+      "chapter": "systems/network-performance.html",
+      "assets": [
+        "DA_NetworkBudget_Development",
+        "URPGNetworkBudgetDefinition",
+        "URPGReplicationPolicy"
+      ],
+      "ui": "assets/UI/WBP_Diagnostics.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "telemetry",
+      "title": "Diagnostics, economy telemetry and support evidence",
+      "scope": "committed",
+      "first_phase": 11,
+      "chapter": "systems/telemetry.html",
+      "assets": [
+        "DA_TelemetryPolicy_Default",
+        "URPGTelemetryAdapter",
+        "URPGTelemetryPolicyDefinition"
+      ],
+      "ui": "assets/UI/WBP_Diagnostics.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 4
+    },
+    {
+      "id": "versioning",
+      "title": "Content versions, schema migrations and patch compatibility",
+      "scope": "committed",
+      "first_phase": 5,
+      "chapter": "systems/versioning.html",
+      "assets": [
+        "URPGContentVersionGate",
+        "DA_ContentVersion_Development",
+        "URPGContentVersionDefinition"
+      ],
+      "ui": "assets/UI/WBP_Loading.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "testing-release",
+      "title": "End-to-end testing, packaging and release acceptance",
+      "scope": "committed",
+      "first_phase": 23,
+      "chapter": "systems/testing-release.html",
+      "assets": [
+        "DA_TestPlan_Release",
+        "URPGAcceptanceHarness",
+        "URPGTestPlanDefinition"
+      ],
+      "ui": "assets/UI/WBP_Diagnostics.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 5
+    },
+    {
+      "id": "optional-expansions",
+      "title": "Deferred expansion gates: PvP, raids, housing, auctions and monetization",
+      "scope": "optional_expansion",
+      "first_phase": 23,
+      "chapter": "systems/optional-expansions.html",
+      "assets": [
+        "DA_ExpansionPolicy_Default",
+        "URPGExpansionPolicy",
+        "URPGExpansionPolicyDefinition"
+      ],
+      "ui": "assets/UI/WBP_Options.html",
+      "naming": "engineering/naming-and-content.html",
+      "status": "authored_draft_not_runtime_verified",
+      "acceptance_cases": 3
+    }
+  ]
+}

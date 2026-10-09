@@ -1,0 +1,610 @@
+[
+  {
+    "id": "class.vanguard",
+    "name": "Vanguard",
+    "asset": "DA_Class_Vanguard",
+    "role": "Melee tank",
+    "growth": "Health +12, stamina +5, strength +2 per level; proposals",
+    "weapons": "Shield/mainhand or two-hand; armor stats do not imply layered armor art",
+    "body": "body.common",
+    "abilities": [
+      {
+        "id": "ability.vanguard.cleave",
+        "asset": "DA_Ability_Vanguard_Cleave",
+        "name": "Cleave",
+        "kind": "Spatial melee",
+        "cost": "15 stamina",
+        "cooldown": "4 s",
+        "timing": "0.15/0.10/0.30 s",
+        "formula": "20 + 0.6 Strength",
+        "rule": "Cone trace, max 3 targets; range 200 cm",
+        "unlock_level": 1,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.vanguard.brace",
+        "asset": "DA_Ability_Vanguard_Brace",
+        "name": "Brace",
+        "kind": "Defense",
+        "cost": "10 stamina",
+        "cooldown": "12 s",
+        "timing": "instant",
+        "formula": "30% incoming physical reduction for 3 s",
+        "rule": "No stacking with same category",
+        "unlock_level": 2,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.vanguard.challenge",
+        "asset": "DA_Ability_Vanguard_Challenge",
+        "name": "Challenge",
+        "kind": "Threat utility",
+        "cost": "10 stamina",
+        "cooldown": "10 s",
+        "timing": "instant",
+        "formula": "Set threat floor to leader +5%",
+        "rule": "PvE only, LOS 900 cm",
+        "unlock_level": 5,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.vanguard.shieldpulse",
+        "asset": "DA_Ability_Vanguard_ShieldPulse",
+        "name": "ShieldPulse",
+        "kind": "Area control",
+        "cost": "20 stamina",
+        "cooldown": "16 s",
+        "timing": "0.4 s cast",
+        "formula": "12 + 0.3 Strength",
+        "rule": "3 m radius, 1 s stun; requires shield",
+        "unlock_level": 10,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.vanguard.rally",
+        "asset": "DA_Ability_Vanguard_Rally",
+        "name": "Rally",
+        "kind": "Party utility",
+        "cost": "20 stamina",
+        "cooldown": "25 s",
+        "timing": "0.5 s cast",
+        "formula": "Temporary 15% max-health shield",
+        "rule": "4 m eligible party; server validates",
+        "unlock_level": 18,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.vanguard.resolutestrike",
+        "asset": "DA_Ability_Vanguard_ResoluteStrike",
+        "name": "ResoluteStrike",
+        "kind": "Single-target",
+        "cost": "25 stamina",
+        "cooldown": "8 s",
+        "timing": "0.3 s cast",
+        "formula": "35 + 0.8 Strength",
+        "rule": "Below 30% health bonus is data-defined",
+        "unlock_level": 26,
+        "status": "provisional_content_not_balanced"
+      }
+    ],
+    "talents": [
+      {
+        "id": "skill.vanguard.foundation",
+        "name": "Foundation",
+        "cost": 1,
+        "requires": [],
+        "exclusive_group": null,
+        "effect": "Unlock second ability; prerequisite character level 2"
+      },
+      {
+        "id": "skill.vanguard.focus",
+        "name": "Focused Practice",
+        "cost": 1,
+        "requires": [
+          "skill.vanguard.foundation"
+        ],
+        "exclusive_group": null,
+        "effect": "5% primary resource efficiency; clamp final costs nonnegative"
+      },
+      {
+        "id": "skill.vanguard.branch_a",
+        "name": "Bulwark",
+        "cost": 2,
+        "requires": [
+          "skill.vanguard.focus"
+        ],
+        "exclusive_group": "vanguard.specialization",
+        "effect": "Specialization A: 10% primary role potency; only one specialization"
+      },
+      {
+        "id": "skill.vanguard.branch_b",
+        "name": "Vindicator",
+        "cost": 2,
+        "requires": [
+          "skill.vanguard.focus"
+        ],
+        "exclusive_group": "vanguard.specialization",
+        "effect": "Specialization B: 10% alternate role potency; respec preserves quest access"
+      },
+      {
+        "id": "skill.vanguard.utility",
+        "name": "Field Discipline",
+        "cost": 1,
+        "requires": [
+          "skill.vanguard.foundation"
+        ],
+        "exclusive_group": null,
+        "effect": "Unlock utility ability; cannot bypass level requirement"
+      },
+      {
+        "id": "skill.vanguard.mastery",
+        "name": "Measured Mastery",
+        "cost": 3,
+        "requires": [
+          "skill.vanguard.utility"
+        ],
+        "exclusive_group": null,
+        "effect": "Unlock sixth ability when level 26; passive stat effect recomputed from durable allocation"
+      }
+    ],
+    "art_status": "four-facing archive compatibility unverified; magical casts/heals need placeholders/new art",
+    "phase": 4,
+    "full_catalog_phase": 16
+  },
+  {
+    "id": "class.ranger",
+    "name": "Ranger",
+    "asset": "DA_Class_Ranger",
+    "role": "Bow/spear ranged skirmisher",
+    "growth": "Health +8, stamina +7, agility +2 per level; proposals",
+    "weapons": "Bow two-hand or spear two-hand; pBOW/pPOL art audit pending",
+    "body": "body.common",
+    "abilities": [
+      {
+        "id": "ability.ranger.aimedarrow",
+        "asset": "DA_Ability_Ranger_AimedArrow",
+        "name": "AimedArrow",
+        "kind": "Projectile",
+        "cost": "10 stamina",
+        "cooldown": "2 s",
+        "timing": "0.4 s cast",
+        "formula": "18 + 0.7 Agility",
+        "rule": "LOS 1800 cm; server projectile 1800 cm/s",
+        "unlock_level": 1,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.ranger.quickstep",
+        "asset": "DA_Ability_Ranger_Quickstep",
+        "name": "Quickstep",
+        "kind": "Movement utility",
+        "cost": "15 stamina",
+        "cooldown": "8 s",
+        "timing": "0.25 s move",
+        "formula": "No damage",
+        "rule": "Uses same validated dodge integrator",
+        "unlock_level": 2,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.ranger.pinningshot",
+        "asset": "DA_Ability_Ranger_PinningShot",
+        "name": "PinningShot",
+        "kind": "Projectile control",
+        "cost": "18 stamina",
+        "cooldown": "10 s",
+        "timing": "0.5 s cast",
+        "formula": "12 + 0.4 Agility",
+        "rule": "2 s root with category diminishing return",
+        "unlock_level": 5,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.ranger.spearsweep",
+        "asset": "DA_Ability_Ranger_SpearSweep",
+        "name": "SpearSweep",
+        "kind": "Spatial melee",
+        "cost": "15 stamina",
+        "cooldown": "5 s",
+        "timing": "0.2/0.1/0.35 s",
+        "formula": "22 + 0.6 Agility",
+        "rule": "Requires spear, not bow overlay",
+        "unlock_level": 10,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.ranger.trailmark",
+        "asset": "DA_Ability_Ranger_TrailMark",
+        "name": "TrailMark",
+        "kind": "Utility target",
+        "cost": "5 stamina",
+        "cooldown": "6 s",
+        "timing": "instant",
+        "formula": "Reveal target to party for 8 s",
+        "rule": "No attack through walls",
+        "unlock_level": 18,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.ranger.volley",
+        "asset": "DA_Ability_Ranger_Volley",
+        "name": "Volley",
+        "kind": "Ground area",
+        "cost": "25 stamina",
+        "cooldown": "16 s",
+        "timing": "0.8 s cast",
+        "formula": "Three bounded server hits",
+        "rule": "Radius 300 cm; telegraphed",
+        "unlock_level": 26,
+        "status": "provisional_content_not_balanced"
+      }
+    ],
+    "talents": [
+      {
+        "id": "skill.ranger.foundation",
+        "name": "Foundation",
+        "cost": 1,
+        "requires": [],
+        "exclusive_group": null,
+        "effect": "Unlock second ability; prerequisite character level 2"
+      },
+      {
+        "id": "skill.ranger.focus",
+        "name": "Focused Practice",
+        "cost": 1,
+        "requires": [
+          "skill.ranger.foundation"
+        ],
+        "exclusive_group": null,
+        "effect": "5% primary resource efficiency; clamp final costs nonnegative"
+      },
+      {
+        "id": "skill.ranger.branch_a",
+        "name": "Farshot",
+        "cost": 2,
+        "requires": [
+          "skill.ranger.focus"
+        ],
+        "exclusive_group": "ranger.specialization",
+        "effect": "Specialization A: 10% primary role potency; only one specialization"
+      },
+      {
+        "id": "skill.ranger.branch_b",
+        "name": "Pathstalker",
+        "cost": 2,
+        "requires": [
+          "skill.ranger.focus"
+        ],
+        "exclusive_group": "ranger.specialization",
+        "effect": "Specialization B: 10% alternate role potency; respec preserves quest access"
+      },
+      {
+        "id": "skill.ranger.utility",
+        "name": "Field Discipline",
+        "cost": 1,
+        "requires": [
+          "skill.ranger.foundation"
+        ],
+        "exclusive_group": null,
+        "effect": "Unlock utility ability; cannot bypass level requirement"
+      },
+      {
+        "id": "skill.ranger.mastery",
+        "name": "Measured Mastery",
+        "cost": 3,
+        "requires": [
+          "skill.ranger.utility"
+        ],
+        "exclusive_group": null,
+        "effect": "Unlock sixth ability when level 26; passive stat effect recomputed from durable allocation"
+      }
+    ],
+    "art_status": "four-facing archive compatibility unverified; magical casts/heals need placeholders/new art",
+    "phase": 4,
+    "full_catalog_phase": 16
+  },
+  {
+    "id": "class.arcanist",
+    "name": "Arcanist",
+    "asset": "DA_Class_Arcanist",
+    "role": "Offensive magic",
+    "growth": "Health +6, mana +12, intellect +2 per level; proposals",
+    "weapons": "Staff/wand appearances require new or verified compatible art",
+    "body": "body.common",
+    "abilities": [
+      {
+        "id": "ability.arcanist.emberbolt",
+        "asset": "DA_Ability_Arcanist_EmberBolt",
+        "name": "EmberBolt",
+        "kind": "Projectile magic",
+        "cost": "12 mana",
+        "cooldown": "2 s",
+        "timing": "0.6 s cast",
+        "formula": "22 + 0.8 Intellect",
+        "rule": "Fire damage; server projectile",
+        "unlock_level": 1,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.arcanist.frostring",
+        "asset": "DA_Ability_Arcanist_FrostRing",
+        "name": "FrostRing",
+        "kind": "Area control",
+        "cost": "25 mana",
+        "cooldown": "14 s",
+        "timing": "0.6 s cast",
+        "formula": "16 + 0.5 Intellect",
+        "rule": "3 m radius, 40% slow for 3 s",
+        "unlock_level": 2,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.arcanist.arcaneward",
+        "asset": "DA_Ability_Arcanist_ArcaneWard",
+        "name": "ArcaneWard",
+        "kind": "Self defense",
+        "cost": "18 mana",
+        "cooldown": "18 s",
+        "timing": "instant",
+        "formula": "Shield 25 + 0.6 Intellect",
+        "rule": "Finite absorb, no health increase save exploit",
+        "unlock_level": 5,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.arcanist.disrupt",
+        "asset": "DA_Ability_Arcanist_Disrupt",
+        "name": "Disrupt",
+        "kind": "Interrupt",
+        "cost": "15 mana",
+        "cooldown": "12 s",
+        "timing": "instant",
+        "formula": "Interrupt eligible cast",
+        "rule": "LOS 1400 cm; no damage assumed",
+        "unlock_level": 10,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.arcanist.cinderfield",
+        "asset": "DA_Ability_Arcanist_CinderField",
+        "name": "CinderField",
+        "kind": "Ground area",
+        "cost": "30 mana",
+        "cooldown": "18 s",
+        "timing": "1.0 s cast",
+        "formula": "5 server ticks, 8 + 0.2 Intellect each",
+        "rule": "No frame-based ticking; interval 1 s",
+        "unlock_level": 18,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.arcanist.focusedsurge",
+        "asset": "DA_Ability_Arcanist_FocusedSurge",
+        "name": "FocusedSurge",
+        "kind": "Single target",
+        "cost": "24 mana",
+        "cooldown": "8 s",
+        "timing": "1.2 s cast",
+        "formula": "40 + 1.0 Intellect",
+        "rule": "Movement interrupts unless future approved talent",
+        "unlock_level": 26,
+        "status": "provisional_content_not_balanced"
+      }
+    ],
+    "talents": [
+      {
+        "id": "skill.arcanist.foundation",
+        "name": "Foundation",
+        "cost": 1,
+        "requires": [],
+        "exclusive_group": null,
+        "effect": "Unlock second ability; prerequisite character level 2"
+      },
+      {
+        "id": "skill.arcanist.focus",
+        "name": "Focused Practice",
+        "cost": 1,
+        "requires": [
+          "skill.arcanist.foundation"
+        ],
+        "exclusive_group": null,
+        "effect": "5% primary resource efficiency; clamp final costs nonnegative"
+      },
+      {
+        "id": "skill.arcanist.branch_a",
+        "name": "Ember Study",
+        "cost": 2,
+        "requires": [
+          "skill.arcanist.focus"
+        ],
+        "exclusive_group": "arcanist.specialization",
+        "effect": "Specialization A: 10% primary role potency; only one specialization"
+      },
+      {
+        "id": "skill.arcanist.branch_b",
+        "name": "Rime Study",
+        "cost": 2,
+        "requires": [
+          "skill.arcanist.focus"
+        ],
+        "exclusive_group": "arcanist.specialization",
+        "effect": "Specialization B: 10% alternate role potency; respec preserves quest access"
+      },
+      {
+        "id": "skill.arcanist.utility",
+        "name": "Field Discipline",
+        "cost": 1,
+        "requires": [
+          "skill.arcanist.foundation"
+        ],
+        "exclusive_group": null,
+        "effect": "Unlock utility ability; cannot bypass level requirement"
+      },
+      {
+        "id": "skill.arcanist.mastery",
+        "name": "Measured Mastery",
+        "cost": 3,
+        "requires": [
+          "skill.arcanist.utility"
+        ],
+        "exclusive_group": null,
+        "effect": "Unlock sixth ability when level 26; passive stat effect recomputed from durable allocation"
+      }
+    ],
+    "art_status": "four-facing archive compatibility unverified; magical casts/heals need placeholders/new art",
+    "phase": 4,
+    "full_catalog_phase": 16
+  },
+  {
+    "id": "class.warden",
+    "name": "Warden",
+    "asset": "DA_Class_Warden",
+    "role": "Healing and support",
+    "growth": "Health +8, mana +10, spirit +2 per level; proposals",
+    "weapons": "Common body; casting/healing sprites and effects not supplied as verified assets",
+    "body": "body.common",
+    "abilities": [
+      {
+        "id": "ability.warden.mend",
+        "asset": "DA_Ability_Warden_Mend",
+        "name": "Mend",
+        "kind": "Friendly heal",
+        "cost": "12 mana",
+        "cooldown": "2 s",
+        "timing": "0.7 s cast",
+        "formula": "25 + 0.8 Spirit",
+        "rule": "Friendly living target; LOS 1600 cm",
+        "unlock_level": 1,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.warden.briarthrust",
+        "asset": "DA_Ability_Warden_BriarThrust",
+        "name": "BriarThrust",
+        "kind": "Magic attack",
+        "cost": "10 mana",
+        "cooldown": "3 s",
+        "timing": "0.5 s cast",
+        "formula": "16 + 0.6 Spirit",
+        "rule": "Hostile server-validated target",
+        "unlock_level": 2,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.warden.renewal",
+        "asset": "DA_Ability_Warden_Renewal",
+        "name": "Renewal",
+        "kind": "Heal over time",
+        "cost": "20 mana",
+        "cooldown": "10 s",
+        "timing": "instant",
+        "formula": "5 ticks of 6 + 0.15 Spirit",
+        "rule": "1 s server interval, no duplicate refresh tick",
+        "unlock_level": 5,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.warden.cleanse",
+        "asset": "DA_Ability_Warden_Cleanse",
+        "name": "Cleanse",
+        "kind": "Support",
+        "cost": "15 mana",
+        "cooldown": "12 s",
+        "timing": "0.3 s cast",
+        "formula": "Remove one eligible negative category",
+        "rule": "Cannot remove permanent quest flags",
+        "unlock_level": 10,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.warden.shelter",
+        "asset": "DA_Ability_Warden_Shelter",
+        "name": "Shelter",
+        "kind": "Party shield",
+        "cost": "28 mana",
+        "cooldown": "20 s",
+        "timing": "0.8 s cast",
+        "formula": "20 + 0.5 Spirit absorb",
+        "rule": "4 m radius, party checks",
+        "unlock_level": 18,
+        "status": "provisional_content_not_balanced"
+      },
+      {
+        "id": "ability.warden.returntovigor",
+        "asset": "DA_Ability_Warden_ReturnToVigor",
+        "name": "ReturnToVigor",
+        "kind": "Large heal",
+        "cost": "30 mana",
+        "cooldown": "15 s",
+        "timing": "1.5 s cast",
+        "formula": "55 + 1.1 Spirit",
+        "rule": "Living targets only; combat resurrection not committed",
+        "unlock_level": 26,
+        "status": "provisional_content_not_balanced"
+      }
+    ],
+    "talents": [
+      {
+        "id": "skill.warden.foundation",
+        "name": "Foundation",
+        "cost": 1,
+        "requires": [],
+        "exclusive_group": null,
+        "effect": "Unlock second ability; prerequisite character level 2"
+      },
+      {
+        "id": "skill.warden.focus",
+        "name": "Focused Practice",
+        "cost": 1,
+        "requires": [
+          "skill.warden.foundation"
+        ],
+        "exclusive_group": null,
+        "effect": "5% primary resource efficiency; clamp final costs nonnegative"
+      },
+      {
+        "id": "skill.warden.branch_a",
+        "name": "Restoration",
+        "cost": 2,
+        "requires": [
+          "skill.warden.focus"
+        ],
+        "exclusive_group": "warden.specialization",
+        "effect": "Specialization A: 10% primary role potency; only one specialization"
+      },
+      {
+        "id": "skill.warden.branch_b",
+        "name": "Thornkeeper",
+        "cost": 2,
+        "requires": [
+          "skill.warden.focus"
+        ],
+        "exclusive_group": "warden.specialization",
+        "effect": "Specialization B: 10% alternate role potency; respec preserves quest access"
+      },
+      {
+        "id": "skill.warden.utility",
+        "name": "Field Discipline",
+        "cost": 1,
+        "requires": [
+          "skill.warden.foundation"
+        ],
+        "exclusive_group": null,
+        "effect": "Unlock utility ability; cannot bypass level requirement"
+      },
+      {
+        "id": "skill.warden.mastery",
+        "name": "Measured Mastery",
+        "cost": 3,
+        "requires": [
+          "skill.warden.utility"
+        ],
+        "exclusive_group": null,
+        "effect": "Unlock sixth ability when level 26; passive stat effect recomputed from durable allocation"
+      }
+    ],
+    "art_status": "four-facing archive compatibility unverified; magical casts/heals need placeholders/new art",
+    "phase": 4,
+    "full_catalog_phase": 16
+  }
+]

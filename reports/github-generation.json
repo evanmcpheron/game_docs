@@ -1,0 +1,4 @@
+{
+  "status": "not_run",
+  "summary": "The isolated staging workflow has been created, but source upload and remote documentation generation have not run. No GitHub main replacement is claimed."
+}

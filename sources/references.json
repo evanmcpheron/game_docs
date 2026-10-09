@@ -1,0 +1,142 @@
+[
+  {
+    "id": "EPIC-583",
+    "title": "UE 5.8.3 hotfix announcement",
+    "url": "https://forums.unrealengine.com/t/5-8-3-hotfix-released/2833315",
+    "evidence": "Official announcement dated 2026-09-22; release existence checked, installation not inspected.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "EPIC-PAPER2D",
+    "title": "Paper 2D overview",
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/paper-2d-overview-in-unreal-engine",
+    "evidence": "Public 5.8 documentation checked; sprites and flipbooks provide 2D/3D-hybrid presentation.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "EPIC-NET",
+    "title": "Networking overview",
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/networking-overview-for-unreal-engine",
+    "evidence": "Public 5.8 documentation checked; actor/RPC replication is not automatic replication of all game logic.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "EPIC-SERVER",
+    "title": "Setting up dedicated servers",
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-dedicated-servers-in-unreal-engine",
+    "evidence": "Public 5.8 tutorial checked; its dedicated-server build route requires a C++ project and source engine build. No target built here.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "EPIC-TRAVEL",
+    "title": "Travelling in multiplayer",
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/travelling-in-multiplayer-in-unreal-engine",
+    "evidence": "Public 5.8 documentation checked; distinguish individual ClientTravel, whole-world ServerTravel and level streaming.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "EPIC-GAS",
+    "title": "Gameplay Ability System overview",
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/understanding-the-unreal-engine-gameplay-ability-system",
+    "evidence": "Public 5.8 documentation checked; GAS supplies abilities/effects/attributes, not an economy database.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "EPIC-ASC",
+    "title": "Ability system component and attributes",
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/gameplay-ability-system-component-and-gameplay-attributes-in-unreal-engine",
+    "evidence": "Public 5.8 documentation checked; an actor may access an ASC owned by PlayerState.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "EPIC-WP",
+    "title": "World Partition",
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/world-partition-in-unreal-engine",
+    "evidence": "Public 5.8 documentation checked; distance-based cell streaming within a world is distinct from cross-server routing.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "EPIC-ONLINE",
+    "title": "Online Services",
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/online-services-in-unreal-engine",
+    "evidence": "Public overview checked; provider capabilities and beta shipping limitations require provider/version-specific verification.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "PAPERZD-FAB",
+    "title": "PaperZD creator listing",
+    "url": "https://www.fab.com/listings/6664e3b5-e376-47aa-a0dd-f7bbbd5b93c0",
+    "evidence": "Listing checked for animation graphs, notifies and directional support; installed version and UE 5.8.3 compatibility NOT verified.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "PAPERZD-DOC",
+    "title": "PaperZD creator documentation",
+    "url": "https://www.criticalfailure-studio.com/paperzd-documentation/",
+    "evidence": "Search located creator documentation; full page fetch failed/time-out. No installed plugin source available. Exact plugin calls are a blocking local inspection task.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "PG-ISOLATION",
+    "title": "PostgreSQL transaction isolation",
+    "url": "https://www.postgresql.org/docs/18/transaction-iso.html",
+    "evidence": "Official current documentation resolved to PostgreSQL 18; transaction isolation and whole-transaction retry requirements checked.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "DOTNET-LIFECYCLE",
+    "title": ".NET support lifecycle",
+    "url": "https://learn.microsoft.com/en-us/lifecycle/products/microsoft-net-and-net-core",
+    "evidence": "Official table checked: .NET 10 support runs to 2028-11-14/15 depending on display timezone. Patch version must be pinned locally.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "SOURCE-AGENTS",
+    "title": "Reference documentation workflow",
+    "url": "https://github.com/evanmcpheron/game_docs/blob/6633ca27f7b2fcfc80fc95a1567e97c0eb5a6a25/AGENTS.md",
+    "evidence": "Read through authenticated GitHub connector; source records, generated integration and honest runtime evidence retained as concepts.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "SOURCE-ARCH",
+    "title": "Reference architecture",
+    "url": "https://github.com/evanmcpheron/game_docs/blob/6633ca27f7b2fcfc80fc95a1567e97c0eb5a6a25/architecture.html",
+    "evidence": "Read through GitHub connector; local Profile/WorldState/GameInstance/SaveGame ownership superseded by this guide.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "SOURCE-INTEGRATION",
+    "title": "Reference phase integration",
+    "url": "https://github.com/evanmcpheron/game_docs/blob/6633ca27f7b2fcfc80fc95a1567e97c0eb5a6a25/sources/phase-integration.json",
+    "evidence": "Inspected beginning of record (phases 0–2), including X/Z constraint, axis1D input and integration sequence. Full historical repository not cloned.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "EPIC-MOVEMENT",
+    "title": "Networked Character Movement",
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/understanding-networked-movement-in-the-character-movement-component-for-unreal-engine",
+    "evidence": "Public 5.8 description checked: saved moves, server corrections and simulated proxy smoothing. Custom sprint/dodge integration still requires installed-source and runtime verification.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "EPIC-IRIS",
+    "title": "Migrate to Iris",
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/migrate-to-iris-in-unreal-engine",
+    "evidence": "Official 5.8 Migrate to Iris page checked on 2026-10-09: Experimental notice; Iris and Replication Graph cannot be used by the same network driver. No runtime adoption test performed.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "EPIC-REFLECTION",
+    "title": "Expose gameplay elements to Blueprints",
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/exposing-gameplay-elements-to-blueprints-visual-scripting-in-unreal-engine",
+    "evidence": "Blueprintable, BlueprintType and property visibility concepts checked; project classes remain proposals.",
+    "checked_date": "2026-10-09"
+  },
+  {
+    "id": "EPIC-NATIVE-CREATE",
+    "title": "Create an equippable native Actor example",
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/coder-07-equip-your-character-with-cplusplus-tools",
+    "evidence": "Official 5.8 tutorial documents Tools > New C++ Class and Blueprint exposure. Its skeletal tool architecture is not copied into sprite presentation.",
+    "checked_date": "2026-10-09"
+  }
+]

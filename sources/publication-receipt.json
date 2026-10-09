@@ -1,0 +1,11 @@
+{
+  "status": "not_published",
+  "repository": "evanmcpheron/game_docs",
+  "baseline_commit": "6633ca27f7b2fcfc80fc95a1567e97c0eb5a6a25",
+  "backup_branch": "backup/pre-mmo-guide-2026-10-09",
+  "backup_branch_created": true,
+  "main_replacement": "not_yet_attempted",
+  "note": "Local documentation generation is not GitHub publication.",
+  "staging_branch": "docs/mmo-guide-2026-10-09",
+  "staging_workflow_commit": "7995478c0e520ee63ec65a3a032db73e250ee122"
+}

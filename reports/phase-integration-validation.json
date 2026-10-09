@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "summary": "0 creation/integration/world-graph errors; runtime recipes not executed.",
+  "generated_at": "2026-10-09T18:17:14.224497+00:00",
+  "counts": {
+    "phases": 24,
+    "assets": 588,
+    "edges": 969,
+    "zones": 6
+  },
+  "errors": [],
+  "command": "python tools/check_phase_integration.py --write-report"
+}

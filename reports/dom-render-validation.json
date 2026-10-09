@@ -1,0 +1,39 @@
+{
+  "status": "pass",
+  "summary": "5 of 5 in-memory DOM/render groups passed; file/HTTP navigation and persistent storage NOT verified.",
+  "generated_at": "2026-10-09T18:17:17.267114+00:00",
+  "command": "python tools/test_dom_rendering.py --screenshots <diagnostic-folder> --write-report",
+  "browser": "144.0.7559.96",
+  "method": "Playwright set_content plus provided CSS and JavaScript; no URL navigation or changed browser policies",
+  "tests": [
+    {
+      "name": "provided HTML/CSS desktop/dark/mobile rendering",
+      "status": "pass"
+    },
+    {
+      "name": "in-memory asset filter/category/sort DOM",
+      "status": "pass"
+    },
+    {
+      "name": "in-memory search result construction and inert input",
+      "status": "pass"
+    },
+    {
+      "name": "in-memory checkbox and import schema handling",
+      "status": "pass"
+    },
+    {
+      "name": "no script errors in provided DOM",
+      "status": "pass"
+    }
+  ],
+  "script_errors": [],
+  "not_verified": [
+    "file:// loading/navigation",
+    "localhost HTTP loading/navigation",
+    "localStorage persistence across real pages/reloads",
+    "actual export download",
+    "assistive technology and other browsers",
+    "Unreal/game UI"
+  ]
+}

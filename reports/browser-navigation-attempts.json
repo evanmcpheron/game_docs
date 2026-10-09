@@ -1,0 +1,61 @@
+{
+  "status": "fail",
+  "summary": "2 of 9 browser smoke groups passed; 0 generated pages loaded. No Unreal gameplay tested.",
+  "generated_at": "2026-10-09T18:03:39.082374+00:00",
+  "command": "python tools/test_browser.py --browser /usr/bin/chromium --all-pages --write-report --http",
+  "browser": "144.0.7559.96",
+  "protocol": "localhost_http",
+  "pages_loaded": 0,
+  "tests": [
+    {
+      "name": "home navigation and keyboard skip link (localhost)",
+      "status": "fail",
+      "error": "Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:33539/index.html\nCall log:\n  - navigating to \"http://127.0.0.1:33539/index.html\", waiting until \"load\"\n"
+    },
+    {
+      "name": "light/dark toggle and reload",
+      "status": "fail",
+      "error": "Locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for locator(\"#theme-toggle\")\n"
+    },
+    {
+      "name": "asset filter, category and numeric sorting",
+      "status": "fail",
+      "error": "Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:33539/asset-index.html\nCall log:\n  - navigating to \"http://127.0.0.1:33539/asset-index.html\", waiting until \"load\"\n"
+    },
+    {
+      "name": "local full-text search, result links and inert input",
+      "status": "fail",
+      "error": "Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:33539/search.html\nCall log:\n  - navigating to \"http://127.0.0.1:33539/search.html\", waiting until \"load\"\n"
+    },
+    {
+      "name": "progress persistence, real download, import and invalid-import rejection",
+      "status": "fail",
+      "error": "Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:33539/checklist.html\nCall log:\n  - navigating to \"http://127.0.0.1:33539/checklist.html\", waiting until \"load\"\n"
+    },
+    {
+      "name": "390px responsive reading and table containment",
+      "status": "fail",
+      "error": "Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:33539/index.html\nCall log:\n  - navigating to \"http://127.0.0.1:33539/index.html\", waiting until \"load\"\n"
+    },
+    {
+      "name": "all generated pages load (localhost)",
+      "status": "fail",
+      "error": "Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:33539/getting-started.html\nCall log:\n  - navigating to \"http://127.0.0.1:33539/getting-started.html\", waiting until \"load\"\n"
+    },
+    {
+      "name": "no browser script errors",
+      "status": "pass"
+    },
+    {
+      "name": "no remote resource requests",
+      "status": "pass"
+    }
+  ],
+  "script_errors": [],
+  "remote_requests": [],
+  "limitations": [
+    "Chromium file:// navigation was attempted but blocked by environment policy (ERR_BLOCKED_BY_ADMINISTRATOR); localhost tests do not prove file:// behavior.",
+    "No assistive-technology audit or Unreal UI/game tests performed.",
+    "Screenshots are diagnostic captures of generated documentation, not game/art previews."
+  ]
+}
